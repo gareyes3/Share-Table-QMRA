@@ -1,6 +1,6 @@
 
  
-setwd("C:/Users/Gustavo Reyes/Box Sync/Share Table Project/Share Table Model R/R Script/Files")
+setwd("G:/Share Table QMRA/Share-Table-QMRA")
 library("ggplot2") 
 library("reshape2") 
 library("mc2d")

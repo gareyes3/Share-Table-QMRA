@@ -11,15 +11,20 @@ Total_Consumed$Apple.No.<- 1:nrow(Total_Consumed)
 row.names(Total_Consumed)<-1:nrow(Total_Consumed)
 Total_Consumed$Contamination<-as.numeric(Total_Consumed$Contamination)
 #Plot
-ggplot(Total_Consumed, aes(x=Contamination)) + 
+Exposure_Plot_Function<-function(Consumed,Title){
+  ggplot(Consumed, aes(x=Contamination)) + 
   geom_histogram( fill="#69b3a2", color="#e9ecef", binwidth = 50, boundary=.99) +
-  ggtitle("Exposure from consuming fruit after 5 meal services")+
+  ggtitle(Title)+
   theme(plot.title = element_text(hjust = 0.5))+
   stat_bin(binwidth=50, geom="text", size=3.5 ,aes(label=..count.., vjust=-.3), boundary = .99)+
   scale_x_continuous(breaks = seq(0,3000,50))+
   labs(x= "Contamination of Fruit Consumed", y= "Count of Fruit Consumed")+
   theme(axis.text.x=element_text(angle=90, hjust=1))
-  
+  }
+
+
+Exposure_Plot_Function(Total_Consumed_ST, "Exposure total Consumed")
+ 
 sum(Total_Consumed$Contamination)
 
                                 #Consumed From Share Table:
