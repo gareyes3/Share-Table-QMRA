@@ -21,7 +21,7 @@ source("FunctionsV6.R")
 
 # Meal Day ----------------------------------------------------------------
 
-Meal_Day<-2
+Meal_Day<-10
 
 for (j in 1:Meal_Day){
   
@@ -487,8 +487,8 @@ for (j in 1:Meal_Day){
 #Adding the data to the loop
 
 datalistFr[[j]]<-Fr_Data.Frame
-datalistPss[[j]]<-Fr_Data.Frame
-datalistPre[[j]]<-Fr_Data.Frame
+datalistPss[[j]]<-Pss_Data.Frame
+datalistPre[[j]]<-Pre_Data.Frame
   
 source("OutputsV5.R") 
 

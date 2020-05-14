@@ -3,57 +3,108 @@
 
 # Histograms for Exposure -------------------------------------------------
 
-Total_Consumed<-Fr_Data[which(Fr_Data$Location == "Consumed"),]
+#Total Consumed Ammounts:
+                                #Fruit Total
+  Total_Consumed_Fr<-Fr_Data[which(Fr_Data$Location == "Consumed"),]
+  Total_Consumed_Fr$Type<- "Total Consumed"
+  #Share Table Total
+  Total_Consumed_ST_Fr<-Total_Consumed_Fr[which(Total_Consumed_Fr$STtimes > 0),]
+  Total_Consumed_ST_Fr$Type<-" Consumed Share Table"
+  #Selection Table Total
+  Total_Consumed_Sel_Fr<-Total_Consumed_Fr[which(Total_Consumed_Fr$STtimes ==0),]
+  Total_Consumed_Sel_Fr$Type<-" Consumed Selection Table"
+  
+  Total_Consumed_Fr_Bind<-rbind(Total_Consumed_Fr,Total_Consumed_ST_Fr,Total_Consumed_Sel_Fr)
 
-#Total Exposure Histogram. 
+  
+                              
+                                #Pss Total
+  Total_Consumed_Pss<-Pss_Data[which(Pss_Data$Location == "Consumed"),]
+  Total_Consumed_Pss$Type<- "Total Consumed"
+  #Share Table Total
+  Total_Consumed_ST_Pss<-Total_Consumed_Pss[which(Total_Consumed_Pss$STtimes > 0),]
+  Total_Consumed_ST_Pss$Type<-" Consumed Share Table"
+  #Selection Table Total
+  Total_Consumed_Sel_Pss<-Total_Consumed_Pss[which(Total_Consumed_Pss$STtimes ==0),] 
+  Total_Consumed_Sel_Pss$Type<-" Consumed Selection Table"
+  
+  Total_Consumed_Pss_Bind<-rbind(Total_Consumed_Pss,Total_Consumed_ST_Pss,Total_Consumed_Sel_Pss)
+  
 
-Total_Consumed$Apple.No.<- 1:nrow(Total_Consumed)
-row.names(Total_Consumed)<-1:nrow(Total_Consumed)
-Total_Consumed$Contamination<-as.numeric(Total_Consumed$Contamination)
-#Plot
-Exposure_Plot_Function<-function(Consumed,Title){
-  ggplot(Consumed, aes(x=Contamination)) + 
-  geom_histogram( fill="#69b3a2", color="#e9ecef", binwidth = 50, boundary=.99) +
-  ggtitle(Title)+
-  theme(plot.title = element_text(hjust = 0.5))+
-  stat_bin(binwidth=50, geom="text", size=3.5 ,aes(label=..count.., vjust=-.3), boundary = .99)+
-  scale_x_continuous(breaks = seq(0,3000,50))+
-  labs(x= "Contamination of Fruit Consumed", y= "Count of Fruit Consumed")+
-  theme(axis.text.x=element_text(angle=90, hjust=1))
+                                #Pre Total
+  Total_Consumed_Pre<-Pre_Data[which(Pre_Data$Location == "Consumed"),]
+  Total_Consumed_Pre$Type<- "Total Consumed"
+  #Share Table Total
+  Total_Consumed_ST_Pre<-Total_Consumed_Pre[which(Total_Consumed_Pre$STtimes > 0),]
+  Total_Consumed_ST_Pre$Type<-" Consumed Share Table"
+  #Selection Table Total
+  Total_Consumed_Sel_Pre<-Total_Consumed_Pre[which(Total_Consumed_Pss$STtimes ==0),] 
+  Total_Consumed_Sel_Pre$Type<-" Consumed Selection Table"
+  
+  Total_Consumed_Pre_Bind<-rbind(Total_Consumed_Pre,Total_Consumed_ST_Pre,Total_Consumed_Sel_Pre)
+  
+#Exposure plot function
+  Exposure_Plot_Function<-function(Consumed,Title){
+    ggplot(Consumed, aes(x=Contamination)) + 
+    geom_histogram( fill="#69b3a2", color="#e9ecef", binwidth = (Av_ic/60), boundary=.99) +
+    ggtitle(Title)+
+    theme(plot.title = element_text(hjust = 0.5))+
+    stat_bin(binwidth=(Av_ic/60), geom="text", size=3.5 ,aes(label=..count.., vjust=-.3), boundary = .99)+
+    scale_x_continuous(breaks = seq(0,Av_ic,(Av_ic/60)))+
+    labs(x= "Contamination of Fruit Consumed", y= "Count of Fruit Consumed")+
+    theme(axis.text.x=element_text(angle=90, hjust=1))
   }
+  
+#Exposure Based on type density
+  
+    Exposure_Staggered_Function<-function(ConsumedDF,Contamination ,Type, Title){
+      ggplot(ConsumedDF, aes(x=Contamination, fill= Type)) + 
+    geom_histogram(alpha = 0.5, position = 'identity',binwidth = (Av_ic/60), boundary=.99 ) +
+    ggtitle(Title)+
+    theme(plot.title = element_text(hjust = 0.5))
+    }
+
+Exposure_Staggered_Function(Total_Consumed_Fr_Bind,Contamination = Contamination, Type = Type, "Total Exposure")
+      
+#Histogram Visuals
+                                  #Fruit
+  #Total Exposure
+  Exposure_Plot_Function(Total_Consumed_Fr, "Exposure total Consumed")
+  #Total Exposure from Share Table Items
+  Exposure_Plot_Function(Total_Consumed_ST_Fr, "Exposure Consumed Fruit from Share Tables")
+  #Total Exposure from Selection Table Items
+  Exposure_Plot_Function(Total_Consumed_Sel_Fr, "Exposure Consumed Fruit from Selection Tables")
+  
+                                  #Pss
+  #Total Exposure
+  Exposure_Plot_Function(Total_Consumed_Pss, "Exposure total Consumed Pss")
+  #Total Exposure from Share Table Items
+  Exposure_Plot_Function(Total_Consumed_ST_Pss, "Exposure Consumed Pss from Share Tables")
+  #Total Exposure from Selection Table Items
+  Exposure_Plot_Function(Total_Consumed_Sel_Pss, "Exposure Consumed Pss from Selection Table")
+                                
+                                  #Pre    
+  #Total Exposure
+  Exposure_Plot_Function(Total_Consumed_Pre, "Exposure total Consumed Pre")
+  #Total Exposure from Share Table Items
+  Exposure_Plot_Function(Total_Consumed_ST_Pre, "Exposure Consumed Pre from Share Tables")
+  #Total Exposure from Selection Table Items
+  Exposure_Plot_Function(Total_Consumed_Sel_Pre, "Exposure Consumed Pre from Selection Table")
+  
+#Sum of the total partciles consumed.   
+  sum(Total_Consumed$Contamination)
 
 
-Exposure_Plot_Function(Total_Consumed_ST, "Exposure total Consumed")
- 
-sum(Total_Consumed$Contamination)
+  
+#Exposure Boxplot. 
+  
+  ggplot(data=Total_Consumed_Fr, aes( y=Contamination))+
+    geom_boxplot(fill="#00AFBB", color="black")
+  
+  ggplot(data=Total_Consumed_Fr_Bind, aes(x=Type, y=Contamination))+
+    geom_boxplot(fill=c("#00AFBB", "#E7B800", "#FC4E07"), color="black")
 
-                                #Consumed From Share Table:
 
-Total_Consumed_ST<-Total_Consumed[which(Total_Consumed$STtimes > 0),]
-
-                                #Consumed from Selection Table
-
-Total_Consumed_NST<-Total_Consumed[which(Total_Consumed$STtimes ==0),]
-
-#Plot SAhare Table
-ggplot(Total_Consumed_ST, aes(x=Contamination)) + 
-  geom_histogram(bins=10, fill="#69b3a2", color="#e9ecef", binwidth = 50, boundary=.99) +
-  ggtitle("Exposure from consuming fruit in Share Table")+
-  theme(plot.title = element_text(hjust = 0.5))+
-  stat_bin(binwidth=50, geom="text", size=3.5 ,aes(label=..count.., vjust=-.3), boundary =.99)+
-  scale_x_continuous(breaks = seq(0,3000,50))+
-  labs(x= "Contamination of Fruit Consumed", y= "Count of Fruit Consumed")+
-  theme(axis.text.x=element_text(angle=90, hjust=1))
-
-#Plot SAhare Table
-ggplot(Total_Consumed_NST, aes(x=Contamination)) + 
-  geom_histogram(bins=10, fill="turquoise4", color="turquoise3", binwidth = 50,boundary =.99 ) +
-  ggtitle("Exposure from consuming Items from Selection Table")+
-  theme(plot.title = element_text(hjust = 0.5))+
-  stat_bin(binwidth=50, geom="text", size=3.5 ,aes(label=..count.., vjust=-.3),boundary =.99)+
-  scale_x_continuous(breaks = seq(0,3000,50))+
-  labs(x= "Contamination of Fruit Consumed", y= "Count of Fruit Consumed")+
-  theme(axis.text.x=element_text(angle=90, hjust=1))
 
 
                               #Shared Fruit per days

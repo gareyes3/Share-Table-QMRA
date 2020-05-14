@@ -8,9 +8,10 @@ TE_S_H<-.1090 #TE between Surfaces and Hands
 TE_S_F<-.4620 #TE between Surfaces and Foods
 
 #Contamination Level if Student is contaminated: 
-IC_Student<-F_norm(1,3000,200)
+IC_Student<-F_norm(1,Av_ic,Sd_ic)
 
 #Touched items
 ntouched_Fr<-round(rnorm(1,3,.5),0)
 ntouched_Pss<-round(rnorm(1,3,.5),0)
 ntouched_Pre<-round(rnorm(1,3,.5),0)
+

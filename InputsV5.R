@@ -5,6 +5,10 @@
 
 #Probability that student is initially contaminated
   Pr_Student_iC<-.1
+  
+#Average Student Contamination
+  Av_ic<-3000
+  Sd_ic<-200
 
 #Initial Number of fruit
   Initial_Fr<-200 #Number of fruit 
@@ -66,9 +70,9 @@
                                             # Washing Share Table Items
   
   #Wash Selection Table Fruit
-  Wash_Selection_YN_Fr<-1 
+  Wash_Selection_YN_Fr<-0 
   #Wash Share Table Items
-  Wash_ST_YN_Fr<-1
+  Wash_ST_YN_Fr<-0
   
                                               # Share Table Toggle 
   
