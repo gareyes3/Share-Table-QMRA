@@ -98,7 +98,7 @@ Exposure_Staggered_Function(Total_Consumed_Fr_Bind,Contamination = Contamination
   
 #Exposure Boxplot. 
   
-  ggplot(data=Total_Consumed_Fr, aes( y=Contamination))+
+  ggplot(data=Total_Consumed_Fr, aes(x=Type, y=Contamination))+
     geom_boxplot(fill="#00AFBB", color="black")
   
   ggplot(data=Total_Consumed_Fr_Bind, aes(x=Type, y=Contamination))+
