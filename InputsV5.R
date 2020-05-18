@@ -85,9 +85,9 @@
   #Share Table to Re-Service
   STtoReservice_YN<-0  
   #Re-Service of Items left in Share Table 
-  Reservice_YN<-1
+  Reservice_YN<-0
   #Re-Sharing of items in share table
-  Resharing_YN<-1
+  Resharing_YN<-0
   
   
   

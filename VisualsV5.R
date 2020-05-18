@@ -64,8 +64,21 @@
     theme(plot.title = element_text(hjust = 0.5))
     }
 
+    
+    
+    
 Exposure_Staggered_Function(Total_Consumed_Fr_Bind,Contamination = Contamination, Type = Type, "Total Exposure")
-      
+   
+#Bar Chart shwing Final Location
+
+ggplot(Fr_Data, aes(x=Service, fill=Location)) + 
+  stat_count()+theme_minimal()+
+  scale_x_continuous(breaks = seq(1,Meal_Day, by = 1))+
+  ggtitle("Fuit Location with Re-service and Re-Sharing Off")+
+  theme(plot.title = element_text(hjust = 0.5))
+
+
+   
 #Histogram Visuals
                                   #Fruit
   #Total Exposure
@@ -92,17 +105,18 @@ Exposure_Staggered_Function(Total_Consumed_Fr_Bind,Contamination = Contamination
   Exposure_Plot_Function(Total_Consumed_Sel_Pre, "Exposure Consumed Pre from Selection Table")
   
 #Sum of the total partciles consumed.   
-  sum(Total_Consumed$Contamination)
+  sum(Total_Consumed_Fr$Contamination)
 
 
   
 #Exposure Boxplot. 
   
-  ggplot(data=Total_Consumed_Fr, aes(x=Type, y=Contamination))+
-    geom_boxplot(fill="#00AFBB", color="black")
+
   
   ggplot(data=Total_Consumed_Fr_Bind, aes(x=Type, y=Contamination))+
-    geom_boxplot(fill=c("#00AFBB", "#E7B800", "#FC4E07"), color="black")
+    geom_boxplot(fill=c("#00AFBB", "#E7B800", "#FC4E07"), color="black")+
+    stat_summary(fun=mean, shape=3, size=1, color="red", fill="red")+
+    ggtitle("Exposure per location fruit")
 
 
 
