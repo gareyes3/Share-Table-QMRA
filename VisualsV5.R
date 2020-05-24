@@ -3,7 +3,7 @@
 
 # Histograms for Exposure -------------------------------------------------
 
-#Total Consumed Ammounts:
+#Total Consumed Ammounts Creating Data:
                                 #Fruit Total
   Total_Consumed_Fr<-Fr_Data[which(Fr_Data$Location == "Consumed"),]
   Total_Consumed_Fr$Type<- "Total Consumed"
@@ -65,20 +65,30 @@
     }
 
     
+#Graphs   
     
-    
-Exposure_Staggered_Function(Total_Consumed_Fr_Bind,Contamination = Contamination, Type = Type, "Total Exposure")
+Exposure_Staggered_Function(Total_Consumed_Fr_Bind,Contamination = Contamination, Type = Type, "Total Exposure Fruit")
+Exposure_Staggered_Function(Total_Consumed_Pss_Bind,Contamination = Contamination, Type = Type, "Total Exposure Pss")
+Exposure_Staggered_Function(Total_Consumed_Pre_Bind,Contamination = Contamination, Type = Type, "Total Exposure Pre")
    
 #Bar Chart shwing Final Location
 
-ggplot(Fr_Data, aes(x=Service, fill=Location)) + 
-  stat_count()+theme_minimal()+
-  scale_x_continuous(breaks = seq(1,Meal_Day, by = 1))+
-  ggtitle("Fuit Location with Re-service and Re-Sharing Off")+
-  theme(plot.title = element_text(hjust = 0.5))
-
-
-   
+  Location_BarC_Function<-function(Data, Title){
+    ggplot(Data, aes(x=Service, fill=Location)) + 
+    stat_count()+theme_minimal()+
+    scale_x_continuous(breaks = seq(1,Meal_Day, by = 1))+
+    ggtitle(Title)+
+    theme(plot.title = element_text(hjust = 0.5))
+    }
+  if(Resharing_YN==0)
+    Location_BarC_Function(Fr_Data,"Fruit Location Re-Service & Re-Sharing off")
+    Location_BarC_Function(Pss_Data,"Pss Location Re-Service & Re-Sharing off")  
+    Location_BarC_Function(Pre_Data,"Pre Location Re-Service & Re-Sharing off")  
+  
+  if(Resharing_YN==0)
+    Location_BarC_Function(Fr_Data,"Fruit Location Re-Service & Re-Sharing on")
+    Location_BarC_Function(Pss_Data,"Pss Location Re-Service & Re-Sharing on")  
+    Location_BarC_Function(Pre_Data,"Pre Location Re-Service & Re-Sharing on")    
 #Histogram Visuals
                                   #Fruit
   #Total Exposure
@@ -111,14 +121,16 @@ ggplot(Fr_Data, aes(x=Service, fill=Location)) +
   
 #Exposure Boxplot. 
   
-
-  
-  ggplot(data=Total_Consumed_Fr_Bind, aes(x=Type, y=Contamination))+
+Box_Plot_Function<-function(data,title){
+    ggplot(data=data, aes(x=Type, y=Contamination))+
     geom_boxplot(fill=c("#00AFBB", "#E7B800", "#FC4E07"), color="black")+
     stat_summary(fun=mean, shape=3, size=1, color="red", fill="red")+
-    ggtitle("Exposure per location fruit")
+    ggtitle(title)
+    }
 
-
+Box_Plot_Function(Total_Consumed_Fr_Bind, "Exposure per location fruit")
+Box_Plot_Function(Total_Consumed_Pss_Bind, "Exposure per location fruit")
+Box_Plot_Function(Total_Consumed_Pre_Bind, "Exposure per location fruit")
 
 
                               #Shared Fruit per days

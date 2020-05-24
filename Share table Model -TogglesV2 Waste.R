@@ -483,7 +483,25 @@ for (j in 1:Meal_Day){
     Fr_Data.Frame$Location[Fr_Data.Frame$Location=="Shared"]<-"Discarded" 
   } 
   
+  Pss_Data.Frame$Location[Pss_Data.Frame$Location=="Not Shared"]<-"Discarded"
+  
+  Pss_Data.Frame$Location[Pss_Data.Frame$Location=="Not Consumed"]<-"Discarded"
+  if(Reservice_YN==0){
+    Pss_Data.Frame$Location[Pss_Data.Frame$Location=="Selection Table"]<-"Discarded"
+  }
+  if(Resharing_YN==0){
+    Pss_Data.Frame$Location[Pss_Data.Frame$Location=="Shared"]<-"Discarded" 
+  } 
    
+  Pre_Data.Frame$Location[Pre_Data.Frame$Location=="Not Shared"]<-"Discarded"
+  
+  Pre_Data.Frame$Location[Pre_Data.Frame$Location=="Not Consumed"]<-"Discarded"
+  if(Reservice_YN==0){
+    Pre_Data.Frame$Location[Pre_Data.Frame$Location=="Selection Table"]<-"Discarded"
+  }
+  if(Resharing_YN==0){
+    Pre_Data.Frame$Location[Pre_Data.Frame$Location=="Shared"]<-"Discarded" 
+  } 
 #Adding the data to the loop
 
 datalistFr[[j]]<-Fr_Data.Frame
