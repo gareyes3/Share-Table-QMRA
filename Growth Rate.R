@@ -41,18 +41,36 @@ setwd("C:/Users/reyes/Documents/GitHub/Share-Table-QMRA")
 
 RelativeLag<-0 #we have to reset this after every iteration. 
 
+InitialCon<- 2.3 #CFU/g
+
+
 Time_ST<-6
 Time_StorageST<-.2
-Time_Selection<-.2
+Time_Selection<-2.4
 Time_Consumption<-.5
 
 Temp_ST<-25
 Temp_StorageST<-4
-Temp_Selection<-25
+Temp_Selection<-20
 Temp_Consumption<-25
 
-
 Growth_Data<-read.csv("Growth Table.csv") 
+
+#Selection Table
+
+GrowthModel<-Func_seach_Data4(Growth_Data,Growth_Data$Temperature,Temp_Selection,1)
+
+Growth_rate<-GrowthModel$Growth.Rate
+LagLength<-GrowthModel$Lag.Phase
+Nmax<-GrowthModel$Nmax
+
+RelativeLag<-Time_Selection/LagLength + RelativeLag
+
+if(RelativeLag>1){
+ InitialCon<-(Time_Selection-LagLength)*Growth_rate+InitialCon
+  }
+
+#Share Table
 
 GrowthModel<-Func_seach_Data4(Growth_Data,Growth_Data$Temperature,Temp_ST,1)
 
@@ -62,4 +80,10 @@ Nmax<-GrowthModel$Nmax
 
 RelativeLag<-Time_ST/LagLength + RelativeLag
 
+if(RelativeLag>1){
+  InitialCon<-((Time_ST-LagLength)*Growth_rate)+InitialCon 
+}
+if(InitialCon>=Nmax){
+  InitialCon = Nmax
+}
 
