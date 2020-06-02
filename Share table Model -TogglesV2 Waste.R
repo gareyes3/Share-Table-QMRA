@@ -519,6 +519,11 @@ Fr_Data = do.call(rbind,datalistFr)
 Pss_Data = do.call(rbind,datalistPss)
 Pre_Data = do.call(rbind,datalistPre)
 
+
+#Visuals
+
+source("VisualsV5.R")
+
 #update: changed outputs v2 for v3, see it it works for naming dfs. 
 
 
