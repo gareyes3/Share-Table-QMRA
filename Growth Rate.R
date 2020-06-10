@@ -36,7 +36,8 @@ exp(NewCont)
 
 #New Try
 setwd("C:/Users/reyes/Documents/GitHub/Share-Table-QMRA")
-
+source("FunctionsV6.r")
+library(dplyr)
 #Inputs: 
 
 RelativeLag<-0 #we have to reset this after every iteration. 
@@ -51,7 +52,7 @@ Time_Consumption<-.5
 
 Temp_ST<-25
 Temp_StorageST<-4
-Temp_Selection<-20
+Temp_Selection<-25
 Temp_Consumption<-25
 
 Growth_Data<-read.csv("Growth Table.csv") 
