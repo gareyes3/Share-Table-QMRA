@@ -1,14 +1,28 @@
 # INPUTS ------------------------------------------------------------------
 
+#HAzards only turn one on at a time. 1 means on. 
+  salmonella<-1
+  E_coli<-0
+  norovirus<-0
+  allergen<-0
+  
+#Average Initial Contamination for Fruit (#CFU/g salmonella, E coli), (Particles norovirus)
+
+  Initial_Cont_Fr<-500
+  Initial_Cont_Pss<-0
+  Initial_Cont_Pre<-0
+
 # Number of Iteration in service
   N_Iterations<-200
-
-#Probability that student is initially contaminated
-  Pr_Student_iC<-.1
+  
+#Probability that student is initially contaminated. For Viruses or Enterics.
+# If students won't carry anything then set Pr os 0
+  Pr_Student_iC<-0
   
 #Average Student Contamination
   Av_ic<-3000
   Sd_ic<-200
+
 
 #Initial Number of fruit
   Initial_Fr<-200 #Number of fruit 
@@ -18,19 +32,19 @@
 #Probability of student Picking up food from line-
 
   #Probability of Selecting Fruit
-  Pr_select_Fr<-.9
+  Pr_select_Fr<-.23
   #Probability of Selecting Pss
-  Pr_select_Pss<-0.9
+  Pr_select_Pss<-0.37
   #Probability of selecting Pre
-  Pr_select_Pre<-0.9
+  Pr_select_Pre<-0.78
 
 #Porbability of Student touching other line items before picking their food. 
   Pr_touch_Food<-.3
 
 #Proabbility of consuming Food
-  Pr_eat_Fr<-.9
-  Pr_eat_Pss<-.9
-  Pr_eat_Pre<-.9
+  Pr_eat_Fr<-.48
+  Pr_eat_Pss<-.77
+  Pr_eat_Pre<-.85
 
 #Probability of sharing food. 
 
@@ -53,12 +67,20 @@
 
   Reduction_wash<-(-2)
 
-#row size
+#row size in selection table
   Row_size_Fr<-20
   Row_size_Pss<-20
   Row_size_Pre<-20
 
-
+#Storage Infromation
+  #Temperature at Share Table
+  Temp_ST<-25
+  #Temperature at refrigeration
+  Temp_Ref<-4
+  #Average Time ST
+  Time_ST<-2
+  #Average Time Ref
+  Time_Ref<-12
 
 # Toggles -----------------------------------------------------------------
 
