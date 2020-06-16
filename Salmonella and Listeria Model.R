@@ -61,7 +61,7 @@ salmonella <- 1
 
 #Data frame for representation (Validation of the McKellar and Delaquis FIG 7a:
   
-  data2<- data.frame(
+  data<- data.frame(
     Time = 1:Time,
     Change = "",
     stringsAsFactors = FALSE
