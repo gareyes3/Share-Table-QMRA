@@ -79,7 +79,7 @@
 #Storage Infromation fro growth
   
   #Temperature at Share Table
-  Temp_ST<-25
+  Temp_RT<-25
   #Temperature at refrigeration
   Temp_Ref<-4
   #Average Time ST
@@ -114,9 +114,9 @@
   #Share Table to Re-Service
   STtoReservice_YN<-0  
   #Re-Service of Items left in Share Table 
-  Reservice_YN<-0
+  Reservice_YN<-1
   #Re-Sharing of items in share table
-  Resharing_YN<-0
+  Resharing_YN<-1
   
   
   
