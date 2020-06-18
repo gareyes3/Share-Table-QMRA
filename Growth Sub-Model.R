@@ -1,7 +1,73 @@
+#352
 
+enteric<-"E-Coli"
+Condition<-c("refrigerated","room temp")
 
+Func_Enteric_Growth<-function(enteric,Condition,DF,Pickedvar){
+  if(enteric== "E_coli"){
+    N<-log10(Func_Index_DF(DF,Pickedvar,"Contamination"))
+    b<-.023
+    k<-rnorm(1,.013,.001)/2.303
+    Tmin<-(1.17)
+    if(Condition== "refrigerated"){
+        if(Temp_Ref<5){
+        Die_off<-(-k)*Time_Ref
+        Con_Final<-ifelse(N==0,N,Die_off + N)
+        Con_Final<-10^Con_Final
+        } else if (Temp_Ref>=5){
+        rate<-(b*(Temp_Ref-Tmin))^2/2.303
+        Con_Change<-rate*Time_Ref
+        Con_Final<-ifelse(N==0,N,Con_Change + N)
+        Con_Final<-10^Con_Final
+        }
+    } else if (Condition == "room temp"){
+        if(Temp_ST<5){
+          Die_off<-(-k)*Time_ST
+          Con_Final<-ifelse(N==0,N,Die_off + N)
+          Con_Final<-10^Con_Final
+        } else if (Temp_ST>=5){
+          rate<-(b*(Temp_Ref-Tmin))^2/2.303
+          Con_Change<-rate*Time_ST
+          Con_Final<-ifelse(N==0,N,Con_Change + N)
+          Con_Final<-10^Con_Final
+        }
+      }
+  } else if (enteric == "salmonella" ){
+    N<-log10(Func_Index_DF(DF,Pickedvar,"Contamination"))
+    b<-.020
+    k<-.0128
+    Tmin<-(-0.571)
+    if(Condition== "refrigerated"){
+      if(Temp_Ref<7){
+        Die_off<-(-k)*Time_Ref
+        Con_Final<-ifelse(N==0,N,Die_off + N)
+        Con_Final<-10^Con_Final
+      } else if (Temp_Ref>=7){
+        rate<-(b*(Temp_Ref-Tmin))^2/2.303
+        Con_Change<-rate*Time_Ref
+        Con_Final<-ifelse(N==0,N,Con_Change + N)
+        Con_Final<-10^Con_Final
+      }
+    } else if (Condition == "room temp"){
+      if(Temp_ST<7){
+        Die_off<-(-k)*Time_ST
+        Con_Final<-ifelse(N==0,N,Die_off + N)
+        Con_Final<-10^Con_Final
+        DF[Pickedvar,colnames(DF)== "Contamination"]<-Con_Final
+      } else if (Temp_ST>=7){
+        rate<-(b*(Temp_Ref-Tmin))^2/2.303
+        Con_Change<-rate*Time_ST
+        Con_Final<-ifelse(N==0,N,Con_Change + N)
+        Con_Final<-10^Con_Final
+        Con_Final<<-Con_Final
+      }
+    }
+  }
+  return(Con_Final)
+  }
 
-
+Func_Enteric_Growth("salmonella","room temp",Fr_Data.Frame,Fr_ST_Picked)
+Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)== "Contamination"]<-Con_Final
 
 # E Coli  -----------------------------------------------------------
 

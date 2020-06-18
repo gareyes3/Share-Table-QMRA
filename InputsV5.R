@@ -1,6 +1,10 @@
 # INPUTS ------------------------------------------------------------------
 
-#HAzards only turn one on at a time. 1 means on. 
+#Do we want to simulate model with growth? 
+
+  Growth<-1
+
+#Hazards only turn one on at a time. 1 means on. 
   salmonella<-1
   E_coli<-0
   norovirus<-0
@@ -72,7 +76,8 @@
   Row_size_Pss<-20
   Row_size_Pre<-20
 
-#Storage Infromation
+#Storage Infromation fro growth
+  
   #Temperature at Share Table
   Temp_ST<-25
   #Temperature at refrigeration
@@ -81,6 +86,8 @@
   Time_ST<-2
   #Average Time Ref
   Time_Ref<-12
+  #Time over night storage
+  Time_ON<-20
 
 # Toggles -----------------------------------------------------------------
 

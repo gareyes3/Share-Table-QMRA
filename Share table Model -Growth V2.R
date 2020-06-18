@@ -350,8 +350,11 @@ for (j in 1:Meal_Day){
   
     #Share Table "Storage" Growth ====================================================================
     if(Pick_ST_YN_Fr==1){
-     if(salmonella ==1 ){
+     if(salmonella ==1 && Growth ==1 ){
        Func_Enteric_Growth("salmonella","room temp",Fr_Data.Frame,Fr_ST_Picked)
+       Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)== "Contamination"]<-Con_Final
+     } else if (E_coli == 1 && Growth ==1){
+       Func_Enteric_Growth("E_coli","room temp",Fr_Data.Frame,Fr_ST_Picked)
        Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)== "Contamination"]<-Con_Final
      }
     }  
