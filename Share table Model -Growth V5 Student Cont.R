@@ -74,6 +74,7 @@ for (j in 1:Meal_Day){
       Cont_Dif_Student<-Func_Index_DF(Fr_Data.Frame,Fr_Touched,"Contamination")-(Cont_Touch_Fr)
       Fr_Data.Frame[Fr_Touched,colnames(Fr_Data.Frame)== "Contamination"]<-Cont_Touch_Fr
       Cont_Student<-ifelse(Cont_Student +(Cont_Dif_Student)<0,0,Cont_Student +(Cont_Dif_Student))
+      Fr_Data.Frame[Fr_Touched,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_Touched,colnames(Fr_Data.Frame)=="History"], "Touched")
     }
     }
     }
@@ -126,6 +127,7 @@ for (j in 1:Meal_Day){
       Cont_Dif_Student<-Func_Index_DF(Pss_Data.Frame,Pss_Touched,"Contamination")-(Cont_Touch_Pss)
       Pss_Data.Frame[Pss_Touched,colnames(Pss_Data.Frame)== "Contamination"]<-Cont_Touch_Pss
       Cont_Student<-ifelse(Cont_Student +(Cont_Dif_Student)<0,0,Cont_Student +(Cont_Dif_Student))
+      Pss_Data.Frame[Pss_Touched,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_Touched,colnames(Pss_Data.Frame)=="History"], "Touched")
     }
     }
   }
@@ -181,6 +183,7 @@ for (j in 1:Meal_Day){
       Cont_Dif_Student<-Func_Index_DF(Pre_Data.Frame,Pre_Touched,"Contamination")-(Cont_Touch_Pre)
       Pre_Data.Frame[Pre_Touched,colnames(Pre_Data.Frame)== "Contamination"]<-Cont_Touch_Pre
       Cont_Student<-ifelse(Cont_Student +(Cont_Dif_Student)<0,0,Cont_Student +(Cont_Dif_Student))
+      Pre_Data.Frame[Pre_Touched,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_Touched,colnames(Pre_Data.Frame)=="History"], "Touched")
     }
     }
   }

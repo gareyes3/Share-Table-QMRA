@@ -82,15 +82,17 @@
     ggtitle(Title)+
     theme(plot.title = element_text(hjust = 0.5))
     }
-  if(Resharing_YN==0)
+  if(Resharing_YN==0){
     Location_BarC_Function(Fr_Data,"Fruit Location Re-Service & Re-Sharing off")
     Location_BarC_Function(Pss_Data,"Pss Location Re-Service & Re-Sharing off")  
     Location_BarC_Function(Pre_Data,"Pre Location Re-Service & Re-Sharing off")  
+  }
   
-  if(Resharing_YN==0)
+  if(Resharing_YN==0){
     Location_BarC_Function(Fr_Data,"Fruit Location Re-Service & Re-Sharing on")
     Location_BarC_Function(Pss_Data,"Pss Location Re-Service & Re-Sharing on")  
-    Location_BarC_Function(Pre_Data,"Pre Location Re-Service & Re-Sharing on")    
+    Location_BarC_Function(Pre_Data,"Pre Location Re-Service & Re-Sharing on") 
+  }
 #Histogram Visuals
                                   #Fruit
   #Total Exposure
@@ -131,8 +133,8 @@ Box_Plot_Function<-function(data = Total_Consumed_Fr_Bind ,title = "Insert Title
     }
 
 Box_Plot_Function(Total_Consumed_Fr_Bind, "Exposure per location fruit")
-Box_Plot_Function(Total_Consumed_Pss_Bind, "Exposure per location fruit")
-Box_Plot_Function(Total_Consumed_Pre_Bind, "Exposure per location fruit")
+Box_Plot_Function(Total_Consumed_Pss_Bind, "Exposure per location Pss")
+Box_Plot_Function(Total_Consumed_Pre_Bind, "Exposure per location Pre")
 
 
                               #Shared Fruit per days

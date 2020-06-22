@@ -12,7 +12,7 @@
   
 #Average Initial Contamination for Fruit (#CFU/g salmonella, E coli), (Particles norovirus)
 
-  Initial_Cont_Fr<-500
+  Initial_Cont_Fr<-0
   Initial_Cont_Pss<-0
   Initial_Cont_Pre<-0
 
