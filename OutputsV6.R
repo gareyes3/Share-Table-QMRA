@@ -54,16 +54,30 @@ if(Wash_ST_YN_Fr==1){
 
 #Growth During overnight storage============================================
 
-#Selection Items
-if(length(nrow(Left_Selection_Fr)>0)){
-  Func_Enteric_Growth_Storage("salmonella", "refrigerated",Left_Selection_Fr)
-  Left_Selection_Fr<-DF
-}
+#Selection Items #chose which type of storage. 
 
+if(salmonella ==1 && Growth ==1 ){
+  if(length(nrow(Left_Selection_Fr)>0)){
+    Func_Enteric_Growth_Storage("salmonella", "refrigerated",Left_Selection_Fr)
+    Left_Selection_Fr<-DF
+  }
+}else if (E_coli ==1 && Growth ==1 ){
+    if(length(nrow(Left_Selection_Fr)>0)){
+      Func_Enteric_Growth_Storage("E_coli", "refrigerated",Left_Selection_Fr)
+    }
+  }
 
-if(length(nrow(Left_Selection_Fr)>0)){
-  Func_Enteric_Growth_Storage("salmonella", "refrigerated",Left_ST_Fr)
-  Left_ST_Fr<-DF
+#Share Table Items
+if(salmonella ==1 && Growth ==1){
+  if(length(nrow(Left_Selection_Fr)>0)){
+      Func_Enteric_Growth_Storage("salmonella", "refrigerated",Left_ST_Fr)
+      Left_ST_Fr<-DF
+  }
+}else if(E_coli ==1 && Growth ==1){
+  if(length(nrow(Left_Selection_Fr)>0)){
+    Func_Enteric_Growth_Storage("E_coli", "refrigerated",Left_ST_Fr)
+    Left_ST_Fr<-DF
+  }
 }
 
 #Consumed Fr day 1, for exposure assesment

@@ -2,7 +2,7 @@
 
 #Do we want to simulate model with growth? 
 
-  Growth<-1
+  Growth<-0
 
 #Hazards only turn one on at a time. 1 means on. 
   salmonella<-1
@@ -18,6 +18,9 @@
 
 # Number of Iteration in service
   N_Iterations<-200
+  
+#Serivices, number of days we are trying to iterate. 
+  Meal_Day<-2
   
 #Probability that student is initially contaminated. For Viruses or Enterics.
 # If students won't carry anything then set Pr os 0

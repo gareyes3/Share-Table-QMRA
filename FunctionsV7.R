@@ -43,7 +43,7 @@ Func_Logred<-function(a,b){
   }
 
 
-# Grwth Model -------------------------------------------------------------
+# Growth Model -------------------------------------------------------------
 
 #Growth During Model
 Func_Enteric_Growth<-function(enteric,Condition,DF,Pickedvar){
@@ -57,22 +57,26 @@ Func_Enteric_Growth<-function(enteric,Condition,DF,Pickedvar){
         Die_off<-(-k)*Time_Ref
         Con_Final<-ifelse(N==0,N,Die_off + N)
         Con_Final<-10^Con_Final
+        Con_Final<<-Con_Final
       } else if (Temp_Ref>=5){
         rate<-(b*(Temp_Ref-Tmin))^2/2.303
         Con_Change<-rate*Time_Ref
         Con_Final<-ifelse(N==0,N,Con_Change + N)
         Con_Final<-10^Con_Final
+        Con_Final<<-Con_Final
       }
     } else if (Condition == "room temp"){
       if(Temp_RT<5){
         Die_off<-(-k)*Time_ST
         Con_Final<-ifelse(N==0,N,Die_off + N)
         Con_Final<-10^Con_Final
+        Con_Final<<-Con_Final
       } else if (Temp_RT>=5){
         rate<-(b*(Temp_RT-Tmin))^2/2.303
         Con_Change<-rate*Time_ST
         Con_Final<-ifelse(N==0,N,Con_Change + N)
         Con_Final<-10^Con_Final
+        Con_Final<<-Con_Final
       }
     }
   } else if (enteric == "salmonella" ){
@@ -85,18 +89,20 @@ Func_Enteric_Growth<-function(enteric,Condition,DF,Pickedvar){
         Die_off<-(-k)*Time_Ref
         Con_Final<-ifelse(N==0,N,Die_off + N)
         Con_Final<-10^Con_Final
+        Con_Final<<-Con_Final
       } else if (Temp_Ref>=7){
         rate<-(b*(Temp_Ref-Tmin))^2/2.303
         Con_Change<-rate*Time_Ref
         Con_Final<-ifelse(N==0,N,Con_Change + N)
         Con_Final<-10^Con_Final
+        Con_Final<<-Con_Final
       }
     } else if (Condition == "room temp"){
       if(Temp_RT<7){
         Die_off<-(-k)*Time_ST
         Con_Final<-ifelse(N==0,N,Die_off + N)
         Con_Final<-10^Con_Final
-        DF[Pickedvar,colnames(DF)== "Contamination"]<-Con_Final
+        Con_Final<<-Con_Final
       } else if (Temp_RT>=7){
         rate<-(b*(Temp_RT-Tmin))^2/2.303
         Con_Change<-rate*Time_ST

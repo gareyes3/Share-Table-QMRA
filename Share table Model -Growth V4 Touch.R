@@ -70,11 +70,10 @@ for (j in 1:Meal_Day){
       Tr_H_Fr<-Cont_Student*TE_H_F
       Search.df.fr_touched<-Func_seach_Data4(Fr_Data.Frame,Fr_Data.Frame$Location,"Selection Table",Row_size_Fr)
       Fr_Touched<-as.numeric(Search.df.fr_touched$Apple.No.)
-      Fr_Data.Frame[as.numeric(row.names(Search.df.fr_touched)),colnames(Fr_Data.Frame)== "Contamination"]<- 
-      Func_Index_DF(Fr_Data.Frame,Fr_Touched,"Contamination") + Tr_H_Fr - (Func_Index_DF(Fr_Data.Frame,Fr_Touched,"Contamination")* TE_F_H) 
-      Cont_Student<-ifelse(Cont_Student -  Func_Index_DF(Fr_Data.Frame,Fr_Touched,"Contamination")<0,0,Cont_Student -  Func_Index_DF(Fr_Data.Frame,Fr_Touched,"Contamination"))
-      Fr_Data.Frame[Fr_Touched,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_Touched,colnames(Fr_Data.Frame)=="History"], "Touched")
-      
+      Cont_Touch_Fr<- Func_Index_DF(Fr_Data.Frame,Fr_Touched,"Contamination") + Tr_H_Fr - (Func_Index_DF(Fr_Data.Frame,Fr_Touched,"Contamination")* TE_F_H) #tranfer from fruit to hand
+      Cont_Dif_Student<-Func_Index_DF(Fr_Data.Frame,Fr_Touched,"Contamination")-(Cont_Touch_Fr)
+      Fr_Data.Frame[Fr_Touched,colnames(Fr_Data.Frame)== "Contamination"]<-Cont_Touch_Fr
+      Cont_Student<-ifelse(Cont_Student +(Cont_Dif_Student)<0,0,Cont_Student +(Cont_Dif_Student))
     }
     }
     }
@@ -102,9 +101,11 @@ for (j in 1:Meal_Day){
   if(Pick_YN_Fr==1){
     Tr_H_Fr<-Cont_Student*TE_H_F
     #Contamination at tray
-    Cont_Tray_Fr<- Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination") + Tr_H_Fr - (Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination")* TE_F_H)
+    Cont_Tray_Fr<- Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination") + Tr_H_Fr - (Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination")* TE_F_H) #tranfer from fruit to hand
     #Add contamination to chosen fruit in Dataframe
+    Cont_Dif_Student<-Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination")-(Cont_Tray_Fr)
     Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "Contamination"]<-Cont_Tray_Fr
+    Cont_Student<-ifelse(Cont_Student +(Cont_Dif_Student)<0,0,Cont_Student +(Cont_Dif_Student))
   }
   
                                                       #PSS

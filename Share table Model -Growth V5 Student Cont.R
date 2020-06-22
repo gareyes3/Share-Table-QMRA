@@ -70,11 +70,10 @@ for (j in 1:Meal_Day){
       Tr_H_Fr<-Cont_Student*TE_H_F
       Search.df.fr_touched<-Func_seach_Data4(Fr_Data.Frame,Fr_Data.Frame$Location,"Selection Table",Row_size_Fr)
       Fr_Touched<-as.numeric(Search.df.fr_touched$Apple.No.)
-      Fr_Data.Frame[as.numeric(row.names(Search.df.fr_touched)),colnames(Fr_Data.Frame)== "Contamination"]<- 
-      Func_Index_DF(Fr_Data.Frame,Fr_Touched,"Contamination") + Tr_H_Fr - (Func_Index_DF(Fr_Data.Frame,Fr_Touched,"Contamination")* TE_F_H) 
-      Cont_Student<-ifelse(Cont_Student -  Func_Index_DF(Fr_Data.Frame,Fr_Touched,"Contamination")<0,0,Cont_Student -  Func_Index_DF(Fr_Data.Frame,Fr_Touched,"Contamination"))
-      Fr_Data.Frame[Fr_Touched,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_Touched,colnames(Fr_Data.Frame)=="History"], "Touched")
-      
+      Cont_Touch_Fr<- Func_Index_DF(Fr_Data.Frame,Fr_Touched,"Contamination") + Tr_H_Fr - (Func_Index_DF(Fr_Data.Frame,Fr_Touched,"Contamination")* TE_F_H) #tranfer from fruit to hand
+      Cont_Dif_Student<-Func_Index_DF(Fr_Data.Frame,Fr_Touched,"Contamination")-(Cont_Touch_Fr)
+      Fr_Data.Frame[Fr_Touched,colnames(Fr_Data.Frame)== "Contamination"]<-Cont_Touch_Fr
+      Cont_Student<-ifelse(Cont_Student +(Cont_Dif_Student)<0,0,Cont_Student +(Cont_Dif_Student))
     }
     }
     }
@@ -102,9 +101,11 @@ for (j in 1:Meal_Day){
   if(Pick_YN_Fr==1){
     Tr_H_Fr<-Cont_Student*TE_H_F
     #Contamination at tray
-    Cont_Tray_Fr<- Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination") + Tr_H_Fr - (Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination")* TE_F_H)
+    Cont_Tray_Fr<- Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination") + Tr_H_Fr - (Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination")* TE_F_H) #tranfer from fruit to hand
     #Add contamination to chosen fruit in Dataframe
+    Cont_Dif_Student<-Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination")-(Cont_Tray_Fr)
     Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "Contamination"]<-Cont_Tray_Fr
+    Cont_Student<-ifelse(Cont_Student +(Cont_Dif_Student)<0,0,Cont_Student +(Cont_Dif_Student))
   }
   
                                                       #PSS
@@ -118,13 +119,13 @@ for (j in 1:Meal_Day){
     Sum_Pss_Available<-sum(Pss_Available)
     if(Sum_Pss_Available>ntouched_Pss){
     for (i in 1:ntouched_Pss){
-      Tr_H_Fr<-Cont_Student*TE_H_F
+      Tr_H_Pss<-Cont_Student*TE_H_F
       Search.df.Pss_touched<-Func_seach_Data4(Pss_Data.Frame,Pss_Data.Frame$Location,"Selection Table",Row_size_Pss)
       Pss_Touched<-as.numeric(Search.df.Pss_touched$Pss.No.)
-      Pss_Data.Frame[as.numeric(row.names(Search.df.Pss_touched)),colnames(Pss_Data.Frame)== "Contamination"]<- 
-        Func_Index_DF(Pss_Data.Frame, Pss_Touched,"Contamination") + Tr_H_Pss - (Func_Index_DF(Pss_Data.Frame,Pss_Touched,"Contamination")* TE_F_H) 
-      Cont_Student<-ifelse(Cont_Student -  Func_Index_DF(Pss_Data.Frame,Pss_Touched,"Contamination")<0,0,Cont_Student -  Func_Index_DF(Pss_Data.Frame,Pss_Touched,"Contamination"))
-      Pss_Data.Frame[Pss_Touched,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_Touched,colnames(Pss_Data.Frame)=="History"], "Touched")
+      Cont_Touch_Pss<- Func_Index_DF(Pss_Data.Frame,Pss_Touched,"Contamination") + Tr_H_Pss - (Func_Index_DF(Pss_Data.Frame,Pss_Touched,"Contamination")* TE_F_H) #tranfer from fruit to hand
+      Cont_Dif_Student<-Func_Index_DF(Pss_Data.Frame,Pss_Touched,"Contamination")-(Cont_Touch_Pss)
+      Pss_Data.Frame[Pss_Touched,colnames(Pss_Data.Frame)== "Contamination"]<-Cont_Touch_Pss
+      Cont_Student<-ifelse(Cont_Student +(Cont_Dif_Student)<0,0,Cont_Student +(Cont_Dif_Student))
     }
     }
   }
@@ -151,11 +152,13 @@ for (j in 1:Meal_Day){
   
   
   if(Pick_YN_Pss==1){
-    Tr_H_Fr<-Cont_Student*TE_H_F
+    Tr_H_Pss<-Cont_Student*TE_H_F
     #Contamination at tray
-    Cont_Tray_Pss<- Func_Index_DF(Pss_Data.Frame,Pss_Picked,"Contamination") + Tr_H_Pss - (Func_Index_DF(Pss_Data.Frame,Pss_Picked,"Contamination")* TE_F_H)
+    Cont_Tray_Pss<- Func_Index_DF(Pss_Data.Frame,Pss_Picked,"Contamination") + Tr_H_Pss - (Func_Index_DF(Pss_Data.Frame,Pss_Picked,"Contamination")* TE_F_H) #tranfer from fruit to hand
     #Add contamination to chosen fruit in Dataframe
+    Cont_Dif_Student<-Func_Index_DF(Pss_Data.Frame,Pss_Picked,"Contamination")-(Cont_Tray_Pss)
     Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)== "Contamination"]<-Cont_Tray_Pss
+    Cont_Student<-ifelse(Cont_Student +(Cont_Dif_Student)<0,0,Cont_Student +(Cont_Dif_Student))
   }
   
   
@@ -171,13 +174,13 @@ for (j in 1:Meal_Day){
     Sum_Pre_Available<-sum(Pre_Available)
     if(Sum_Pre_Available>ntouched_Pre){
     for (i in 1:ntouched_Pre){
-      Tr_H_Fr<-Cont_Student*TE_H_F
+      Tr_H_Pre<-Cont_Student*TE_H_F
       Search.df.Pre_touched<-Func_seach_Data4(Pre_Data.Frame,Pre_Data.Frame$Location,"Selection Table",Row_size_Pre)
       Pre_Touched<-as.numeric(Search.df.Pre_touched$Pre.No.)
-      Pre_Data.Frame[as.numeric(row.names(Search.df.Pre_touched)),colnames(Pre_Data.Frame)== "Contamination"]<- 
-        Func_Index_DF(Pre_Data.Frame, Pre_Touched,"Contamination") + Tr_H_Pre - (Func_Index_DF(Pre_Data.Frame,Pre_Touched,"Contamination")* TE_F_H) 
-      Cont_Student<-ifelse(Cont_Student -  Func_Index_DF(Pre_Data.Frame,Pre_Touched,"Contamination")<0,0,Cont_Student -  Func_Index_DF(Pre_Data.Frame,Pre_Touched,"Contamination"))
-      Pre_Data.Frame[Pre_Touched,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_Touched,colnames(Pre_Data.Frame)=="History"], "Touched")
+      Cont_Touch_Pre<- Func_Index_DF(Pre_Data.Frame,Pre_Touched,"Contamination") + Tr_H_Pre - (Func_Index_DF(Pre_Data.Frame,Pre_Touched,"Contamination")* TE_F_H) #tranfer from fruit to hand
+      Cont_Dif_Student<-Func_Index_DF(Pre_Data.Frame,Pre_Touched,"Contamination")-(Cont_Touch_Pre)
+      Pre_Data.Frame[Pre_Touched,colnames(Pre_Data.Frame)== "Contamination"]<-Cont_Touch_Pre
+      Cont_Student<-ifelse(Cont_Student +(Cont_Dif_Student)<0,0,Cont_Student +(Cont_Dif_Student))
     }
     }
   }
@@ -204,11 +207,13 @@ for (j in 1:Meal_Day){
   
   
   if(Pick_YN_Pre==1){
-    Tr_H_Fr<-Cont_Student*TE_H_F
+    Tr_H_Pre<-Cont_Student*TE_H_F
     #Contamination at tray
-    Cont_Tray_Pre<- Func_Index_DF(Pre_Data.Frame,Pre_Picked,"Contamination") + Tr_H_Pre - (Func_Index_DF(Pre_Data.Frame,Pre_Picked,"Contamination")* TE_F_H)
+    Cont_Tray_Pre<- Func_Index_DF(Pre_Data.Frame,Pre_Picked,"Contamination") + Tr_H_Pre - (Func_Index_DF(Pre_Data.Frame,Pre_Picked,"Contamination")* TE_F_H) #tranfer from fruit to hand
     #Add contamination to chosen fruit in Dataframe
+    Cont_Dif_Student<-Func_Index_DF(Pre_Data.Frame,Pre_Picked,"Contamination")-(Cont_Tray_Pre)
     Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)== "Contamination"]<-Cont_Tray_Pre
+    Cont_Student<-ifelse(Cont_Student +(Cont_Dif_Student)<0,0,Cont_Student +(Cont_Dif_Student))
   }  
   
   
