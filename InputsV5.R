@@ -12,7 +12,7 @@
   
 #Average Initial Contamination for Fruit (#CFU/g salmonella, E coli), (Particles norovirus)
 
-  Initial_Cont_Fr<-0
+  Initial_Cont_Fr<-200
   Initial_Cont_Pss<-0
   Initial_Cont_Pre<-0
 
@@ -95,7 +95,9 @@
   #Time over night storage
   Time_ON<-12
   #Time of each service all in hours. 
-  Time_Service<-.33
+  Time_Service<-.50
+  #Tome between Services
+  Time_Turnaround<-.6
   
 
 # Toggles -----------------------------------------------------------------

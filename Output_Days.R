@@ -34,12 +34,22 @@ Left_Selection_Pre<-Pre_Data.Frame[which(Pre_Data.Frame$Location == "Selection T
 # Adding Overnight Time to Food Items ----------------------------------------
 
 #Overnight Fruit Selection
-Left_Selection_Fr$Time<-Func_Adding_Time(Left_Selection_Fr$Time, Time_ON)
+Left_Selection_Fr$TotTime<-Func_Adding_Time(Left_Selection_Fr$TotTime, Time_ON)
 #Overnight Fruit Selection Table
-Left_ST_Fr$Time<-Func_Adding_Time(Left_ST_Fr$Time, Time_ON)
+Left_ST_Fr$TotTime<-Func_Adding_Time(Left_ST_Fr$TotTime, Time_ON)
+
+#Overnight Pss Selection
+Left_Selection_Pss$TotTime<-Func_Adding_Time(Left_Selection_Pss$TotTime, Time_ON)
+#Overnight Pss Selection Table
+Left_ST_Pss$TotTime<-Func_Adding_Time(Left_ST_Pss$TotTime, Time_ON)
+
+#Overnight Pre Selection
+Left_Selection_Pre$TotTime<-Func_Adding_Time(Left_Selection_Pre$TotTime, Time_ON)
+#Overnight Pre Selection Table
+Left_ST_Pre$TotTime<-Func_Adding_Time(Left_ST_Pre$TotTime, Time_ON)
 
 
-#Growth During overnight storage============================================
+#Growth During overnight storage----------------------------------------------
 
 #Selection Items #chose which type of storage. 
 
@@ -65,5 +75,19 @@ if(salmonella ==1 && Growth ==1){
     Func_Enteric_Growth_Storage("E_coli", "room temp",Left_ST_Fr)
     Left_ST_Fr<-DF
   }
+}
+
+
+
+# Washing Fruit post Days ----------------------------------------------
+
+#Washing selection Items
+if(Wash_Selection_YN_Fr==1){
+  Left_Selection_Fr$Contamination<-Func_Logred(Left_Selection_Fr$Contamination,Reduction_wash)
+}
+
+#washing share table items
+if(Wash_ST_YN_Fr==1){
+  Left_ST_Fr$Contamination<-Func_Logred(Left_ST_Fr$Contamination,Reduction_wash)
 }
 

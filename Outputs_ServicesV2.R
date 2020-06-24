@@ -5,10 +5,10 @@
 Fr_DF <- paste("Fr_Data.Frame_D", k,"_S",j, sep = "")
 assign(Fr_DF, Fr_Data.Frame)
 
-Pss_DF <- paste("Pss_Data.Frame_D", k,"_S",k, sep = "")
+Pss_DF <- paste("Pss_Data.Frame_D", k,"_S",j, sep = "")
 assign(Pss_DF, Pss_Data.Frame)
 
-Pre_DF <- paste("Pre_Data.Frame_D", k,"_S",k, sep = "")
+Pre_DF <- paste("Pre_Data.Frame_D", k,"_S",j, sep = "")
 assign(Pre_DF, Pre_Data.Frame)
 
 
@@ -25,10 +25,10 @@ assign(Pre_Vector_Sh, V_Shared_Pre)
 
 
 
-
 # OUTPUTS FOR MEALS -----------------------------------------------------
 
-#Fruit
+
+# Fruit -------------------------------------------------------------------
 
 
 #Fruit that stayed in share table. 
@@ -37,22 +37,49 @@ Left_ST_Fr<-Fr_Data.Frame[which(Fr_Data.Frame$Location == "Shared"),]
 Left_Selection_Fr<-Fr_Data.Frame[which(Fr_Data.Frame$Location == "Selection Table"),]
 #Consumed Fr day 1, for exposure assesment
 Consumed_Fr<-Fr_Data.Frame[which(Fr_Data.Frame$Location == "Consumed"),]
+#Amounts left of fruit. 
+No_Left_ST_Fr<-nrow(Left_ST_Fr)
+No_Left_Selection_Fr<-nrow(Left_Selection_Fr)
 
 
-# Adding Time BEtween Services --------------------------------------------
+# Adding Time Between Services Fruit --------------------------------------------
 
-  #selection
-Left_Selection_Fr$Time<-Func_Adding_Time(Left_Selection_Fr$Time, Time_Service)
-  #Share Table
-Left_ST_Fr$Time<-Func_Adding_Time(Left_ST_Fr$Time, Time_Service)
+if(j>0 && j<=(Service_No-1)){
+    #selection
+  Left_Selection_Fr$TotTime<-Func_Adding_Time(Left_Selection_Fr$TotTime, Time_Service)
+    #Share Table
+  Left_ST_Fr$TotTime<-Func_Adding_Time(Left_ST_Fr$TotTime, Time_Service)
+}
 
 
 
+# Adding Growth Between Every Service  Fruit-------------------------------------
+
+if(j>0 && j<=(Service_No-1)){
+  #Selection Table Items
+  Func_Growth_Sto_Ecoli("room temp", Left_Selection_Fr,Time_Service) #Using function on left over items
+  Left_Selection_Fr<-DF
+  #Share Table Items
+  Func_Growth_Sto_Ecoli("room temp", Left_ST_Fr,Time_Service) #using function on left over St items
+  Left_ST_Fr<-DF
+}
+
+# Adding Turnaround Growth Fruit ------------------------------------------------
+
+if(j>0 && j<=(Service_No-1)){
+  #Selection Table Items
+  Func_Growth_Sto_Ecoli("refrigerated", Left_Selection_Fr, Time_Turnaround) #Using function on left over items
+  Left_Selection_Fr<-DF
+  #Share Table Items
+  Func_Growth_Sto_Ecoli("refrigerated", Left_ST_Fr, Time_Turnaround) #using function on left over St items
+  Left_ST_Fr<-DF
+}
 
 
-#Washing log reduction:
+# Washing Log Reduction ---------------------------------------------------
+
 if(Wash_Between_Services ==1){
- 
+
 #Washing selection Items
   if(Wash_Selection_YN_Fr==1){
     Left_Selection_Fr$Contamination<-Func_Logred(Left_Selection_Fr$Contamination,Reduction_wash)
@@ -66,12 +93,7 @@ if(Wash_Between_Services ==1){
 
 
 
-#Amounts left of fruit. 
-No_Left_ST_Fr<-nrow(Left_ST_Fr)
-No_Left_Selection_Fr<-nrow(Left_Selection_Fr)
-
-
-#Pss
+# PSS ---------------------------------------------------------------------
 
 
 #Pss that stayed in share table. 
@@ -80,13 +102,24 @@ Left_ST_Pss<-Pss_Data.Frame[which(Pss_Data.Frame$Location == "Shared"),]
 Left_Selection_Pss<-Pss_Data.Frame[which(Pss_Data.Frame$Location == "Selection Table"),]
 #Consumed Pss day 1, for exposure assesment
 Consumed_Pss<-Pss_Data.Frame[which(Pss_Data.Frame$Location == "Consumed"),]
-
 #Amounts left of Pss. 
 No_Left_ST_Pss<-nrow(Left_ST_Pss)
 No_Left_Selection_Pss<-nrow(Left_Selection_Pss)
 
 
-#Pre
+# Adding time between services Pss ----------------------------------------
+
+if(j>0 && j<=(Service_No-1)){
+  #selection
+  Left_Selection_Pss$TotTime<-Func_Adding_Time(Left_Selection_Pss$TotTime, Time_Service)
+  #Share Table
+  Left_ST_Pss$TotTime<-Func_Adding_Time(Left_ST_Pss$TotTime, Time_Service)
+}
+
+
+
+# PRE ---------------------------------------------------------------------
+
 
 
 #Pre that stayed in share table. 
@@ -95,16 +128,19 @@ Left_ST_Pre<-Pre_Data.Frame[which(Pre_Data.Frame$Location == "Shared"),]
 Left_Selection_Pre<-Pre_Data.Frame[which(Pre_Data.Frame$Location == "Selection Table"),]
 #Consumed Pre day 1, for exposure assesment
 Consumed_Pre<-Pre_Data.Frame[which(Pre_Data.Frame$Location == "Consumed"),]
-
 #Amounts left of Pre 
 No_Left_ST_Pre<-nrow(Left_ST_Pre)
 No_Left_Selection_Pre<-nrow(Left_Selection_Pre)
 
+# Adding time between services Pre ----------------------------------------
+if(j>0 && j<=(Service_No-1)){
+  #selection
+  Left_Selection_Pre$TotTime<-Func_Adding_Time(Left_Selection_Pre$TotTime, Time_Service)
+  #Share Table
+  Left_ST_Pre$TotTime<-Func_Adding_Time(Left_ST_Pre$TotTime, Time_Service)
+}
 
-# Left per meal -----------------------------------------------------------
 
-Fr_Left_Sel <- paste("No_Left_Selection_Fr_M", j, sep = "")
-assign(Fr_Left_Sel, No_Left_Selection_Fr)
 
 
 
