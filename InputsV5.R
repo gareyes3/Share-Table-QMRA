@@ -20,7 +20,10 @@
   N_Iterations<-200
   
 #Serivices, number of days we are trying to iterate. 
-  Meal_Day<-2
+ Service_No<-4
+  
+#Days we are trying to Iterate
+  Food_Days<-2
   
 #Probability that student is initially contaminated. For Viruses or Enterics.
 # If students won't carry anything then set Pr os 0
@@ -79,7 +82,7 @@
   Row_size_Pss<-20
   Row_size_Pre<-20
 
-#Storage Infromation fro growth
+#Storage Infromation for growth
   
   #Temperature at Share Table
   Temp_RT<-25
@@ -90,7 +93,10 @@
   #Average Time Ref
   Time_Ref<-12
   #Time over night storage
-  Time_ON<-20
+  Time_ON<-12
+  #Time of each service all in hours. 
+  Time_Service<-.33
+  
 
 # Toggles -----------------------------------------------------------------
 
@@ -99,7 +105,10 @@
   
 
   
-                                            # Washing Share Table Items
+                                            # Washing Items
+  #Washing Between Services
+  Wash_Between_Services<-0
+  
   
   #Wash Selection Table Fruit
   Wash_Selection_YN_Fr<-0 
@@ -137,11 +146,16 @@
   V_Available_Pss<-c(0)
   V_Available_Pre<-c(0)
   
-  #Data Lists
+  #Data Lists services
   datalistFr=list()
   datalistPss=list()
   datalistPre=list()
   
+  #Datalist Days
+
+  datalistFr_days=list()
+  datalistPss_days=list()
+  datalistPre_days=list()
   
 
 

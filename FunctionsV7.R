@@ -42,6 +42,10 @@ Func_Logred<-function(a,b){
     a*(10^b)
   }
 
+Func_Adding_Time<-function(Column, Time){
+  (Column + Time)
+}
+
 
 # Growth Model -------------------------------------------------------------
 
