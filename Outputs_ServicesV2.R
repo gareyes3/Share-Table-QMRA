@@ -1,6 +1,5 @@
 
-
-# Outputs creation on backup data frame -----------------------------------------------------------------
+# Outputs creation on Individual service data frames -----------------------------------------------------------------
 
 Fr_DF <- paste("Fr_Data.Frame_D", k,"_S",j, sep = "")
 assign(Fr_DF, Fr_Data.Frame)
@@ -56,23 +55,43 @@ if(j>0 && j<=(Service_No-1)){
 # Adding Growth Between Every Service  Fruit-------------------------------------
 
 if(j>0 && j<=(Service_No-1)){
-  #Selection Table Items
-  Func_Growth_Sto_Ecoli("room temp", Left_Selection_Fr,Time_Service) #Using function on left over items
-  Left_Selection_Fr<-DF
-  #Share Table Items
-  Func_Growth_Sto_Ecoli("room temp", Left_ST_Fr,Time_Service) #using function on left over St items
-  Left_ST_Fr<-DF
+  if(E_coli==1 && Growth ==1){
+    #Selection Table Items
+    Func_Growth_Sto_Ecoli("room temp", Left_Selection_Fr,Time_Service) #Using function on left over items
+    Left_Selection_Fr<-DF
+    #Share Table Items
+    Func_Growth_Sto_Ecoli("room temp", Left_ST_Fr,Time_Service) #using function on left over St items
+    Left_ST_Fr<-DF
+  }
+  if(salmonella==1 && Growth ==1){
+    #Selection Table Items
+    Func_Growth_Sto_Salmonella("room temp", Left_Selection_Fr,Time_Service) #Using function on left over items
+    Left_Selection_Fr<-DF
+    #Share Table Items
+    Func_Growth_Sto_Salmonella("room temp", Left_ST_Fr,Time_Service) #using function on left over St items
+    Left_ST_Fr<-DF
+  }
 }
 
 # Adding Turnaround Growth Fruit ------------------------------------------------
 
 if(j>0 && j<=(Service_No-1)){
-  #Selection Table Items
-  Func_Growth_Sto_Ecoli("refrigerated", Left_Selection_Fr, Time_Turnaround) #Using function on left over items
-  Left_Selection_Fr<-DF
-  #Share Table Items
-  Func_Growth_Sto_Ecoli("refrigerated", Left_ST_Fr, Time_Turnaround) #using function on left over St items
-  Left_ST_Fr<-DF
+  if(E_coli==1 && Growth ==1){
+    #Selection Table Items
+    Func_Growth_Sto_Ecoli("room temp", Left_Selection_Fr, Time_Turnaround) #Using function on left over items
+    Left_Selection_Fr<-DF
+    #Share Table Items
+    Func_Growth_Sto_Ecoli("room temp", Left_ST_Fr, Time_Turnaround) #using function on left over St items
+    Left_ST_Fr<-DF
+  }
+  if(salmonella==1 && Growth ==1){
+    #Selection Table Items
+    Func_Growth_Sto_Salmonella("room temp", Left_Selection_Fr, Time_Turnaround) #Using function on left over items
+    Left_Selection_Fr<-DF
+    #Share Table Items
+    Func_Growth_Sto_Salmonella("room temp", Left_ST_Fr, Time_Turnaround) #using function on left over St items
+    Left_ST_Fr<-DF
+  }
 }
 
 

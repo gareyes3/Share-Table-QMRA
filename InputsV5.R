@@ -1,8 +1,5 @@
 # INPUTS ------------------------------------------------------------------
 
-#Do we want to simulate model with growth? 
-
-  Growth<-0
 
 #Hazards only turn one on at a time. 1 means on. 
   salmonella<-1
@@ -16,28 +13,28 @@
   Initial_Cont_Pss<-0
   Initial_Cont_Pre<-0
 
-# Number of Iteration in service
-  N_Iterations<-200
+# Number of Iteration in service. Kids going through line
+  N_Iterations<-100
   
-#Serivices, number of days we are trying to iterate. 
- Service_No<-4
+#Serivices, number of days we are trying to iterate. Lunch periods per day
+ Service_No<-10
   
-#Days we are trying to Iterate
-  Food_Days<-2
+#Days we are trying to Iterate. Days
+  Food_Days<-3
   
 #Probability that student is initially contaminated. For Viruses or Enterics.
 # If students won't carry anything then set Pr os 0
   Pr_Student_iC<-0
   
-#Average Student Contamination
+#Average Student Contamination can be PFU or CFU
   Av_ic<-3000
   Sd_ic<-200
 
 
 #Initial Number of fruit
-  Initial_Fr<-200 #Number of fruit 
-  Initial_Pss<-200 #number of Packaged shelf stable
-  Initial_Pre<-200 #number of packaged refrigirated
+  Initial_Fr<-100 #Number of fruit 
+  Initial_Pss<-100 #number of Packaged shelf stable
+  Initial_Pre<-100 #number of packaged refrigirated
 
 #Probability of student Picking up food from line-
 
@@ -81,6 +78,13 @@
   Row_size_Fr<-20
   Row_size_Pss<-20
   Row_size_Pre<-20
+  
+
+# Growth Inputs ------------------------------------------------------------------
+  
+#Do we want to simulate model with growth? 
+  
+  Growth<-1
 
 #Storage Infromation for growth
   
@@ -88,19 +92,15 @@
   Temp_RT<-25
   #Temperature at refrigeration
   Temp_Ref<-4
-  #Average Time ST
-  Time_ST<-2
-  #Average Time Ref
-  Time_Ref<-12
   #Time over night storage
   Time_ON<-12
   #Time of each service all in hours. 
   Time_Service<-.50
-  #Tome between Services
+  #Time between Services
   Time_Turnaround<-.6
   
 
-# Toggles -----------------------------------------------------------------
+# TOGGLES -----------------------------------------------------------------
 
   
   #All toggles 0 = no 1 == yes
@@ -135,8 +135,8 @@
   
   
   
-# Counters and Lists ---------------------------------------------------
-  
+# COUNTER & LISTS -------------------#DO NOT MODIFY-----------------------
+  #DO NOT MODIFY
   
   ##Contamination Pool Start# Not input
   Cont_Fr<- 0

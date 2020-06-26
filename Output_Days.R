@@ -52,14 +52,23 @@ Left_ST_Pre$TotTime<-Func_Adding_Time(Left_ST_Pre$TotTime, Time_ON)
 #Growth During overnight storage----------------------------------------------
 
 #Selection Items #chose which type of storage. 
+  if(E_coli==1 && Growth ==1){
+    #Selection Table Items
+    Func_Growth_Sto_Ecoli("room temp", Left_Selection_Fr,Time_ON) #Using function on left over items
+    Left_Selection_Fr<-DF
+    #Share Table Items
+    Func_Growth_Sto_Ecoli("room temp", Left_ST_Fr,Time_ON) #using function on left over St items
+    Left_ST_Fr<-DF
+  }
 
+if(salmonella==1 && Growth ==1){
   #Selection Table Items
-  Func_Growth_Sto_Ecoli("room temp", Left_Selection_Fr,Time_ON) #Using function on left over items
+  Func_Growth_Sto_Salmonella("room temp", Left_Selection_Fr,Time_ON) #Using function on left over items
   Left_Selection_Fr<-DF
   #Share Table Items
-  Func_Growth_Sto_Ecoli("room temp", Left_ST_Fr,Time_ON) #using function on left over St items
+  Func_Growth_Sto_Salmonella("room temp", Left_ST_Fr,Time_ON) #using function on left over St items
   Left_ST_Fr<-DF
-
+}
 
 # Washing Fruit post Days ----------------------------------------------
 
