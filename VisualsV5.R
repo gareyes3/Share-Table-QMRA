@@ -5,7 +5,7 @@
 
 #Total Consumed Ammounts Creating Data:
                                 #Fruit Total
-  Total_Consumed_Fr<-Fr_Data[which(Fr_Data$Location == "Consumed"),]
+  Total_Consumed_Fr<-Fr_Data_Days[which(Fr_Data_Days$Location == "Consumed"),]
   Total_Consumed_Fr$Type<- "Total Consumed"
   #Share Table Total
   Total_Consumed_ST_Fr<-Total_Consumed_Fr[which(Total_Consumed_Fr$STtimes > 0),]
@@ -19,7 +19,7 @@
   
                               
                                 #Pss Total
-  Total_Consumed_Pss<-Pss_Data[which(Pss_Data$Location == "Consumed"),]
+  Total_Consumed_Pss<-Pss_Data_Days[which(Pss_Data_Days$Location == "Consumed"),]
   Total_Consumed_Pss$Type<- "Total Consumed"
   #Share Table Total
   Total_Consumed_ST_Pss<-Total_Consumed_Pss[which(Total_Consumed_Pss$STtimes > 0),]
@@ -32,7 +32,7 @@
   
 
                                 #Pre Total
-  Total_Consumed_Pre<-Pre_Data[which(Pre_Data$Location == "Consumed"),]
+  Total_Consumed_Pre<-Pre_Data_Days[which(Pre_Data_Days$Location == "Consumed"),]
   Total_Consumed_Pre$Type<- "Total Consumed"
   #Share Table Total
   Total_Consumed_ST_Pre<-Total_Consumed_Pre[which(Total_Consumed_Pre$STtimes > 0),]
@@ -56,6 +56,17 @@
     theme(axis.text.x=element_text(angle=90, hjust=1))
   }
   
+  Exposure_Plot_Function2<-function(Consumed = Total_Consumed_Fr ,Title = "Insert Title"){
+    ggplot(Consumed, aes(x=Contamination)) + 
+      geom_histogram( fill="#69b3a2", color="#e9ecef", binwidth = (500), boundary=.99) +
+      ggtitle(Title)+
+      theme(plot.title = element_text(hjust = 0.5))+
+      stat_bin(binwidth=(500), geom="text", size=3.5 ,aes(label=..count.., vjust=-.3), boundary = .99)+
+      scale_x_continuous(breaks = seq(0,15000,(500)))+
+      labs(x= "Contamination of Fruit Consumed", y= "Count of Fruit Consumed")+
+      theme(axis.text.x=element_text(angle=90, hjust=1))
+  }
+  
 #Exposure Based on type density
 #FUNCTION
   
@@ -65,11 +76,16 @@
     ggtitle(Title)+
     theme(plot.title = element_text(hjust = 0.5))
     }
-
+    Exposure_Staggered_Function2<-function(ConsumedDF = Total_Consumed_Fr_Bind ,Contamination = Contamination ,Type = Type, Title = "Insert Title Here"){
+      ggplot(ConsumedDF, aes(x=Contamination, fill= Type)) + 
+        geom_histogram(alpha = 0.5, position = 'identity', boundary=.99 ) +
+        ggtitle(Title)+
+        theme(plot.title = element_text(hjust = 0.5))
+    }
     
 #Graphs   
     
-  Exposure_Staggered_Function(Total_Consumed_Fr_Bind,Contamination = Contamination, Type = Type, "Total Exposure Fruit")
+  Exposure_Staggered_Function2(Total_Consumed_Fr_Bind,Contamination = Contamination, Type = Type, "Total Exposure Fruit")
   Exposure_Staggered_Function(Total_Consumed_Pss_Bind,Contamination = Contamination, Type = Type, "Total Exposure Pss")
   Exposure_Staggered_Function(Total_Consumed_Pre_Bind,Contamination = Contamination, Type = Type, "Total Exposure Pre")
    
@@ -96,11 +112,11 @@
 #Histogram Visuals
                                   #Fruit
   #Total Exposure
-  Exposure_Plot_Function(Total_Consumed_Fr, "Exposure total Consumed")
+  Exposure_Plot_Function2(Total_Consumed_Fr, "Exposure total Consumed")
   #Total Exposure from Share Table Items
-  Exposure_Plot_Function(Total_Consumed_ST_Fr, "Exposure Consumed Fruit from Share Tables")
+  Exposure_Plot_Function2(Total_Consumed_ST_Fr, "Exposure Consumed Fruit from Share Tables")
   #Total Exposure from Selection Table Items
-  Exposure_Plot_Function(Total_Consumed_Sel_Fr, "Exposure Consumed Fruit from Selection Tables")
+  Exposure_Plot_Function2(Total_Consumed_Sel_Fr, "Exposure Consumed Fruit from Selection Tables")
   
                                   #Pss
   #Total Exposure
@@ -127,7 +143,7 @@
 #FUNCTION  
 Box_Plot_Function<-function(data = Total_Consumed_Fr_Bind ,title = "Insert Title Here"){
     ggplot(data=data, aes(x=Type, y=Contamination))+
-    geom_boxplot(fill=c("#00AFBB", "#E7B800", "#FC4E07"), color="black")+
+    geom_boxplot(varwidth = TRUE,fill=c("#00AFBB", "#E7B800", "#FC4E07"), color="black")+
     stat_summary(fun=mean, shape=3, size=1, color="red", fill="red")+
     ggtitle(title)
     }

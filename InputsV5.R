@@ -17,10 +17,10 @@
   N_Iterations<-100
   
 #Serivices, number of days we are trying to iterate. Lunch periods per day
- Service_No<-10
+ Service_No<-4
   
 #Days we are trying to Iterate. Days
-  Food_Days<-3
+  Food_Days<-2
   
 #Probability that student is initially contaminated. For Viruses or Enterics.
 # If students won't carry anything then set Pr os 0
@@ -84,7 +84,7 @@
   
 #Do we want to simulate model with growth? 
   
-  Growth<-1
+  Growth<-0
 
 #Storage Infromation for growth
   
