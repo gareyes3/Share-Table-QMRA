@@ -20,7 +20,7 @@
  Service_No<-4
   
 #Days we are trying to Iterate. Days
-  Food_Days<-2
+  Food_Days<-3
   
 #Probability that student is initially contaminated. For Viruses or Enterics.
 # If students won't carry anything then set Pr os 0
@@ -84,7 +84,7 @@
   
 #Do we want to simulate model with growth? 
   
-  Growth<-0
+  Growth<-1
 
 #Storage Infromation for growth
   
