@@ -145,7 +145,9 @@ Box_Plot_Function<-function(data = Total_Consumed_Fr_Bind ,title = "Insert Title
     ggplot(data=data, aes(x=Type, y=Contamination))+
     geom_boxplot(varwidth = TRUE,fill=c("#00AFBB", "#E7B800", "#FC4E07"), color="black")+
     stat_summary(fun=mean, shape=3, size=1, color="red", fill="red")+
-    ggtitle(title)
+    ggtitle(title)+
+    ylab ("Contamination CFU/g")+
+    xlab ("Consumed From")
     }
 
 Box_Plot_Function(Total_Consumed_Fr_Bind, "Exposure per location fruit")

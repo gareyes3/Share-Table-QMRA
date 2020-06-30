@@ -9,7 +9,7 @@
   
 #Average Initial Contamination for Fruit (#CFU/g salmonella, E coli), (Particles norovirus)
 
-  Initial_Cont_Fr<-200
+  Initial_Cont_Fr<-500
   Initial_Cont_Pss<-0
   Initial_Cont_Pre<-0
 
@@ -20,7 +20,7 @@
  Service_No<-4
   
 #Days we are trying to Iterate. Days
-  Food_Days<-3
+  Food_Days<-2
   
 #Probability that student is initially contaminated. For Viruses or Enterics.
 # If students won't carry anything then set Pr os 0
@@ -84,7 +84,7 @@
   
 #Do we want to simulate model with growth? 
   
-  Growth<-1
+  Growth<-0
 
 #Storage Infromation for growth
   
@@ -97,7 +97,7 @@
   #Time of each service all in hours. 
   Time_Service<-.50
   #Time between Services
-  Time_Turnaround<-.6
+  Time_Turnaround<-.06
   
 
 # TOGGLES -----------------------------------------------------------------
