@@ -35,17 +35,47 @@ F_norm<-function(a,b,c){
 }
 
 
-#Log reduction function
-  #a ,data frame column, b log reduction
+# Log Reduction -----------------------------------------------------------
 
 Func_Logred<-function(a,b){
+  #a ,data frame column, b log reduction
     a*(10^b)
   }
 
+
+# Adding Time -------------------------------------------------------------
+
 Func_Adding_Time<-function(Column, Time){
+  #column of data frame
+  #Time, time parameter that is being added
   (Column + Time)
 }
 
+
+
+# Adding Initial Contamination --------------------------------------------
+
+
+func_Cont_Fr<-function(DF, Prevalence, area_av , area_sd, logContamination, weight_av, weight_sd ){
+  #Df= Data frame
+  #Prevalence = parameter Prevalence of pathogen
+  # Contamination = Initial Contamination of the pathogen. 
+  # parameter for volume_av
+  # parameter for volume_sd
+  # parameter for log contamination
+  for(i in 1:nrow(DF)){
+    Fr_Cont_YN<- ifelse(runif(1)<Prevalence,1,0) 
+    Fr_Area<-rnorm(1,area_av,area_sd)
+    Fr_Weight<-rnorm(1,weight_av,weight_sd)
+    Contamination<-(10^(logContamination)* Fr_Area)/(Fr_Weight)
+    if(Fr_Cont_YN==1){
+      DF[i,colnames(DF)== "Contamination"]<-Contamination
+    } else if (Fr_Cont_YN==0){
+      DF[i,colnames(DF)== "Contamination"]<-0
+    }
+  }
+  return(DF)
+}
 
 # Growth Model -------------------------------------------------------------
 
