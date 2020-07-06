@@ -10,11 +10,13 @@
 #Average Initial Contamination for Fruit (#CFU/g salmonella, E coli), (Particles norovirus)
 #if there is a function for initial contamination for the pathogen, the function will override these paramneters
 
-  Initial_Cont_Fr<-0
+  Initial_Cont_Fr<-500
   Initial_Cont_Pss<-0
   Initial_Cont_Pre<-0
   
-# DATA FOR STIMATION OF FRUIT Contamination  ---------------------------------------
+# DATA FOR STIMATION OF FRUIT Contamination 
+  
+  Calculated_Cont<-0
   
   #surface area of Fruit
   Fr_Mean_area<-184.7 #cm2

@@ -51,6 +51,15 @@ Func_Adding_Time<-function(Column, Time){
   (Column + Time)
 }
 
+#Converting to CFU/g
+
+Func_Convert_Log<-function(DF){
+  for (i in 1:nrow(DF)){
+    N<-log10(DF[i,colnames(DF)== "Contamination"])
+    DF[i,colnames(DF)== "Contamination"]<-N
+  }
+  return(DF)
+}
 
 
 # Adding Initial Contamination --------------------------------------------
@@ -133,7 +142,7 @@ Func_Growth_Sto_Ecoli<-function(Condition,DF,TimeVar){
 
 Func_Growth_Sto_Salmonella<-function(Condition,DF,TimeVar){
   b<-.020
-  k<-.0128
+  k<-.0128/2.303
   Tmin<-(-0.571)
   if(Condition== "refrigerated"){
     if(Temp_Ref<5){

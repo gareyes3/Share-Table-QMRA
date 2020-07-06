@@ -15,6 +15,8 @@
   Total_Consumed_Sel_Fr$Type<-" Consumed Selection Table"
   
   Total_Consumed_Fr_Bind<-rbind(Total_Consumed_Fr,Total_Consumed_ST_Fr,Total_Consumed_Sel_Fr)
+  #Converting Contamination to CFU/g
+  Total_Consumed_Fr_Bind<-Func_Convert_Log(Total_Consumed_Fr_Bind)
 
   
                               
@@ -146,7 +148,7 @@ Box_Plot_Function<-function(data = Total_Consumed_Fr_Bind ,title = "Insert Title
     geom_boxplot(varwidth = TRUE,fill=c("#00AFBB", "#E7B800", "#FC4E07"), color="black")+
     stat_summary(fun=mean, shape=3, size=1, color="red", fill="red")+
     ggtitle(title)+
-    ylab ("Contamination CFU/g")+
+    ylab ("Contamination log CFU/g")+
     xlab ("Consumed From")
     }
 
