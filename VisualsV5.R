@@ -73,11 +73,11 @@
   
   Exposure_Plot_Function3<-function(Consumed = Total_Consumed_Fr ,Title = "Insert Title"){
     ggplot(Consumed, aes(x=Contamination)) + 
-      geom_histogram( fill="#69b3a2", color="#e9ecef", boundary=.99) +
+      geom_histogram( fill="#69b3a2", color="#e9ecef", boundary=.99, binwidth = .5) +
+      stat_bin(binwidth=.5, geom="text", size=3.5 ,aes(label=..count.., vjust=-.3), boundary = .99)+
       ggtitle(Title)+
       theme(plot.title = element_text(hjust = 0.5))+
-      stat_bin(geom="text", size=3.5 ,aes(label=..count.., vjust=-.3), boundary = .99)+
-      labs(x= "Contamination of Fruit Consumed", y= "Count of Fruit Consumed")+
+      labs(x= "Contamination of Fruit Consumed log CFU/g", y= "Count of Fruit Consumed")+
       theme(axis.text.x=element_text(angle=90, hjust=1))
   }
   
@@ -92,8 +92,9 @@
     }
     Exposure_Staggered_Function2<-function(ConsumedDF = Total_Consumed_Fr_Bind ,Contamination = Contamination ,Type = Type, Title = "Insert Title Here"){
       ggplot(ConsumedDF, aes(x=Contamination, fill= Type)) + 
-        geom_histogram(alpha = 0.5, position = 'identity', boundary=.99 ) +
+        geom_histogram(alpha = 0.5, position = 'identity', boundary=.99, binwidth = 1 ) +
         ggtitle(Title)+
+        labs(x= "Contamination of Fruit Consumed log CFU/g", y= "Count of Fruit Consumed")+
         theme(plot.title = element_text(hjust = 0.5))
     }
     
@@ -126,7 +127,7 @@
 #Histogram Visuals
                                   #Fruit
   #Total Exposure
-  Exposure_Plot_Function3(Total_Consumed_Fr, "Exposure total Consumed")
+  Exposure_Plot_Function3(Total_Consumed_Fr, "Exposure total Fruit Consumed")
   #Total Exposure from Share Table Items
   Exposure_Plot_Function2(Total_Consumed_ST_Fr, "Exposure Consumed Fruit from Share Tables")
   #Total Exposure from Selection Table Items
@@ -160,6 +161,7 @@ Box_Plot_Function<-function(data = Total_Consumed_Fr_Bind ,title = "Insert Title
     geom_boxplot(varwidth = TRUE,fill=c("#00AFBB", "#E7B800", "#FC4E07"), color="black")+
     stat_summary(fun=mean, shape=3, size=1, color="red", fill="red")+
     ggtitle(title)+
+    theme(plot.title = element_text(hjust = 0.5))+
     ylab ("Contamination log CFU/g")+
     xlab ("Consumed From")
     }

@@ -46,7 +46,7 @@
   
 #Probability that student is initially contaminated. For Viruses or Enterics.
 # If students won't carry anything then set Pr os 0
-  Pr_Student_iC<-.05
+  Pr_Student_iC<-.005
   
 #Average Student Contamination can be PFU or CFU
   Av_ic<-3000
@@ -182,7 +182,7 @@
   datalistPre_days=list()
   
 
-
+  Student_Cont_Count<-c(0)
 
 
   

@@ -1,6 +1,6 @@
 
- 
-setwd("G:/Share Table QMRA/Share-Table-QMRA")
+setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA") 
+#setwd("G:/Share Table QMRA/Share-Table-QMRA")
 library("ggplot2") 
 library("reshape2") 
 library("mc2d")
@@ -44,6 +44,9 @@ for (k in 1:Food_Days){
   
     #Running Student Contamination based on Probability. 
     Cont_Student<- ifelse(runif(1)<Pr_Student_iC,IC_Student,0) 
+    if (Cont_Student>0){
+      Student_Cont_Count<-(Student_Cont_Count+1)
+    }
     
     #Total transfer of particles=================================================================
     
@@ -540,6 +543,8 @@ for (k in 1:Food_Days){
   datalistPre_days[[k]]<-Pre_Data
   
   source("Output_Days V2.R") 
+  
+  message("Day #", k)
   
 }#end of day loop
 

@@ -55,8 +55,11 @@ Func_Adding_Time<-function(Column, Time){
 
 Func_Convert_Log<-function(DF){
   for (i in 1:nrow(DF)){
+    N<-DF[i,colnames(DF)== "Contamination"]
+    if(N>0){
     N<-log10(DF[i,colnames(DF)== "Contamination"])
     DF[i,colnames(DF)== "Contamination"]<-N
+    }
   }
   return(DF)
 }
