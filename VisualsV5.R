@@ -7,16 +7,18 @@
                                 #Fruit Total
   Total_Consumed_Fr<-Fr_Data_Days[which(Fr_Data_Days$Location == "Consumed"),]
   Total_Consumed_Fr$Type<- "Total Consumed"
+  Total_Consumed_Fr<-Func_Convert_Log(Total_Consumed_Fr)
   #Share Table Total
   Total_Consumed_ST_Fr<-Total_Consumed_Fr[which(Total_Consumed_Fr$STtimes > 0),]
   Total_Consumed_ST_Fr$Type<-" Consumed Share Table"
+  Total_Consumed_ST_Fr<-Func_Convert_Log(Total_Consumed_ST_Fr)
   #Selection Table Total
   Total_Consumed_Sel_Fr<-Total_Consumed_Fr[which(Total_Consumed_Fr$STtimes ==0),]
   Total_Consumed_Sel_Fr$Type<-" Consumed Selection Table"
+  Total_Consumed_Sel_Fr<-Func_Convert_Log(Total_Consumed_Sel_Fr)
   
   Total_Consumed_Fr_Bind<-rbind(Total_Consumed_Fr,Total_Consumed_ST_Fr,Total_Consumed_Sel_Fr)
   #Converting Contamination to CFU/g
-  Total_Consumed_Fr_Bind<-Func_Convert_Log(Total_Consumed_Fr_Bind)
 
   
                               
@@ -69,6 +71,16 @@
       theme(axis.text.x=element_text(angle=90, hjust=1))
   }
   
+  Exposure_Plot_Function3<-function(Consumed = Total_Consumed_Fr ,Title = "Insert Title"){
+    ggplot(Consumed, aes(x=Contamination)) + 
+      geom_histogram( fill="#69b3a2", color="#e9ecef", boundary=.99) +
+      ggtitle(Title)+
+      theme(plot.title = element_text(hjust = 0.5))+
+      stat_bin(geom="text", size=3.5 ,aes(label=..count.., vjust=-.3), boundary = .99)+
+      labs(x= "Contamination of Fruit Consumed", y= "Count of Fruit Consumed")+
+      theme(axis.text.x=element_text(angle=90, hjust=1))
+  }
+  
 #Exposure Based on type density
 #FUNCTION
   
@@ -114,7 +126,7 @@
 #Histogram Visuals
                                   #Fruit
   #Total Exposure
-  Exposure_Plot_Function2(Total_Consumed_Fr, "Exposure total Consumed")
+  Exposure_Plot_Function3(Total_Consumed_Fr, "Exposure total Consumed")
   #Total Exposure from Share Table Items
   Exposure_Plot_Function2(Total_Consumed_ST_Fr, "Exposure Consumed Fruit from Share Tables")
   #Total Exposure from Selection Table Items

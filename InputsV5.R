@@ -10,13 +10,13 @@
 #Average Initial Contamination for Fruit (#CFU/g salmonella, E coli), (Particles norovirus)
 #if there is a function for initial contamination for the pathogen, the function will override these paramneters
 
-  Initial_Cont_Fr<-500
+  Initial_Cont_Fr<-0
   Initial_Cont_Pss<-0
   Initial_Cont_Pre<-0
   
 # DATA FOR STIMATION OF FRUIT Contamination 
   
-  Calculated_Cont<-0
+  Calculated_Cont<-1
   
   #surface area of Fruit
   Fr_Mean_area<-184.7 #cm2
@@ -46,7 +46,7 @@
   
 #Probability that student is initially contaminated. For Viruses or Enterics.
 # If students won't carry anything then set Pr os 0
-  Pr_Student_iC<-0
+  Pr_Student_iC<-.05
   
 #Average Student Contamination can be PFU or CFU
   Av_ic<-3000
