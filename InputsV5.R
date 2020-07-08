@@ -49,8 +49,8 @@
   Pr_Student_iC<-.005
   
 #Average Student Contamination can be PFU or CFU
-  Av_ic<-3000
-  Sd_ic<-200
+  Av_ic<-(8.9*10^6)/(171.1)
+  Sd_ic<-900
 
 
 #Initial Number of fruit
@@ -77,7 +77,7 @@
 
 #Probability of sharing food. 
 
-  Pr_share_Food<-.6
+  Pr_share_Food<-.7
 
 #Probability of student picking an additional item from share table. 
 
@@ -135,24 +135,24 @@
   
   
   #Wash Selection Table Fruit
-  Wash_Selection_YN_Fr<-0 
+  Wash_Selection_YN_Fr<-0
   #Wash Share Table Items
   Wash_ST_YN_Fr<-0
   
                                               # Share Table Toggle 
   
   #Include Share Table:
-  Share_Table_YN<-1
-  
+  Share_Table_YN<-0
+  #NOTE: Turn off Re-Sharing and -STto reservice too
                                             # Re-Sharing, Re-Service 
   
   #this happens in the data frame file
   #Share Table to Re-Service
-  STtoReservice_YN<-1  
+  STtoReservice_YN<-0  
   #Re-Service of Items left in Share Table 
   Reservice_YN<-1
   #Re-Sharing of items in share table
-  Resharing_YN<-1
+  Resharing_YN<-0
   
   
   

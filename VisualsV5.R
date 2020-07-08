@@ -18,7 +18,7 @@
   Total_Consumed_Sel_Fr<-Func_Convert_Log(Total_Consumed_Sel_Fr)
   
   Total_Consumed_Fr_Bind<-rbind(Total_Consumed_Fr,Total_Consumed_ST_Fr,Total_Consumed_Sel_Fr)
-  #Converting Contamination to CFU/g
+  #Converting Contamination to log CFU/g
 
   
                               
@@ -73,8 +73,8 @@
   
   Exposure_Plot_Function3<-function(Consumed = Total_Consumed_Fr ,Title = "Insert Title"){
     ggplot(Consumed, aes(x=Contamination)) + 
-      geom_histogram( fill="#69b3a2", color="#e9ecef", boundary=.99, binwidth = .5) +
-      stat_bin(binwidth=.5, geom="text", size=3.5 ,aes(label=..count.., vjust=-.3), boundary = .99)+
+      geom_histogram( fill="#69b3a2", color="#e9ecef", binwidth = 1, boundary= -1) +
+      stat_bin(binwidth=1, geom="text", size=3.5 ,aes(label=..count.., vjust=-.3),boundary = -1 )+
       ggtitle(Title)+
       theme(plot.title = element_text(hjust = 0.5))+
       labs(x= "Contamination of Fruit Consumed log CFU/g", y= "Count of Fruit Consumed")+
@@ -92,7 +92,7 @@
     }
     Exposure_Staggered_Function2<-function(ConsumedDF = Total_Consumed_Fr_Bind ,Contamination = Contamination ,Type = Type, Title = "Insert Title Here"){
       ggplot(ConsumedDF, aes(x=Contamination, fill= Type)) + 
-        geom_histogram(alpha = 0.5, position = 'identity', boundary=.99, binwidth = 1 ) +
+        geom_histogram(alpha = 0.5, position = 'identity', boundary=-1, binwidth = 1 ) +
         ggtitle(Title)+
         labs(x= "Contamination of Fruit Consumed log CFU/g", y= "Count of Fruit Consumed")+
         theme(plot.title = element_text(hjust = 0.5))
@@ -119,7 +119,7 @@
     Location_BarC_Function(Pre_Data,"Pre Location Re-Service & Re-Sharing off")  
   }
   
-  if(Resharing_YN==0){
+  if(Resharing_YN==1){
     Location_BarC_Function(Fr_Data,"Fruit Location Re-Service & Re-Sharing on")
     Location_BarC_Function(Pss_Data,"Pss Location Re-Service & Re-Sharing on")  
     Location_BarC_Function(Pre_Data,"Pre Location Re-Service & Re-Sharing on") 
@@ -128,6 +128,7 @@
                                   #Fruit
   #Total Exposure
   Exposure_Plot_Function3(Total_Consumed_Fr, "Exposure total Fruit Consumed")
+  Exposure_Plot_Function3(Total_Consumed_Fr_Bind, "Exposure total Fruit Consumed")
   #Total Exposure from Share Table Items
   Exposure_Plot_Function2(Total_Consumed_ST_Fr, "Exposure Consumed Fruit from Share Tables")
   #Total Exposure from Selection Table Items
@@ -166,10 +167,23 @@ Box_Plot_Function<-function(data = Total_Consumed_Fr_Bind ,title = "Insert Title
     xlab ("Consumed From")
     }
 
+Box_Plot_Function2<-function(data = Total_Consumed_Fr_Bind ,title = "Insert Title Here"){
+  ggplot(data=data, aes(x=Type, y=Contamination))+
+    geom_boxplot(varwidth = TRUE,fill=c( "#FC4E07"), color="black")+
+    stat_summary(fun=mean, shape=3, size=1, color="red", fill="red")+
+    ggtitle(title)+
+    theme(plot.title = element_text(hjust = 0.5))+
+    ylab ("Contamination log CFU/g")+
+    xlab ("Consumed From")
+}
+
+
 Box_Plot_Function(Total_Consumed_Fr_Bind, "Exposure per location fruit")
 Box_Plot_Function(Total_Consumed_Pss_Bind, "Exposure per location Pss")
 Box_Plot_Function(Total_Consumed_Pre_Bind, "Exposure per location Pre")
 
+
+Box_Plot_Function2(Total_Consumed_Fr,"Exposure per location fruit")
 
                               #Shared Fruit per days
 
@@ -195,4 +209,12 @@ Box_Plot_Function(Total_Consumed_Pre_Bind, "Exposure per location Pre")
   #labs(x= "Meal Number", y= "Count of Fruit Left in selection table")+
   #ggtitle("Food Left in Selection Table")+
   #theme(plot.title = element_text(hjust = 0.5))
+
+
+Fruit_Data_Consumed_Discarded<-rbind(Fr_Data_Days[which(Fr_Data_Days$Location == "Consumed"),],Fr_Data_Days[which(Fr_Data_Days$Location == "Discarded"),])  
+
+ggplot(Fruit_Data_Consumed_Discarded, aes(x=Location)) + 
+  geom_bar(stat = "count", fill= c("#00AFBB", "#E7B800"))+
+  ggtitle("Consumed vs Discarded Share Tables OFF")+
+  theme(plot.title = element_text(hjust = 0.5))
 
