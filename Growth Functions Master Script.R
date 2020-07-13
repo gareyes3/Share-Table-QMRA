@@ -226,3 +226,8 @@ Func_Growth_Sto_Ecoli<-function(Condition,DF){
     }  
   }
 }
+
+
+# Norovirus ---------------------------------------------------------------
+
+
