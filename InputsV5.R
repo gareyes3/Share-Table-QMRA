@@ -142,7 +142,7 @@
                                               # Share Table Toggle 
   
   #Include Share Table:
-  Share_Table_YN<-0
+  Share_Table_YN<-1
   #NOTE: Turn off Re-Sharing and -STto reservice too
                                             # Re-Sharing, Re-Service 
   
