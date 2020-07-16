@@ -230,21 +230,81 @@ Func_Growth_Sto_Ecoli<-function(Condition,DF){
 
 # Norovirus ---------------------------------------------------------------
 
-N0<-4
-b<-26.08
-n<-.50
-t<-400
+N0<-3 #Initial contamination 
+b<-137.74 #hours to reduce one log
+n<-.50 #Shape parameter
+t<-700 #time in hours
+DFF<-data.frame(
+  "Time"= 1:t,
+  "Log" = "",
+  stringsAsFactors = FALSE
+)
+
+for(i in 1:t){
+  Timevar<-(DF[i,colnames(DF)== "Time"])
+  log_NT<- -(Timevar/b)^n +N0
+  DFF[i,colnames(DFF)== "Log"]<-log_NT
+}
+
+plot(DFF$Time,DFF$Log)
+
+#Plastic Storage 
+Func_Growth_Sto_Norovirus_Plastic<-function(Condition,DF,TimeVar){
+  b<-137.74
+  n<-.50
+  N0<-0
+  if(Condition== "room temp"){
+      for (i in 1:nrow(DF)){
+        Growth<- -(Timevar/b)^n +N0
+        N<-log10(DF[i,colnames(DF)== "Contamination"])
+        Con_Final<-ifelse(N==0,N,N + Growth)
+        Con_Final<-10^Con_Final
+        DF[i,colnames(DF)== "Contamination"]<-Con_Final
+        DF<<-DF
+    }
+  } 
+}  
 
 
 
-log_NT<- -(t/b)^n +N0
-log_NT
+f<-0
+N0<-0
+b1<--416
+b2<-47.33
+t<-1
+
+logNT<-N0+ log10((2*f/(1+exp(b1*t)))+(2*(1-f)/(1+exp(b2*t)))) 
+
+#Green peppers at 50% RH
+
+Func_Growth_Sto_Norovirus<-function(Condition,DF,TimeVar){
+  if(Condition== "room temp"){
+    f<-0
+    b1<--416
+    b2<-47.33
+    for (i in 1:nrow(DF)){
+      TimeVar<-TimeVar/24
+      Growth<-log10((2*f/(1+exp(b1*TimeVar)))+(2*(1-f)/(1+exp(b2*TimeVar))))
+      N<-log10(DF[i,colnames(DF)== "Contamination"])
+      Con_Final<-ifelse(N==0,N,N + Growth)
+      Con_Final<-10^Con_Final
+      DF[i,colnames(DF)== "Contamination"]<-Con_Final
+      DF<<-DF
+    }
+  } else if (Condition == "refrigerated"){
+    f<-0
+    b1<--.08
+    b2<-4.63
+    for (i in 1:nrow(DF)){
+      TimeVar<-TimeVar/24
+      Growth<-log10((2*f/(1+exp(b1*TimeVar)))+(2*(1-f)/(1+exp(b2*TimeVar))))
+      N<-log10(DF[i,colnames(DF)== "Contamination"])
+      Con_Final<-ifelse(N==0,N,N + Growth)
+      Con_Final<-10^Con_Final
+      DF[i,colnames(DF)== "Contamination"]<-Con_Final
+      DF<<-DF
+    }
+  }
+}  
 
 
-td<-(1/26.8)^(1/.5)
-td
-
-26.8/60
-
-
-log_NT<- -(.001392*t)^n +(N0)
