@@ -2,9 +2,9 @@
 
 
 #Hazards only turn one on at a time. 1 means on. 
-  salmonella<-1
+  salmonella<-0
   E_coli<-0
-  norovirus<-0
+  norovirus<-1
   allergen<-0
   
 #Average Initial Contamination for Fruit (#CFU/g salmonella, E coli), (Particles norovirus)
@@ -148,11 +148,11 @@
   
   #this happens in the data frame file
   #Share Table to Re-Service
-  STtoReservice_YN<-0  
+  STtoReservice_YN<-1  
   #Re-Service of Items left in Share Table 
   Reservice_YN<-1
   #Re-Sharing of items in share table
-  Resharing_YN<-0
+  Resharing_YN<-1
   
   
   
