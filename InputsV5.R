@@ -49,8 +49,11 @@
   Pr_Student_iC<-.005
   
 #Average Student Contamination can be PFU or CFU
-  Av_ic<-(8.9*10^6)/(171.1)
-  Sd_ic<-900
+  if(salmonella == 1){
+  Student_PSA<-50.675 #cm^2
+  }
+  Av_ic<-(8.9*10^6) #Log CFU/Hand
+
 
 
 #Initial Number of fruit

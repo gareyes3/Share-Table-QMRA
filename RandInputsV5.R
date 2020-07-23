@@ -14,8 +14,8 @@ if(salmonella ==1){
   TE_F_H<-.0328
 }
 
-#Contamination Level if Student is contaminated: 
-IC_Student<-F_norm(1,Av_ic,Sd_ic)
+#Level of Contamination in Student Hands. 
+IC_Student<-Av_ic/Student_PSA #CFU/cm^2
 
 #Touched items
 ntouched_Fr<-round(rnorm(1,3,.5),0)
