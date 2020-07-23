@@ -67,7 +67,7 @@ Func_Convert_Log<-function(DF){
 
 # Adding Initial Contamination --------------------------------------------
 
-
+#this function changes contamination from CFU CM^2 to CFU/g
 func_Cont_Fr<-function(DF, Prevalence, area_av , area_sd, logContamination, weight_av, weight_sd ){
   #Df= Data frame
   #Prevalence = parameter Prevalence of pathogen
@@ -88,6 +88,24 @@ func_Cont_Fr<-function(DF, Prevalence, area_av , area_sd, logContamination, weig
   }
   return(DF)
 }
+
+func_Cont_Fr_cm2<-function(DF, Prevalence, logContamination ){
+  #Df= Data frame
+  #Prevalence = parameter Prevalence of pathogen
+  # Contamination = Initial Contamination of the pathogen. 
+  # parameter for log contamination
+  for(i in 1:nrow(DF)){
+    Fr_Cont_YN<- ifelse(runif(1)<Prevalence,1,0) 
+    Contamination<-10^(logContamination)
+    if(Fr_Cont_YN==1){
+      DF[i,colnames(DF)== "Contamination"]<-Contamination
+    } else if (Fr_Cont_YN==0){
+      DF[i,colnames(DF)== "Contamination"]<-as.numeric(0)
+    }
+  }
+  return(DF)
+}
+
 
 # Growth Model for Enteric -------------------------------------------------------------
 
@@ -203,14 +221,14 @@ Func_Growth_Sto_Norovirus_Plastic<-function(Condition,DF,TimeVar){
   N0<-0
   if(Condition== "room temp"){
     for (i in 1:nrow(DF)){
-      Growth<- -(Timevar/b)^n +N0
+      Growth<- -(TimeVar/b)^n +N0
       N<-log10(DF[i,colnames(DF)== "Contamination"])
       Con_Final<-ifelse(N==0,N,N + Growth)
       Con_Final<-10^Con_Final
       DF[i,colnames(DF)== "Contamination"]<-Con_Final
-      DF<<-DF
     }
   } 
+  return(DF)
 }  
 
  #Growth norovirus in fruit
@@ -226,8 +244,8 @@ Func_Growth_Sto_Norovirus<-function(Condition,DF,TimeVar){
       Con_Final<-ifelse(N==0,N,N + Growth)
       Con_Final<-10^Con_Final
       DF[i,colnames(DF)== "Contamination"]<-Con_Final
-      DF<<-DF
     }
+    return(DF)
   } else if (Condition == "refrigerated"){
     f<-0
     b1<--.08
@@ -239,7 +257,7 @@ Func_Growth_Sto_Norovirus<-function(Condition,DF,TimeVar){
       Con_Final<-ifelse(N==0,N,N + Growth)
       Con_Final<-10^Con_Final
       DF[i,colnames(DF)== "Contamination"]<-Con_Final
-      DF<<-DF
     }
+    return(DF)
   }
 } 

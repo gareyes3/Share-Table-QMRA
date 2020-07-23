@@ -28,7 +28,8 @@
   Fr_Contamination<- (-4.16) #Salmonella
   
   #Prevalence of pathogens
-  Prevalence_Salmonella<-.04 #Probability of contamination
+  Prevalence_Salmonella<-.04 #Probability of contamination.
+  Prevalence_Norovirus<-.05 #probability of food item being contaminated. 
   
 
 # Number of Iteration in service. Kids going through line
@@ -39,21 +40,27 @@
   N_Iterations<-round((Students_p_grade*NSLP_rate),0)
   
 #Serivices, number of days we are trying to iterate. Lunch periods per day
- Service_No<-5
+ Service_No<-2
   
 #Days we are trying to Iterate. Days
-  Food_Days<-5
+  Food_Days<-3
   
 #Probability that student is initially contaminated. For Viruses or Enterics.
 # If students won't carry anything then set Pr os 0
-  Pr_Student_iC<-.005
+  Pr_Student_iC<-.5
   
 #Average Student Contamination can be PFU or CFU
-  if(salmonella == 1){
+  
+  #surface are of hand palm. 
   Student_PSA<-50.675 #cm^2
+  
+  
+  if(salmonella == 1){
+    Av_ic<-(8.9*10^6) #Log CFU/Hand
   }
-  Av_ic<-(8.9*10^6) #Log CFU/Hand
-
+  if(norovirus == 1){
+    Av_ic<-(8.9*10^6) #Log CFU/Hand    
+  }
 
 
 #Initial Number of fruit

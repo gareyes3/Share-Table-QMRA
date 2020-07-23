@@ -7,53 +7,57 @@
 
 #Fruit Data Frame
 if(j==1 && k== 1){
-Fr_Data.Frame<-data.frame("Apple No." = 1:Initial_Fr,
-                          "Location"= "Selection Table",
-                          "Contamination" = as.numeric(Initial_Cont_Fr),
-                          "TotTime"= as.numeric("0"),
-                          "History" = "", 
-                          "STtimes"= as.numeric("0"),
-                          "Initial Service" = "1",
-                          "Service" = j,
-                          "Initial Day" = "1",
-                          "Day" = k,
-                          stringsAsFactors = FALSE
-                          
-)
-
-#Adding Initial Contaminations of fruit
-if(salmonella==1){
-  Fr_Data.Frame<-func_Cont_Fr(Fr_Data.Frame,Prevalence_Salmonella,Fr_Mean_area,Fr_sd_area,Fr_Contamination)
-}
-
-
-#Packaged Shelf Stable Data Frame
-Pss_Data.Frame<-data.frame("Pss No." = 1:Initial_Pss,
-                           "Location"= "Selection Table",
-                           "Contamination" = as.numeric(Initial_Cont_Pss),
-                           "TotTime"= as.numeric("0"),
-                           "History"= "",
-                           "STtimes"= as.numeric("0"),
-                           "Initial Service" = "1", 
-                           "Service" = j,
-                           "Initial Day" = "1",
-                           "Day" = k,
-                           stringsAsFactors = FALSE
-)
-
-#Packaged Shelf Stable Data Frame
-Pre_Data.Frame<-data.frame("Pre No." = 1:Initial_Pss,
-                           "Location"= "Selection Table",
-                           "Contamination" = as.numeric(Initial_Cont_Pre),
-                           "TotTime"= as.numeric("0"),
-                           "History" = "", 
-                           "STtimes"= as.numeric("0"),
-                           "Initial Service" = "1",
-                           "Service" = j,
-                           "Initial Day" = "1",
-                           "Day" = k,
+  Fr_Data.Frame<-data.frame("Apple No." = 1:Initial_Fr,
+                            "Location"= "Selection Table",
+                            "Contamination" = as.numeric(Initial_Cont_Fr),
+                            "TotTime"= as.numeric("0"),
+                            "History" = "", 
+                            "STtimes"= as.numeric("0"),
+                            "Initial Service" = "1",
+                            "Service" = j,
+                            "Initial Day" = "1",
+                            "Day" = k,
                             stringsAsFactors = FALSE
-)
+                            
+  )
+  
+  #Adding Initial Contaminations of fruit
+  
+  
+  if(salmonella==1 && Calculated_Cont==1){
+    Fr_Data.Frame<-func_Cont_Fr_cm2(Fr_Data.Frame,Prevalence_Salmonella,Fr_Contamination)
+  } else if (norovirus == 1 && Calculated_Cont ==1){
+    Fr_Data.Frame<-func_Cont_Fr_cm2(Fr_Data.Frame,Prevalence_Norovirus,Fr_Contamination)
+  }
+  
+  
+  #Packaged Shelf Stable Data Frame
+  Pss_Data.Frame<-data.frame("Pss No." = 1:Initial_Pss,
+                             "Location"= "Selection Table",
+                             "Contamination" = as.numeric(Initial_Cont_Pss),
+                             "TotTime"= as.numeric("0"),
+                             "History"= "",
+                             "STtimes"= as.numeric("0"),
+                             "Initial Service" = "1", 
+                             "Service" = j,
+                             "Initial Day" = "1",
+                             "Day" = k,
+                             stringsAsFactors = FALSE
+  )
+  
+  #Packaged Shelf Stable Data Frame
+  Pre_Data.Frame<-data.frame("Pre No." = 1:Initial_Pss,
+                             "Location"= "Selection Table",
+                             "Contamination" = as.numeric(Initial_Cont_Pre),
+                             "TotTime"= as.numeric("0"),
+                             "History" = "", 
+                             "STtimes"= as.numeric("0"),
+                             "Initial Service" = "1",
+                             "Service" = j,
+                             "Initial Day" = "1",
+                             "Day" = k,
+                              stringsAsFactors = FALSE
+  )
 } #end of J1
 
 
@@ -82,8 +86,10 @@ if(j>1 && k ==1 ){
     )
     
     #Adding Initial Contaminations of fruit
-    if(salmonella==1){
-      Fr_Data.Frame<-func_Cont_Fr(Fr_Data.Frame,Prevalence_Salmonella,Fr_Mean_area,Fr_sd_area,Fr_Contamination)
+    if(salmonella==1 && Calculated_Cont==1){
+      Fr_Data.Frame<-func_Cont_Fr_cm2(Fr_Data.Frame,Prevalence_Salmonella,Fr_Contamination)
+    } else if (norovirus == 1 && Calculated_Cont ==1){
+      Fr_Data.Frame<-func_Cont_Fr_cm2(Fr_Data.Frame,Prevalence_Norovirus,Fr_Contamination)
     }
     
     #Adding times that the share table items have been shared
@@ -183,9 +189,11 @@ if(j>1 && k ==1 ){
     )
     
     #Adding Initial Contaminations of fruit 
-    if(salmonella==1){
-       Fr_Data.Frame<-func_Cont_Fr(Fr_Data.Frame,Prevalence_Salmonella,Fr_Mean_area,Fr_sd_area,Fr_Contamination)
-    } 
+     if(salmonella==1 && Calculated_Cont==1){
+       Fr_Data.Frame<-func_Cont_Fr_cm2(Fr_Data.Frame,Prevalence_Salmonella,Fr_Contamination)
+     } else if (norovirus == 1 && Calculated_Cont ==1){
+       Fr_Data.Frame<-func_Cont_Fr_cm2(Fr_Data.Frame,Prevalence_Norovirus,Fr_Contamination)
+     }
      
     #Adding Share Times
     
@@ -286,12 +294,15 @@ if(j>0 && k>1 ){
     )
     
     #Adding Initial Contaminations of fruit 
-    if(salmonella==1){
-      Fr_Data.Frame<-func_Cont_Fr(Fr_Data.Frame,Prevalence_Salmonella,Fr_Mean_area,Fr_sd_area,Fr_Contamination)
+    if(salmonella==1 && Calculated_Cont==1){
+      Fr_Data.Frame<-func_Cont_Fr_cm2(Fr_Data.Frame,Prevalence_Salmonella,Fr_Contamination)
+    } else if (norovirus == 1 && Calculated_Cont ==1){
+      Fr_Data.Frame<-func_Cont_Fr_cm2(Fr_Data.Frame,Prevalence_Norovirus,Fr_Contamination)
     }
     
     #Adding times that the share table items have been shared
     Left_ST_Fr[,colnames(Left_ST_Fr)=="STtimes"]<-(Left_ST_Fr[,colnames(Left_ST_Fr)=="STtimes"])+1
+    LeftAAAAA2<-Left_ST_Fr
     #Resharing Toggle
     if(Resharing_YN ==1){
       Fr_Data.Frame<-rbind(Left_Selection_Fr,Fr_Data.Frame,Left_ST_Fr)
@@ -304,6 +315,7 @@ if(j>0 && k>1 ){
     Fr_Data.Frame$Service<-j
     Fr_Data.Frame$Day<-k
     
+    FR_AAAA2<-Fr_Data.Frame
     #Packaged Shelf Stable Data Frame
     
     Pss_Data.Frame<-data.frame("Pss No." = 1:(Initial_Pss-(No_Left_Selection_Pss)),
@@ -387,8 +399,10 @@ if(j>0 && k>1 ){
     )
     
     #Adding Initial Contaminations of fruit 
-    if(salmonella==1){
-      Fr_Data.Frame<-func_Cont_Fr(Fr_Data.Frame,Prevalence_Salmonella,Fr_Mean_area,Fr_sd_area,Fr_Contamination)
+    if(salmonella==1 && Calculated_Cont==1){
+      Fr_Data.Frame<-func_Cont_Fr_cm2(Fr_Data.Frame,Prevalence_Salmonella,Fr_Contamination)
+    } else if (norovirus == 1 && Calculated_Cont ==1){
+      Fr_Data.Frame<-func_Cont_Fr_cm2(Fr_Data.Frame,Prevalence_Norovirus,Fr_Contamination)
     }
     
     #Adding Share Times

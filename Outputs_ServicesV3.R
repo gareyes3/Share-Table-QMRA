@@ -73,9 +73,9 @@ if(j>0 && j<=(Service_No-1)){
   }
   if(norovirus==1 && Growth ==1){
     #selection table items
-    Func_Growth_Sto_Norovirus("refrigerated", Left_Selection_Fr, Time_Service) #using function on left over items
+   Left_Selection_Fr<- Func_Growth_Sto_Norovirus("refrigerated", Left_Selection_Fr, Time_Service) #using function on left over items
     #Share table items
-    Func_Growth_Sto_Norovirus("refrigerated", Left_Selection_Fr, Time_Service) #Share table left over items
+    Left_ST_Fr<-Func_Growth_Sto_Norovirus("refrigerated", Left_ST_Fr, Time_Service) #Share table left over items
   }
 }
 
@@ -100,9 +100,9 @@ if(j>0 && j<=(Service_No-1)){
   }
   if(norovirus==1 && Growth ==1){
     #selection table items
-    Func_Growth_Sto_Norovirus("refrigerated", Left_Selection_Fr, Time_Turnaround) #using function on left over items
+    Left_Selection_Fr<- Func_Growth_Sto_Norovirus("refrigerated", Left_Selection_Fr, Time_Turnaround) #using function on left over items
     #Share table items
-    Func_Growth_Sto_Norovirus("refrigerated", Left_Selection_Fr, Time_Turnaround) #Share table left over items
+    Left_ST_Fr<-Func_Growth_Sto_Norovirus("refrigerated", Left_ST_Fr, Time_Turnaround) #Share table left over items
   }
 }
 
@@ -169,9 +169,9 @@ if(j>0 && j<=(Service_No-1)){
   }
   if(norovirus==1 && Growth ==1){
     #selection table items
-    Func_Growth_Sto_Norovirus_Plastic("room temp", Left_Selection_Pss, Time_Service) #using function on left over items
+    Left_Selection_Pss<- Func_Growth_Sto_Norovirus_Plastic("room temp", Left_Selection_Pss, Time_Service) #using function on left over items
     #Share table items
-    Func_Growth_Sto_Norovirus_Plastic("room temp", Left_Selection_Pss, Time_Service) #Share table left over items
+    Left_ST_Pss<- Func_Growth_Sto_Norovirus_Plastic("room temp", Left_ST_Pss, Time_Service) #Share table left over items
   }
 }
 
@@ -196,9 +196,9 @@ if(j>0 && j<=(Service_No-1)){
   }
   if(norovirus==1 && Growth ==1){
     #selection table items
-    Func_Growth_Sto_Norovirus_Plastic("room temp", Left_Selection_Pss, Time_Turnaround) #using function on left over items
+    Left_Selection_Pss<- Func_Growth_Sto_Norovirus_Plastic("room temp", Left_Selection_Pss, Time_Turnaround) #using function on left over items
     #Share table items
-    Func_Growth_Sto_Norovirus_Plastic("room temp", Left_Selection_Pss, Time_Turnaround) #Share table left over items
+    Left_ST_Pss<- Func_Growth_Sto_Norovirus_Plastic("room temp", Left_ST_Pss, Time_Turnaround) #Share table left over items
   }
 }
 
@@ -247,9 +247,9 @@ if(j>0 && j<=(Service_No-1)){
   }
   if(norovirus==1 && Growth ==1){
     #selection table items
-    Func_Growth_Sto_Norovirus_Plastic("room temp", Left_Selection_Pre, Time_Service) #using function on left over items
+    Left_Selection_Pre<- Func_Growth_Sto_Norovirus_Plastic("room temp", Left_Selection_Pre, Time_Service) #using function on left over items
     #Share table items
-    Func_Growth_Sto_Norovirus_Plastic("room temp", Left_Selection_Pre, Time_Service) #Share table left over items
+    Left_ST_Pre<- Func_Growth_Sto_Norovirus_Plastic("room temp", Left_ST_Pre, Time_Service) #Share table left over items
   }
 }
 
@@ -274,9 +274,9 @@ if(j>0 && j<=(Service_No-1)){
   }
   if(norovirus==1 && Growth ==1){
     #selection table items
-    Func_Growth_Sto_Norovirus_Plastic("room temp", Left_Selection_Pre, Time_Turnaround) #using function on left over items
+    Left_Selection_Pre<-Func_Growth_Sto_Norovirus_Plastic("room temp", Left_Selection_Pre, Time_Turnaround) #using function on left over items
     #Share table items
-    Func_Growth_Sto_Norovirus_Plastic("room temp", Left_Selection_Pre, Time_Turnaround) #Share table left over items
+    Left_ST_Pre<-Func_Growth_Sto_Norovirus_Plastic("room temp", Left_ST_Pre, Time_Turnaround) #Share table left over items
   }
 }
 

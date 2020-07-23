@@ -22,8 +22,10 @@ Fr_Data.Frame<-data.frame("Apple No." = 1:Initial_Fr,
 )
 
 #Adding Initial Contaminations of fruit
+
+
 if(salmonella==1 && Calculated_Cont==1){
-  Fr_Data.Frame<-func_Cont_Fr(Fr_Data.Frame,Prevalence_Salmonella,Fr_Mean_area,Fr_sd_area,Fr_Contamination,Fr_Mean_weight, Fr_sd_weight)
+  Fr_Data.Frame<-func_Cont_Fr_cm2(Fr_Data.Frame,Prevalence_Salmonella,Fr_Contamination)
 }
 
 Fr_AAAAAAAAAAAA<-Fr_Data.Frame
