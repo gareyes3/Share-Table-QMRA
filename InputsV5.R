@@ -24,8 +24,9 @@
   Fr_Mean_weight<-171.1 #g
   Fr_sd_weight<-6.0 #g
   
-  #Fr Contamination per log CFU/g cm2 
-  Fr_Contamination<- (-4.16) #Salmonella
+  #Fr Contamination per log CFU/ cm2 
+  Fr_Contamination_salmonella<- (-4.16) #Salmonella
+  Fr_Contamination_norovirus<-(-4.16)  #norovirus
   
   #Prevalence of pathogens
   Prevalence_Salmonella<-.04 #Probability of contamination.
@@ -47,19 +48,19 @@
   
 #Probability that student is initially contaminated. For Viruses or Enterics.
 # If students won't carry anything then set Pr os 0
-  Pr_Student_iC<-.5
+  Pr_Student_iC<-0
   
 #Average Student Contamination can be PFU or CFU
   
-  #surface are of hand palm. 
+  #surface are of hand palm for when converting from cm^2 
   Student_PSA<-50.675 #cm^2
   
   
   if(salmonella == 1){
-    Av_ic<-(8.9*10^6) #Log CFU/Hand
+    Av_ic<-(8.9*10^6) #CFU/Hand
   }
   if(norovirus == 1){
-    Av_ic<-(8.9*10^6) #Log CFU/Hand    
+    Av_ic<-(8.9*10^6) #CFU/Hand    
   }
 
 

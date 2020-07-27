@@ -15,7 +15,12 @@ if(salmonella ==1){
 }
 
 #Level of Contamination in Student Hands. 
-IC_Student<-Av_ic/Student_PSA #CFU/cm^2
+if(salmonella ==1){
+  IC_Student<-Av_ic  #CFU/Hand
+}
+if(norovirus ==1){
+  IC_Student<-Av_ic #CFU/Hand 
+}
 
 #Touched items
 ntouched_Fr<-round(rnorm(1,3,.5),0)

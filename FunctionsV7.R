@@ -64,6 +64,17 @@ Func_Convert_Log<-function(DF){
   return(DF)
 }
 
+Func_Convert_pergram<-function(DF){
+  for(i in 1:nrow(DF)){
+    N<-DF[i,colnames(DF)== "Contamination"]
+    if(N>0){
+      N<-(DF[i,colnames(DF)== "Contamination"])/Fr_Mean_weight
+      DF[i,colnames(DF)== "Contamination"]<-N
+    }
+  }
+  return(DF)
+}
+
 
 # Adding Initial Contamination --------------------------------------------
 
@@ -89,14 +100,14 @@ func_Cont_Fr<-function(DF, Prevalence, area_av , area_sd, logContamination, weig
   return(DF)
 }
 
-func_Cont_Fr_cm2<-function(DF, Prevalence, logContamination ){
+func_Cont_Fr_cm2<-function(DF, Prevalence, logContamination, Fr_Mean_area ){
   #Df= Data frame
   #Prevalence = parameter Prevalence of pathogen
   # Contamination = Initial Contamination of the pathogen. 
   # parameter for log contamination
   for(i in 1:nrow(DF)){
     Fr_Cont_YN<- ifelse(runif(1)<Prevalence,1,0) 
-    Contamination<-10^(logContamination)
+    Contamination<-10^(logContamination)* Fr_Mean_area
     if(Fr_Cont_YN==1){
       DF[i,colnames(DF)== "Contamination"]<-Contamination
     } else if (Fr_Cont_YN==0){
