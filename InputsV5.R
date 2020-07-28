@@ -115,9 +115,6 @@
 
 # Growth Inputs ------------------------------------------------------------------
   
-#Do we want to simulate model with growth? 
-  
-  Growth<-1
 
 #Storage Infromation for growth
   
@@ -138,6 +135,12 @@
   
   #All toggles 0 = no 1 == yes
   
+                                            #Growth
+  
+  #Do we want to simulate model with growth? 
+  
+  Growth<-1
+  
 
   
                                             # Washing Items
@@ -150,7 +153,7 @@
   #Wash Share Table Items
   Wash_ST_YN_Fr<-0
   
-                                              # Share Table Toggle 
+                                            # Share Table Toggle 
   
   #Include Share Table:
   Share_Table_YN<-1
@@ -164,6 +167,10 @@
   Reservice_YN<-1
   #Re-Sharing of items in share table
   Resharing_YN<-1
+  
+                                              #Visuals Toggles
+  
+  Units_Per_gram<-0
   
   
   

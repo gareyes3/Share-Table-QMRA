@@ -4,14 +4,19 @@
 # Histograms for Exposure -------------------------------------------------
 
 #Total Consumed Ammounts Creating Data:
+
                                 #Fruit Total
   Total_Consumed_Fr<-Fr_Data_Days[which(Fr_Data_Days$Location == "Consumed"),]
   Total_Consumed_Fr$Type<- "Total Consumed"
-  Total_Consumed_Fr<-Func_Convert_pergram(Total_Consumed_Fr)
+  if(Units_Per_gram == 1){
+    Total_Consumed_Fr<-Func_Convert_pergram(Total_Consumed_Fr) 
+  }
   Total_Consumed_Fr<-Func_Convert_Log(Total_Consumed_Fr)
+  
   #Share Table Total
   Total_Consumed_ST_Fr<-Total_Consumed_Fr[which(Total_Consumed_Fr$STtimes > 0),]
   Total_Consumed_ST_Fr$Type<-" Consumed Share Table"
+  
   #Selection Table Total
   Total_Consumed_Sel_Fr<-Total_Consumed_Fr[which(Total_Consumed_Fr$STtimes ==0),]
   Total_Consumed_Sel_Fr$Type<-" Consumed Selection Table"
