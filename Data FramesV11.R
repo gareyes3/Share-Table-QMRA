@@ -21,7 +21,8 @@ if(j==1 && k== 1){
                             
   )
   
-  #Adding Initial Contaminations of fruit
+  
+  #Adding Initial Contaminations of fruit Data frame based on initial cont and prevalence
   
   
   if(salmonella==1 && Calculated_Cont==1){
