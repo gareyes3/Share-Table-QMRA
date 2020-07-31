@@ -30,7 +30,7 @@ for (k in 1:Food_Days){
     
     
     #Data Frames Source Files
-    source("Data FramesV13.R")  
+    source("Data FramesV14.R")  
   
   
   
@@ -83,6 +83,7 @@ for (k in 1:Food_Days){
         Fr_Data.Frame[Fr_Touched,colnames(Fr_Data.Frame)== "Contamination"]<-Cont_Touch_Fr
         Cont_Student<-ifelse(Cont_Student +(Cont_Dif_Student)<0,0,Cont_Student +(Cont_Dif_Student))
         Fr_Data.Frame[Fr_Touched,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_Touched,colnames(Fr_Data.Frame)=="History"], "Touched")
+        Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_Touched)
       }
       }
       }

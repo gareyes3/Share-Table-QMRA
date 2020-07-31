@@ -100,7 +100,7 @@ func_Cont_Fr<-function(DF, Prevalence, area_av , area_sd, logContamination, weig
   return(DF)
 }
 
-func_Cont_Fr_cm2<-function(DF, Prevalence, logContamination, Fr_Mean_area ){
+func_Cont_cm2<-function(DF, Prevalence, logContamination, Fr_Mean_area ){
   #Df= Data frame
   #Prevalence = parameter Prevalence of pathogen
   # Contamination = Initial Contamination of the pathogen. 
@@ -272,3 +272,40 @@ Func_Growth_Sto_Norovirus<-function(Condition,DF,TimeVar){
     return(DF)
   }
 } 
+
+
+#Growth of spolaige organism in milk
+
+Func_Growth_Milk_Spoilage<-function(Condition,DF,TimeVar){
+  if(Condition== "room temp"){
+    k<-.367
+    for (i in 1:nrow(DF)){
+      Growth<-TimeVar*k
+      N<-DF[i,colnames(DF)== "SpoilageCon"]
+      Con_Final<-N + Growth
+      DF[i,colnames(DF)== "SpoilageCon"]<-as.numeric(Con_Final)
+    }
+    return(DF)
+  } else if (Condition == "refrigerated"){
+    k<-.0334
+    for (i in 1:nrow(DF)){
+      Growth<-TimeVar*k
+      N<-DF[i,colnames(DF)== "SpoilageCon"]
+      Con_Final<-N + Growth
+      DF[i,colnames(DF)== "SpoilageCon"]<-as.numeric(Con_Final)
+    }
+    return(DF)
+  }
+} 
+
+
+Func_Spoilage_YN<-function(DF){
+  for (i in 1:nrow(DF)){
+    N<-DF[i,colnames(DF)== "SpoilageCon"]
+    if (N>Spoilage_Treshold){
+      DF[i,colnames(DF)== "SpoiledYN"]<-"Yes"
+    }
+  }
+  return(DF)
+}
+  

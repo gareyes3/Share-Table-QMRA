@@ -1,75 +1,126 @@
-# INPUTS ------------------------------------------------------------------
+# INPUTS===========================================================================================================
 
 
-#Hazards only turn one on at a time. 1 means on. 
+# Selection of Hazard -----------------------------------------------------
+
   salmonella<-0
   E_coli<-0
   norovirus<-1
   allergen<-0
-  
-#Average Initial Contamination for Fruit (#CFU/g salmonella, E coli), (Particles norovirus)
-#if there is a function for initial contamination for the pathogen, the function will override these paramneters
 
-  Initial_Cont_Fr<-0
-  Initial_Cont_Pss<-0
-  Initial_Cont_Pre<-0
+
+# Inputs for Initial Food Contamination -----------------------------------
+
   
-# DATA FOR STIMATION OF FRUIT Contamination 
+  #Toggle for calculated contamination, defaul is 0
+  Calculated_Cont_Fr<-1
+  Calculated_Cont_Pss<-1
+  Calculated_Cont_Pre<-1
   
-  Calculated_Cont<-1
-  
-  #surface area of Fruit
+  #Fruit physical characteristics used for calculation
   Fr_Mean_area<-184.7 #cm2
   Fr_sd_area<- 8.6 #cm2
   Fr_Mean_weight<-171.1 #g
   Fr_sd_weight<-6.0 #g
   
+  #Pss physical Characteristics
+  Pss_Mean_area<-100 #cm2
+  
+  #Pre physical characteristics
+  Pre_Mean_area<- 190 #cm2
+  
   #Fr Contamination per log CFU/ cm2 
   Fr_Contamination_salmonella<- (-4.16) #Salmonella
   Fr_Contamination_norovirus<-(-4.16)  #norovirus
   
-  #Prevalence of pathogens
-  Prevalence_Salmonella<-.04 #Probability of contamination.
-  Prevalence_Norovirus<-.05 #probability of food item being contaminated. 
+  #Pss Contamination per log CFU/ cm2 
+  Pss_Contamination_salmonella<- (-4.16) #Salmonella
+  Pss_Contamination_norovirus<-(-4.16)  #norovirus
   
+  #Pre Contamination per log CFU/ cm2 
+  Pre_Contamination_salmonella<- (-4.16) #Salmonella
+  Pre_Contamination_norovirus<-(-4.16)  #norovirus
+  
+  #Prevalence of pathogens in Fruit
+  Prevalence_Salmonella_Fr<-.04 #Probability of contamination.
+  Prevalence_Norovirus_Fr<-.05 #probability of food item being contaminated. 
+  
+  #Prevalence of pathogens in Pss
+  Prevalence_Salmonella_Pss<-.04 #Probability of contamination.
+  Prevalence_Norovirus_Pss<-.05 #probability of food item being contaminated. 
+  
+  #Prevalence of pathogens in Pre
+  Prevalence_Salmonella_Pre<-.04 #Probability of contamination.
+  Prevalence_Norovirus_Pre<-.05 #probability of food item being contaminated. 
+  
+  
+# Inputs for Milk Spilage -------------------------------------------------
+  
+  Initial_Spoilage_Con<-4 # Initial Spoilage organism concentration Aerobic Plate Count in log CFU/g
+  Spoilage_Treshold<-5 #Considered spoiled milk. APCs log CFU/g
 
-# Number of Iteration in service. Kids going through line
+
+
+# Inputs for Iterations. Student, Services, Meal_Days ---------------------
+
+  #Students data: Initial Iterations i
+  
   Students_p_grade<-89
   
   NSLP_rate<-.73
   
   N_Iterations<-round((Students_p_grade*NSLP_rate),0)
   
-#Serivices, number of days we are trying to iterate. Lunch periods per day
- Service_No<-2
+  #Serivices, number of days we are trying to iterate. Lunch periods per day
+  Service_No<-4
   
-#Days we are trying to Iterate. Days
+  #Days we are trying to Iterate. Days
   Food_Days<-3
+ 
+# Sevice Line Information -------------------------------------------------
   
-#Probability that student is initially contaminated. For Viruses or Enterics.
-# If students won't carry anything then set Pr os 0
-  Pr_Student_iC<-0
+  #Initial Number of fruit
+  Initial_Fr<-75 #Number of fruit 
+  Initial_Pss<-75 #number of Packaged shelf stable
+  Initial_Pre<-75 #number of packaged refrigirated
   
-#Average Student Contamination can be PFU or CFU
+  #row size in selection table
+  Row_size_Fr<-20
+  Row_size_Pss<-20
+  Row_size_Pre<-20  
+  
+  
+# Inputs for Calculation of Student Contamination -------------------------
+  
+  # If students won't carry anything then set Pr os 0
+  Pr_Student_iC<-0 #probability of 1 student being contaminated.
+
+  #Average Student Contamination can be PFU or CFU
   
   #surface are of hand palm for when converting from cm^2 
   Student_PSA<-50.675 #cm^2
   
-  
+  #Initial Contamination of salmonella 
   if(salmonella == 1){
     Av_ic<-(8.9*10^6) #CFU/Hand
   }
+  
+  #Initial Contamination of norovirus
   if(norovirus == 1){
     Av_ic<-(8.9*10^6) #CFU/Hand    
   }
+  
+  
+#Inputs for allergen contamination ----------------------------------------
+  
+  Pr_Student_Allergen<-0.5 #probability of student bringing in Allergens
+  
 
 
-#Initial Number of fruit
-  Initial_Fr<-75 #Number of fruit 
-  Initial_Pss<-75 #number of Packaged shelf stable
-  Initial_Pre<-75 #number of packaged refrigirated
+# Inputs Behavioral Probabilities -----------------------------------------
 
-#Probability of student Picking up food from line-
+
+  #Probability of student Picking up food from line-
 
   #Probability of Selecting Fruit
   Pr_select_Fr<-.56 #.23 other source
@@ -78,45 +129,42 @@
   #Probability of selecting Pre
   Pr_select_Pre<-.96 #0.78 other source
 
-#Porbability of Student touching other line items before picking their food. 
+  #Porbability of Student touching other line items before picking their food. 
   Pr_touch_Food<-.3
 
-#Proabbility of consuming Food
+  #Proabbility of consuming Food
   Pr_eat_Fr<-.63 #.48  
   Pr_eat_Pss<-.627 #.77
   Pr_eat_Pre<-.674 #.85
 
-#Probability of sharing food. 
+  #Probability of sharing food. 
 
   Pr_share_Food<-.7
 
-#Probability of student picking an additional item from share table. 
+  #Probability of student picking an additional item from share table. 
 
   Pr_Pick_ST_Fr<-.1
   Pr_Pick_ST_Pss<-.1
   Pr_Pick_ST_Pre<-.1
 
-#Probability Sutdent eats share table item
+  #Probability Sutdent eats share table item
 
   Pr_eat_ST_Fr<-.9
   Pr_eat_ST_Pss<-.9
   Pr_eat_ST_Pre<-.9
 
 
-#Reduction achieved by washing
-
-  Reduction_wash<-(-2)
-
-#row size in selection table
-  Row_size_Fr<-20
-  Row_size_Pss<-20
-  Row_size_Pre<-20
+# Washing Parameters ------------------------------------------------------
   
+  #Reduction achieved by washing
+
+  Reduction_wash<-(-2) #log Reduction by washing
+
 
 # Growth Inputs ------------------------------------------------------------------
   
 
-#Storage Infromation for growth
+  #Storage Infromation for growth
   
   #Temperature at Share Table
   Temp_RT<-25
