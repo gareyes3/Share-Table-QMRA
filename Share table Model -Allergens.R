@@ -1,6 +1,6 @@
 
-#setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA") 
-setwd("G:/Share Table QMRA/Share-Table-QMRA")
+setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA") 
+#setwd("G:/Share Table QMRA/Share-Table-QMRA")
 library("ggplot2") 
 library("reshape2") 
 library("mc2d")

@@ -303,9 +303,21 @@ Func_Spoilage_YN<-function(DF){
   for (i in 1:nrow(DF)){
     N<-DF[i,colnames(DF)== "SpoilageCon"]
     if (N>Spoilage_Treshold){
-      DF[i,colnames(DF)== "SpoiledYN"]<-"Yes"
+      DF[i,colnames(DF)== "SpoiledYN"]<-TRUE
     }
   }
   return(DF)
 }
   
+
+#Allergen Function: 
+
+Func_Allergen_CC<-function(DF, PickedVar){
+  if(Fr_Data.Frame[Fr_Touched,colnames(Fr_Data.Frame)== "ExposedAllergen"] == TRUE ){
+    Cont_Student_Allergen_YN<-1
+  }
+  if(Fr_Data.Frame[Fr_Touched,colnames(Fr_Data.Frame)== "ExposedAllergen"] == FALSE && Cont_Student_Allergen_YN == 1){
+    Fr_Data.Frame[Fr_Touched,colnames(Fr_Data.Frame)== "ExposedAllergen"]<- TRUE
+  }
+  return(Fr_Data.Frame)
+}
