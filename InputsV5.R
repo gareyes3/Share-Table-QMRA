@@ -3,9 +3,9 @@
 
 # Selection of Hazard -----------------------------------------------------
 
-  salmonella<-0
+  salmonella<-1
   E_coli<-0
-  norovirus<-1
+  norovirus<-0
   allergen<-0
 
 
@@ -56,7 +56,7 @@
   
 # Inputs for Milk Spilage -------------------------------------------------
   
-  Initial_Spoilage_Con<-4 # Initial Spoilage organism concentration Aerobic Plate Count in log CFU/g
+  Initial_Spoilage_Con<-2.18 # Initial Spoilage organism concentration Aerobic Plate Count in log CFU/g
   Spoilage_Treshold<-5 #Considered spoiled milk. APCs log CFU/g
 
 
@@ -72,10 +72,10 @@
   N_Iterations<-round((Students_p_grade*NSLP_rate),0)
   
   #Serivices, number of days we are trying to iterate. Lunch periods per day
-  Service_No<-4
+  Service_No<-5
   
   #Days we are trying to Iterate. Days
-  Food_Days<-3
+  Food_Days<-5
  
 # Sevice Line Information -------------------------------------------------
   
@@ -93,7 +93,7 @@
 # Inputs for Calculation of Student Contamination -------------------------
   
   # If students won't carry anything then set Pr os 0
-  Pr_Student_iC<-0 #probability of 1 student being contaminated.
+  Pr_Student_iC<-.005 #probability of 1 student being contaminated.
 
   #Average Student Contamination can be PFU or CFU
   
@@ -204,17 +204,17 @@
                                             # Share Table Toggle 
   
   #Include Share Table:
-  Share_Table_YN<-1
+  Share_Table_YN<-0
   #NOTE: Turn off Re-Sharing and -STto reservice too
                                             # Re-Sharing, Re-Service 
   
   #this happens in the data frame file
   #Share Table to Re-Service
-  STtoReservice_YN<-1  
+  STtoReservice_YN<-0  
   #Re-Service of Items left in Share Table 
   Reservice_YN<-1
   #Re-Sharing of items in share table
-  Resharing_YN<-1
+  Resharing_YN<-0
   
                                               #Visuals Toggles
   
