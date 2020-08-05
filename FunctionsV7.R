@@ -274,7 +274,7 @@ Func_Growth_Sto_Norovirus<-function(Condition,DF,TimeVar){
 } 
 
 
-#Growth of spolaige organism in milk
+# Spoilage of Organisms. ----------------------------------------------
 
 Func_Growth_Milk_Spoilage<-function(Condition,DF,TimeVar){
   if(Condition== "room temp"){
