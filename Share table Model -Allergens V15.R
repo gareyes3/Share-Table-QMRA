@@ -51,7 +51,7 @@ for (k in 1:Food_Days){
     #Running Student Allergen Contamination based on Probability
     Cont_Student_Allergen_YN<-ifelse(runif(1)<Pr_Student_Allergen,1,0)
     
-    if(Toggle_SelfAssigned_Allergens<-1){
+    if(Toggle_SelfAssigned_Allergens==1){
       if( k == Student_Allergen_Day[Student_Allergen_Count] 
           && j == Student_Allergen_Service[Student_Allergen_Count] 
           && i ==Student_Allergen_No[Student_Allergen_Count]){
@@ -130,6 +130,7 @@ for (k in 1:Food_Days){
       Cont_Dif_Student<-Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination")-(Cont_Tray_Fr)
       Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "Contamination"]<-Cont_Tray_Fr
       Cont_Student<-ifelse(Cont_Student +(Cont_Dif_Student)<0,0,Cont_Student +(Cont_Dif_Student))
+      Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_Picked)
     }
     
                                                         #PSS
@@ -151,6 +152,7 @@ for (k in 1:Food_Days){
         Pss_Data.Frame[Pss_Touched,colnames(Pss_Data.Frame)== "Contamination"]<-Cont_Touch_Pss
         Cont_Student<-ifelse(Cont_Student +(Cont_Dif_Student)<0,0,Cont_Student +(Cont_Dif_Student))
         Pss_Data.Frame[Pss_Touched,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_Touched,colnames(Pss_Data.Frame)=="History"], "Touched")
+        Pss_Data.Frame<-Func_Allergen_CC(Pss_Data.Frame,Pss_Touched)
       }
       }
     }
@@ -184,6 +186,7 @@ for (k in 1:Food_Days){
       Cont_Dif_Student<-Func_Index_DF(Pss_Data.Frame,Pss_Picked,"Contamination")-(Cont_Tray_Pss)
       Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)== "Contamination"]<-Cont_Tray_Pss
       Cont_Student<-ifelse(Cont_Student +(Cont_Dif_Student)<0,0,Cont_Student +(Cont_Dif_Student))
+      Pss_Data.Frame<-Func_Allergen_CC(Pss_Data.Frame,Pss_Picked)
     }
     
     
@@ -207,6 +210,7 @@ for (k in 1:Food_Days){
         Pre_Data.Frame[Pre_Touched,colnames(Pre_Data.Frame)== "Contamination"]<-Cont_Touch_Pre
         Cont_Student<-ifelse(Cont_Student +(Cont_Dif_Student)<0,0,Cont_Student +(Cont_Dif_Student))
         Pre_Data.Frame[Pre_Touched,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_Touched,colnames(Pre_Data.Frame)=="History"], "Touched")
+        Pre_Data.Frame<-Func_Allergen_CC(Pre_Data.Frame,Pre_Touched)
       }
       }
     }
@@ -240,6 +244,7 @@ for (k in 1:Food_Days){
       Cont_Dif_Student<-Func_Index_DF(Pre_Data.Frame,Pre_Picked,"Contamination")-(Cont_Tray_Pre)
       Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)== "Contamination"]<-Cont_Tray_Pre
       Cont_Student<-ifelse(Cont_Student +(Cont_Dif_Student)<0,0,Cont_Student +(Cont_Dif_Student))
+      Pre_Data.Frame<-Func_Allergen_CC(Pre_Data.Frame,Pre_Picked)
     }  
     
     
@@ -385,6 +390,7 @@ for (k in 1:Food_Days){
       Cont_Tray_Fr<- Func_Index_DF(Fr_Data.Frame,Fr_ST_Picked,"Contamination") + Tr_H_Fr - (Func_Index_DF(Fr_Data.Frame,Fr_ST_Picked,"Contamination")* TE_F_H)
       #Add contamination to chosen fruit in Dataframe
       Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)== "Contamination"]<-Cont_Tray_Fr
+      Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_ST_Picked)
       }
     
       #Consumption of share table item
@@ -433,6 +439,7 @@ for (k in 1:Food_Days){
         Cont_Tray_Pss<- Func_Index_DF(Pss_Data.Frame,Pss_ST_Picked,"Contamination") + Tr_H_Pss - (Func_Index_DF(Pss_Data.Frame,Pss_ST_Picked,"Contamination")* TE_F_H)
         #Add contamination to chosen fruit in Dataframe
         Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)== "Contamination"]<-Cont_Tray_Pss
+        Pss_Data.Frame<-Func_Allergen_CC(Pss_Data.Frame,Pss_ST_Picked)
       }
       
       #Consumption of share table item
@@ -481,6 +488,7 @@ for (k in 1:Food_Days){
         Cont_Tray_Pre<- Func_Index_DF(Pre_Data.Frame,Pre_ST_Picked,"Contamination") + Tr_H_Pre - (Func_Index_DF(Pre_Data.Frame,Pre_ST_Picked,"Contamination")* TE_F_H)
         #Add contamination to chosen fruit in Dataframe
         Pre_Data.Frame[Pre_ST_Picked,colnames(Pre_Data.Frame)== "Contamination"]<-Cont_Tray_Pre
+        Pre_Data.Frame<-Func_Allergen_CC(Pre_Data.Frame,Pre_ST_Picked)
       }
       
       #Consumption of share table item

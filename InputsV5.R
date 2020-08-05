@@ -113,9 +113,13 @@
   
 #Inputs for allergen contamination ----------------------------------------
   
-  Pr_Student_Allergen<-0.5 #probability of student bringing in Allergens
+  Pr_Student_Allergen<-0 #probability of student bringing in Allergens
+  Number_Student_Allergens<-2
   
-
+  Student_Allergen_No<-c(5,19)  #No Student that is contaminated to enter iteration
+  Student_Allergen_Service<-c(2,3) #service in which contaminated kid enter the. 
+  Student_Allergen_Day<-c(1,2)#Day in which contaminated kids may enter system. 
+  
 
 # Inputs Behavioral Probabilities -----------------------------------------
 
@@ -204,24 +208,25 @@
                                             # Share Table Toggle 
   
   #Include Share Table:
-  Share_Table_YN<-0
+  Share_Table_YN<-1
   #NOTE: Turn off Re-Sharing and -STto reservice too
                                             # Re-Sharing, Re-Service 
   
   #this happens in the data frame file
   #Share Table to Re-Service
-  STtoReservice_YN<-0  
+  STtoReservice_YN<-1 
   #Re-Service of Items left in Share Table 
   Reservice_YN<-1
   #Re-Sharing of items in share table
-  Resharing_YN<-0
+  Resharing_YN<-1
   
                                               #Visuals Toggles
   
   Units_Per_gram<-0
   
   
-  
+                                              #Allergen Toggles
+  Toggle_SelfAssigned_Allergens<-1
   
 # COUNTER & LISTS -------------------#DO NOT MODIFY-----------------------
   #DO NOT MODIFY
@@ -250,5 +255,6 @@
 
   Student_Cont_Count<-c(0)
 
+  Student_Allergen_Count<-1
 
   

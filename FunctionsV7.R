@@ -313,11 +313,10 @@ Func_Spoilage_YN<-function(DF){
 #Allergen Function: 
 
 Func_Allergen_CC<-function(DF, PickedVar){
-  if(Fr_Data.Frame[Fr_Touched,colnames(Fr_Data.Frame)== "ExposedAllergen"] == TRUE ){
+  if(DF[PickedVar,colnames(DF)== "ExposedAllergen"] == TRUE ){
     Cont_Student_Allergen_YN<-1
+  } else if(DF[PickedVar,colnames(DF)== "ExposedAllergen"] == FALSE && Cont_Student_Allergen_YN == 1){
+    DF[PickedVar,colnames(DF)== "ExposedAllergen"]<- TRUE
   }
-  if(Fr_Data.Frame[Fr_Touched,colnames(Fr_Data.Frame)== "ExposedAllergen"] == FALSE && Cont_Student_Allergen_YN == 1){
-    Fr_Data.Frame[Fr_Touched,colnames(Fr_Data.Frame)== "ExposedAllergen"]<- TRUE
-  }
-  return(Fr_Data.Frame)
+  return(DF)
 }
