@@ -85,35 +85,35 @@
 
   # Exposure Plots ----------------------------------------------------------
   
-  Exposure_Plot_Function<-function(Consumed = Total_Consumed_Fr ,Title = "Insert Title"){
+  Exposure_Plot_Function<-function(Consumed = Total_Consumed_Fr ,Title = "Insert Title", xlab, ylab){
     ggplot(Consumed, aes(x=Contamination)) + 
     geom_histogram( fill="#69b3a2", color="#e9ecef", binwidth = (Av_ic/60), boundary=.99) +
     ggtitle(Title)+
     theme(plot.title = element_text(hjust = 0.5))+
     stat_bin(binwidth=(Av_ic/60), geom="text", size=3.5 ,aes(label=..count.., vjust=-.3), boundary = .99)+
     scale_x_continuous(breaks = seq(0,Av_ic,(Av_ic/60)))+
-    labs(x= "Contamination of Fruit Consumed", y= "Count of Fruit Consumed")+
+    labs(x= xlab, y= ylab)+
     theme(axis.text.x=element_text(angle=90, hjust=1))
   }
 
-  Exposure_Plot_Function2<-function(Consumed = Total_Consumed_Fr ,Title = "Insert Title"){
+  Exposure_Plot_Function2<-function(Consumed = Total_Consumed_Fr ,Title = "Insert Title", xlab, ylab){
     ggplot(Consumed, aes(x=Contamination)) + 
       geom_histogram( fill="#69b3a2", color="#e9ecef", binwidth = (500), boundary=.99) +
       ggtitle(Title)+
       theme(plot.title = element_text(hjust = 0.5))+
       stat_bin(binwidth=(500), geom="text", size=3.5 ,aes(label=..count.., vjust=-.3), boundary = .99)+
       scale_x_continuous(breaks = seq(0,15000,(500)))+
-      labs(x= "Contamination of Fruit Consumed", y= "Count of Fruit Consumed")+
+      labs(x= xlab, y= ylab)+
       theme(axis.text.x=element_text(angle=90, hjust=1))
   }
   
-  Exposure_Plot_Function3<-function(Consumed = Total_Consumed_Fr ,Title = "Insert Title"){
+  Exposure_Plot_Function3<-function(Consumed = Total_Consumed_Fr ,Title = "Insert Title", xlab, ylab){
     ggplot(Consumed, aes(x=Contamination)) + 
       geom_histogram( fill="#69b3a2", color="#e9ecef", binwidth = 1, boundary= -1) +
       stat_bin(binwidth=1, geom="text", size=3.5 ,aes(label=..count.., vjust=-.3),boundary = -1 )+
       ggtitle(Title)+
       theme(plot.title = element_text(hjust = 0.5))+
-      labs(x= "Contamination of Fruit Consumed log CFU/g", y= "Count of Fruit Consumed")+
+      labs(x= xlab, y= ylab)+
       theme(axis.text.x=element_text(angle=90, hjust=1))
   }
   
@@ -122,18 +122,19 @@
   # Staggered Functions -----------------------------------------------------
 
   
-  Exposure_Staggered_Function<-function(ConsumedDF = Total_Consumed_Fr_Bind ,Contamination = Contamination ,Type = Type, Title = "Insert Title Here"){
+  Exposure_Staggered_Function<-function(ConsumedDF = Total_Consumed_Fr_Bind ,Contamination = Contamination ,Type = Type, Title = "Insert Title Here", xlab, ylab){
       ggplot(ConsumedDF, aes(x=Contamination, fill= Type)) + 
     geom_histogram(alpha = 0.5, position = 'identity',binwidth = (Av_ic/60), boundary=.99 ) +
     ggtitle(Title)+
+    labs(x= xlab, y= ylab)+
     theme(plot.title = element_text(hjust = 0.5))
   }
   
-  Exposure_Staggered_Function2<-function(ConsumedDF = Total_Consumed_Fr_Bind ,Contamination = Contamination ,Type = Type, Title = "Insert Title Here"){
+  Exposure_Staggered_Function2<-function(ConsumedDF = Total_Consumed_Fr_Bind ,Contamination = Contamination ,Type = Type, Title = "Insert Title Here", xlab, ylab){
       ggplot(ConsumedDF, aes(x=Contamination, fill= Type)) + 
         geom_histogram(alpha = 0.5, position = 'identity', boundary=-1, binwidth = 1 ) +
         ggtitle(Title)+
-        labs(x= "Contamination of Fruit Consumed log CFU/g", y= "Count of Fruit Consumed")+
+        labs(x= xlab, y= ylab)+
         theme(plot.title = element_text(hjust = 0.5))
     }
     
@@ -186,11 +187,11 @@
 
 
   # Exposure Graphs Staggered ------------------------------------------------
-    
-  Exposure_Staggered_Function2(Total_Consumed_Fr_Bind,Contamination = Contamination, Type = Type, "Total Exposure Fruit")
-  Exposure_Staggered_Function2(Total_Consumed_Pss_Bind,Contamination = Contamination, Type = Type, "Total Exposure Pss")
-  Exposure_Staggered_Function2(Total_Consumed_Pre_Bind,Contamination = Contamination, Type = Type, "Total Exposure Pre")
-   
+  
+  Exposure_Staggered_Function2(Total_Consumed_Fr_Bind,Contamination = Contamination, Type = Type, "Total Exposure Fruit", "Contamination per Fruit log CFU/Fruit", "Count of Fruit Consumed")
+  Exposure_Staggered_Function2(Total_Consumed_Pss_Bind,Contamination = Contamination, Type = Type, "Total Exposure Pss","Contamination per Pss log CFU/Pss", "Count of PSs Consumed")
+  Exposure_Staggered_Function2(Total_Consumed_Pre_Bind,Contamination = Contamination, Type = Type, "Total Exposure Pre", "Contamination per Pre log CFU/Pre", "Count of Pre Consumed")
+
 
   # Bar Chart for Location --------------------------------------------------
 
@@ -209,31 +210,31 @@
   # Histogram Exposure Visuals ----------------------------------------------
                                   #Fruit
   #Total Exposure
-  Exposure_Plot_Function3(Total_Consumed_Fr, "Exposure total Fruit Consumed")
-  Exposure_Plot_Function3(Total_Consumed_Fr_Bind, "Exposure total Fruit Consumed")
+  Exposure_Plot_Function3(Total_Consumed_Fr, "Exposure total Fruit Consumed", "Contamination per Fruit log CFU/Fruit", "Count of Fruit Consumed")
+  Exposure_Plot_Function3(Total_Consumed_Fr_Bind, "Exposure total Fruit Consumed", "Contamination per Fruit log CFU/Fruit", "Count of Fruit Consumed")
   #Total Exposure from Share Table Items
-  Exposure_Plot_Function3(Total_Consumed_ST_Fr, "Exposure Consumed Fruit from Share Tables")
+  Exposure_Plot_Function3(Total_Consumed_ST_Fr, "Exposure Consumed Fruit from Share Tables", "Contamination per Fruit log CFU/Fruit", "Count of Fruit Consumed")
   #Total Exposure from Selection Table Items
-  Exposure_Plot_Function3(Total_Consumed_Sel_Fr, "Exposure Consumed Fruit from Selection Tables")
+  Exposure_Plot_Function3(Total_Consumed_Sel_Fr, "Exposure Consumed Fruit from Selection Tables", "Contamination per Fruit log CFU/Fruit", "Count of Fruit Consumed")
 
 
 
   
                                   #Pss
   #Total Exposure
-  Exposure_Plot_Function3(Total_Consumed_Pss, "Exposure total Consumed Pss")
+  Exposure_Plot_Function3(Total_Consumed_Pss, "Exposure total Consumed Pss", "Contamination per Pss log CFU/Pss", "Count of PSs Consumed")
   #Total Exposure from Share Table Items
-  Exposure_Plot_Function3(Total_Consumed_ST_Pss, "Exposure Consumed Pss from Share Tables")
+  Exposure_Plot_Function3(Total_Consumed_ST_Pss, "Exposure Consumed Pss from Share Tables" ,"Contamination per Pss log CFU/Pss", "Count of PSs Consumed")
   #Total Exposure from Selection Table Items
-  Exposure_Plot_Function3(Total_Consumed_Sel_Pss, "Exposure Consumed Pss from Selection Table")
+  Exposure_Plot_Function3(Total_Consumed_Sel_Pss, "Exposure Consumed Pss from Selection Table" ,"Contamination per Pss log CFU/Pss", "Count of PSs Consumed")
                                 
                                   #Pre    
   #Total Exposure
-  Exposure_Plot_Function3(Total_Consumed_Pre, "Exposure total Consumed Pre")
+  Exposure_Plot_Function3(Total_Consumed_Pre, "Exposure total Consumed Pre", "Contamination per Pre log CFU/Pre", "Count of Pre Consumed")
   #Total Exposure from Share Table Items
-  Exposure_Plot_Function3(Total_Consumed_ST_Pre, "Exposure Consumed Pre from Share Tables")
+  Exposure_Plot_Function3(Total_Consumed_ST_Pre, "Exposure Consumed Pre from Share Tables",  "Contamination per Pre log CFU/Pre", "Count of Pre Consumed")
   #Total Exposure from Selection Table Items
-  Exposure_Plot_Function3(Total_Consumed_Sel_Pre, "Exposure Consumed Pre from Selection Table")
+  Exposure_Plot_Function3(Total_Consumed_Sel_Pre, "Exposure Consumed Pre from Selection Table", "Contamination per Pre log CFU/Pre", "Count of Pre Consumed")
   
   
   #Sum of the total partciles consumed.   
