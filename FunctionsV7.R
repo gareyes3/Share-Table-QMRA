@@ -320,3 +320,6 @@ Func_Allergen_CC<-function(DF, PickedVar){
   }
   return(DF)
 }
+
+
+

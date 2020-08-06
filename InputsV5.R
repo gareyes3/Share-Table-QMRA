@@ -54,9 +54,9 @@
   Prevalence_Norovirus_Pre<-.05 #probability of food item being contaminated. 
   
   
-# Inputs for Milk Spilage -------------------------------------------------
+# Inputs for Milk Spoilage -------------------------------------------------
   
-  Initial_Spoilage_Con<-2.18 # Initial Spoilage organism concentration Aerobic Plate Count in log CFU/g
+  Initial_Spoilage_Con<-1.69 # Initial Spoilage organism concentration Aerobic Plate Count in log CFU/mL
   Spoilage_Treshold<-5 #Considered spoiled milk. APCs log CFU/g
 
 
@@ -93,7 +93,14 @@
 # Inputs for Calculation of Student Contamination -------------------------
   
   # If students won't carry anything then set Pr os 0
-  Pr_Student_iC<-.005 #probability of 1 student being contaminated.
+  Pr_Student_iC<-0 #probability of 1 student being contaminated. #set as 0 if self calculated. 
+  
+  
+  Number_Student_Pathogens<-2
+  
+  Student_Pathogen_No<-c(5,65)  #No Student that is contaminated to enter iteration
+  Student_Pathogen_Service<-c(2,5) #service in which contaminated kid enter the. 
+  Student_Pathogen_Day<-c(1,5)#Day in which contaminated kids may enter system. 
 
   #Average Student Contamination can be PFU or CFU
   
@@ -116,9 +123,9 @@
   Pr_Student_Allergen<-0 #probability of student bringing in Allergens
   Number_Student_Allergens<-2
   
-  Student_Allergen_No<-c(5,19)  #No Student that is contaminated to enter iteration
-  Student_Allergen_Service<-c(2,3) #service in which contaminated kid enter the. 
-  Student_Allergen_Day<-c(1,2)#Day in which contaminated kids may enter system. 
+  Student_Allergen_No<-c(5,65)  #No Student that is contaminated to enter iteration
+  Student_Allergen_Service<-c(2,5) #service in which contaminated kid enter the. 
+  Student_Allergen_Day<-c(1,5)#Day in which contaminated kids may enter system. 
   
 
 # Inputs Behavioral Probabilities -----------------------------------------
@@ -134,7 +141,7 @@
   Pr_select_Pre<-.96 #0.78 other source
 
   #Porbability of Student touching other line items before picking their food. 
-  Pr_touch_Food<-.3
+  Pr_touch_Food<-1
 
   #Proabbility of consuming Food
   Pr_eat_Fr<-.63 #.48  
@@ -228,6 +235,10 @@
                                               #Allergen Toggles
   Toggle_SelfAssigned_Allergens<-1
   
+                                              #Initial Contamination
+  Toggle_SelfAssigned_Pathogens<-1
+  
+  
 # COUNTER & LISTS -------------------#DO NOT MODIFY-----------------------
   #DO NOT MODIFY
   
@@ -256,5 +267,6 @@
   Student_Cont_Count<-c(0)
 
   Student_Allergen_Count<-1
+  Student_Pathogen_Count<-1
 
   

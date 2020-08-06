@@ -1,18 +1,14 @@
 
-setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA") 
-#setwd("G:/Share Table QMRA/Share-Table-QMRA")
-library("ggplot2") 
-library("reshape2") 
-library("mc2d")
-library(dplyr)
-library(deSolve)
-library(brms)
+#setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA") 
+setwd("G:/Share Table QMRA/Share-Table-QMRA")
+
+#Library
+source("Library.R")
 
 
 ####RUN FROM HERE####
 
 # Source Files ------------------------------------------------------------
-
 
 #Inputs
 source("InputsV5.R")
@@ -41,39 +37,9 @@ for (k in 1:Food_Days){
     
     #Random Inputs
     source("RandInputsV5.R")   
-  
-    #Running Student Contamination based on Probability. 
-    Cont_Student<- ifelse(runif(1)<Pr_Student_iC,IC_Student,0) 
-    if (Cont_Student>0){
-      Student_Cont_Count<-(Student_Cont_Count+1)
-    }
     
-    #Running Student Allergen Contamination based on Probability
-    Cont_Student_Allergen_YN<-ifelse(runif(1)<Pr_Student_Allergen,1,0)
-    
-    if(Toggle_SelfAssigned_Allergens==1){
-      if( k == Student_Allergen_Day[Student_Allergen_Count] 
-          && j == Student_Allergen_Service[Student_Allergen_Count] 
-          && i ==Student_Allergen_No[Student_Allergen_Count]){
-        Cont_Student_Allergen_YN <- 1 
-        Student_Allergen_Count<-(Student_Allergen_Count+1)
-        if(Student_Allergen_Count>Number_Student_Allergens){
-          Student_Allergen_Count<-Number_Student_Allergens
-        }
-      }
-    }
-    
-    
-    
-    
-    #Total transfer of particles=================================================================
-    
-    Tr_H_Fr<-Cont_Student*TE_H_F
-    Tr_Fr_H<-Cont_Fr*TE_F_H
-    Tr_H_Pss<- Cont_Student*TE_H_F
-    Tr_Pss_H<-Cont_Pss*TE_F_H
-    Tr_H_Pre<-Cont_Student*TE_H_F
-    Tr_Pre_H<-Cont_Pre*TE_F_H 
+    #Claculations for Initial Contaminations
+    source("InitialContaminations.R")
     
     #Student Selection ===========================================================================
     
