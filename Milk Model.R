@@ -56,3 +56,19 @@ Func_Growth_Milk_Spoilage<-function(Condition,DF,TimeVar){
     return(DF)
   }
 } 
+
+
+
+################New Model###########
+
+
+Temp<-4
+Initial_pop<-lognormal(1,0.9)
+Tempmin<-(-1.19)
+b<-.03578
+k<-((Temp-Tempmin)*b)^2
+Conversion<-2^k
+New_K<-log10(Conversion)
+New_K*504
+
+
