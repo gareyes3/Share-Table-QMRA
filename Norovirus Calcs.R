@@ -1,5 +1,5 @@
 Surface_hands<- 52  #cm^2
-mass_feces_hands<- rbetagen(500,4.57,2.55,-8.00,-1.00) #log(g/hands)
+mass_feces_hands<- rbetagen(1,4.57,2.55,-8.00,-1.00) #log(g/hands)
 HU_NV_in_Feces<- rlnormTrunc(1,6.65,2.06,0.0,10.98) #log HuNov CG/ g
 Hu_NV_restroom<- runif(1,0,2) #log HUNOV/cm2
 TE_RH<- rtriang(1,.036,.07,.22) 
