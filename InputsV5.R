@@ -3,9 +3,9 @@
 
 # Selection of Hazard -----------------------------------------------------
 
-  salmonella<-1
+  salmonella<-0
   E_coli<-0
-  norovirus<-0
+  norovirus<-1
   allergen<-0
 
 
@@ -237,6 +237,9 @@
   
                                               #Initial Contamination
   Toggle_SelfAssigned_Pathogens<-1
+  
+                                              #Wrapping Apples
+  Wrapping_Apples<-0
   
   
 # COUNTER & LISTS -------------------#DO NOT MODIFY-----------------------

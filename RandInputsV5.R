@@ -7,6 +7,7 @@ TE_F_H<-rbetagen(1,0.88,1.01,.048,.164)
 TE_F_S<-.0250 #TE between Food and Surfaces
 TE_S_H<-.1090 #TE between Surfaces and Hands
 TE_S_F<-.4620 #TE between Surfaces and Foods
+TE_Pre_Mouth<-.1 #TE between Milk to Mouth
   }
 
 if(salmonella ==1){

@@ -1,6 +1,6 @@
 
-#setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA") 
-setwd("G:/Share Table QMRA/Share-Table-QMRA")
+setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA") 
+#setwd("G:/Share Table QMRA/Share-Table-QMRA")
 
 #Library
 source("Library.R")
@@ -55,15 +55,21 @@ for (k in 1:Food_Days){
       Sum_Fr_Available<-sum(Fr_Available)
       if(Sum_Fr_Available>ntouched_Fr){
       for (i in 1:ntouched_Fr){
-        Tr_H_Fr<-Cont_Student*TE_H_F
-        Search.df.fr_touched<-Func_seach_Data4(Fr_Data.Frame,Fr_Data.Frame$Location,"Selection Table",Row_size_Fr)
-        Fr_Touched<-as.numeric(Search.df.fr_touched$Apple.No.)
-        Cont_Touch_Fr<- Func_Index_DF(Fr_Data.Frame,Fr_Touched,"Contamination") + Tr_H_Fr - (Func_Index_DF(Fr_Data.Frame,Fr_Touched,"Contamination")* TE_F_H) #tranfer from fruit to hand
-        Cont_Dif_Student<-Func_Index_DF(Fr_Data.Frame,Fr_Touched,"Contamination")-(Cont_Touch_Fr)
-        Fr_Data.Frame[Fr_Touched,colnames(Fr_Data.Frame)== "Contamination"]<-Cont_Touch_Fr
-        Cont_Student<-ifelse(Cont_Student +(Cont_Dif_Student)<0,0,Cont_Student +(Cont_Dif_Student))
-        Fr_Data.Frame[Fr_Touched,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_Touched,colnames(Fr_Data.Frame)=="History"], "Touched")
-        Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_Touched) #Adding Allergen Contamination
+        #Searching the Touched Fruit
+        
+        Search.df.fr_touched<-Func_seach_Data4(Fr_Data.Frame,Fr_Data.Frame$Location,"Selection Table",Row_size_Fr) #Searching for fruit to touch
+        Fr_Touched<-as.numeric(Search.df.fr_touched$Apple.No.) #Fruit touched
+        Fr_Data.Frame[Fr_Touched,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_Touched,colnames(Fr_Data.Frame)=="History"], "Touched") #Adding History to History
+        
+        #Cross Contamination from Touching Fruit @Touch
+        
+        Tr_H_Fr<-Cont_Student*TE_H_F #Tranfer from Hand to Fruit
+        Tr_Fr_H<-(Func_Index_DF(Fr_Data.Frame,Fr_Touched,"Contamination")* TE_F_H) #Tranfer from fruit to hand
+        Cont_Fr_Updated<- Func_Index_DF(Fr_Data.Frame,Fr_Touched,"Contamination") + Tr_H_Fr - (Tr_Fr_H) #New contamination frut 
+        Cont_Fr_Difference<-Func_Index_DF(Fr_Data.Frame,Fr_Touched,"Contamination")-(Cont_Fr_Updated) #difference in contamination to update student contamination
+        Fr_Data.Frame[Fr_Touched,colnames(Fr_Data.Frame)== "Contamination"]<-Cont_Fr_Updated #updating Fr contamination in data frame
+        Cont_Student<-ifelse(Cont_Student +(Cont_Fr_Difference)<0,0,Cont_Student +(Cont_Fr_Difference)) #Updating Contamination in Student's hands
+        Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_Touched) #Adding Allergen Contamination from touch. 
       }
       }
       }
@@ -89,14 +95,15 @@ for (k in 1:Food_Days){
     #Contamination from Hand to fruit Going into Tray
     
     if(Pick_YN_Fr==1){
-      Tr_H_Fr<-Cont_Student*TE_H_F
-      #Contamination at tray
-      Cont_Tray_Fr<- Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination") + Tr_H_Fr - (Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination")* TE_F_H) #tranfer from fruit to hand
-      #Add contamination to chosen fruit in Dataframe
-      Cont_Dif_Student<-Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination")-(Cont_Tray_Fr)
-      Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "Contamination"]<-Cont_Tray_Fr
-      Cont_Student<-ifelse(Cont_Student +(Cont_Dif_Student)<0,0,Cont_Student +(Cont_Dif_Student))
-      Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_Picked) #Adding Allergen Contamination
+      #Cross Contamination from Touching Fruit @Tray
+      
+      Tr_H_Fr<-Cont_Student*TE_H_F #Transfer from Hand to Fruit
+      Tr_Fr_H<-(Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination")* TE_F_H) #Tranfer from fruit to hand
+      Cont_Fr_Updated<- Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination") + Tr_H_Fr - (Tr_Fr_H) #New Contamination of Fruit
+      Cont_Fr_Difference<-Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination")-(Cont_Fr_Updated) #Difference in contamination to update student contamination
+      Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "Contamination"]<-Cont_Fr_Updated #update the Fr Contamination in Data frame
+      Cont_Student<-ifelse(Cont_Student +(Cont_Fr_Difference)<0,0,Cont_Student +(Cont_Fr_Difference)) #Updating Contamination in Student's hands
+      Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_Picked) #Adding Allergen Contamination from touch.
     }
     
                                                         #PSS
@@ -110,15 +117,21 @@ for (k in 1:Food_Days){
       Sum_Pss_Available<-sum(Pss_Available)
       if(Sum_Pss_Available>ntouched_Pss){
       for (i in 1:ntouched_Pss){
-        Tr_H_Pss<-Cont_Student*TE_H_F
-        Search.df.Pss_touched<-Func_seach_Data4(Pss_Data.Frame,Pss_Data.Frame$Location,"Selection Table",Row_size_Pss)
-        Pss_Touched<-as.numeric(Search.df.Pss_touched$Pss.No.)
-        Cont_Touch_Pss<- Func_Index_DF(Pss_Data.Frame,Pss_Touched,"Contamination") + Tr_H_Pss - (Func_Index_DF(Pss_Data.Frame,Pss_Touched,"Contamination")* TE_F_H) #tranfer from fruit to hand
-        Cont_Dif_Student<-Func_Index_DF(Pss_Data.Frame,Pss_Touched,"Contamination")-(Cont_Touch_Pss)
-        Pss_Data.Frame[Pss_Touched,colnames(Pss_Data.Frame)== "Contamination"]<-Cont_Touch_Pss
-        Cont_Student<-ifelse(Cont_Student +(Cont_Dif_Student)<0,0,Cont_Student +(Cont_Dif_Student))
-        Pss_Data.Frame[Pss_Touched,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_Touched,colnames(Pss_Data.Frame)=="History"], "Touched")
-        Pss_Data.Frame<-Func_Allergen_CC(Pss_Data.Frame,Pss_Touched) #Adding Allergen Contamination
+        #Searching the Touched Pss
+        
+        Search.df.Pss_touched<-Func_seach_Data4(Pss_Data.Frame,Pss_Data.Frame$Location,"Selection Table",Row_size_Pss) #Searching for Pss to touch
+        Pss_Touched<-as.numeric(Search.df.Pss_touched$Pss.No.) #Pss touched
+        Pss_Data.Frame[Pss_Touched,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_Touched,colnames(Pss_Data.Frame)=="History"], "Touched") #Adding History to History
+        
+        #Cross Contamination from Touching Pss @Touch
+        
+        Tr_H_Pss<-Cont_Student*TE_H_F #Tranfer from Hand to Fruit
+        Tr_Pss_H<-(Func_Index_DF(Pss_Data.Frame,Pss_Touched,"Contamination")* TE_F_H) #Tranfer from Pss to hand
+        Cont_Pss_Updated<- Func_Index_DF(Pss_Data.Frame,Pss_Touched,"Contamination") + Tr_H_Pss - (Tr_Pss_H) #New contamination Pss 
+        Cont_Pss_Difference<-Func_Index_DF(Pss_Data.Frame,Pss_Touched,"Contamination")-(Cont_Pss_Updated) #difference in contamination to update student contamination
+        Pss_Data.Frame[Pss_Touched,colnames(Pss_Data.Frame)== "Contamination"]<-Cont_Pss_Updated #updating Pss contamination in data frame
+        Cont_Student<-ifelse(Cont_Student +(Cont_Pss_Difference)<0,0,Cont_Student +(Cont_Pss_Difference)) #Updating Contamination in Student's hands
+        Pss_Data.Frame<-Func_Allergen_CC(Pss_Data.Frame,Pss_Touched) #Adding Allergen Contamination from touch. 
       }
       }
     }
@@ -145,14 +158,15 @@ for (k in 1:Food_Days){
     
     
     if(Pick_YN_Pss==1){
-      Tr_H_Pss<-Cont_Student*TE_H_F
-      #Contamination at tray
-      Cont_Tray_Pss<- Func_Index_DF(Pss_Data.Frame,Pss_Picked,"Contamination") + Tr_H_Pss - (Func_Index_DF(Pss_Data.Frame,Pss_Picked,"Contamination")* TE_F_H) #tranfer from fruit to hand
-      #Add contamination to chosen fruit in Dataframe
-      Cont_Dif_Student<-Func_Index_DF(Pss_Data.Frame,Pss_Picked,"Contamination")-(Cont_Tray_Pss)
-      Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)== "Contamination"]<-Cont_Tray_Pss
-      Cont_Student<-ifelse(Cont_Student +(Cont_Dif_Student)<0,0,Cont_Student +(Cont_Dif_Student))
-      Pss_Data.Frame<-Func_Allergen_CC(Pss_Data.Frame,Pss_Picked) #Adding Allergen Contamination
+      #Cross Contamination from Touching Pss @Tray
+      
+      Tr_H_Pss<-Cont_Student*TE_H_F #Transfer from Hand to Pss
+      Tr_Pss_H<-(Func_Index_DF(Pss_Data.Frame,Pss_Picked,"Contamination")* TE_F_H) #Tranfer from Pss to hand
+      Cont_Pss_Updated<- Func_Index_DF(Pss_Data.Frame,Pss_Picked,"Contamination") + Tr_H_Pss - (Tr_Pss_H) #New Contamination of Pss
+      Cont_Pss_Difference<-Func_Index_DF(Pss_Data.Frame,Pss_Picked,"Contamination")-(Cont_Pss_Updated) #Difference in contamination to update student contamination
+      Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)== "Contamination"]<-Cont_Pss_Updated #update the Pss Contamination in Data frame
+      Cont_Student<-ifelse(Cont_Student +(Cont_Pss_Difference)<0,0,Cont_Student +(Cont_Pss_Difference)) #Updating Contamination in Student's hands
+      Pss_Data.Frame<-Func_Allergen_CC(Pss_Data.Frame,Pss_Picked) #Adding Allergen Contamination from touch.
     }
     
     
@@ -168,15 +182,21 @@ for (k in 1:Food_Days){
       Sum_Pre_Available<-sum(Pre_Available)
       if(Sum_Pre_Available>ntouched_Pre){
       for (i in 1:ntouched_Pre){
-        Tr_H_Pre<-Cont_Student*TE_H_F
-        Search.df.Pre_touched<-Func_seach_Data4(Pre_Data.Frame,Pre_Data.Frame$Location,"Selection Table",Row_size_Pre)
-        Pre_Touched<-as.numeric(Search.df.Pre_touched$Pre.No.)
-        Cont_Touch_Pre<- Func_Index_DF(Pre_Data.Frame,Pre_Touched,"Contamination") + Tr_H_Pre - (Func_Index_DF(Pre_Data.Frame,Pre_Touched,"Contamination")* TE_F_H) #tranfer from fruit to hand
-        Cont_Dif_Student<-Func_Index_DF(Pre_Data.Frame,Pre_Touched,"Contamination")-(Cont_Touch_Pre)
-        Pre_Data.Frame[Pre_Touched,colnames(Pre_Data.Frame)== "Contamination"]<-Cont_Touch_Pre
-        Cont_Student<-ifelse(Cont_Student +(Cont_Dif_Student)<0,0,Cont_Student +(Cont_Dif_Student))
-        Pre_Data.Frame[Pre_Touched,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_Touched,colnames(Pre_Data.Frame)=="History"], "Touched")
-        Pre_Data.Frame<-Func_Allergen_CC(Pre_Data.Frame,Pre_Touched) #Adding Allergen Contamination
+        #Searching the Touched Pre
+        
+        Search.df.Pre_touched<-Func_seach_Data4(Pre_Data.Frame,Pre_Data.Frame$Location,"Selection Table",Row_size_Pre) #Searching for Pre to touch
+        Pre_Touched<-as.numeric(Search.df.Pre_touched$Pre.No.) #Pre touched
+        Pre_Data.Frame[Pre_Touched,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_Touched,colnames(Pre_Data.Frame)=="History"], "Touched") #Adding History to History
+        
+        #Cross Contamination from Touching Pre @Touch
+        
+        Tr_H_Pre<-Cont_Student*TE_H_F #Tranfer from Hand to Fruit
+        Tr_Pre_H<-(Func_Index_DF(Pre_Data.Frame,Pre_Touched,"Contamination")* TE_F_H) #Tranfer from Pre to hand
+        Cont_Pre_Updated<- Func_Index_DF(Pre_Data.Frame,Pre_Touched,"Contamination") + Tr_H_Pre - (Tr_Pre_H) #New contamination Pre 
+        Cont_Pre_Difference<-Func_Index_DF(Pre_Data.Frame,Pre_Touched,"Contamination")-(Cont_Pre_Updated) #difference in contamination to update student contamination
+        Pre_Data.Frame[Pre_Touched,colnames(Pre_Data.Frame)== "Contamination"]<-Cont_Pre_Updated #updating Pre contamination in data frame
+        Cont_Student<-ifelse(Cont_Student +(Cont_Pre_Difference)<0,0,Cont_Student +(Cont_Pre_Difference)) #Updating Contamination in Student's hands
+        Pre_Data.Frame<-Func_Allergen_CC(Pre_Data.Frame,Pre_Touched) #Adding Allergen Contamination from touch.
       }
       }
     }
@@ -203,16 +223,16 @@ for (k in 1:Food_Days){
     
     
     if(Pick_YN_Pre==1){
-      Tr_H_Pre<-Cont_Student*TE_H_F
-      #Contamination at tray
-      Cont_Tray_Pre<- Func_Index_DF(Pre_Data.Frame,Pre_Picked,"Contamination") + Tr_H_Pre - (Func_Index_DF(Pre_Data.Frame,Pre_Picked,"Contamination")* TE_F_H) #tranfer from fruit to hand
-      #Add contamination to chosen fruit in Dataframe
-      Cont_Dif_Student<-Func_Index_DF(Pre_Data.Frame,Pre_Picked,"Contamination")-(Cont_Tray_Pre)
-      Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)== "Contamination"]<-Cont_Tray_Pre
-      Cont_Student<-ifelse(Cont_Student +(Cont_Dif_Student)<0,0,Cont_Student +(Cont_Dif_Student))
-      Pre_Data.Frame<-Func_Allergen_CC(Pre_Data.Frame,Pre_Picked)#Adding Allergen Contamination
+      #Cross Contamination from Touching Pre @Tray
+      
+      Tr_H_Pre<-Cont_Student*TE_H_F #Transfer from Hand to Pre
+      Tr_Pre_H<-(Func_Index_DF(Pre_Data.Frame,Pre_Picked,"Contamination")* TE_F_H) #Tranfer from Pre to hand
+      Cont_Pre_Updated<- Func_Index_DF(Pre_Data.Frame,Pre_Picked,"Contamination") + Tr_H_Pre - (Tr_Pre_H) #New Contamination of Pre
+      Cont_Pre_Difference<-Func_Index_DF(Pre_Data.Frame,Pre_Picked,"Contamination")-(Cont_Pre_Updated) #Difference in contamination to update student contamination
+      Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)== "Contamination"]<-Cont_Pre_Updated #update the Pre Contamination in Data frame
+      Cont_Student<-ifelse(Cont_Student +(Cont_Pre_Difference)<0,0,Cont_Student +(Cont_Pre_Difference)) #Updating Contamination in Student's hands
+      Pre_Data.Frame<-Func_Allergen_CC(Pre_Data.Frame,Pre_Picked) #Adding Allergen Contamination from touch.
     }  
-    
     
     
     # Consumption==========================================================================
@@ -227,14 +247,45 @@ for (k in 1:Food_Days){
     #Changing Data Frame so it updates when student consumes fruit.
   
     if(Pick_YN_Fr==1){
-    if(Eat_YN_Fr==1){
-  
-    Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "Location"]<-"Consumed"
-    Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="History"], "Consumed")
-    }else{
-    Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "Location"]<-"Not Consumed"
-    Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="History"], "NotConsumed")
-    }
+      if(Eat_YN_Fr==1){
+      Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "Location"]<-"Consumed"
+      Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="History"], "Consumed")
+      #Contamination
+        if (Wrapping_Apples == 1){
+          #Cross Contamination at consumption if apples wrapped
+          Tr_H_Fr<-Cont_Student*TE_H_S #Transfer from Hand to Fr
+          Tr_Fr_H<-(Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination")* TE_S_H) #Tranfer from Fr to hand
+          Cont_Fr_Updated<- Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination") + Tr_H_Fr - (Tr_Fr_H) #New Contamination of Fr
+          Cont_Fr_Difference<-Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination")-(Cont_Fr_Updated) #Difference in contamination to update student contamination
+          Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "Contamination"]<-Cont_Fr_Updated #update the Fr Contamination in Data frame
+          Cont_Student<-ifelse(Cont_Student +(Cont_Fr_Difference)<0,0,Cont_Student +(Cont_Fr_Difference)) #Updating Contamination in Student's hands
+          Tr_H_Fr_Inside<-Cont_Student*TE_H_F
+          Cont_Fr_Consumed<-Tr_H_Fr_Inside
+          Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "Contamination"]<-Cont_Fr_Consumed
+          Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_Picked) #Adding Allergen Contamination from touch.
+        } else if (Wrapping_Apples == 0){
+          #Cross Contamination @ Consumption apples not wrapped. 
+          Tr_H_Fr<-Cont_Student*TE_H_F #Transfer from Hand to Fruit
+          Tr_Fr_H<-(Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination")* TE_F_H) #Tranfer from fruit to hand
+          Cont_Fr_Updated<- Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination") + Tr_H_Fr - (Tr_Fr_H) #New Contamination of Fruit
+          Cont_Fr_Difference<-Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination")-(Cont_Fr_Updated) #Difference in contamination to update student contamination
+          Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "Contamination"]<-Cont_Fr_Updated #update the Fr Contamination in Data frame
+          Cont_Student<-ifelse(Cont_Student +(Cont_Fr_Difference)<0,0,Cont_Student +(Cont_Fr_Difference)) #Updating Contamination in Student's hands
+          Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_Picked) #Adding Allergen Contamination from touch. 
+        } #end of if wrapp 
+      
+      }else{
+      Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "Location"]<-"Not Consumed"
+      Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="History"], "NotConsumed")
+        #Cross Crontamination from apples not being Consumed touch to ST/ Trash
+        Tr_H_Fr<-Cont_Student*TE_H_F #Transfer from Hand to Fruit
+        Tr_Fr_H<-(Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination")* TE_F_H) #Tranfer from fruit to hand
+        Cont_Fr_Updated<- Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination") + Tr_H_Fr - (Tr_Fr_H) #New Contamination of Fruit
+        Cont_Fr_Difference<-Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination")-(Cont_Fr_Updated) #Difference in contamination to update student contamination
+        Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "Contamination"]<-Cont_Fr_Updated #update the Fr Contamination in Data frame
+        Cont_Student<-ifelse(Cont_Student +(Cont_Fr_Difference)<0,0,Cont_Student +(Cont_Fr_Difference)) #Updating Contamination in Student's hands
+        Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_Picked) #Adding Allergen Contamination from touch. 
+      }
     }
   
                                         #Pss
@@ -247,9 +298,31 @@ for (k in 1:Food_Days){
       
       Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)== "Location"]<-"Consumed" 
       Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="History"], "Consumed")
+      #Contamination Insdide Pss @Consumption
+      Tr_H_Pss<-Cont_Student*TE_H_S #Transfer from Hand to Pss
+      Tr_Pss_H<-(Func_Index_DF(Pss_Data.Frame,Pss_Picked,"Contamination")* TE_S_H) #Tranfer from Pss to hand
+      Cont_Pss_Updated<- Func_Index_DF(Pss_Data.Frame,Pss_Picked,"Contamination") + Tr_H_Pss - (Tr_Pss_H) #New Contamination of Pss
+      Cont_Pss_Difference<-Func_Index_DF(Pss_Data.Frame,Pss_Picked,"Contamination")-(Cont_Pss_Updated) #Difference in contamination to update student contamination
+      Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)== "Contamination"]<-Cont_Pss_Updated #update the Pss Contamination in Data frame
+      Cont_Student<-ifelse(Cont_Student +(Cont_Pss_Difference)<0,0,Cont_Student +(Cont_Pss_Difference)) #Updating Contamination in Student's hands
+      Tr_H_Pss_Inside<-Cont_Student*TE_H_F
+      Cont_Pss_Consumed<-Tr_H_Pss_Inside
+      Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)== "Contamination"]<-Cont_Pss_Consumed
+      Pss_Data.Frame<-Func_Allergen_CC(Pss_Data.Frame,Pss_Picked) #Adding Allergen Contamination from touch.
+      
     }else{
       Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)== "Location"]<-"Not Consumed" 
       Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="History"], "NotConsumed")
+      #Contamination from Touch @Consumption
+      
+      Tr_H_Pss<-Cont_Student*TE_H_F #Transfer from Hand to Pss
+      Tr_Pss_H<-(Func_Index_DF(Pss_Data.Frame,Pss_Picked,"Contamination")* TE_F_H) #Tranfer from Pss to hand
+      Cont_Pss_Updated<- Func_Index_DF(Pss_Data.Frame,Pss_Picked,"Contamination") + Tr_H_Pss - (Tr_Pss_H) #New Contamination of Pss
+      Cont_Pss_Difference<-Func_Index_DF(Pss_Data.Frame,Pss_Picked,"Contamination")-(Cont_Pss_Updated) #Difference in contamination to update student contamination
+      Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)== "Contamination"]<-Cont_Pss_Updated #update the Pss Contamination in Data frame
+      Cont_Student<-ifelse(Cont_Student +(Cont_Pss_Difference)<0,0,Cont_Student +(Cont_Pss_Difference)) #Updating Contamination in Student's hands
+      Pss_Data.Frame<-Func_Allergen_CC(Pss_Data.Frame,Pss_Picked) #Adding Allergen Contamination from touch.
+      
     }
     }
     
@@ -263,16 +336,37 @@ for (k in 1:Food_Days){
       
       Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)== "Location"]<-"Consumed" 
       Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)=="History"], "Consumed")
+      #Contamination Container Pre to Mouth @ Consumption
+      Tr_H_Pre<-Cont_Student*TE_H_S #Transfer from Hand to Pre
+      Tr_Pre_H<-(Func_Index_DF(Pre_Data.Frame,Pre_Picked,"Contamination")* TE_S_H) #Tranfer from Pre to hand
+      Cont_Pre_Updated<- Func_Index_DF(Pre_Data.Frame,Pre_Picked,"Contamination") + Tr_H_Pre - (Tr_Pre_H) #New Contamination of Pre
+      Cont_Pre_Difference<-Func_Index_DF(Pre_Data.Frame,Pre_Picked,"Contamination")-(Cont_Pre_Updated) #Difference in contamination to update student contamination
+      Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)== "Contamination"]<-Cont_Pre_Updated #update the Pre Contamination in Data frame
+      Cont_Student<-ifelse(Cont_Student +(Cont_Pre_Difference)<0,0,Cont_Student +(Cont_Pre_Difference)) #Updating Contamination in Student's hands
+      Tr_Pre_Mouth<-(Func_Index_DF(Pre_Data.Frame,Pre_Picked,"Contamination")* TE_Pre_Mouth)
+      Cont_Pre_Consumed<-Tr_Pre_Mouth
+      Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)== "Contamination"]<-Cont_Pre_Consumed
+      Pre_Data.Frame<-Func_Allergen_CC(Pre_Data.Frame,Pre_Picked) #Adding Allergen Contamination from touch.
+      
     }else{
       Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)== "Location"]<-"Not Consumed"  
       Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)=="History"], "NotConsumed")
+      
+      #Contaminationat Pre Container
+      Tr_H_Pre<-Cont_Student*TE_H_F #Transfer from Hand to Pre
+      Tr_Pre_H<-(Func_Index_DF(Pre_Data.Frame,Pre_Picked,"Contamination")* TE_F_H) #Tranfer from Pre to hand
+      Cont_Pre_Updated<- Func_Index_DF(Pre_Data.Frame,Pre_Picked,"Contamination") + Tr_H_Pre - (Tr_Pre_H) #New Contamination of Pre
+      Cont_Pre_Difference<-Func_Index_DF(Pre_Data.Frame,Pre_Picked,"Contamination")-(Cont_Pre_Updated) #Difference in contamination to update student contamination
+      Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)== "Contamination"]<-Cont_Pre_Updated #update the Pre Contamination in Data frame
+      Cont_Student<-ifelse(Cont_Student +(Cont_Pre_Difference)<0,0,Cont_Student +(Cont_Pre_Difference)) #Updating Contamination in Student's hands
+      Pre_Data.Frame<-Func_Allergen_CC(Pre_Data.Frame,Pre_Picked) #Adding Allergen Contamination from touch.
     }  
     }
   
   
   
   
-    #Consumption to share table=======================================================
+    #Not Consumed items to share table=======================================================
     
     if(Share_Table_YN==1){ 
   
