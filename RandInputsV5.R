@@ -13,6 +13,10 @@ TE_Pre_Mouth<-.1 #TE between Milk to Mouth
 if(salmonella ==1){
   TE_H_F<-.0021
   TE_F_H<-.0328
+  TE_H_S<-0.0016 #Chen and DS
+  TE_S_H<-0.0229 #TE between Surfaces and Hands
+  
+  
 }
 
 #Level of Contamination in Student Hands. 

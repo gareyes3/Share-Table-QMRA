@@ -133,3 +133,46 @@ rlnorm3(500,1,0.9)
     }
   } 
 
+  
+  ###more
+  
+  
+  
+  results<-c()
+  prevalence<-.14
+  
+  for (i in 1:100000){
+    N0<-rnorm(1,-.72,0.99)
+    lag <-3.1 #days
+    k<-0.4 #log CFU/ml/ day
+    time<-21
+    GrowthTime<-time-lag
+    Growth<-GrowthTime*k
+    Concentration<-N0+Growth
+    results<-c(results, Concentration)
+  }
+  hist(results, breaks = 50)
+  ?hist
+  
+  
+  #For APC @ 13°C
+  Theta1<-(.67)
+  Theta2<- (.03)
+  Theta3<-(-2.67)
+  
+  
+  
+  (Theta1*exp(-Theta2*time))+Theta3
+  
+  df1<-data.frame(
+    Time = 1:900,
+    Variable = as.numeric(0)
+  )
+  
+  for( i in 1:nrow(df1)){
+    Time<-i
+    Variable<-(Theta1*exp(-Theta2*Time))+Theta3
+    df1[i,colnames(df1)== "Variable"]<-as.numeric(Variable)
+  }
+  
+  plot(df1$Variable)
