@@ -142,7 +142,12 @@ rlnorm3(500,1,0.9)
   prevalence<-.14
   
   for (i in 1:100000){
-    N0<-rnorm(1,-.72,0.99)
+    Prevalence_YN<-ifelse(runif(1)<prevalence,1,0)
+    if(Prevalence_YN ==1){
+      N0<-rnorm(1,-.72,0.99)
+    } else if (Prevalence_YN == 0 ){
+      N0<-0
+    }
     lag <-3.1 #days
     k<-0.4 #log CFU/ml/ day
     time<-21
@@ -153,6 +158,9 @@ rlnorm3(500,1,0.9)
   }
   hist(results, breaks = 50)
   ?hist
+  
+  
+  
   
   
   #For APC @ 13°C
