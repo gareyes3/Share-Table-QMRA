@@ -68,3 +68,35 @@ c<-.1719
 time<-10
 k<-(b*(Temp-Tmin)*(1-exp(c*(Temp-Tmax))))^2
 
+
+
+
+
+Func_Growth_Milk_Spoilage<-function(Condition,DF,TimeVar){
+  b<-.03772
+  Tmin<-(-6.1)
+  Tmax<-(41.2)
+  c<-.1719
+  if(Condition== "room temp"){
+    Temp<-25
+    k<-(b*(Temp-Tmin)*(1-exp(c*(Temp-Tmax))))^2
+    for (i in 1:nrow(DF)){
+      Growth<-TimeVar*k
+      N<-DF[i,colnames(DF)== "SpoilageCon"]
+      Con_Final<-N + Growth
+      DF[i,colnames(DF)== "SpoilageCon"]<-as.numeric(Con_Final)
+    }
+    return(DF)
+  } else if (Condition == "refrigerated"){
+    Temp<-4
+    k<-(b*(Temp-Tmin)*(1-exp(c*(Temp-Tmax))))^2
+    for (i in 1:nrow(DF)){
+      Growth<-TimeVar*k
+      N<-DF[i,colnames(DF)== "SpoilageCon"]
+      Con_Final<-N + Growth
+      DF[i,colnames(DF)== "SpoilageCon"]<-as.numeric(Con_Final)
+    }
+    return(DF)
+  }
+} 
+

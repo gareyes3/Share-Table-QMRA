@@ -1,9 +1,9 @@
 
-setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA") 
-#setwd("G:/Share Table QMRA/Share-Table-QMRA")
+setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+#setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
 
 #Library
-source("Library.R")
+source("ST_Library.R")
 
 
 ####RUN FROM HERE####
@@ -11,9 +11,10 @@ source("Library.R")
 # Source Files ------------------------------------------------------------
 
 #Inputs
-source("InputsV5.R")
+source("ST_Inputs.R")
 #Functions
-source("FunctionsV7.R")
+source("ST_Functions.R")
+source("ST_CCFunctions.R")
 
 
 
@@ -26,7 +27,7 @@ for (k in 1:Food_Days){
     
     
     #Data Frames Source Files
-    source("Data FramesV14.R")  
+    source("ST_DataFrames.R")  
   
   
   
@@ -36,10 +37,10 @@ for (k in 1:Food_Days){
     for (i in 1:N_Iterations){
     
     #Random Inputs
-    source("RandInputsV5.R")   
+    source("ST_RandomInputs.R")   
     
     #Claculations for Initial Contaminations
-    source("InitialContaminations.R")
+    source("ST_InitialContaminations.R")
     
     #Student Selection ===========================================================================
     
@@ -550,7 +551,7 @@ for (k in 1:Food_Days){
   datalistPss[[j]]<-Pss_Data.Frame
   datalistPre[[j]]<-Pre_Data.Frame
     
-  source("Outputs_ServicesV3.R") 
+  source("ST_Outputs_Services.R") 
   
   message("Service #", j)
   
@@ -566,7 +567,7 @@ for (k in 1:Food_Days){
   datalistPss_days[[k]]<-Pss_Data
   datalistPre_days[[k]]<-Pre_Data
   
-  source("Output_Days V3.R") 
+  source("ST_Output_Days.R") 
   
   message("Day #", k)
   

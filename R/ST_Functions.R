@@ -277,8 +277,13 @@ Func_Growth_Sto_Norovirus<-function(Condition,DF,TimeVar){
 # Spoilage of Organisms. ----------------------------------------------
 
 Func_Growth_Milk_Spoilage<-function(Condition,DF,TimeVar){
+  b<-.03772
+  Tmin<-(-6.1)
+  Tmax<-(41.2)
+  c<-.1719
   if(Condition== "room temp"){
-    k<-.367
+    Temp<-25
+    k<-(b*(Temp-Tmin)*(1-exp(c*(Temp-Tmax))))^2
     for (i in 1:nrow(DF)){
       Growth<-TimeVar*k
       N<-DF[i,colnames(DF)== "SpoilageCon"]
@@ -287,7 +292,8 @@ Func_Growth_Milk_Spoilage<-function(Condition,DF,TimeVar){
     }
     return(DF)
   } else if (Condition == "refrigerated"){
-    k<-.0334
+    Temp<-4
+    k<-(b*(Temp-Tmin)*(1-exp(c*(Temp-Tmax))))^2
     for (i in 1:nrow(DF)){
       Growth<-TimeVar*k
       N<-DF[i,colnames(DF)== "SpoilageCon"]
