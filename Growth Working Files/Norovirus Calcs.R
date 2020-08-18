@@ -1,4 +1,4 @@
-Surface_hands<- 52  #cm^2
+Surface_hands<- 50.675  #cm^2
 mass_feces_hands<- rbetagen(1,4.57,2.55,-8.00,-1.00) #log(g/hands)
 HU_NV_in_Feces<- rlnormTrunc(1,6.65,2.06,0.0,10.98) #log HuNov CG/ g
 Hu_NV_restroom<- runif(1,0,2) #log HUNOV/cm2
@@ -10,6 +10,10 @@ Personal_Contamination<-((10^mass_feces_hands) * (10^HU_NV_in_Feces))/(10^Genomi
 Environmental_Cont<-(10^Hu_NV_restroom) * (Surface_hands) * TE_RH
 
 NV_from_Restroom<-(Personal_Contamination+Environmental_Cont)
+
+Genomic_copies_per_PFU<-rnormTrunc(1,3.65,.98,2.00,5.40)
+ContFruit<-rlnormTrunc(1,2.38,3.52, 0,6.97) #log HuNoV copies per/ g
+ContFr<-(10^ContFruit)/(10^Genomic_copies_per_PFU) *Fr_Mean_weight #PFU/Apple
 
 
 

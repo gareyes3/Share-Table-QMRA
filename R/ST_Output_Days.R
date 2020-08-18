@@ -140,15 +140,18 @@
     Left_ST_Pre<- Func_Growth_Sto_Norovirus_Plastic("room temp", Left_ST_Pre, Time_ON) #Share table left over items
   }
   
-  # GROWTH SPOILAGE MILK ----------------------------------------------
+# GROWTH SPOILAGE MILK ----------------------------------------------
   
   
-  #gROWTH oVERNIGHT
-  Left_Selection_Pre<-Func_Growth_Milk_Spoilage("refrigerated", Left_Selection_Pre, Time_ON)
+  #GROWTH oVERNIGHT
+  Left_Selection_Pre<-Func_Growth_Milk_Spoilage(4, Left_Selection_Pre, Time_ON)
   Left_Selection_Pre<-Func_Spoilage_YN(Left_Selection_Pre)
   
-  Left_ST_Pre<-Func_Growth_Milk_Spoilage("refrigerated", Left_ST_Pre, Time_ON)
-  Left_ST_Pre<-Func_Spoilage_YN(Left_ST_Pre)
+  if( Share_Table_YN==1){
+    Left_ST_Pre<-Func_Growth_Milk_Spoilage(4, Left_ST_Pre, Time_ON)
+    Left_ST_Pre<-Func_Spoilage_YN(Left_ST_Pre)
+  }
+
   
   
 

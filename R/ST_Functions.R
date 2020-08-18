@@ -117,6 +117,21 @@ func_Cont_cm2<-function(DF, Prevalence, logContamination, Fr_Mean_area ){
   return(DF)
 }
 
+func_Cont_HuNoV_Fr<-function(DF, Prevalence){
+  for (i in 1:nrow(DF)){
+    Fr_Cont_YN<- ifelse(runif(1)<Prevalence,1,0)
+    Genomic_copies_per_PFU<-rnormTrunc(1,3.65,.98,2.00,5.40)
+    HuNoV_ContFruit<-rlnormTrunc(1,2.38,3.52, 0,6.97) #log HuNoV copies per/ g
+    Contamination<-(10^HuNoV_ContFruit)/(10^Genomic_copies_per_PFU) *Fr_Mean_weight #PFU/Apple
+    if(Fr_Cont_YN==1){
+      DF[i,colnames(DF)== "Contamination"]<-Contamination
+    } else if (Fr_Cont_YN==0){
+      DF[i,colnames(DF)== "Contamination"]<-as.numeric(0)
+    }
+  }
+  return(DF)
+}
+
 
 # Growth Model for Enteric -------------------------------------------------------------
 
@@ -276,14 +291,12 @@ Func_Growth_Sto_Norovirus<-function(Condition,DF,TimeVar){
 
 # Spoilage of Organisms. ----------------------------------------------
 
-Func_Growth_Milk_Spoilage<-function(Condition,DF,TimeVar){
+Func_Growth_Milk_Spoilage<-function(Temp,DF,TimeVar){
   b<-.03772
   Tmin<-(-6.1)
   Tmax<-(41.2)
   c<-.1719
-  if(Condition== "room temp"){
-    Temp<-25
-    k<-(b*(Temp-Tmin)*(1-exp(c*(Temp-Tmax))))^2
+  k<-(b*(Temp-Tmin)*(1-exp(c*(Temp-Tmax))))^2
     for (i in 1:nrow(DF)){
       Growth<-TimeVar*k
       N<-DF[i,colnames(DF)== "SpoilageCon"]
@@ -291,17 +304,6 @@ Func_Growth_Milk_Spoilage<-function(Condition,DF,TimeVar){
       DF[i,colnames(DF)== "SpoilageCon"]<-as.numeric(Con_Final)
     }
     return(DF)
-  } else if (Condition == "refrigerated"){
-    Temp<-4
-    k<-(b*(Temp-Tmin)*(1-exp(c*(Temp-Tmax))))^2
-    for (i in 1:nrow(DF)){
-      Growth<-TimeVar*k
-      N<-DF[i,colnames(DF)== "SpoilageCon"]
-      Con_Final<-N + Growth
-      DF[i,colnames(DF)== "SpoilageCon"]<-as.numeric(Con_Final)
-    }
-    return(DF)
-  }
 } 
 
 

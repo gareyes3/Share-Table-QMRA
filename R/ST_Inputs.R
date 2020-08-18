@@ -43,15 +43,15 @@
   
   #Prevalence of pathogens in Fruit
   Prevalence_Salmonella_Fr<-.04 #Probability of contamination.
-  Prevalence_Norovirus_Fr<-.05 #probability of food item being contaminated. 
-  
+  Prevalence_Norovirus_Fr<-rbetagen(1,0.79,1.03,0,.2) #probability of food item being contaminated. 
+
   #Prevalence of pathogens in Pss
-  Prevalence_Salmonella_Pss<-.04 #Probability of contamination.
-  Prevalence_Norovirus_Pss<-.05 #probability of food item being contaminated. 
+  Prevalence_Salmonella_Pss<-0 #Probability of contamination.
+  Prevalence_Norovirus_Pss<-0 #probability of food item being contaminated. 
   
   #Prevalence of pathogens in Pre
-  Prevalence_Salmonella_Pre<-.04 #Probability of contamination.
-  Prevalence_Norovirus_Pre<-.05 #probability of food item being contaminated. 
+  Prevalence_Salmonella_Pre<-0 #Probability of contamination.
+  Prevalence_Norovirus_Pre<- 0 #probability of food item being contaminated. 
   
   
 # Inputs for Milk Spoilage -------------------------------------------------
@@ -106,16 +106,6 @@
   
   #surface are of hand palm for when converting from cm^2 
   Student_PSA<-50.675 #cm^2
-  
-  #Initial Contamination of salmonella 
-  if(salmonella == 1){
-    Av_ic<-(8.9*10^6) #CFU/Hand
-  }
-  
-  #Initial Contamination of norovirus
-  if(norovirus == 1){
-    Av_ic<-(8.9*10^6) #CFU/Hand    
-  }
   
   
 #Inputs for allergen contamination ----------------------------------------
@@ -215,17 +205,17 @@
                                             # Share Table Toggle 
   
   #Include Share Table:
-  Share_Table_YN<-1
-  #NOTE: Turn off Re-Sharing and -STto reservice too
+  Share_Table_YN<-0
+  #NOTE: Turn off Re-Sharing and -ST to reservice too
                                             # Re-Sharing, Re-Service 
   
   #this happens in the data frame file
   #Share Table to Re-Service
-  STtoReservice_YN<-1 
+  STtoReservice_YN<-0
   #Re-Service of Items left in Share Table 
   Reservice_YN<-1
   #Re-Sharing of items in share table
-  Resharing_YN<-1
+  Resharing_YN<-0
   
                                               #Visuals Toggles
   
@@ -236,6 +226,7 @@
   Toggle_SelfAssigned_Allergens<-1
   
                                               #Initial Contamination
+  
   Toggle_SelfAssigned_Pathogens<-1
   
                                               #Wrapping Apples

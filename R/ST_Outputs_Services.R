@@ -285,17 +285,22 @@ if(j>0 && j<=(Service_No-1)){
   
   
   #After Services
-  Left_Selection_Pre<-Func_Growth_Milk_Spoilage("room temp", Left_Selection_Pre, Time_Turnaround)
+  Left_Selection_Pre<-Func_Growth_Milk_Spoilage(25, Left_Selection_Pre, Time_Service)
   Left_Selection_Pre<-Func_Spoilage_YN(Left_Selection_Pre)
+  if(Share_Table_YN==1){
+    Left_ST_Pre<-Func_Growth_Milk_Spoilage(25, Left_ST_Pre, Time_Time_Service)
+    Left_ST_Pre<-Func_Spoilage_YN(Left_ST_Pre)
+  }
 
-  Left_ST_Pre<-Func_Growth_Milk_Spoilage("room temp", Left_ST_Pre, Time_Turnaround)
-  Left_ST_Pre<-Func_Spoilage_YN(Left_ST_Pre)
   
   #after Turnaround time
   
-  Left_Selection_Pre<-Func_Growth_Milk_Spoilage("room temp", Left_Selection_Pre, Time_Turnaround)
+  Left_Selection_Pre<-Func_Growth_Milk_Spoilage(25, Left_Selection_Pre, Time_Turnaround)
   Left_Selection_Pre<-Func_Spoilage_YN(Left_Selection_Pre)
   
-  Left_ST_Pre<-Func_Growth_Milk_Spoilage("room temp", Left_ST_Pre, Time_Turnaround)
-  Left_ST_Pre<-Func_Spoilage_YN(Left_ST_Pre)
+  if(Share_Table_YN==1){
+    Left_ST_Pre<-Func_Growth_Milk_Spoilage(25, Left_ST_Pre, Time_Turnaround)
+    Left_ST_Pre<-Func_Spoilage_YN(Left_ST_Pre)
+  }
+
   

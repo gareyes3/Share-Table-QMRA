@@ -31,7 +31,7 @@ if(j==1 && k== 1){
   if(salmonella==1 && Calculated_Cont_Fr==1){
     Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
   } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
-    Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Norovirus_Fr,Fr_Contamination_norovirus,Fr_Mean_area)
+    Fr_Data.Frame<-func_Cont_HuNoV_Fr(Fr_Data.Frame,Prevalence_Norovirus_Fr)
   }
   
 
@@ -61,6 +61,8 @@ if(j==1 && k== 1){
   } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
     Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Norovirus_Pss,Pss_Contamination_norovirus,Pss_Mean_area)
   }
+  
+  
   
 
   # Pre ---------------------------------------------------------------------
@@ -127,7 +129,7 @@ if(j>1 && k ==1 ){
     if(salmonella==1 && Calculated_Cont_Fr==1){
       Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
     } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
-      Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Norovirus_Fr,Fr_Contamination_norovirus,Fr_Mean_area)
+      Fr_Data.Frame<-func_Cont_HuNoV_Fr(Fr_Data.Frame,Prevalence_Norovirus_Fr)
     }
     
     #Adding times that the share table items have been shared
@@ -167,9 +169,9 @@ if(j>1 && k ==1 ){
     
     #Adding initial contamination based on prevalence and area of the item #CFU/Pss
     
-    if(salmonella==1 && Calculated_Cont_Fr==1){
+    if(salmonella==1 && Calculated_Cont_Pss==1){
       Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Salmonella_Pss,Pss_Contamination_salmonella,Pss_Mean_area)
-    } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
+    } else if (norovirus == 1 && Calculated_Cont_Pss ==1){
       Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Norovirus_Pss,Pss_Contamination_norovirus,Pss_Mean_area)
     }
     
@@ -210,9 +212,9 @@ if(j>1 && k ==1 ){
     
     #Adding initial contamination based on prevalence and area of the item #CFU/Pss
     
-    if(salmonella==1 && Calculated_Cont_Fr==1){
+    if(salmonella==1 && Calculated_Cont_Pre==1){
       Pre_Data.Frame<-func_Cont_cm2(Pre_Data.Frame,Prevalence_Salmonella_Pre,Pre_Contamination_salmonella,Pre_Mean_area)
-    } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
+    } else if (norovirus == 1 && Calculated_Cont_Pre ==1){
       Pre_Data.Frame<-func_Cont_cm2(Pre_Data.Frame,Prevalence_Norovirus_Pre,Pre_Contamination_norovirus,Pre_Mean_area)
     }
     
@@ -258,7 +260,7 @@ if(j>1 && k ==1 ){
      if(salmonella==1 && Calculated_Cont_Fr==1){
        Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
      } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
-       Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Norovirus_Fr,Fr_Contamination_norovirus,Fr_Mean_area)
+       Fr_Data.Frame<-func_Cont_HuNoV_Fr(Fr_Data.Frame,Prevalence_Norovirus_Fr)
      }
      
     #Adding Share Times
@@ -295,9 +297,9 @@ if(j>1 && k ==1 ){
     
     #Adding initial contamination based on prevalence and area of the item #CFU/Pss
     
-    if(salmonella==1 && Calculated_Cont_Fr==1){
+    if(salmonella==1 && Calculated_Cont_Pss==1){
       Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Salmonella_Pss,Pss_Contamination_salmonella,Pss_Mean_area)
-    } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
+    } else if (norovirus == 1 && Calculated_Cont_Pss ==1){
       Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Norovirus_Pss,Pss_Contamination_norovirus,Pss_Mean_area)
     }
     
@@ -336,9 +338,9 @@ if(j>1 && k ==1 ){
     
     #Adding initial contamination based on prevalence and area of the item #CFU/Pss
     
-    if(salmonella==1 && Calculated_Cont_Fr==1){
+    if(salmonella==1 && Calculated_Cont_Pre==1){
       Pre_Data.Frame<-func_Cont_cm2(Pre_Data.Frame,Prevalence_Salmonella_Pre,Pre_Contamination_salmonella,Pre_Mean_area)
-    } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
+    } else if (norovirus == 1 && Calculated_Cont_Pre ==1){
       Pre_Data.Frame<-func_Cont_cm2(Pre_Data.Frame,Prevalence_Norovirus_Pre,Pre_Contamination_norovirus,Pre_Mean_area)
     }
     
@@ -391,7 +393,7 @@ if(j>0 && k>1 ){
     if(salmonella==1 && Calculated_Cont_Fr==1){
       Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
     } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
-      Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Norovirus_Fr,Fr_Contamination_norovirus,Fr_Mean_area)
+      Fr_Data.Frame<-func_Cont_HuNoV_Fr(Fr_Data.Frame,Prevalence_Norovirus_Fr)
     }
     
     #Adding times that the share table items have been shared
@@ -432,9 +434,9 @@ if(j>0 && k>1 ){
     
     #Adding initial contamination based on prevalence and area of the item #CFU/Pss
     
-    if(salmonella==1 && Calculated_Cont_Fr==1){
+    if(salmonella==1 && Calculated_Cont_Pss==1){
       Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Salmonella_Pss,Pss_Contamination_salmonella,Pss_Mean_area)
-    } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
+    } else if (norovirus == 1 && Calculated_Cont_Pss ==1){
       Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Norovirus_Pss,Pss_Contamination_norovirus,Pss_Mean_area)
     }
     
@@ -476,9 +478,9 @@ if(j>0 && k>1 ){
     
     #Adding initial contamination based on prevalence and area of the item #CFU/Pss
     
-    if(salmonella==1 && Calculated_Cont_Fr==1){
+    if(salmonella==1 && Calculated_Cont_Pre==1){
       Pre_Data.Frame<-func_Cont_cm2(Pre_Data.Frame,Prevalence_Salmonella_Pre,Pre_Contamination_salmonella,Pre_Mean_area)
-    } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
+    } else if (norovirus == 1 && Calculated_Cont_Pre ==1){
       Pre_Data.Frame<-func_Cont_cm2(Pre_Data.Frame,Prevalence_Norovirus_Pre,Pre_Contamination_norovirus,Pre_Mean_area)
     }
     
@@ -525,7 +527,7 @@ if(j>0 && k>1 ){
     if(salmonella==1 && Calculated_Cont_Fr==1){
       Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
     } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
-      Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Norovirus_Fr,Fr_Contamination_norovirus,Fr_Mean_area)
+      Fr_Data.Frame<-func_Cont_HuNoV_Fr(Fr_Data.Frame,Prevalence_Norovirus_Fr)
     }
     
     #Adding Share Times
@@ -562,9 +564,9 @@ if(j>0 && k>1 ){
     
     #Adding initial contamination based on prevalence and area of the item #CFU/Pss
     
-    if(salmonella==1 && Calculated_Cont_Fr==1){
+    if(salmonella==1 && Calculated_Cont_Pss==1){
       Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Salmonella_Pss,Pss_Contamination_salmonella,Pss_Mean_area)
-    } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
+    } else if (norovirus == 1 && Calculated_Cont_Pss ==1){
       Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Norovirus_Pss,Pss_Contamination_norovirus,Pss_Mean_area)
     }
     
@@ -602,9 +604,9 @@ if(j>0 && k>1 ){
     
     #Adding initial contamination based on prevalence and area of the item #CFU/Pss
     
-    if(salmonella==1 && Calculated_Cont_Fr==1){
+    if(salmonella==1 && Calculated_Cont_Pre==1){
       Pre_Data.Frame<-func_Cont_cm2(Pre_Data.Frame,Prevalence_Salmonella_Pre,Pre_Contamination_salmonella,Pre_Mean_area)
-    } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
+    } else if (norovirus == 1 && Calculated_Cont_Pre ==1){
       Pre_Data.Frame<-func_Cont_cm2(Pre_Data.Frame,Prevalence_Norovirus_Pre,Pre_Contamination_norovirus,Pre_Mean_area)
     }
     
