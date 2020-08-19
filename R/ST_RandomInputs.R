@@ -1,14 +1,14 @@
 
 
 # Transfer Efficiencies ---------------------------------------------------
-
+?rtriang
 
   if(norovirus==1){
   TE_H_F<- rbetagen(1,0.76,1.04,.0126,.46)
-  TE_H_S<-.1340 #TE between Hands and Surfaces
+  TE_H_S<-rtriang(0.001,.13,.27)#TE between Hands and Surfaces
   TE_F_H<-rbetagen(1,0.88,1.01,.048,.164)
   TE_F_S<-.0250 #TE between Food and Surfaces
-  TE_S_H<-.1090 #TE between Surfaces and Hands
+  TE_S_H<-rtriang(.036,.07,.22)  #.1090 #TE between Surfaces and Hands
   TE_S_F<-.4620 #TE between Surfaces and Foods
   TE_Pre_Mouth<-.1 #TE between Milk to Mouth
     }
