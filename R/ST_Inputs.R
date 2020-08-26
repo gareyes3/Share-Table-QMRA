@@ -30,7 +30,7 @@
 # Sevice Line Information -------------------------------------------------
   
   #Initial Number of fruit
-  Initial_Fr<-75 #Number of fruit 
+  Initial_Fr<-15 #Number of fruit 
   Initial_Pss<-75 #number of Packaged shelf stable
   Initial_Pre<-75 #number of packaged refrigirated
   
@@ -139,7 +139,7 @@
   
   
   #Toggle for calculated contamination, defaul is 0
-  Calculated_Cont_Fr<-0
+  Calculated_Cont_Fr<-1
   Calculated_Cont_Pss<-1
   Calculated_Cont_Pre<-1
   

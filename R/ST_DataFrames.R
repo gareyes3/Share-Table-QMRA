@@ -34,7 +34,7 @@ if(j==1 && k== 1){
     Fr_Data.Frame<-func_Cont_HuNoV_Fr(Fr_Data.Frame,Prevalence_Norovirus_Fr)
   }
   
-
+  Fst_Df<-Fr_Data.Frame
 
   # Pss ---------------------------------------------------------------------
 

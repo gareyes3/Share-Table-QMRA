@@ -43,6 +43,8 @@ for (l in 1:Sens_Iterations){
         #Claculations for Initial Contaminations
         source("ST_InitialContaminations.R")
         
+        source("AddingItems.R")
+        
         #Student Selection ===========================================================================
         
         #FRUIT
@@ -54,7 +56,7 @@ for (l in 1:Sens_Iterations){
         #If touched what is the contamination and adding it to data frame?
         if(Touch_YN_Fr==1){
           Fr_Available<-Fr_Data.Frame$Location == "Selection Table" 
-          Sum_Fr_Available<-sum(Fr_Available)
+          Sum_Fr_Available<-sum(Fr_Available, na.rm = TRUE)
           if(Sum_Fr_Available>ntouched_Fr){
             for (i in 1:ntouched_Fr){
               
@@ -77,7 +79,7 @@ for (l in 1:Sens_Iterations){
         #Picking a Fruit from Fruit Frame 
         if(Pick_YN_Fr==1){
           Fr_Available<-Fr_Data.Frame$Location == "Selection Table" 
-          Sum_Fr_Available<-as.numeric(sum(Fr_Available))
+          Sum_Fr_Available<-as.numeric(sum(Fr_Available,na.rm = TRUE))
           if(Sum_Fr_Available>0){   
             Search.df.fr<-Func_seach_Data4(Fr_Data.Frame,Fr_Data.Frame$Location,"Selection Table",Row_size_Fr)
             #Fruit Selected #
@@ -105,7 +107,7 @@ for (l in 1:Sens_Iterations){
         
         if(Touch_YN_Pss==1){
           Pss_Available<-Pss_Data.Frame$Location == "Selection Table" 
-          Sum_Pss_Available<-sum(Pss_Available)
+          Sum_Pss_Available<-sum(Pss_Available, na.rm = TRUE)
           if(Sum_Pss_Available>ntouched_Pss){
             for (i in 1:ntouched_Pss){
               
@@ -128,7 +130,7 @@ for (l in 1:Sens_Iterations){
         #Picking a Pss from Pss Data Frame 
         if(Pick_YN_Pss==1){
           Pss_Available<-Pss_Data.Frame$Location == "Selection Table" 
-          Sum_Pss_Available<-sum(Pss_Available)
+          Sum_Pss_Available<-sum(Pss_Available, na.rm = TRUE)
           if(Sum_Pss_Available>0){
             Search.df.Pss<-Func_seach_Data4(Pss_Data.Frame,Pss_Data.Frame$Location,"Selection Table",Row_size_Pss)
             #Pss Selected #
@@ -158,7 +160,7 @@ for (l in 1:Sens_Iterations){
         
         if(Touch_YN_Pre==1){
           Pre_Available<-Pre_Data.Frame$Location == "Selection Table" 
-          Sum_Pre_Available<-sum(Pre_Available)
+          Sum_Pre_Available<-sum(Pre_Available, na.rm = TRUE)
           if(Sum_Pre_Available>ntouched_Pre){
             for (i in 1:ntouched_Pre){
               
@@ -180,7 +182,7 @@ for (l in 1:Sens_Iterations){
         #Picking a Pre from Pre Data Frame 
         if(Pick_YN_Pre==1){
           Pre_Available<-Pre_Data.Frame$Location == "Selection Table" 
-          Sum_Pre_Available<-sum(Pre_Available)
+          Sum_Pre_Available<-sum(Pre_Available, na.rm = TRUE)
           if(Sum_Pre_Available>0){
             Search.df.Pre<-Func_seach_Data4(Pre_Data.Frame,Pre_Data.Frame$Location,"Selection Table",Row_size_Pre)
             #Pre Selected #
@@ -351,7 +353,7 @@ for (l in 1:Sens_Iterations){
           
           #Shared Fruit
           Items_Shared<-Fr_Data.Frame$Location == "Shared" 
-          Sum_Shared<-sum(Items_Shared)
+          Sum_Shared<-sum(Items_Shared, na.rm = TRUE)
           if(Sum_Shared>0){
             
             #Fruit
@@ -410,7 +412,7 @@ for (l in 1:Sens_Iterations){
           
           #Shared Pss
           Items_Shared_Pss<-Pss_Data.Frame$Location == "Shared" 
-          Sum_Shared_Pss<-sum(Items_Shared_Pss)
+          Sum_Shared_Pss<-sum(Items_Shared_Pss, na.rm = TRUE)
           if(Sum_Shared_Pss>0){
             
             #Did a student pick an item for the share table? 
@@ -461,7 +463,7 @@ for (l in 1:Sens_Iterations){
           #Shared Pre
           
           Items_Shared_Pre<-Pre_Data.Frame$Location == "Shared" 
-          Sum_Shared_Pre<-sum(Items_Shared_Pre)
+          Sum_Shared_Pre<-sum(Items_Shared_Pre, na.rm = TRUE)
           if(Sum_Shared_Pre>0){
             
             #Did a student pick an item for the share table? 
@@ -579,7 +581,7 @@ for (l in 1:Sens_Iterations){
   source("ST_Summary Stats.R")
   
   
-  message("Done Gathering Data")
+  message("Done Gathering Data", l)
   
 } #end of l loop for iterations. 
 

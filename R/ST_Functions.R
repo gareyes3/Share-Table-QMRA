@@ -79,6 +79,7 @@ Func_Convert_pergram<-function(DF){
 # Adding Initial Contamination --------------------------------------------
 
 #this function changes contamination from CFU CM^2 to CFU/g
+#Not being USED Right now. 
 func_Cont_Fr<-function(DF, Prevalence, area_av , area_sd, logContamination, weight_av, weight_sd ){
   #Df= Data frame
   #Prevalence = parameter Prevalence of pathogen

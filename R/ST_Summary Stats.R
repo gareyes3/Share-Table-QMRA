@@ -86,7 +86,11 @@ Pre_Data_Days = do.call(rbind,datalistPre_days)
 
 # CREATING OUTPUTS OF INTEREST --------------------------------------------
 
-  #Consumed Items
+  #Consumed Items Fruit Mean + Median
   Fr_Consumed_Mean_Contanmination<-mean(Total_Consumed_Fr$Contamination)
   Fr_Consumed_Median_Contanmination<-median(Total_Consumed_Fr$Contamination)
+  
+#ADDING DATA TO DATA_FRAME
+  AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "MeanCont"]<-Fr_Consumed_Mean_Contanmination
+  AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "MedianCont"]<-Fr_Consumed_Median_Contanmination
   
