@@ -288,7 +288,7 @@ if(j>0 && j<=(Service_No-1)){
   Left_Selection_Pre<-Func_Growth_Milk_Spoilage(25, Left_Selection_Pre, Time_Service)
   Left_Selection_Pre<-Func_Spoilage_YN(Left_Selection_Pre)
   if(Share_Table_YN==1){
-    Left_ST_Pre<-Func_Growth_Milk_Spoilage(25, Left_ST_Pre, Time_Time_Service)
+    Left_ST_Pre<-Func_Growth_Milk_Spoilage(25, Left_ST_Pre, Time_Service)
     Left_ST_Pre<-Func_Spoilage_YN(Left_ST_Pre)
   }
 
