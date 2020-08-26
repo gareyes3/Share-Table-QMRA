@@ -87,4 +87,6 @@ Pre_Data_Days = do.call(rbind,datalistPre_days)
 # CREATING OUTPUTS OF INTEREST --------------------------------------------
 
   #Consumed Items
-  #Fr_Consumed_Mean_Contanmination<-
+  Fr_Consumed_Mean_Contanmination<-mean(Total_Consumed_Fr$Contamination)
+  Fr_Consumed_Median_Contanmination<-median(Total_Consumed_Fr$Contamination)
+  

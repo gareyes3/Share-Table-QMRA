@@ -578,6 +578,9 @@ for (l in 1:Sens_Iterations){
 
   source("ST_Summary Stats.R")
   
+  
+  message("Done Gathering Data")
+  
 } #end of l loop for iterations. 
 
 
