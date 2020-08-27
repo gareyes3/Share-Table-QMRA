@@ -1,6 +1,7 @@
+#Adding Items in bulk, fruit
+
 Fr_Available<-Fr_Data.Frame$Location == "Selection Table" 
 Sum_Fr_Available<-as.numeric(sum(Fr_Available,na.rm = TRUE))
-print(Sum_Fr_Available)
 
 if(Sum_Fr_Available<2){
   Extra_Items<-data.frame("Apple No." = 1:Row_size_Fr,
