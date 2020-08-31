@@ -86,11 +86,28 @@ Pre_Data_Days = do.call(rbind,datalistPre_days)
 
 # CREATING OUTPUTS OF INTEREST --------------------------------------------
 
-  #Consumed Items Fruit Mean + Median
-  Fr_Consumed_Mean_Contanmination<-mean(Total_Consumed_Fr$Contamination)
-  Fr_Consumed_Median_Contanmination<-median(Total_Consumed_Fr$Contamination)
+#Fruit
+  
+#Consumed Items Fruit Mean + Median
+  Fr_Consumed_Mean_Contanmination<-mean(Total_Consumed_Fr$Contamination, na.rm = TRUE)
+  Fr_Consumed_Median_Contanmination<-median(Total_Consumed_Fr$Contamination, na.rm = TRUE)
+  
+#Consumed Items Selection Table only
+  Fr_Consumed_Sel_Mean_Contamination<-mean(Total_Consumed_Sel_Fr$Contamination, na.rm = TRUE)
+  Fr_Consumed_Sel_Median_Contamination<-median(Total_Consumed_Sel_Fr$Contamination, na.rm = TRUE)
+
+#Consumed Items Share Table Only
+  Fr_Consumed_ST_Mean_Contamination<-mean(Total_Consumed_ST_Fr$Contamination, na.rm = TRUE)
+  Fr_Consumed_ST_Median_Contamination<-median(Total_Consumed_ST_Fr$Contamination, na.rm = TRUE)
   
 #ADDING DATA TO DATA_FRAME
   AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "MeanCont"]<-Fr_Consumed_Mean_Contanmination
   AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "MedianCont"]<-Fr_Consumed_Median_Contanmination
+  AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "MeanContSelection"]<- Fr_Consumed_Sel_Mean_Contamination
+  AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "MedianContSelection"]<-Fr_Consumed_Sel_Median_Contamination
+  AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "MeanContST"]<-Fr_Consumed_ST_Mean_Contamination
+  AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "MedianContST"]<-Fr_Consumed_ST_Median_Contamination
+  
+  
+
   
