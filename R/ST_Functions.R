@@ -310,7 +310,7 @@ Func_Growth_Milk_Spoilage<-function(Temp,DF,TimeVar){
 
 Func_Spoilage_YN<-function(DF){
   for (i in 1:nrow(DF)){
-    N<-DF[i,colnames(DF)== "SpoilageCon"]
+    N<-as.numeric(DF[i,colnames(DF)== "SpoilageCon"])
     if (N>Spoilage_Treshold){
       DF[i,colnames(DF)== "SpoiledYN"]<-TRUE
     }

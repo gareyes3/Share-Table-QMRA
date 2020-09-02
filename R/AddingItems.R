@@ -4,7 +4,7 @@
   Sum_Fr_Available<-as.numeric(sum(Fr_Available,na.rm = TRUE))
   
   if(Sum_Fr_Available<2){
-    Extra_Items<-data.frame("Apple No." = 1:Row_size_Fr,
+    Extra_Items_Fr<-data.frame("Apple No." = 1:Row_size_Fr,
                               "Location"= "Selection Table",
                               "Contamination" = as.numeric("0"),
                               "ExposedAllergen" = FALSE,
@@ -20,12 +20,12 @@
     )
     
     if(salmonella==1 && Calculated_Cont_Fr==1){
-      Extra_Items<-func_Cont_cm2(Extra_Items,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
+      Extra_Items_Fr<-func_Cont_cm2(Extra_Items_Fr,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
     } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
-      Extra_Items<-func_Cont_HuNoV_Fr(Extra_Items,Prevalence_Norovirus_Fr)
+      Extra_Items_Fr<-func_Cont_HuNoV_Fr(Extra_Items_Fr,Prevalence_Norovirus_Fr)
     }
     
-    Fr_Data.Frame<-rbind(Extra_Items,Fr_Data.Frame)
+    Fr_Data.Frame<-rbind(Extra_Items_Fr,Fr_Data.Frame)
     Fr_Data.Frame$Apple.No.<- 1:nrow(Fr_Data.Frame)
     row.names(Fr_Data.Frame)<-1:nrow(Fr_Data.Frame)
     
@@ -37,7 +37,7 @@
   Sum_Pss_Available<-sum(Pss_Available, na.rm = TRUE)
   
   if(Sum_Pss_Available<2){
-    Extra_Items<-data.frame("Pre No." = 1:Initial_Pss,
+    Extra_Items_Pss<-data.frame("Pre No." = 1:Initial_Pss,
                                               "Location"= "Selection Table",
                                               "Contamination" = as.numeric("0"),
                                               "ExposedAllergen" = FALSE,
@@ -54,13 +54,13 @@
     )
     
     if(salmonella==1 && Calculated_Cont_Pss==1){
-      Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Salmonella_Pss,Pss_Contamination_salmonella,Pss_Mean_area)
+      Pss_Data.Frame<-func_Cont_cm2(Extra_Items_Pss,Prevalence_Salmonella_Pss,Pss_Contamination_salmonella,Pss_Mean_area)
     } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
-      Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Norovirus_Pss,Pss_Contamination_norovirus,Pss_Mean_area)
+      Pss_Data.Frame<-func_Cont_cm2(Extra_Items_Pss,Prevalence_Norovirus_Pss,Pss_Contamination_norovirus,Pss_Mean_area)
     }
     
-    Pss_Data.Frame<-rbind(Extra_Items,Pss_Data.Frame)
-    Pss_Data.Frame$Apple.No.<- 1:nrow(Pss_Data.Frame)
+    Pss_Data.Frame<-rbind(Extra_Items_Pss,Pss_Data.Frame)
+    Pss_Data.Frame$Pss.No.<- 1:nrow(Pss_Data.Frame)
     row.names(Pss_Data.Frame)<-1:nrow(Pss_Data.Frame)
     
   }
@@ -73,7 +73,7 @@
   Sum_Pre_Available<-sum(Pre_Available, na.rm = TRUE)
   
   if(Sum_Pre_Available<2){
-    Extra_Items<-data.frame("Pre No." = 1:Initial_Pss,
+    Extra_Items_Pre<-data.frame("Pre No." = 1:Initial_Pss,
                             "Location"= "Selection Table",
                             "Contamination" = as.numeric("0"),
                             "ExposedAllergen" = FALSE,
@@ -90,14 +90,14 @@
     )
     
     
-    if(salmonella==1 && Calculated_Cont_Fr==1){
-      Extra_Items<-func_Cont_cm2(Extra_Items,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
-    } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
-      Extra_Items<-func_Cont_HuNoV_Fr(Extra_Items,Prevalence_Norovirus_Fr)
+    if(salmonella==1 && Calculated_Cont_Pss==1){
+      Pre_Data.Frame<-func_Cont_cm2(Extra_Items_Pre,Prevalence_Salmonella_Pre,Pre_Contamination_salmonella,Pre_Mean_area)
+    } else if (norovirus == 1 && Calculated_Cont_Pss ==1){
+      Pre_Data.Frame<-func_Cont_cm2(Extra_Items_Pre,Prevalence_Norovirus_Pre,Pre_Contamination_norovirus,Pre_Mean_area)
     }
     
-    Fr_Data.Frame<-rbind(Extra_Items,Fr_Data.Frame)
-    Fr_Data.Frame$Apple.No.<- 1:nrow(Fr_Data.Frame)
-    row.names(Fr_Data.Frame)<-1:nrow(Fr_Data.Frame)
+    Pre_Data.Frame<-rbind(Extra_Items_Pre,Pre_Data.Frame)
+    Pre_Data.Frame$Pre.No.<- 1:nrow(Pre_Data.Frame)
+    row.names(Pre_Data.Frame)<-1:nrow(Pre_Data.Frame)
     
   }

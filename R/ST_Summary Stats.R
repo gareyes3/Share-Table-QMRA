@@ -91,14 +91,20 @@ Pre_Data_Days = do.call(rbind,datalistPre_days)
 #Consumed Items Fruit Mean + Median
   Fr_Consumed_Mean_Contanmination<-mean(Total_Consumed_Fr$Contamination, na.rm = TRUE)
   Fr_Consumed_Median_Contanmination<-median(Total_Consumed_Fr$Contamination, na.rm = TRUE)
+  Fr_Consumed_5th_Contamination<-quantile(Total_Consumed_Fr$Contamination, .05, na.rm = TRUE)
+  Fr_Consumed_95th_Contamination<-quantile(Total_Consumed_Fr$Contamination, .95, na.rm = TRUE)
   
 #Consumed Items Selection Table only
   Fr_Consumed_Sel_Mean_Contamination<-mean(Total_Consumed_Sel_Fr$Contamination, na.rm = TRUE)
   Fr_Consumed_Sel_Median_Contamination<-median(Total_Consumed_Sel_Fr$Contamination, na.rm = TRUE)
+  Fr_Consumed_Sel_5th_Contamination<-quantile(Total_Consumed_Sel_Fr$Contamination, .05, na.rm = TRUE)
+  Fr_Consumed_Sel_95th_Contamination<-quantile(Total_Consumed_Sel_Fr$Contamination, .95, na.rm = TRUE)
 
 #Consumed Items Share Table Only
   Fr_Consumed_ST_Mean_Contamination<-mean(Total_Consumed_ST_Fr$Contamination, na.rm = TRUE)
   Fr_Consumed_ST_Median_Contamination<-median(Total_Consumed_ST_Fr$Contamination, na.rm = TRUE)
+  Fr_Consumed_ST_5th_Contamination<-quantile(Total_Consumed_ST_Fr$Contamination, .05, na.rm = TRUE)
+  Fr_Consumed_ST_95th_Contamination<-quantile(Total_Consumed_ST_Fr$Contamination, .95, na.rm = TRUE)
   
 #Allergen Consumed
   Fr_Allergen_Consumed<-sum(Total_Consumed_Fr$ExposedAllergen ==TRUE, na.rm = TRUE)

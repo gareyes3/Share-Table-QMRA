@@ -30,9 +30,9 @@
 # Sevice Line Information -------------------------------------------------
   
   #Initial Number of fruit
-  Initial_Fr<-15 #Number of fruit 
-  Initial_Pss<-75 #number of Packaged shelf stable
-  Initial_Pre<-75 #number of packaged refrigirated
+  Initial_Fr<-50 #Number of fruit 
+  Initial_Pss<-50 #number of Packaged shelf stable
+  Initial_Pre<-50 #number of packaged refrigirated
   
   #row size in selection table
   Row_size_Fr<-20
