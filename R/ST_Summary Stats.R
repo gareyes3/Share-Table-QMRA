@@ -100,6 +100,9 @@ Pre_Data_Days = do.call(rbind,datalistPre_days)
   Fr_Consumed_ST_Mean_Contamination<-mean(Total_Consumed_ST_Fr$Contamination, na.rm = TRUE)
   Fr_Consumed_ST_Median_Contamination<-median(Total_Consumed_ST_Fr$Contamination, na.rm = TRUE)
   
+#Allergen Consumed
+  Fr_Allergen_Consumed<-sum(Total_Consumed_Fr$ExposedAllergen ==TRUE, na.rm = TRUE)
+  
 #ADDING DATA TO DATA_FRAME
   AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "MeanCont"]<-Fr_Consumed_Mean_Contanmination
   AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "MedianCont"]<-Fr_Consumed_Median_Contanmination
@@ -107,7 +110,42 @@ Pre_Data_Days = do.call(rbind,datalistPre_days)
   AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "MedianContSelection"]<-Fr_Consumed_Sel_Median_Contamination
   AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "MeanContST"]<-Fr_Consumed_ST_Mean_Contamination
   AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "MedianContST"]<-Fr_Consumed_ST_Median_Contamination
+  AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "AllergenConsumed"]<- Fr_Allergen_Consumed
   
   
+#Pre
+  
+  
+  #Consumed Items Fruit Mean + Median
+  Pre_Consumed_Mean_Contanmination<-mean(Total_Consumed_Pre$Contamination, na.rm = TRUE)
+  Pre_Consumed_Median_Contanmination<-median(Total_Consumed_Pre$Contamination, na.rm = TRUE)
+  
+  #Consumed Items Selection Table only
+  Pre_Consumed_Sel_Mean_Contamination<-mean(Total_Consumed_Sel_Pre$Contamination, na.rm = TRUE)
+  Pre_Consumed_Sel_Median_Contamination<-median(Total_Consumed_Sel_Pre$Contamination, na.rm = TRUE)
+  
+  #Consumed Items Share Table Only
+  Pre_Consumed_ST_Mean_Contamination<-mean(Total_Consumed_ST_Pre$Contamination, na.rm = TRUE)
+  Pre_Consumed_ST_Median_Contamination<-median(Total_Consumed_ST_Pre$Contamination, na.rm = TRUE)
+  
+  #Spoiled Items: 
+  Pre_Consumed_Spoiled<-sum(Total_Consumed_Pre$SpoiledYN ==TRUE, na.rm = TRUE)
+  
+  #Allergen Consumed
+  Pre_Allergen_Consumed<-sum(Total_Consumed_Pre$ExposedAllergen ==TRUE, na.rm = TRUE)
 
+  
+  #ADDING DATA TO DATA_FRAME
+  APre_Summary_DF[l,colnames(APre_Summary_DF)== "MeanCont"]<-Pre_Consumed_Mean_Contanmination
+  APre_Summary_DF[l,colnames(APre_Summary_DF)== "MedianCont"]<-Pre_Consumed_Median_Contanmination
+  APre_Summary_DF[l,colnames(APre_Summary_DF)== "MeanContSelection"]<- Pre_Consumed_Sel_Mean_Contamination
+  APre_Summary_DF[l,colnames(APre_Summary_DF)== "MedianContSelection"]<-Pre_Consumed_Sel_Median_Contamination
+  APre_Summary_DF[l,colnames(APre_Summary_DF)== "MeanContST"]<-Pre_Consumed_ST_Mean_Contamination
+  APre_Summary_DF[l,colnames(APre_Summary_DF)== "MedianContST"]<-Pre_Consumed_ST_Median_Contamination
+  APre_Summary_DF[l,colnames(APre_Summary_DF)== "SpoiledConsumed"]<-Pre_Consumed_Spoiled
+  APre_Summary_DF[l,colnames(APre_Summary_DF)== "AllergenConsumed"]<- Pre_Allergen_Consumed
+  
+  
+  
+  
   
