@@ -37,7 +37,7 @@
   Sum_Pss_Available<-sum(Pss_Available, na.rm = TRUE)
   
   if(Sum_Pss_Available<2){
-    Extra_Items_Pss<-data.frame("Pre No." = 1:Initial_Pss,
+    Extra_Items_Pss<-data.frame("Pss No." = 1:Initial_Pss,
                                               "Location"= "Selection Table",
                                               "Contamination" = as.numeric("0"),
                                               "ExposedAllergen" = FALSE,
@@ -73,7 +73,7 @@
   Sum_Pre_Available<-sum(Pre_Available, na.rm = TRUE)
   
   if(Sum_Pre_Available<2){
-    Extra_Items_Pre<-data.frame("Pre No." = 1:Initial_Pss,
+    Extra_Items_Pre<-data.frame("Pre No." = 1:Initial_Pre,
                             "Location"= "Selection Table",
                             "Contamination" = as.numeric("0"),
                             "ExposedAllergen" = FALSE,

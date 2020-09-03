@@ -12,18 +12,16 @@
   Plot_Total_Pss_Contamination_Stag<-Exposure_Staggered_Function2(Total_Consumed_Pss_Bind,Contamination = Contamination, Type = Type, "Total Exposure Pss","Contamination per Pss log CFU/Pss", "Count of PSs Consumed")
   Plot_Total_Pss_Contamination_Stag<-Exposure_Staggered_Function2(Total_Consumed_Pre_Bind,Contamination = Contamination, Type = Type, "Total Exposure Pre", "Contamination per Pre log CFU/Pre", "Count of Pre Consumed")
 
-  Func_GGsave(Plot_Total_Fr_Contamination_Stag,"Graphs","Perro")  
+  Func_GGsave(Plot_Total_Fr_Contamination_Stag,"Graphs","Histogram")  
   # Histogram Exposure Visuals Not Staggered ----------------------------------------------
   
   #Fruit
   #Total Exposure
-  Exposure_Plot_Function3(Total_Consumed_Fr, "Exposure total Fruit Consumed", "Contamination per Fruit log CFU/Fruit", "Count of Fruit Consumed")
-  Exposure_Plot_Function3(Total_Consumed_Fr_Bind, "Exposure total Fruit Consumed", "Contamination per Fruit log CFU/Fruit", "Count of Fruit Consumed")
+  Plot_Total_Fr_Contamination<-Exposure_Plot_Function3(Total_Consumed_Fr, "Exposure total Fruit Consumed", "Contamination per Fruit log CFU/Fruit", "Count of Fruit Consumed")
   #Total Exposure from Share Table Items
-  Exposure_Plot_Function3(Total_Consumed_ST_Fr, "Exposure Consumed Fruit from Share Tables", "Contamination per Fruit log CFU/Fruit", "Count of Fruit Consumed")
+  Plot_Total_Fr_ST_Contamination<-Exposure_Plot_Function3(Total_Consumed_ST_Fr, "Exposure Consumed Fruit from Share Tables", "Contamination per Fruit log CFU/Fruit", "Count of Fruit Consumed")
   #Total Exposure from Selection Table Items
-  Exposure_Plot_Function3(Total_Consumed_Sel_Fr, "Exposure Consumed Fruit from Selection Tables", "Contamination per Fruit log CFU/Fruit", "Count of Fruit Consumed")
-  
+  Plot_Total_Fr_Sel_Contamination<-Exposure_Plot_Function3(Total_Consumed_Sel_Fr, "Exposure Consumed Fruit from Selection Tables", "Contamination per Fruit log CFU/Fruit", "Count of Fruit Consumed")
   
   
   

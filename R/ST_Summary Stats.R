@@ -112,10 +112,16 @@ Pre_Data_Days = do.call(rbind,datalistPre_days)
 #ADDING DATA TO DATA_FRAME
   AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "MeanCont"]<-Fr_Consumed_Mean_Contanmination
   AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "MedianCont"]<-Fr_Consumed_Median_Contanmination
+  AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "Cont95th"]<-Fr_Consumed_95th_Contamination
+  AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "Cont5th"]<-Fr_Consumed_5th_Contamination
   AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "MeanContSelection"]<- Fr_Consumed_Sel_Mean_Contamination
   AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "MedianContSelection"]<-Fr_Consumed_Sel_Median_Contamination
+  AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "ContSel95th"]<-Fr_Consumed_Sel_95th_Contamination
+  AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "ContSel5th"]<-Fr_Consumed_Sel_5th_Contamination
   AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "MeanContST"]<-Fr_Consumed_ST_Mean_Contamination
   AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "MedianContST"]<-Fr_Consumed_ST_Median_Contamination
+  AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "ContST95th"]<-Fr_Consumed_ST_95th_Contamination
+  AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "ContST5th"]<-Fr_Consumed_ST_5th_Contamination
   AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "AllergenConsumed"]<- Fr_Allergen_Consumed
   
   

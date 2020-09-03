@@ -107,7 +107,7 @@ Disc_Consumed_Function<-function(data, title){
 Func_GGsave<-function(PlotSaved, Path, Filename){
   ggsave(PlotSaved,
          path = Path,
-         filename = paste(Filename, l , k , ".jpg"),
+         filename = paste(Filename, l  , ".jpg"),
          height = 6,
          width = 6,
          dpi = 300
