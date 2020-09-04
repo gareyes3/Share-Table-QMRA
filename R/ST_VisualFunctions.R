@@ -26,8 +26,19 @@ Exposure_Plot_Function2<-function(Consumed = Total_Consumed_Fr ,Title = "Insert 
     theme(axis.text.x=element_text(angle=90, hjust=1))
 }
 
+
 Exposure_Plot_Function3<-function(Consumed = Total_Consumed_Fr ,Title = "Insert Title", xlab, ylab){
   ggplot(Consumed, aes(x=Contamination)) + 
+    geom_histogram( fill="#69b3a2", color="#e9ecef", binwidth = 1, boundary= -1) +
+    stat_bin(binwidth=1, geom="text", size=3.5 ,aes(label=..count.., vjust=-.3),boundary = -1 )+
+    ggtitle(Title)+
+    theme(plot.title = element_text(hjust = 0.5))+
+    labs(x= xlab, y= ylab)+
+    theme(axis.text.x=element_text(angle=90, hjust=1))
+}
+
+Exposure_Plot_Function4<-function(Consumed = Total_Consumed_Fr ,Title = "Insert Title", xlab, ylab){
+  ggplot(Consumed, aes(x=MedianCont)) + 
     geom_histogram( fill="#69b3a2", color="#e9ecef", binwidth = 1, boundary= -1) +
     stat_bin(binwidth=1, geom="text", size=3.5 ,aes(label=..count.., vjust=-.3),boundary = -1 )+
     ggtitle(Title)+

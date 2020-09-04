@@ -1,6 +1,6 @@
 #Variables for Sensitivity Analysis
 
-Sens_Iterations<-2
+Sens_Iterations<-20
 AFr_Summary_DF<-data.frame(
   "Iteration.N" = 1:Sens_Iterations,
   "MeanCont" = as.numeric(""),

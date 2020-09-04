@@ -144,13 +144,19 @@
   
   
   #GROWTH oVERNIGHT
-  Left_Selection_Pre<-Func_Growth_Milk_Spoilage(Temp_Ref, Left_Selection_Pre, Time_ON)
-  Left_Selection_Pre<-Func_Spoilage_YN(Left_Selection_Pre)
-  
-  if( Share_Table_YN==1){
-    Left_ST_Pre<-Func_Growth_Milk_Spoilage(Temp_Ref, Left_ST_Pre, Time_ON)
-    Left_ST_Pre<-Func_Spoilage_YN(Left_ST_Pre)
+  if(No_Left_Selection_Pre>0){
+    Left_Selection_Pre<-Func_Growth_Milk_Spoilage(Temp_Ref, Left_Selection_Pre, Time_ON)
+    Left_Selection_Pre<-Func_Spoilage_YN(Left_Selection_Pre)
   }
+
+  
+  if(No_Left_ST_Pre>0){
+    if( Share_Table_YN==1){
+      Left_ST_Pre<-Func_Growth_Milk_Spoilage(Temp_Ref, Left_ST_Pre, Time_ON)
+      Left_ST_Pre<-Func_Spoilage_YN(Left_ST_Pre)
+    }
+  }
+
 
   
   
