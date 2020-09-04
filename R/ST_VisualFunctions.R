@@ -62,7 +62,7 @@ Exposure_Staggered_Function<-function(ConsumedDF = Total_Consumed_Fr_Bind ,Conta
 
 Exposure_Staggered_Function2<-function(ConsumedDF = Total_Consumed_Fr_Bind ,Contamination = Contamination ,Type = Type, Title = "Insert Title Here", xlab, ylab){
   ggplot(ConsumedDF, aes(x=Contamination, fill= Type)) + 
-    geom_histogram(alpha = 0.5, position = 'identity', boundary=-1, binwidth = 1 ) +
+    geom_histogram(alpha = 0.5, position = 'identity', boundary=-1, binwidth = 1) +
     ggtitle(Title)+
     labs(x= xlab, y= ylab)+
     theme(plot.title = element_text(hjust = 0.5))
