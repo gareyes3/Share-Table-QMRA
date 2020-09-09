@@ -41,8 +41,6 @@
                                               "Location"= "Selection Table",
                                               "Contamination" = as.numeric("0"),
                                               "ExposedAllergen" = FALSE,
-                                              "SpoilageCon" = as.numeric(Initial_Spoilage_Con),
-                                              "SpoiledYN" = FALSE,
                                               "TotTime"= as.numeric("0"),
                                               "History" = "", 
                                               "STtimes"= as.numeric("0"),

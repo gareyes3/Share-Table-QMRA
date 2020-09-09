@@ -131,14 +131,20 @@ Pre_Data_Days = do.call(rbind,datalistPre_days)
   #Consumed Items Fruit Mean + Median
   Pre_Consumed_Mean_Contanmination<-mean(Total_Consumed_Pre$Contamination, na.rm = TRUE)
   Pre_Consumed_Median_Contanmination<-median(Total_Consumed_Pre$Contamination, na.rm = TRUE)
+  Pre_Consumed_5th_Contamination<-quantile(Total_Consumed_Pre$Contamination, .05, na.rm = TRUE)
+  Pre_Consumed_95th_Contamination<-quantile(Total_Consumed_Pre$Contamination, .95, na.rm = TRUE)
   
   #Consumed Items Selection Table only
   Pre_Consumed_Sel_Mean_Contamination<-mean(Total_Consumed_Sel_Pre$Contamination, na.rm = TRUE)
   Pre_Consumed_Sel_Median_Contamination<-median(Total_Consumed_Sel_Pre$Contamination, na.rm = TRUE)
+  Pre_Consumed_Sel_5th_Contamination<-quantile(Total_Consumed_Sel_Pre$Contamination, .05, na.rm = TRUE)
+  Pre_Consumed_Sel_95th_Contamination<-quantile(Total_Consumed_Sel_Pre$Contamination, .95, na.rm = TRUE)
   
   #Consumed Items Share Table Only
   Pre_Consumed_ST_Mean_Contamination<-mean(Total_Consumed_ST_Pre$Contamination, na.rm = TRUE)
   Pre_Consumed_ST_Median_Contamination<-median(Total_Consumed_ST_Pre$Contamination, na.rm = TRUE)
+  Pre_Consumed_ST_5th_Contamination<-quantile(Total_Consumed_ST_Pre$Contamination, .05, na.rm = TRUE)
+  Pre_Consumed_ST_95th_Contamination<-quantile(Total_Consumed_ST_Pre$Contamination, .95, na.rm = TRUE)
   
   #Spoiled Items: 
   Pre_Consumed_Spoiled<-sum(Total_Consumed_Pre$SpoiledYN ==TRUE, na.rm = TRUE)
@@ -150,10 +156,16 @@ Pre_Data_Days = do.call(rbind,datalistPre_days)
   #ADDING DATA TO DATA_FRAME
   APre_Summary_DF[l,colnames(APre_Summary_DF)== "MeanCont"]<-Pre_Consumed_Mean_Contanmination
   APre_Summary_DF[l,colnames(APre_Summary_DF)== "MedianCont"]<-Pre_Consumed_Median_Contanmination
+  APre_Summary_DF[l,colnames(APre_Summary_DF)== "Cont95th"]<-Pre_Consumed_95th_Contamination
+  APre_Summary_DF[l,colnames(APre_Summary_DF)== "Cont5th"]<-Pre_Consumed_5th_Contamination
   APre_Summary_DF[l,colnames(APre_Summary_DF)== "MeanContSelection"]<- Pre_Consumed_Sel_Mean_Contamination
   APre_Summary_DF[l,colnames(APre_Summary_DF)== "MedianContSelection"]<-Pre_Consumed_Sel_Median_Contamination
+  APre_Summary_DF[l,colnames(APre_Summary_DF)== "ContSel95th"]<-Pre_Consumed_Sel_95th_Contamination
+  APre_Summary_DF[l,colnames(APre_Summary_DF)== "ContSel5th"]<-Pre_Consumed_Sel_5th_Contamination
   APre_Summary_DF[l,colnames(APre_Summary_DF)== "MeanContST"]<-Pre_Consumed_ST_Mean_Contamination
   APre_Summary_DF[l,colnames(APre_Summary_DF)== "MedianContST"]<-Pre_Consumed_ST_Median_Contamination
+  APre_Summary_DF[l,colnames(APre_Summary_DF)== "ContST95th"]<-Pre_Consumed_ST_95th_Contamination
+  APre_Summary_DF[l,colnames(APre_Summary_DF)== "ContST5th"]<-Pre_Consumed_ST_5th_Contamination
   APre_Summary_DF[l,colnames(APre_Summary_DF)== "SpoiledConsumed"]<-Pre_Consumed_Spoiled
   APre_Summary_DF[l,colnames(APre_Summary_DF)== "AllergenConsumed"]<- Pre_Allergen_Consumed
   
