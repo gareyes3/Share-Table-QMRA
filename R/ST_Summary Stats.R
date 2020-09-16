@@ -124,7 +124,45 @@ Pre_Data_Days = do.call(rbind,datalistPre_days)
   AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "ContST5th"]<-Fr_Consumed_ST_5th_Contamination
   AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "AllergenConsumed"]<- Fr_Allergen_Consumed
   
+
+#Pss
   
+  #Consumed Items Pss Mean + Median
+  Pss_Consumed_Mean_Contanmination<-mean(Total_Consumed_Pss$Contamination, na.rm = TRUE)
+  Pss_Consumed_Median_Contanmination<-median(Total_Consumed_Pss$Contamination, na.rm = TRUE)
+  Pss_Consumed_5th_Contamination<-quantile(Total_Consumed_Pss$Contamination, .05, na.rm = TRUE)
+  Pss_Consumed_95th_Contamination<-quantile(Total_Consumed_Pss$Contamination, .95, na.rm = TRUE)
+  
+  #Consumed Items Selection Table only
+  Pss_Consumed_Sel_Mean_Contamination<-mean(Total_Consumed_Sel_Pss$Contamination, na.rm = TRUE)
+  Pss_Consumed_Sel_Median_Contamination<-median(Total_Consumed_Sel_Pss$Contamination, na.rm = TRUE)
+  Pss_Consumed_Sel_5th_Contamination<-quantile(Total_Consumed_Sel_Pss$Contamination, .05, na.rm = TRUE)
+  Pss_Consumed_Sel_95th_Contamination<-quantile(Total_Consumed_Sel_Pss$Contamination, .95, na.rm = TRUE)
+  
+  #Consumed Items Share Table Only
+  Pss_Consumed_ST_Mean_Contamination<-mean(Total_Consumed_ST_Pss$Contamination, na.rm = TRUE)
+  Pss_Consumed_ST_Median_Contamination<-median(Total_Consumed_ST_Pss$Contamination, na.rm = TRUE)
+  Pss_Consumed_ST_5th_Contamination<-quantile(Total_Consumed_ST_Pss$Contamination, .05, na.rm = TRUE)
+  Pss_Consumed_ST_95th_Contamination<-quantile(Total_Consumed_ST_Pss$Contamination, .95, na.rm = TRUE)
+
+  #Allergen Consumed
+  Pss_Allergen_Consumed<-sum(Total_Consumed_Pss$ExposedAllergen ==TRUE, na.rm = TRUE)
+  
+  #ADDING DATA TO DATA_FRAME
+  APss_Summary_DF[l,colnames(APss_Summary_DF)== "MeanCont"]<-Pss_Consumed_Mean_Contanmination
+  APss_Summary_DF[l,colnames(APss_Summary_DF)== "MedianCont"]<-Pss_Consumed_Median_Contanmination
+  APss_Summary_DF[l,colnames(APss_Summary_DF)== "Cont95th"]<-Pss_Consumed_95th_Contamination
+  APss_Summary_DF[l,colnames(APss_Summary_DF)== "Cont5th"]<-Pss_Consumed_5th_Contamination
+  APss_Summary_DF[l,colnames(APss_Summary_DF)== "MeanContSelection"]<- Pss_Consumed_Sel_Mean_Contamination
+  APss_Summary_DF[l,colnames(APss_Summary_DF)== "MedianContSelection"]<-Pss_Consumed_Sel_Median_Contamination
+  APss_Summary_DF[l,colnames(APss_Summary_DF)== "ContSel95th"]<-Pss_Consumed_Sel_95th_Contamination
+  APss_Summary_DF[l,colnames(APss_Summary_DF)== "ContSel5th"]<-Pss_Consumed_Sel_5th_Contamination
+  APss_Summary_DF[l,colnames(APss_Summary_DF)== "MeanContST"]<-Pss_Consumed_ST_Mean_Contamination
+  APss_Summary_DF[l,colnames(APss_Summary_DF)== "MedianContST"]<-Pss_Consumed_ST_Median_Contamination
+  APss_Summary_DF[l,colnames(APss_Summary_DF)== "ContST95th"]<-Pss_Consumed_ST_95th_Contamination
+  APss_Summary_DF[l,colnames(APss_Summary_DF)== "ContST5th"]<-Pss_Consumed_ST_5th_Contamination
+  APss_Summary_DF[l,colnames(APss_Summary_DF)== "AllergenConsumed"]<- Pss_Allergen_Consumed
+    
 #Pre
   
   

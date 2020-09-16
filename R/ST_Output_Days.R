@@ -8,7 +8,7 @@
   assign(Pss_DF_Day, Pss_Data)
   
   Pre_DF_Day <- paste("Pre_Data_D", k, sep = "")
-  assign(Pre_DF_Day, Pss_Data)
+  assign(Pre_DF_Day, Pre_Data)
 
 
 
