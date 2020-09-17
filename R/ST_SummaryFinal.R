@@ -36,10 +36,19 @@ Fruit_Ribbon<-Ribbon_Function_Final(AFr_Weeks_Append,AFr_Summary_DF, "Fruit")
 Pss_Ribbon<-Ribbon_Function_Final(APss_Weeks_Append,APss_Summary_DF, "Pss")
 Pre_Ribbon<-Ribbon_Function_Final(APre_Weeks_Append,APre_Summary_DF, "Pre")
 
-ggarrange(Fruit_Ribbon,Pss_Ribbon, Pre_Ribbon,
-  ncol=1, nrow=3, label.x = "Weeks", label.y ="Contamination Log CFU/g 5th - 95th percentile" 
+Figure1<-ggarrange(Fruit_Ribbon,Pss_Ribbon, Pre_Ribbon,
+  ncol=1, nrow=3, labels = NULL, common.legend = TRUE, legend = "right" 
+)
+annotate_figure(Figure1,
+                top = text_grob("Consumption Distribution", color = "Black", face = "bold", size = 14),
+                bottom = text_grob("Data source: \n Share Table Model", color = "blue",
+                                   hjust = 1, x = 1, face = "italic", size = 10),
+                left = text_grob("Contamination Consumed 5th-95th Percentile", color = "Black", rot = 90),
+                fig.lab = "Figure 1", fig.lab.face = "bold"
 )
 
+
+print(Figure1)
 
 
 #Function for Plot Weeks
@@ -60,7 +69,7 @@ Ribbon_Function_Final<-function(DF,DF2, Title){
     geom_ribbon(aes(ymin = Cont5th, ymax = Cont95th, fill=Type), alpha=0.3 )+ 
     geom_point(aes(x = Iteration.N, y = MedianCont, color = Type))+
     geom_line(aes(x= Iteration.N, y= MedianCont,color = Type), size = .5) +   
-    labs(x = "Week #", y = "Contamination Log CFU/g 5th - 95th percentile") +
+    labs(x = "Week #", y = "") +
     scale_fill_manual(name = '5th-95th Percentile', values = c("dodgerblue1", "tomato4", "seagreen1"))+ 
     scale_color_manual(name = 'Median', values = c("dodgerblue1", "tomato4", "seagreen1"))+
     theme_bw()+
