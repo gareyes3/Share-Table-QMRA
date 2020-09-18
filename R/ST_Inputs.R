@@ -6,7 +6,6 @@
   salmonella<-0
   E_coli<-0
   norovirus<-1
-  allergen<-0
 
   # Inputs for Iterations. Student, Services, Meal_Days ---------------------
   #Instructions: Calculated or simply input a number in N_Iterations and # the calculation
@@ -40,7 +39,7 @@
   Row_size_Pre<-20  
   
   
-# Inputs for Calculation of Student Contamination -------------------------
+# Inputs for Calculation if student is contminated -------------------------
   
   #If students won't carry anything then set Pr os 0
   

@@ -26,3 +26,9 @@ datalistPre_days=list()
 Student_Cont_Count<-c(0)
 Student_Allergen_Count<-1
 Student_Pathogen_Count<-1
+
+#Lists for sensitivity
+
+List_Sens_Fr<-list()
+List_Sens_Pss<-list()
+List_Sens_Pre<-list()
