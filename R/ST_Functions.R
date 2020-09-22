@@ -331,4 +331,18 @@ Func_Allergen_CC<-function(DF, PickedVar){
 }
 
 
+#Appending Data Frame Function
 
+Func_Append_Column_Final<-function(DF = AFr_Summary_DF ){
+  sapply(DF, as.numeric)
+  Total<-DF[1:5]
+  Total$Type<-"Total"
+  Selection<-DF[c(1,6:9)]
+  names(Selection)<-c("Iteration.N", "MeanCont", "MedianCont", "Cont5th", "Cont95th")
+  Selection$Type<-"Service Line"
+  ST<-DF[c(1,10:13)]
+  names(ST)<-c("Iteration.N", "MeanCont", "MedianCont", "Cont5th", "Cont95th")
+  ST$Type<-"Share Table"
+  Total<-rbind(Total,Selection, ST)
+  return(Total)
+}

@@ -32,3 +32,7 @@ Student_Pathogen_Count<-1
 List_Sens_Fr<-list()
 List_Sens_Pss<-list()
 List_Sens_Pre<-list()
+
+#Vector Contminations
+
+Vector_Contaminations<-c(0)

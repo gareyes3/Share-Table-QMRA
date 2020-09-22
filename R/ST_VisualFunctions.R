@@ -125,3 +125,29 @@ Func_GGsave<-function(PlotSaved, Path, Filename){
   )
 }
 
+Func_GGsave_Normal<-function(PlotSaved, Path, Filename){
+  ggsave(PlotSaved,
+         path = Path,
+         filename = paste(Filename , ".jpg"),
+         height = 6,
+         width = 6,
+         dpi = 300
+  )
+}
+
+
+# Ribbon Function ---------------------------------------------------------
+
+Ribbon_Function_Final<-function(DF,DF2, Title){
+  ggplot(DF, aes(x = Iteration.N, y = MedianCont, group = Type)) + 
+    geom_ribbon(aes(ymin = Cont5th, ymax = Cont95th, fill=Type), alpha=0.3 )+ 
+    geom_point(aes(x = Iteration.N, y = MedianCont, color = Type))+
+    geom_line(aes(x= Iteration.N, y= MedianCont,color = Type), size = .5) +   
+    labs(x = "Week #", y = "") +
+    scale_fill_manual(name = '5th-95th Percentile', values = c("dodgerblue1", "tomato4", "seagreen1"))+ 
+    scale_color_manual(name = 'Median', values = c("dodgerblue1", "tomato4", "seagreen1"))+
+    theme_bw()+
+    ggtitle(Title)+
+    scale_x_continuous(breaks = seq(1, nrow(DF2), by = 1))
+}
+

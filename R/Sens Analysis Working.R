@@ -19,19 +19,33 @@ quantile(Contaminations, .025, na.rm = TRUE)
 
 
 
+
 #For Tab
 
-Test<-function(vector,probs){
+
+Test<-function(vector){
+  vector<-vector[which(vector$Location == "Consumed"),]
   mean(vector$Contamination)
 }
 Listtest<-sapply(X=List_Sens_Fr,FUN=Test)
-Data_Analysis<-data.frame("Input"= 45506.72,
+Data_Analysis<-data.frame("Input"= rep(Vector_Contaminations[2:11],each=25),
+                          "Input2"= rnorm(250,550,20),
                           "Outputs" = Listtest)
-pcc(Data_Analysis, y=with(Data_Analysis,Input + Outputs))
+Data_Analysis_Week<-data.frame("Input" = Vector_Contaminations[2:11],
+                               "Input2"= .04,
+                               "Output" = AFr_Summary_DF$MedianCont
+                               )
 
 
-install.packages("sensitivity")
-library("sensitivity")
+pcc(X=Data_Analysis, y = with(Data_Analysis,Data_Analysis$Outputs+Data_Analysis$Input),nboot = 250)
+pcc(X=Data_Analysis[,1:2], y=Data_Analysis$Outputs)
+pcc(X=Data_Analysis_Week[,1:2], y=Data_Analysis_Week$Output)
+
+Input<-data.frame(
+  "Input"=rep(1:10,each=25)
+)
+
 
 quantile(Fr_Data.Frame$Contamination, probs = c(.25,.5,.75))
 
+plot(Data_Analysis$Input, Data_Analysis$Outputs)

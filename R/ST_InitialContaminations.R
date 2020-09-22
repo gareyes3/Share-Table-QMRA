@@ -13,7 +13,8 @@ if(Toggle_SelfAssigned_Pathogens==1){
   if( k == Student_Pathogen_Day[Student_Pathogen_Count] 
       && j == Student_Pathogen_Service[Student_Pathogen_Count] 
       && i == Student_Pathogen_No[Student_Pathogen_Count]){
-    Cont_Student<-45506.72  #IC_Student 
+    Cont_Student<-7.581931e-08#IC_Student 
+    Vector_Contaminations<-c(Vector_Contaminations,Cont_Student)
     print("A student is contaminated with Pathogens")
     Student_Pathogen_Count<-(Student_Pathogen_Count+1)
     if(Student_Pathogen_Count>Number_Student_Pathogens){

@@ -46,7 +46,7 @@
   Pr_Student_iC<-0 #probability of 1 student being contaminated. #set as 0 if self calculated. 
   
   
-  Number_Student_Pathogens<-1
+  Number_Student_Pathogens<-1 #Students that are contaminated that will enter the system every week. 
   
   Student_Pathogen_No<-c(1)  #No Student that is contaminated to enter iteration
   Student_Pathogen_Service<-c(1) #service in which contaminated kid enter the. 
