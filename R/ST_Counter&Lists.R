@@ -35,4 +35,4 @@ List_Sens_Pre<-list()
 
 #Vector Contminations
 
-Vector_Contaminations<-c(0)
+Vector_Contaminations<-c()

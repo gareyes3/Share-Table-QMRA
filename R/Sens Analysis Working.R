@@ -2,7 +2,7 @@
 
 #Initial Contamination
 
-Contaminations<-c(0)
+Contaminations<-c()
 
 for (i in 1:10000){
   mass_feces_hands<- rbetagen(1,4.57,2.55,-8.00,-1.00) #log(g/hands)
@@ -18,7 +18,7 @@ quantile(Contaminations, .025, na.rm = TRUE)
 
 
 
-
+mean(AFr_Summary_DF$MedianCont)
 
 #For Tab
 
@@ -28,6 +28,10 @@ Test<-function(vector){
   mean(vector$Contamination)
 }
 Listtest<-sapply(X=List_Sens_Fr,FUN=Test)
+mean(Listtest)
+median(Listtest)
+var(Listtest)
+
 Data_Analysis<-data.frame("Input"= rep(Vector_Contaminations[2:11],each=25),
                           "Input2"= rnorm(250,550,20),
                           "Outputs" = Listtest)
