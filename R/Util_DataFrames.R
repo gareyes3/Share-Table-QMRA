@@ -31,7 +31,7 @@ if(j==1 && k== 1){
   if(salmonella==1 && Calculated_Cont_Fr==1){
     Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
   } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
-    Fr_Data.Frame<-func_Cont_HuNoV_Fr(Fr_Data.Frame,Prevalence_Norovirus_Fr)
+    Fr_Data.Frame<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Fr_Data.Frame),Inputs_Cont_HuNov_Fr))
   }
   
   Fst_Df<-Fr_Data.Frame
@@ -129,7 +129,7 @@ if(j>1 && k ==1 ){
     if(salmonella==1 && Calculated_Cont_Fr==1){
       Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
     } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
-      Fr_Data.Frame<-func_Cont_HuNoV_Fr(Fr_Data.Frame,Prevalence_Norovirus_Fr)
+      Fr_Data.Frame<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Fr_Data.Frame),Inputs_Cont_HuNov_Fr))
     }
     
     #Adding times that the share table items have been shared
@@ -260,7 +260,7 @@ if(j>1 && k ==1 ){
      if(salmonella==1 && Calculated_Cont_Fr==1){
        Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
      } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
-       Fr_Data.Frame<-func_Cont_HuNoV_Fr(Fr_Data.Frame,Prevalence_Norovirus_Fr)
+       Fr_Data.Frame<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Fr_Data.Frame),Inputs_Cont_HuNov_Fr))
      }
      
     #Adding Share Times
@@ -393,7 +393,7 @@ if(j>0 && k>1 ){
     if(salmonella==1 && Calculated_Cont_Fr==1){
       Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
     } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
-      Fr_Data.Frame<-func_Cont_HuNoV_Fr(Fr_Data.Frame,Prevalence_Norovirus_Fr)
+      Fr_Data.Frame<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Fr_Data.Frame),Inputs_Cont_HuNov_Fr))
     }
     
     #Adding times that the share table items have been shared
@@ -527,7 +527,7 @@ if(j>0 && k>1 ){
     if(salmonella==1 && Calculated_Cont_Fr==1){
       Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
     } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
-      Fr_Data.Frame<-func_Cont_HuNoV_Fr(Fr_Data.Frame,Prevalence_Norovirus_Fr)
+      Fr_Data.Frame<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Fr_Data.Frame),Inputs_Cont_HuNov_Fr))
     }
     
     #Adding Share Times

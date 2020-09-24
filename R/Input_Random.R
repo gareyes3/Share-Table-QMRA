@@ -1,5 +1,18 @@
 
 
+
+# Initial Contamination of Student Inputs ---------------------------------
+
+Inputs_ICont_Student<-list(
+  #salmonella parameters
+  IC_salmonella=8.9*10^6,
+  #Norovirus parameters
+  mass_feces_hands=rbetagen(1,4.57,2.55,-8.00,-1.00), #log(g/hands)
+  HU_NV_in_Feces=rlnormTrunc(1,6.65,2.06,0.0,10.98), #log HuNov CG/ g
+  Genomic_copies_per_PFU=rnormTrunc(1,3.65,.98,2.00,5.40)
+)
+
+
 # Transfer Efficiencies ---------------------------------------------------
 
 
