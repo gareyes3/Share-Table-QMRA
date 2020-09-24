@@ -1,21 +1,26 @@
----
-title: "Model In Markdown"
-output: html_document
----
-```{r}
+
+setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+#setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+
+#Library
+source("Util_Library.R")
+
+
+
 ####RUN FROM HERE####
 
 # Source Files ------------------------------------------------------------
 
 #Inputs
 
-source("ST_Inputs.R")
-source("ST_Counter&Lists.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_Counter&Lists.R")
 #Functions
-source("ST_Functions.R")
-source("ST_CCFunctions.R")
-source("ST_SensAnalysis.R")
-source("ST_VisualFunctions.R")
+source("Util_Functions.R")
+source("Util_CCFunctions.R")
+source("Util_SensAnalysis.R")
+source("Util_VisualFunctions.R")
 
 for (l in 1:Sens_Iterations){
   # Meal Day ----------------------------------------------------------------
@@ -27,7 +32,7 @@ for (l in 1:Sens_Iterations){
       
       
       #Data Frames Source Files
-      source("ST_DataFrames.R")  
+      source("Util_DataFrames.R")  
       
       
       
@@ -37,12 +42,12 @@ for (l in 1:Sens_Iterations){
       for (i in 1:N_Iterations){
         
         #Random Inputs
-        source("ST_RandomInputs.R")   
+        source("Input_Random.R")   
         
         #Claculations for Initial Contaminations
-        source("ST_InitialContaminations.R")
+        source("Calc_StudentContamination.R")
         
-        source("AddingItems.R")
+        source("Calc_FeedingItems.R")
         
         #Student Selection ===========================================================================
         
@@ -553,13 +558,17 @@ for (l in 1:Sens_Iterations){
       datalistPss[[j]]<-Pss_Data.Frame
       datalistPre[[j]]<-Pre_Data.Frame
       
-      source("ST_Outputs_Services.R") 
+      List_Sens_Fr[[paste(l,k,j)]]<-Fr_Data.Frame
+      List_Sens_Pss[[paste(l,k,j)]]<-Pss_Data.Frame
+      List_Sens_Pre[[paste(l,k,j)]]<-Pre_Data.Frame
+      
+      source("Output_Services.R") 
       
       message("Service #", j)
       
     } #end of second loop
     
-    #Creation of the Servies Data Frames
+    #Creation of the Services Data Frames
     Fr_Data = do.call(rbind,datalistFr)
     Pss_Data = do.call(rbind,datalistPss)
     Pre_Data = do.call(rbind,datalistPre)
@@ -569,7 +578,7 @@ for (l in 1:Sens_Iterations){
     datalistPss_days[[k]]<-Pss_Data
     datalistPre_days[[k]]<-Pre_Data
     
-    source("ST_Output_Days.R") 
+    source("Output_Days.R") 
     
     message("Day #", k)
     
@@ -577,35 +586,21 @@ for (l in 1:Sens_Iterations){
   
 
 
-  source("ST_Summary Stats.R")
+  source("Output_SummaryStats.R")
+  source("Output_Visuals.R")
   
   
   message("Done Gathering Data", l)
   
 } #end of l loop for iterations. 
 
-```
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+                                      
 
-```{r cars}
-summary(cars)
-```
 
-## Including Plots
 
-You can also embed plots, for example:
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

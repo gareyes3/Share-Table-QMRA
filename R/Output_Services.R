@@ -57,19 +57,15 @@
   if(j>0 && j<=(Service_No-1)){
     if(E_coli==1 && Growth ==1){
       #Selection Table Items
-      Func_Growth_Sto_Ecoli("room temp", Left_Selection_Fr,Time_Service) #Using function on left over items
-      Left_Selection_Fr<-DF
+      Left_Selection_Fr<-Func_Growth_Sto_Ecoli("room temp", Left_Selection_Fr,Time_Service) #Using function on left over items
       #Share Table Items
-      Func_Growth_Sto_Ecoli("room temp", Left_ST_Fr,Time_Service) #using function on left over St items
-      Left_ST_Fr<-DF
+      Left_ST_Fr<-Func_Growth_Sto_Ecoli("room temp", Left_ST_Fr,Time_Service) #using function on left over St items
     }
     if(salmonella==1 && Growth ==1){
       #Selection Table Items
-      Func_Growth_Sto_Salmonella("room temp", Left_Selection_Fr,Time_Service) #Using function on left over items
-      Left_Selection_Fr<-DF
+      Left_Selection_Fr<-Func_Growth_Sto_Salmonella("room temp", Left_Selection_Fr,Time_Service) #Using function on left over items
       #Share Table Items
-      Func_Growth_Sto_Salmonella("room temp", Left_ST_Fr,Time_Service) #using function on left over St items
-      Left_ST_Fr<-DF
+      Left_ST_Fr<-Func_Growth_Sto_Salmonella("room temp", Left_ST_Fr,Time_Service) #using function on left over St items
     }
     if(norovirus==1 && Growth ==1){
       #selection table items
@@ -84,19 +80,15 @@
   if(j>0 && j<=(Service_No-1)){
     if(E_coli==1 && Growth ==1){
       #Selection Table Items
-      Func_Growth_Sto_Ecoli("room temp", Left_Selection_Fr, Time_Turnaround) #Using function on left over items
-      Left_Selection_Fr<-DF
+      Left_Selection_Fr<-Func_Growth_Sto_Ecoli("room temp", Left_Selection_Fr, Time_Turnaround) #Using function on left over items
       #Share Table Items
-      Func_Growth_Sto_Ecoli("room temp", Left_ST_Fr, Time_Turnaround) #using function on left over St items
-      Left_ST_Fr<-DF
+      Left_ST_Fr<-Func_Growth_Sto_Ecoli("room temp", Left_ST_Fr, Time_Turnaround) #using function on left over St items
     }
     if(salmonella==1 && Growth ==1){
       #Selection Table Items
-      Func_Growth_Sto_Salmonella("room temp", Left_Selection_Fr, Time_Turnaround) #Using function on left over items
-      Left_Selection_Fr<-DF
+      Left_Selection_Fr<-Func_Growth_Sto_Salmonella("room temp", Left_Selection_Fr, Time_Turnaround) #Using function on left over items
       #Share Table Items
-      Func_Growth_Sto_Salmonella("room temp", Left_ST_Fr, Time_Turnaround) #using function on left over St items
-      Left_ST_Fr<-DF
+      Left_ST_Fr<-Func_Growth_Sto_Salmonella("room temp", Left_ST_Fr, Time_Turnaround) #using function on left over St items
     }
     if(norovirus==1 && Growth ==1){
       #selection table items
@@ -153,19 +145,15 @@
 if(j>0 && j<=(Service_No-1)){
   if(E_coli==1 && Growth ==1){
     #Selection Table Items
-    Func_Growth_Sto_Ecoli("room temp", Left_Selection_Pss,Time_Service) #Using function on left over items
-    Left_Selection_Pss<-DF
+    Left_Selection_Pss<-Func_Growth_Sto_Ecoli("room temp", Left_Selection_Pss,Time_Service) #Using function on left over items
     #Share Table Items
-    Func_Growth_Sto_Ecoli("room temp", Left_ST_Pss,Time_Service) #using function on left over St items
-    Left_ST_Pss<-DF
+    Left_ST_Pss<-Func_Growth_Sto_Ecoli("room temp", Left_ST_Pss,Time_Service) #using function on left over St items
   }
   if(salmonella==1 && Growth ==1){
     #Selection Table Items
-    Func_Growth_Sto_Salmonella("room temp", Left_Selection_Pss,Time_Service) #Using function on left over items
-    Left_Selection_Pss<-DF
+    Left_Selection_Pss<-Func_Growth_Sto_Salmonella("room temp", Left_Selection_Pss,Time_Service) #Using function on left over items
     #Share Table Items
-    Func_Growth_Sto_Salmonella("room temp", Left_ST_Pss,Time_Service) #using function on left over St items
-    Left_ST_Pss<-DF
+    Left_ST_Pss<-Func_Growth_Sto_Salmonella("room temp", Left_ST_Pss,Time_Service) #using function on left over St items
   }
   if(norovirus==1 && Growth ==1){
     #selection table items
@@ -180,19 +168,15 @@ if(j>0 && j<=(Service_No-1)){
   if(j>0 && j<=(Service_No-1)){
     if(E_coli==1 && Growth ==1){
       #Selection Table Items
-      Func_Growth_Sto_Ecoli("room temp", Left_Selection_Pss, Time_Turnaround) #Using function on left over items
-      Left_Selection_Pss<-DF
+      Left_Selection_Pss<-Func_Growth_Sto_Ecoli("room temp", Left_Selection_Pss, Time_Turnaround) #Using function on left over items
       #Share Table Items
-      Func_Growth_Sto_Ecoli("room temp", Left_ST_Pss, Time_Turnaround) #using function on left over St items
-      Left_ST_Pss<-DF
+      Left_ST_Pss<-Func_Growth_Sto_Ecoli("room temp", Left_ST_Pss, Time_Turnaround) #using function on left over St items
     }
     if(salmonella==1 && Growth ==1){
       #Selection Table Items
-      Func_Growth_Sto_Salmonella("room temp", Left_Selection_Pss, Time_Turnaround) #Using function on left over items
-      Left_Selection_Pss<-DF
+      Left_Selection_Pss<-Func_Growth_Sto_Salmonella("room temp", Left_Selection_Pss, Time_Turnaround) #Using function on left over items
       #Share Table Items
-      Func_Growth_Sto_Salmonella("room temp", Left_ST_Pss, Time_Turnaround) #using function on left over St items
-      Left_ST_Pss<-DF
+      Left_ST_Pss<-Func_Growth_Sto_Salmonella("room temp", Left_ST_Pss, Time_Turnaround) #using function on left over St items
     }
     if(norovirus==1 && Growth ==1){
       #selection table items
@@ -229,19 +213,15 @@ if(j>0 && j<=(Service_No-1)){
   if(j>0 && j<=(Service_No-1)){
     if(E_coli==1 && Growth ==1){
       #Selection Table Items
-      Func_Growth_Sto_Ecoli("room temp", Left_Selection_Pre,Time_Service) #Using function on left over items
-      Left_Selection_Pre<-DF
+      Left_Selection_Pre<-Func_Growth_Sto_Ecoli("room temp", Left_Selection_Pre,Time_Service) #Using function on left over items
       #Share Table Items
-      Func_Growth_Sto_Ecoli("room temp", Left_ST_Pre,Time_Service) #using function on left over St items
-      Left_ST_Pre<-DF
+      Left_ST_Pre<-Func_Growth_Sto_Ecoli("room temp", Left_ST_Pre,Time_Service) #using function on left over St items
     }
     if(salmonella==1 && Growth ==1){
       #Selection Table Items
-      Func_Growth_Sto_Salmonella("room temp", Left_Selection_Pre,Time_Service) #Using function on left over items
-      Left_Selection_Pre<-DF
+      Left_Selection_Pre<-Func_Growth_Sto_Salmonella("room temp", Left_Selection_Pre,Time_Service) #Using function on left over items
       #Share Table Items
-      Func_Growth_Sto_Salmonella("room temp", Left_ST_Pre,Time_Service) #using function on left over St items
-      Left_ST_Pre<-DF
+      Left_ST_Pre<-Func_Growth_Sto_Salmonella("room temp", Left_ST_Pre,Time_Service) #using function on left over St items
     }
     if(norovirus==1 && Growth ==1){
       #selection table items
@@ -256,19 +236,15 @@ if(j>0 && j<=(Service_No-1)){
   if(j>0 && j<=(Service_No-1)){
     if(E_coli==1 && Growth ==1){
       #Selection Table Items
-      Func_Growth_Sto_Ecoli("room temp", Left_Selection_Pre, Time_Turnaround) #Using function on left over items
-      Left_Selection_Pre<-DF
+      Left_Selection_Pre<-Func_Growth_Sto_Ecoli("room temp", Left_Selection_Pre, Time_Turnaround) #Using function on left over items
       #Share Table Items
-      Func_Growth_Sto_Ecoli("room temp", Left_ST_Pre, Time_Turnaround) #using function on left over St items
-      Left_ST_Pre<-DF
+      Left_ST_Pre<-Func_Growth_Sto_Ecoli("room temp", Left_ST_Pre, Time_Turnaround) #using function on left over St items
     }
     if(salmonella==1 && Growth ==1){
       #Selection Table Items
-      Func_Growth_Sto_Salmonella("room temp", Left_Selection_Pre, Time_Turnaround) #Using function on left over items
-      Left_Selection_Pre<-DF
+      Left_Selection_Pre<-Func_Growth_Sto_Salmonella("room temp", Left_Selection_Pre, Time_Turnaround) #Using function on left over items
       #Share Table Items
-      Func_Growth_Sto_Salmonella("room temp", Left_ST_Pre, Time_Turnaround) #using function on left over St items
-      Left_ST_Pre<-DF
+      Left_ST_Pre<-Func_Growth_Sto_Salmonella("room temp", Left_ST_Pre, Time_Turnaround) #using function on left over St items
     }
     if(norovirus==1 && Growth ==1){
       #selection table items

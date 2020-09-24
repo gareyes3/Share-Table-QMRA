@@ -2,6 +2,7 @@
 
 
 # Selection of Hazard -----------------------------------------------------
+
   #Instructions: Select Hazard with 1, set non selected ones as 0
   salmonella<-0
   E_coli<-0
@@ -130,9 +131,7 @@
   Initial_Spoilage_Con<-1.0 # Initial Spoilage organism concentration Aerobic Plate Count in log CFU/mL
   Spoilage_Treshold<-7 #Considered spoiled milk. APCs log CFU/g
   
-
-#COMPLEX INPUTS =============================================================================
-  
+#COMPLEX INPUTS =============================================================================  
 
 # Inputs for Initial Food Contamination -----------------------------------
   

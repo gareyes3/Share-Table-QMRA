@@ -1,85 +1,33 @@
-# FUNCTIONS ---------------------------------------------------------------
+#INPUT FUNCTIONS ============================================================================= 
+
+# Function Contamination in Student Hands ------------------------------------------
 
 
-#--Function for Contamination of Specific Item at Tray
-# a = Contamination original b= Tra 1 c= Tra 2 d= Pick yes or no , e= Cont h after 
-Funct_Cont_Tray_Item<-function(a,b,c,d,e){
-  ifelse(((a+b)-(c))*d>e,
-         e,
-         ((a+b)-(c))*d)
-}
-
-
-#--Function for searching data frame--
-# a=Data Frame looking b= Colum in data frame c= Keywrd using "", d=number of selections
-Func_Search_Data<-function(a,b,c,d){
-  a[ sample( which(b==c),d),]  
-}
-
-Func_seach_Data4<-function(a,b,c,d){
-  subset<-a[which(b==c),]
-  subset<-head(subset,n=d)
-  sample_n(subset,1)
-}
-
-#Items touched during selection: 
-#a = data frame, b=#touched c#"contamination" col name
-Func_Index_DF<-function(a,b,c){
-  as.numeric(a[b,colnames(a)==c])
-}
-
-
-#Function Normal
-F_norm<-function(a,b,c){
-  rnorm(a, b,c)
-}
-
-
-# Log Reduction -----------------------------------------------------------
-
-Func_Logred<-function(a,b){
-  #a ,data frame column, b log reduction
-    a*(10^b)
+Func_ICont_Student<-function(){
+  #Salmonella
+  if(salmonella ==1){
+    IC_Student<-8.9*10^6  #CFU/Hand
+    return(IC_Student)
   }
-
-
-# Adding Time -------------------------------------------------------------
-
-Func_Adding_Time<-function(Column, Time){
-  #column of data frame
-  #Time, time parameter that is being added
-  (Column + Time)
-}
-
-#Converting to CFU/g
-
-Func_Convert_Log<-function(DF){
-  for (i in 1:nrow(DF)){
-    N<-DF[i,colnames(DF)== "Contamination"]
-    if(N>0){
-    N<-log10(DF[i,colnames(DF)== "Contamination"])
-    DF[i,colnames(DF)== "Contamination"]<-N
-    }
+  #Norovirus
+  if(norovirus ==1){
+    mass_feces_hands<- rbetagen(1,4.57,2.55,-8.00,-1.00) #log(g/hands)
+    HU_NV_in_Feces<- rlnormTrunc(1,6.65,2.06,0.0,10.98) #log HuNov CG/ g
+    Genomic_copies_per_PFU<-rnormTrunc(1,3.65,.98,2.00,5.40)
+    Personal_Contamination<-((10^mass_feces_hands) * (10^HU_NV_in_Feces))/(10^Genomic_copies_per_PFU) #PFU/Hand
+    IC_Student<- Personal_Contamination #PFU/Hand
+    return(IC_Student)
   }
-  return(DF)
-}
-
-Func_Convert_pergram<-function(DF){
-  for(i in 1:nrow(DF)){
-    N<-DF[i,colnames(DF)== "Contamination"]
-    if(N>0){
-      N<-(DF[i,colnames(DF)== "Contamination"])/Fr_Mean_weight
-      DF[i,colnames(DF)== "Contamination"]<-N
-    }
-  }
-  return(DF)
 }
 
 
-# Adding Initial Contamination --------------------------------------------
+
+
+
+# Initial Contamination Functions --------------------------------------------
 
 #this function changes contamination from CFU CM^2 to CFU/g
-#Not being USED Right now. 
+#NOTE: Not being USED Right now.Here just in case 
 func_Cont_Fr<-function(DF, Prevalence, area_av , area_sd, logContamination, weight_av, weight_sd ){
   #Df= Data frame
   #Prevalence = parameter Prevalence of pathogen
@@ -101,6 +49,7 @@ func_Cont_Fr<-function(DF, Prevalence, area_av , area_sd, logContamination, weig
   return(DF)
 }
 
+#Function that adds contminations to Data frames and converts from CFU/cm^2 to CFU/Apple or item
 func_Cont_cm2<-function(DF, Prevalence, logContamination, Fr_Mean_area ){
   #Df= Data frame
   #Prevalence = parameter Prevalence of pathogen
@@ -118,6 +67,8 @@ func_Cont_cm2<-function(DF, Prevalence, logContamination, Fr_Mean_area ){
   return(DF)
 }
 
+#Spcial Function that adds norovirus to fruit items
+
 func_Cont_HuNoV_Fr<-function(DF, Prevalence){
   for (i in 1:nrow(DF)){
     Fr_Cont_YN<- ifelse(runif(1)<Prevalence,1,0)
@@ -133,9 +84,9 @@ func_Cont_HuNoV_Fr<-function(DF, Prevalence){
   return(DF)
 }
 
+#Functions for Growth Models
 
 # Growth Model for Enteric -------------------------------------------------------------
-
 
 
 Func_Growth_Sto_Ecoli<-function(Condition,DF,TimeVar){
@@ -150,7 +101,7 @@ Func_Growth_Sto_Ecoli<-function(Condition,DF,TimeVar){
         Con_Final<-ifelse(N==0,N,N + Die_off)
         Con_Final<-10^Con_Final
         DF[i,colnames(DF)== "Contamination"]<-Con_Final
-        DF<<-DF
+        return(DF)
       }
     } else if (Temp_Ref>=5){
       rate<-(b*(Temp_Ref-Tmin))^2/2.303
@@ -160,7 +111,7 @@ Func_Growth_Sto_Ecoli<-function(Condition,DF,TimeVar){
         Con_Final<-ifelse(N==0,N,N + Con_Change )
         Con_Final<-10^Con_Final
         DF[i,colnames(DF)== "Contamination"]<-Con_Final
-        DF<<-DF
+        return(DF)
       }
     }
   } else if (Condition=="room temp"){
@@ -171,7 +122,7 @@ Func_Growth_Sto_Ecoli<-function(Condition,DF,TimeVar){
         Con_Final<-ifelse(N==0,N,N + Die_off)
         Con_Final<-10^Con_Final
         DF[i,colnames(DF)== "Contamination"]<-Con_Final
-        DF<<-DF
+        return(DF)
       }
     } else if (Temp_RT>=5){
       rate<-(b*(Temp_RT-Tmin))^2/2.303
@@ -181,7 +132,7 @@ Func_Growth_Sto_Ecoli<-function(Condition,DF,TimeVar){
         Con_Final<-ifelse(N==0,N,N + Con_Change )
         Con_Final<-10^Con_Final
         DF[i,colnames(DF)== "Contamination"]<-Con_Final
-        DF<<-DF
+        return(DF)
       }
     }  
   }
@@ -200,7 +151,7 @@ Func_Growth_Sto_Salmonella<-function(Condition,DF,TimeVar){
         Con_Final<-ifelse(N==0,N,N + Die_off)
         Con_Final<-10^Con_Final
         DF[i,colnames(DF)== "Contamination"]<-Con_Final
-        DF<<-DF
+        return(DF)
       }
     } else if (Temp_Ref>=5){
       rate<-(b*(Temp_Ref-Tmin))^2/2.303
@@ -210,7 +161,7 @@ Func_Growth_Sto_Salmonella<-function(Condition,DF,TimeVar){
         Con_Final<-ifelse(N==0,N,N + Con_Change )
         Con_Final<-10^Con_Final
         DF[i,colnames(DF)== "Contamination"]<-Con_Final
-        DF<<-DF
+        return(DF)
       }
     }
   } else if (Condition=="room temp"){
@@ -221,7 +172,7 @@ Func_Growth_Sto_Salmonella<-function(Condition,DF,TimeVar){
         Con_Final<-ifelse(N==0,N,N + Die_off)
         Con_Final<-10^Con_Final
         DF[i,colnames(DF)== "Contamination"]<-Con_Final
-        DF<<-DF
+        return(DF)
       }
     } else if (Temp_RT>=5){
       rate<-(b*(Temp_RT-Tmin))^2/2.303
@@ -231,7 +182,7 @@ Func_Growth_Sto_Salmonella<-function(Condition,DF,TimeVar){
         Con_Final<-ifelse(N==0,N,N + Con_Change )
         Con_Final<-10^Con_Final
         DF[i,colnames(DF)== "Contamination"]<-Con_Final
-        DF<<-DF
+        return(DF)
       }
     }  
   }
@@ -258,7 +209,7 @@ Func_Growth_Sto_Norovirus_Plastic<-function(Condition,DF,TimeVar){
   return(DF)
 }  
 
- #Growth norovirus in fruit
+#Growth norovirus in fruit
 Func_Growth_Sto_Norovirus<-function(Condition,DF,TimeVar){
   if(Condition== "room temp"){
     f<-0
@@ -298,51 +249,11 @@ Func_Growth_Milk_Spoilage<-function(Temp,DF,TimeVar){
   Tmax<-(41.2)
   c<-.1719
   k<-(b*(Temp-Tmin)*(1-exp(c*(Temp-Tmax))))^2
-    for (i in 1:nrow(DF)){
-      Growth<-TimeVar*k
-      N<-DF[i,colnames(DF)== "SpoilageCon"]
-      Con_Final<-N + Growth
-      DF[i,colnames(DF)== "SpoilageCon"]<-as.numeric(Con_Final)
-    }
-    return(DF)
-} 
-
-
-Func_Spoilage_YN<-function(DF){
   for (i in 1:nrow(DF)){
-    N<-as.numeric(DF[i,colnames(DF)== "SpoilageCon"])
-    if (N>Spoilage_Treshold){
-      DF[i,colnames(DF)== "SpoiledYN"]<-TRUE
-    }
+    Growth<-TimeVar*k
+    N<-DF[i,colnames(DF)== "SpoilageCon"]
+    Con_Final<-N + Growth
+    DF[i,colnames(DF)== "SpoilageCon"]<-as.numeric(Con_Final)
   }
   return(DF)
-}
-  
-
-#Allergen Function: 
-
-Func_Allergen_CC<-function(DF, PickedVar){
-  if(DF[PickedVar,colnames(DF)== "ExposedAllergen"] == TRUE ){
-    Cont_Student_Allergen_YN<-1
-  } else if(DF[PickedVar,colnames(DF)== "ExposedAllergen"] == FALSE && Cont_Student_Allergen_YN == 1){
-    DF[PickedVar,colnames(DF)== "ExposedAllergen"]<- TRUE
-  }
-  return(DF)
-}
-
-
-#Appending Data Frame Function
-
-Func_Append_Column_Final<-function(DF = AFr_Summary_DF ){
-  sapply(DF, as.numeric)
-  Total<-DF[1:5]
-  Total$Type<-"Total"
-  Selection<-DF[c(1,6:9)]
-  names(Selection)<-c("Iteration.N", "MeanCont", "MedianCont", "Cont5th", "Cont95th")
-  Selection$Type<-"Service Line"
-  ST<-DF[c(1,10:13)]
-  names(ST)<-c("Iteration.N", "MeanCont", "MedianCont", "Cont5th", "Cont95th")
-  ST$Type<-"Share Table"
-  Total<-rbind(Total,Selection, ST)
-  return(Total)
-}
+} 

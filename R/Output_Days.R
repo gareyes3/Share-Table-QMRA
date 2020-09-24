@@ -59,20 +59,16 @@
   #Selection Items #chose which type of storage. 
     if(E_coli==1 && Growth ==1){
       #Selection Table Items
-      Func_Growth_Sto_Ecoli("room temp", Left_Selection_Fr,Time_ON) #Using function on left over items
-      Left_Selection_Fr<-DF
+      Left_Selection_Fr<-Func_Growth_Sto_Ecoli("room temp", Left_Selection_Fr,Time_ON) #Using function on left over items
       #Share Table Items
-      Func_Growth_Sto_Ecoli("room temp", Left_ST_Fr,Time_ON) #using function on left over St items
-      Left_ST_Fr<-DF
+      Left_ST_Fr<-Func_Growth_Sto_Ecoli("room temp", Left_ST_Fr,Time_ON) #using function on left over St items
     }
   
     if(salmonella==1 && Growth ==1){
       #Selection Table Items
-      Func_Growth_Sto_Salmonella("room temp", Left_Selection_Fr,Time_ON) #Using function on left over items
-      Left_Selection_Fr<-DF
+      Left_Selection_Fr<-Func_Growth_Sto_Salmonella("room temp", Left_Selection_Fr,Time_ON) #Using function on left over items
       #Share Table Items
-      Func_Growth_Sto_Salmonella("room temp", Left_ST_Fr,Time_ON) #using function on left over St items
-      Left_ST_Fr<-DF
+      Left_ST_Fr<-Func_Growth_Sto_Salmonella("room temp", Left_ST_Fr,Time_ON) #using function on left over St items
     }
   
     if(norovirus ==1 && Growth ==1){
@@ -88,20 +84,16 @@
   #Selection Items #chose which type of storage. 
   if(E_coli==1 && Growth ==1){
     #Selection Table Items
-    Func_Growth_Sto_Ecoli("room temp", Left_Selection_Pss,Time_ON) #Using function on left over items
-    Left_Selection_Pss<-DF
+    Left_Selection_Pss<-Func_Growth_Sto_Ecoli("room temp", Left_Selection_Pss,Time_ON) #Using function on left over items
     #Share Table Items
-    Func_Growth_Sto_Ecoli("room temp", Left_ST_Fr,Time_ON) #using function on left over St items
-    Left_ST_Fr<-DF
+    Left_ST_Fr<-Func_Growth_Sto_Ecoli("room temp", Left_ST_Fr,Time_ON) #using function on left over St items
   }
   
   if(salmonella==1 && Growth ==1){
     #Selection Table Items
-    Func_Growth_Sto_Salmonella("room temp", Left_Selection_Pss,Time_ON) #Using function on left over items
-    Left_Selection_Pss<-DF
+    Left_Selection_Pss<-Func_Growth_Sto_Salmonella("room temp", Left_Selection_Pss,Time_ON) #Using function on left over items
     #Share Table Items
-    Func_Growth_Sto_Salmonella("room temp", Left_ST_Pss,Time_ON) #using function on left over St items
-    Left_ST_Pss<-DF
+    Left_ST_Pss<-Func_Growth_Sto_Salmonella("room temp", Left_ST_Pss,Time_ON) #using function on left over St items
   }
   
   if(norovirus==1 && Growth ==1){
@@ -117,25 +109,21 @@
   #Selection Items #chose which type of storage. 
   if(E_coli==1 && Growth ==1){
     #Selection Table Items
-    Func_Growth_Sto_Ecoli("refrigerated", Left_Selection_Pre,Time_ON) #Using function on left over items
-    Left_Selection_Pre<-DF
+    Left_Selection_Pre<-Func_Growth_Sto_Ecoli("refrigerated", Left_Selection_Pre,Time_ON) #Using function on left over items
     #Share Table Items
-    Func_Growth_Sto_Ecoli("refrigerated", Left_ST_Pre,Time_ON) #using function on left over St items
-    Left_ST_Pre<-DF
+    Left_ST_Pre<-Func_Growth_Sto_Ecoli("refrigerated", Left_ST_Pre,Time_ON) #using function on left over St items
   }
   
   if(salmonella==1 && Growth ==1){
     #Selection Table Items
-    Func_Growth_Sto_Salmonella("refrigerated", Left_Selection_Pre,Time_ON) #Using function on left over items
-    Left_Selection_Pre<-DF
+    Left_Selection_Pre<-Func_Growth_Sto_Salmonella("refrigerated", Left_Selection_Pre,Time_ON) #Using function on left over items
     #Share Table Items
-    Func_Growth_Sto_Salmonella("refrigerated", Left_ST_Pre,Time_ON) #using function on left over St items
-    Left_ST_Pre<-DF
+    Left_ST_Pre<-Func_Growth_Sto_Salmonella("refrigerated", Left_ST_Pre,Time_ON) #using function on left over St items
   }
   
   if(norovirus==1 && Growth ==1){
     #selection table items
-    Left_Selection_Pre<- Func_Growth_Sto_Norovirus_Plastic("room temp", Left_Selection_Pre, Time_ON) #using function on left over items
+    Left_Selection_Pre<-Func_Growth_Sto_Norovirus_Plastic("room temp", Left_Selection_Pre, Time_ON) #using function on left over items
     #Share table items
     Left_ST_Pre<- Func_Growth_Sto_Norovirus_Plastic("room temp", Left_ST_Pre, Time_ON) #Share table left over items
   }

@@ -2,7 +2,7 @@
 # Script for Initial Contaminations ---------------------------------------
 
 #Running Student Contamination based on Probability. 
-Cont_Student<- ifelse(runif(1)<Pr_Student_iC,IC_Student,0) 
+Cont_Student<- ifelse(runif(1)<Pr_Student_iC,Func_ICont_Student(),0) 
 if (Cont_Student>0){
   Student_Cont_Count<-(Student_Cont_Count+1)
   print("A student is contaminated with Pathogens")
@@ -13,7 +13,7 @@ if(Toggle_SelfAssigned_Pathogens==1){
   if( k == Student_Pathogen_Day[Student_Pathogen_Count] 
       && j == Student_Pathogen_Service[Student_Pathogen_Count] 
       && i == Student_Pathogen_No[Student_Pathogen_Count]){
-    Cont_Student<-IC_Student 
+    Cont_Student<-Func_ICont_Student()
     Vector_Contaminations<-c(Vector_Contaminations,Cont_Student)
     print("A student is contaminated with Pathogens")
     Student_Pathogen_Count<-(Student_Pathogen_Count+1)
