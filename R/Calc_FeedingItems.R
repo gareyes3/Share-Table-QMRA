@@ -22,7 +22,7 @@
     if(salmonella==1 && Calculated_Cont_Fr==1){
       Extra_Items_Fr<-func_Cont_cm2(Extra_Items_Fr,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
     } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
-      Extra_Items_Fr<-func_Cont_HuNoV_Fr(Extra_Items_Fr,Prevalence_Norovirus_Fr)
+      Extra_Items_Fr<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Extra_Items_Fr),Inputs_Cont_HuNov_Fr))
     }
     
     Fr_Data.Frame<-rbind(Extra_Items_Fr,Fr_Data.Frame)

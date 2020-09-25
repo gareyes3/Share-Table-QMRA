@@ -63,6 +63,7 @@ Exposure_Staggered_Function<-function(ConsumedDF = Total_Consumed_Fr_Bind ,Conta
 Exposure_Staggered_Function2<-function(ConsumedDF = Total_Consumed_Fr_Bind ,Contamination = Contamination ,Type = Type, Title = "Insert Title Here", xlab, ylab){
   ggplot(ConsumedDF, aes(x=Contamination, fill= Type)) + 
     geom_histogram(alpha = 0.5, position = 'identity', boundary=-1, binwidth = 1) +
+    theme_bw()+
     ggtitle(Title)+
     labs(x= xlab, y= ylab)+
     theme(plot.title = element_text(hjust = 0.5))
@@ -120,7 +121,7 @@ Func_GGsave<-function(PlotSaved, Path, Filename){
          path = Path,
          filename = paste(Filename, l  , ".jpg"),
          height = 6,
-         width = 6,
+         width = 8,
          dpi = 300
   )
 }
@@ -130,7 +131,7 @@ Func_GGsave_Normal<-function(PlotSaved, Path, Filename){
          path = Path,
          filename = paste(Filename , ".jpg"),
          height = 6,
-         width = 6,
+         width = 8,
          dpi = 300
   )
 }
@@ -145,7 +146,7 @@ Ribbon_Function_Final<-function(DF,DF2, Title){
     geom_line(aes(x= Iteration.N, y= MedianCont,color = Type), size = .5) +   
     labs(x = "Week #", y = "") +
     scale_fill_manual(name = '5th-95th Percentile', values = c("dodgerblue1", "tomato4", "seagreen1"))+ 
-    scale_color_manual(name = 'Median', values = c("dodgerblue1", "tomato4", "seagreen1"))+
+    scale_color_manual(name = 'Median', values = c("dodgerblue1", "tomato4", "green4"))+
     theme_bw()+
     ggtitle(Title)+
     scale_x_continuous(breaks = seq(1, nrow(DF2), by = 1))

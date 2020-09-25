@@ -12,10 +12,12 @@ Fruit_Ribbon<-Ribbon_Function_Final(AFr_Weeks_Append,AFr_Summary_DF, "Fruit Cont
 Pss_Ribbon<-Ribbon_Function_Final(APss_Weeks_Append,APss_Summary_DF, "Pss Contamination/ week")
 Pre_Ribbon<-Ribbon_Function_Final(APre_Weeks_Append,APre_Summary_DF, "Pre Contamination/ week")
 
+
+
 Figure1<-ggarrange(Fruit_Ribbon,Pss_Ribbon, Pre_Ribbon,
   ncol=1, nrow=3, labels = NULL, common.legend = TRUE, legend = "right" 
 )
-annotate_figure(Figure1,
+Figure1<-annotate_figure(Figure1,
                 top = text_grob("Consumption Distribution", color = "Black", face = "bold", size = 14),
                 bottom = text_grob("Data source: \n Share Table Model", color = "blue",
                                    hjust = 1, x = 1, face = "italic", size = 10),
