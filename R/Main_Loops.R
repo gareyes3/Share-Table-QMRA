@@ -10,6 +10,7 @@ source("Util_Library.R")
 ####RUN FROM HERE####
 
 # Source Files ------------------------------------------------------------
+start_time<-Sys.time()
 
 #Inputs
 
@@ -592,7 +593,10 @@ for (l in 1:Sens_Iterations){
   
   
   message("Done Gathering Data", l)
+  end_time<-Sys.time()
   
+  Total_time<-end_time-start_time
+  print(Total_time)
 } #end of l loop for iterations. 
 
 

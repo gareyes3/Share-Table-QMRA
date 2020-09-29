@@ -64,6 +64,7 @@ func_Cont_cm2<-function(DF, Prevalence, logContamination, Fr_Mean_area ){
 }
 
 #Special Function that adds norovirus to fruit items
+#Inputs For Function: Inputs_Cont_HuNov_Fr
 
 func_Cont_HuNoV_Fr<-function(DF, Prevalence,Genomic_copies_per_PFU,HuNoV_ContFruit){
   for (i in 1:nrow(DF)){
@@ -83,10 +84,10 @@ func_Cont_HuNoV_Fr<-function(DF, Prevalence,Genomic_copies_per_PFU,HuNoV_ContFru
 # Growth Model for Enteric -------------------------------------------------------------
 
 
-Func_Growth_Sto_Ecoli<-function(Condition,DF,TimeVar){
-  b<-.023
-  k<-rnorm(1,.013,.001)/2.303
-  Tmin<-(1.17)
+#Inputs for function: Inputs_Growth_Sto_Ecoli
+#Inputs for function: Inputs_Growth_Sto_Salmonella
+
+Func_Growth_Enteric<-function(Condition,DF,TimeVar,b,k,Tmin){
   if(Condition== "refrigerated"){
     if(Temp_Ref<5){
       for (i in 1:nrow(DF)){
@@ -133,60 +134,13 @@ Func_Growth_Sto_Ecoli<-function(Condition,DF,TimeVar){
 }
 
 
-Func_Growth_Sto_Salmonella<-function(Condition,DF,TimeVar){
-  b<-.020
-  k<-.0128/2.303
-  Tmin<-(-0.571)
-  if(Condition== "refrigerated"){
-    if(Temp_Ref<5){
-      for (i in 1:nrow(DF)){
-        Die_off<-((-k)*TimeVar)
-        N<-log10(DF[i,colnames(DF)== "Contamination"])
-        Con_Final<-ifelse(N==0,N,N + Die_off)
-        Con_Final<-10^Con_Final
-        DF[i,colnames(DF)== "Contamination"]<-Con_Final
-        return(DF)
-      }
-    } else if (Temp_Ref>=5){
-      rate<-(b*(Temp_Ref-Tmin))^2/2.303
-      for (i in 1:nrow(DF)){
-        Con_Change<-rate*TimeVar
-        N<-log10(DF[i,colnames(DF)== "Contamination"])
-        Con_Final<-ifelse(N==0,N,N + Con_Change )
-        Con_Final<-10^Con_Final
-        DF[i,colnames(DF)== "Contamination"]<-Con_Final
-        return(DF)
-      }
-    }
-  } else if (Condition=="room temp"){
-    if(Temp_RT<5){
-      for (i in 1:nrow(DF)){
-        Die_off<-(-k)*TimeVar
-        N<-log10(DF[i,colnames(DF)== "Contamination"])
-        Con_Final<-ifelse(N==0,N,N + Die_off)
-        Con_Final<-10^Con_Final
-        DF[i,colnames(DF)== "Contamination"]<-Con_Final
-        return(DF)
-      }
-    } else if (Temp_RT>=5){
-      rate<-(b*(Temp_RT-Tmin))^2/2.303
-      for (i in 1:nrow(DF)){
-        Con_Change<-rate*TimeVar
-        N<-log10(DF[i,colnames(DF)== "Contamination"])
-        Con_Final<-ifelse(N==0,N,N + Con_Change )
-        Con_Final<-10^Con_Final
-        DF[i,colnames(DF)== "Contamination"]<-Con_Final
-        return(DF)
-      }
-    }  
-  }
-}
 
 
 
 # Growth Model For Norovirus ----------------------------------------------
 
 #growht norovirus in plastic
+#no input necesary, no variability in inputs
 Func_Growth_Sto_Norovirus_Plastic<-function(Condition,DF,TimeVar){
   b<-137.74
   n<-.50
@@ -204,6 +158,7 @@ Func_Growth_Sto_Norovirus_Plastic<-function(Condition,DF,TimeVar){
 }  
 
 #Growth norovirus in fruit
+#no need for inputs, no variability
 Func_Growth_Sto_Norovirus<-function(Condition,DF,TimeVar){
   if(Condition== "room temp"){
     f<-0
@@ -236,6 +191,7 @@ Func_Growth_Sto_Norovirus<-function(Condition,DF,TimeVar){
 
 
 # Spoilage of Organisms. ----------------------------------------------
+#No variability
 
 Func_Growth_Milk_Spoilage<-function(Temp,DF,TimeVar){
   b<-.03772

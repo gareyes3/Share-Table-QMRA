@@ -1,7 +1,6 @@
 
 
 
-
 #Appending Data Frame by Type
 AFr_Weeks_Append<-Func_Append_Column_Final(AFr_Summary_DF)
 APss_Weeks_Append<-Func_Append_Column_Final(APss_Summary_DF)
