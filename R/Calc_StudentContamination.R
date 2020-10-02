@@ -20,6 +20,8 @@ if(Toggle_SelfAssigned_Pathogens==1){
     if(Student_Pathogen_Count>Number_Student_Pathogens){
       Student_Pathogen_Count<-Number_Student_Pathogens
     }
+  }else{
+    Vector_Contaminations<-c(Vector_Contaminations, 0)
   }
 }
 
