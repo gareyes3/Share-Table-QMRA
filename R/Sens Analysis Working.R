@@ -39,6 +39,14 @@ Data_Analysis_Week<-data.frame("Input" = Vector_Contaminations[2:11],
                                "Input2"= .04,
                                "Output" = AFr_Summary_DF$MedianCont
                                )
+Data_Trial<-data.frame("1"= rnorm(100,4,5),
+                       "2"= rnorm(100,4,5),
+                       "3" = rnorm(100,5,5)
+  
+)
+
+pcc(X=Data_Trial[,1:2], y=Data_Trial$X3)
+?pcc
 
 
 pcc(X=Data_Analysis, y = with(Data_Analysis,Data_Analysis$Outputs+Data_Analysis$Input),nboot = 250)
