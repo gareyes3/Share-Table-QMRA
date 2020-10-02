@@ -35,5 +35,36 @@
     Tmin =(-0.571)
   )
 
+# Transfer Efficiencies ---------------------------------------------------
+  
+  
+  if(norovirus==1){
+    TE_H_F<- rbetagen(1,0.76,1.04,.0126,.46) #0.2013#
+    TE_H_S<-.1340 #rtriang(1,.001,.13,.27) #TE between Hands and Surfaces #add
+    TE_F_H<-0.1018#rbetagen(1,0.88,1.01,.048,.164) #add
+    TE_F_S<-.0250 #TE between Food and Surfaces
+    TE_S_H<-.1090 #rtriang(1,.036,.03,.22)#.1090 #TE between Surfaces and Hands
+    TE_S_F<-.4620 #TE between Surfaces and Foods
+    TE_Pre_Mouth<-.339 #TE between Milk to Mouth
+  }
+  
+  if(salmonella ==1){
+    TE_H_F<-.0021
+    TE_F_H<-.0328
+    TE_H_S<-0.0016 #Chen and DS
+    TE_S_H<-0.0229
+    TE_Pre_Mouth<-.3397#TE between Surfaces and Hands
+  }
 
+#Adding TE to Vectors
+  Vector_TE_H_F<-c(Vector_TE_H_F,TE_H_F )
+  Vector_TE_F_H<-c(Vector_TE_F_H,TE_F_H )
+  Vector_TE_H_S<-c(Vector_TE_H_S, TE_H_S)
+  Vector_TE_S_H<-c(Vector_TE_S_H,TE_S_H)
+  Vector_TE_S_F<-c(Vector_TE_S_F, TE_S_F)
+  Vector_TE_F_S<-c(Vector_TE_F_S, TE_F_S)
+  Vector_TE_Pre_Mouth<-c(Vector_TE_Pre_Mouth,TE_Pre_Mouth)
+  
+  
+  
 

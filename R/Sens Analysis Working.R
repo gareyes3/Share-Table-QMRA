@@ -32,8 +32,8 @@ mean(Listtest)
 median(Listtest)
 var(Listtest)
 
-Data_Analysis<-data.frame("Input"= rep(Vector_Contaminations[2:11],each=25),
-                          "Input2"= rnorm(250,550,20),
+Data_Analysis<-data.frame("Contaminations"= rep(Vector_Contaminations,each=25),
+                          "TE_H_F"= Vector_TE_H_F,
                           "Outputs" = Listtest)
 Data_Analysis_Week<-data.frame("Input" = Vector_Contaminations[2:11],
                                "Input2"= .04,

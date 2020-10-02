@@ -33,6 +33,20 @@ List_Sens_Fr<-list()
 List_Sens_Pss<-list()
 List_Sens_Pre<-list()
 
-#Vector Contminations
+#Vector Contminations, for contamination every iteration
 
 Vector_Contaminations<-c()
+
+#vector with tranfer efficiencies. 
+
+Vector_TE_H_F<-c()
+Vector_TE_F_H<-c()
+Vector_TE_H_S<-c()
+Vector_TE_S_H<-c()
+Vector_TE_S_F<-c()
+Vector_TE_F_S<-c()
+Vector_TE_Pre_Mouth<-c()
+
+
+
+
