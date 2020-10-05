@@ -30,11 +30,16 @@ if(j==1 && k== 1){
   
   if(salmonella==1 && Calculated_Cont_Fr==1){
     Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
+    #Adding items to know contaminated items
+    Items_Added<-Fr_Data.Frame$Contamination[which(Fr_Data.Frame$Contamination>0)]
+    Vector_Cont_Fr_Serv<-c(Vector_Cont_Fr_Serv,Items_Added)
   } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
     Fr_Data.Frame<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Fr_Data.Frame),Inputs_Cont_HuNov_Fr))
+    #Adding items to know Contaminated Items
+    Items_Added<-Fr_Data.Frame$Contamination[which(Fr_Data.Frame$Contamination>0)]
+    Vector_Cont_Fr_Serv<-c(Vector_Cont_Fr_Serv,Items_Added)
   }
-  
-  Fst_Df<-Fr_Data.Frame
+
 
   # Pss ---------------------------------------------------------------------
 
@@ -128,8 +133,12 @@ if(j>1 && k ==1 ){
     #Adding Initial Contaminations of fruit
     if(salmonella==1 && Calculated_Cont_Fr==1){
       Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
+      Items_Added<-Fr_Data.Frame$Contamination[which(Fr_Data.Frame$Contamination>0)]
+      Vector_Cont_Fr_Serv<-c(Vector_Cont_Fr_Serv,Items_Added)
     } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
       Fr_Data.Frame<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Fr_Data.Frame),Inputs_Cont_HuNov_Fr))
+      Items_Added<-Fr_Data.Frame$Contamination[which(Fr_Data.Frame$Contamination>0)]
+      Vector_Cont_Fr_Serv<-c(Vector_Cont_Fr_Serv,Items_Added)
     }
     
     #Adding times that the share table items have been shared
@@ -259,8 +268,12 @@ if(j>1 && k ==1 ){
     #Adding Initial Contaminations of fruit 
      if(salmonella==1 && Calculated_Cont_Fr==1){
        Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
+       Items_Added<-Fr_Data.Frame$Contamination[which(Fr_Data.Frame$Contamination>0)]
+       Vector_Cont_Fr_Serv<-c(Vector_Cont_Fr_Serv,Items_Added)
      } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
        Fr_Data.Frame<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Fr_Data.Frame),Inputs_Cont_HuNov_Fr))
+       Items_Added<-Fr_Data.Frame$Contamination[which(Fr_Data.Frame$Contamination>0)]
+       Vector_Cont_Fr_Serv<-c(Vector_Cont_Fr_Serv,Items_Added)
      }
      
     #Adding Share Times
@@ -392,8 +405,12 @@ if(j>0 && k>1 ){
     #Adding Initial Contaminations of fruit 
     if(salmonella==1 && Calculated_Cont_Fr==1){
       Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
+      Items_Added<-Fr_Data.Frame$Contamination[which(Fr_Data.Frame$Contamination>0)]
+      Vector_Cont_Fr_Serv<-c(Vector_Cont_Fr_Serv,Items_Added)
     } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
       Fr_Data.Frame<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Fr_Data.Frame),Inputs_Cont_HuNov_Fr))
+      Items_Added<-Fr_Data.Frame$Contamination[which(Fr_Data.Frame$Contamination>0)]
+      Vector_Cont_Fr_Serv<-c(Vector_Cont_Fr_Serv,Items_Added)
     }
     
     #Adding times that the share table items have been shared
@@ -526,8 +543,12 @@ if(j>0 && k>1 ){
     #Adding Initial Contaminations of fruit 
     if(salmonella==1 && Calculated_Cont_Fr==1){
       Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
+      Items_Added<-Fr_Data.Frame$Contamination[which(Fr_Data.Frame$Contamination>0)]
+      Vector_Cont_Fr_Serv<-c(Vector_Cont_Fr_Serv,Items_Added)
     } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
       Fr_Data.Frame<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Fr_Data.Frame),Inputs_Cont_HuNov_Fr))
+      Items_Added<-Fr_Data.Frame$Contamination[which(Fr_Data.Frame$Contamination>0)]
+      Vector_Cont_Fr_Serv<-c(Vector_Cont_Fr_Serv,Items_Added)
     }
     
     #Adding Share Times

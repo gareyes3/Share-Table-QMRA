@@ -8,9 +8,9 @@
     #Prevalence of NV in Fruit
     Prevalence = 0.4,
     #Genormic Copies per PFU
-    Genomic_copies_per_PFU<-3.66,#rnormTrunc(1,3.65,.98,2.00,5.40), #add
+    Genomic_copies_per_PFU<-rnormTrunc(1,3.65,.98,2.00,5.40), #add 3.66,
     #log HuNoV copies per/ g
-    HuNoV_ContFruit<-1.578 #rlnormTrunc(1,2.38,3.52, 0,6.97) #add
+    HuNoV_ContFruit<-rlnormTrunc(1,2.38,3.52, 0,6.97) #add 1.578 #
   )
 
 #Inputs for Func_Growth_Sto_Ecoli. Located in Input_Functions
@@ -19,7 +19,7 @@
     #Growth patameter
     b=0.023,
     #Growth parameter
-    k=0.00564, #rnorm(1,.013,.001)/2.303, #add
+    k=rnorm(1,.013,.001)/2.303, #add 0.00564, #
     #Min Temp
     Tmin = (1.17)
   )
@@ -40,8 +40,8 @@
   
   if(norovirus==1){
     TE_H_F<- rbetagen(1,0.76,1.04,.0126,.46) #0.2013#
-    TE_H_S<-.1340 #rtriang(1,.001,.13,.27) #TE between Hands and Surfaces #add
-    TE_F_H<-0.1018#rbetagen(1,0.88,1.01,.048,.164) #add
+    TE_H_S<-.1340 #rtriang(1,.001,.13,.27) #TE between Hands and Surfaces #add 
+    TE_F_H<-rbetagen(1,0.88,1.01,.048,.164) #add 0.1018#
     TE_F_S<-.0250 #TE between Food and Surfaces
     TE_S_H<-.1090 #rtriang(1,.036,.03,.22)#.1090 #TE between Surfaces and Hands
     TE_S_F<-.4620 #TE between Surfaces and Foods

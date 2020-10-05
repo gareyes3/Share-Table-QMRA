@@ -36,6 +36,10 @@ List_Sens_Pre<-list()
 #Vector Contminations, for contamination every iteration
 
 Vector_Contaminations<-c()
+Vector_No_Cont_Stu<-c()
+Vector_Cont_Fr_Serv<-c()
+Vector_Cont_Fr_Serv_Out<-c()
+Vector_No_Cont_Fr<-c()
 
 #vector with tranfer efficiencies. 
 
@@ -46,6 +50,16 @@ Vector_TE_S_H<-c()
 Vector_TE_S_F<-c()
 Vector_TE_F_S<-c()
 Vector_TE_Pre_Mouth<-c()
+
+#Input Data Frame for services
+Vector_Con_Services<-c()
+
+
+
+  
+  
+
+
 
 
 

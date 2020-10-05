@@ -18,6 +18,7 @@ Pre_Data_Days = do.call(rbind,datalistPre_days)
   if(Units_Per_gram == 1){
     Total_Consumed_Fr<-Func_Convert_pergram(Total_Consumed_Fr)   #Toggle if we want our units to be log CFU/g instead of Log CFU/Fruit
   }
+  
   Total_Consumed_Fr<-Func_Convert_Log(Total_Consumed_Fr) #Converting to Log
   
   #Share Table Total consumed

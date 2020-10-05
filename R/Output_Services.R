@@ -287,4 +287,29 @@ if(j>0 && j<=(Service_No-1)){
     }
   }
 
+
+# Summarizing Initial Contaminations For Input DF --------------------------------------
+
+#Contminated Students and their contamination
+Mean_Cont_Service<-mean(Vector_Contaminations)
+Vector_Con_Services<-c(Vector_Con_Services,Mean_Cont_Service)
+
+#Number of studets contaminated
+No_Students_Cont<-length(Vector_Contaminations)
+Vector_No_Cont_Stu<-c(Vector_No_Cont_Stu,No_Students_Cont)
+Vector_Contaminations<-c()
+
+#Contamination of fruit
+Mean_Cont_Fr<- mean(Vector_Cont_Fr_Serv)
+Vector_Cont_Fr_Serv_Out<-c(Vector_Cont_Fr_Serv_Out,Mean_Cont_Fr)
+
+#Number of fruit items contaminated per service
+No_Cont_Fr<-length(Vector_Cont_Fr_Serv)
+Vector_No_Cont_Fr<-c(Vector_No_Cont_Fr,No_Cont_Fr)
+Vector_Cont_Fr_Serv<-c()
+
+
+
+
+
   

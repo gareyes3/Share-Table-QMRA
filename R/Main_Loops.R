@@ -1,6 +1,6 @@
 
-#setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
-setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+#setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
 
 #Library
 source("Util_Library.R")
@@ -16,11 +16,11 @@ start_time<-Sys.time()
 
 source("Input_Static.R")
 source("Input_Functions.R")
+source("Util_SensAnalysis.R")
 source("Util_Counter&Lists.R")
 #Functions
 source("Util_Functions.R")
 source("Util_CCFunctions.R")
-source("Util_SensAnalysis.R")
 source("Util_VisualFunctions.R")
 
 for (l in 1:Sens_Iterations){
