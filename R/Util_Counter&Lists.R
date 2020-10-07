@@ -35,11 +35,17 @@ List_Sens_Pre<-list()
 
 #Vector Contminations, for contamination every iteration
 
-Vector_Contaminations<-c()
-Vector_No_Cont_Stu<-c()
-Vector_Cont_Fr_Serv<-c()
-Vector_Cont_Fr_Serv_Out<-c()
-Vector_No_Cont_Fr<-c()
+Vector_Contaminations<-c() #Vector for contamination
+Vector_No_Cont_Stu<-c() #vector for number of contaminated students
+#Fruit
+Vector_Cont_Fr_Serv<-c() #vector for Contamination of fruit in serivces
+Vector_Cont_Fr_Serv_Out<-c() #vector for final contamination of fruit in services
+Vector_No_Cont_Fr<-c() #Vector for number of contaminated fruit every service.
+#Pss
+Vector_Cont_Pss_Serv<-c() #vector for Contamination of fruit in serivces
+Vector_Cont_Pss_Serv_Out<-c() #vector for final contamination of fruit in services
+Vector_No_Cont_Pss<-c() #Vector for number of contaminated fruit every service.
+
 
 #vector with tranfer efficiencies. 
 

@@ -29,6 +29,7 @@ if(j==1 && k== 1){
   
   
   if(salmonella==1 && Calculated_Cont_Fr==1){
+    #Adding items to the Dataframe
     Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
     #Adding items to know contaminated items
     Items_Added<-Fr_Data.Frame$Contamination[which(Fr_Data.Frame$Contamination>0)]
