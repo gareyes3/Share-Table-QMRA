@@ -315,6 +315,57 @@ Fuct_DF_Reservice<-function(FoodType){
   return(Data_Frame)
 }
 
+#Function creating Data frame that feeds items if they run out
+Fuct_DF_Feeding<-function(FoodType){
+  if(FoodType == "Fruit"){
+    Data_Frame<-data.frame("Apple No." = 1:Row_size_Fr,
+                           "Location"= "Selection Table",
+                           "Contamination" = as.numeric("0"),
+                           "ExposedAllergen" = FALSE,
+                           "TotTime"= as.numeric("0"),
+                           "History" = "", 
+                           "STtimes"= as.numeric("0"),
+                           "Initial Service" = "1",
+                           "Service" = j,
+                           "Initial Day" = "1",
+                           "Day" = k,
+                           stringsAsFactors = FALSE
+                           
+    )
+  } else if (FoodType == "Pss"){
+    Data_Frame<-data.frame("Pss No." = 1:Initial_Pss,
+                           "Location"= "Selection Table",
+                           "Contamination" = as.numeric("0"),
+                           "ExposedAllergen" = FALSE,
+                           "TotTime"= as.numeric("0"),
+                           "History" = "", 
+                           "STtimes"= as.numeric("0"),
+                           "Initial Service" = "1",
+                           "Service" = j,
+                           "Initial Day" = "1",
+                           "Day" = k,
+                           stringsAsFactors = FALSE
+    )
+  }else if (FoodType=="Pre"){
+    Data_Frame<-data.frame("Pre No." = 1:Initial_Pre,
+                           "Location"= "Selection Table",
+                           "Contamination" = as.numeric("0"),
+                           "ExposedAllergen" = FALSE,
+                           "SpoilageCon" = as.numeric(Initial_Spoilage_Con),
+                           "SpoiledYN" = FALSE,
+                           "TotTime"= as.numeric("0"),
+                           "History" = "", 
+                           "STtimes"= as.numeric("0"),
+                           "Initial Service" = "1",
+                           "Service" = j,
+                           "Initial Day" = "1",
+                           "Day" = k,
+                           stringsAsFactors = FALSE
+    )
+  }
+  return(Data_Frame)
+}
+
 #Function for adding Contamination of fruit in data frame into the vector
 Func_FoodCont_Vector<-function(DF){
   Items_Added<-DF$Contamination[which(DF$Contamination>0)]

@@ -4,29 +4,17 @@
   Sum_Fr_Available<-as.numeric(sum(Fr_Available,na.rm = TRUE))
   
   if(Sum_Fr_Available<2){
-    Extra_Items_Fr<-data.frame("Apple No." = 1:Row_size_Fr,
-                              "Location"= "Selection Table",
-                              "Contamination" = as.numeric("0"),
-                              "ExposedAllergen" = FALSE,
-                              "TotTime"= as.numeric("0"),
-                              "History" = "", 
-                              "STtimes"= as.numeric("0"),
-                              "Initial Service" = "1",
-                              "Service" = j,
-                              "Initial Day" = "1",
-                              "Day" = k,
-                              stringsAsFactors = FALSE
-                              
-    )
+    #Creating Data frame of extra items
+    Extra_Items_Fr<-Fuct_DF_Feeding(FoodType = "Fruit")
     
     if(salmonella==1 && Calculated_Cont_Fr==1){
       Extra_Items_Fr<-func_Cont_cm2(Extra_Items_Fr,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
       #Adding Contamination to Vector
-      Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame)
+      Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Extra_Items_Fr)
     } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
       Extra_Items_Fr<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Extra_Items_Fr),Inputs_Cont_HuNov_Fr))
       #Adding Contamination to Vector
-      Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame)
+      Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Extra_Items_Fr)
     }
     
     Fr_Data.Frame<-rbind(Extra_Items_Fr,Fr_Data.Frame)
@@ -41,24 +29,15 @@
   Sum_Pss_Available<-sum(Pss_Available, na.rm = TRUE)
   
   if(Sum_Pss_Available<2){
-    Extra_Items_Pss<-data.frame("Pss No." = 1:Initial_Pss,
-                                              "Location"= "Selection Table",
-                                              "Contamination" = as.numeric("0"),
-                                              "ExposedAllergen" = FALSE,
-                                              "TotTime"= as.numeric("0"),
-                                              "History" = "", 
-                                              "STtimes"= as.numeric("0"),
-                                              "Initial Service" = "1",
-                                              "Service" = j,
-                                              "Initial Day" = "1",
-                                              "Day" = k,
-                                              stringsAsFactors = FALSE
-    )
+    #Creating Data frame of new items
+    Extra_Items_Pss<-Fuct_DF_Feeding(FoodType = "Pss")
     
     if(salmonella==1 && Calculated_Cont_Pss==1){
-      Pss_Data.Frame<-func_Cont_cm2(Extra_Items_Pss,Prevalence_Salmonella_Pss,Pss_Contamination_salmonella,Pss_Mean_area)
+      Extra_Items_Pss<-func_Cont_cm2(Extra_Items_Pss,Prevalence_Salmonella_Pss,Pss_Contamination_salmonella,Pss_Mean_area)
+      Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Extra_Items_Pss)
     } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
-      Pss_Data.Frame<-func_Cont_cm2(Extra_Items_Pss,Prevalence_Norovirus_Pss,Pss_Contamination_norovirus,Pss_Mean_area)
+      Extra_Items_Pss<-func_Cont_cm2(Extra_Items_Pss,Prevalence_Norovirus_Pss,Pss_Contamination_norovirus,Pss_Mean_area)
+      Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Extra_Items_Pss)
     }
     
     Pss_Data.Frame<-rbind(Extra_Items_Pss,Pss_Data.Frame)
@@ -75,27 +54,16 @@
   Sum_Pre_Available<-sum(Pre_Available, na.rm = TRUE)
   
   if(Sum_Pre_Available<2){
-    Extra_Items_Pre<-data.frame("Pre No." = 1:Initial_Pre,
-                            "Location"= "Selection Table",
-                            "Contamination" = as.numeric("0"),
-                            "ExposedAllergen" = FALSE,
-                            "SpoilageCon" = as.numeric(Initial_Spoilage_Con),
-                            "SpoiledYN" = FALSE,
-                            "TotTime"= as.numeric("0"),
-                            "History" = "", 
-                            "STtimes"= as.numeric("0"),
-                            "Initial Service" = "1",
-                            "Service" = j,
-                            "Initial Day" = "1",
-                            "Day" = k,
-                            stringsAsFactors = FALSE
-    )
+    #Creating data frame of items that are fed. 
+    Extra_Items_Pre<-Fuct_DF_Feeding(FoodType = "Pre")
     
     
     if(salmonella==1 && Calculated_Cont_Pss==1){
-      Pre_Data.Frame<-func_Cont_cm2(Extra_Items_Pre,Prevalence_Salmonella_Pre,Pre_Contamination_salmonella,Pre_Mean_area)
+      Extra_Items_Pre<-func_Cont_cm2(Extra_Items_Pre,Prevalence_Salmonella_Pre,Pre_Contamination_salmonella,Pre_Mean_area)
+      Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Extra_Items_Pre)
     } else if (norovirus == 1 && Calculated_Cont_Pss ==1){
-      Pre_Data.Frame<-func_Cont_cm2(Extra_Items_Pre,Prevalence_Norovirus_Pre,Pre_Contamination_norovirus,Pre_Mean_area)
+      Extra_Items_Pre<-func_Cont_cm2(Extra_Items_Pre,Prevalence_Norovirus_Pre,Pre_Contamination_norovirus,Pre_Mean_area)
+      Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Extra_Items_Pre)
     }
     
     Pre_Data.Frame<-rbind(Extra_Items_Pre,Pre_Data.Frame)
