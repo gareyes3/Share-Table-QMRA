@@ -76,13 +76,27 @@ Input_DataFrame_Services_Fr[is.na(Input_DataFrame_Services_Fr)]<-0
 Input_DataFrame_Services_Pss[is.na(Input_DataFrame_Services_Pss)]<-0
 Input_DataFrame_Services_Pss[is.na(Input_DataFrame_Services_Pre)]<-0
 
+outliers<-boxplot(Input_DataFrame_Services_Fr$OutputContsFr)$out
+print(outliers)
+
+Input_DataFrame_Services_Fr<-Input_DataFrame_Services_Fr[-which(Input_DataFrame_Services_Fr$OutputContsFr %in% outliers),]
+
+boxplot(Input_DataFrame_Services_Fr$OutputContsFr)
 
 #Running Partical correlation coefficients
 pcc(X=Input_DataFrame_Services_Fr[,2:12], y=Input_DataFrame_Services_Fr$OutputContsFr)
-plot()
+
 
 pcc(X=Input_DataFrame_Services_Pss[,2:12], y=Input_DataFrame_Services_Pss$OutputContsPss)
 
 
 pcc(X=Input_DataFrame_Services_Pre[,2:12], y=Input_DataFrame_Services_Pre$OutputContsPre)
 
+
+d <- melt(Input_DataFrame_Services_Fr, id.vars="OutputContsFr")
+
+
+ggplot(data =d , aes(OutputContsFr,value, col=variable)) + 
+  geom_point() + 
+  stat_smooth() +
+  facet_wrap(~variable)
