@@ -56,8 +56,10 @@ func_Cont_cm2<-function(DF, Prevalence, logContamination, Fr_Mean_area ){
     Contamination<-10^(logContamination)* Fr_Mean_area
     if(Fr_Cont_YN==1){
       DF[i,colnames(DF)== "Contamination"]<-Contamination
+      DF[i,colnames(DF)== "InContamination"]<-Contamination
     } else if (Fr_Cont_YN==0){
       DF[i,colnames(DF)== "Contamination"]<-as.numeric(0)
+      DF[i,colnames(DF)== "InContamination"]<-as.numeric(0)
     }
   }
   return(DF)
@@ -72,8 +74,10 @@ func_Cont_HuNoV_Fr<-function(DF, Prevalence,Genomic_copies_per_PFU,HuNoV_ContFru
     Contamination<-(10^HuNoV_ContFruit)/(10^Genomic_copies_per_PFU) *Fr_Mean_weight #PFU/Apple
     if(Fr_Cont_YN==1){
       DF[i,colnames(DF)== "Contamination"]<-Contamination
+      DF[i,colnames(DF)== "InContamination"]<-Contamination
     } else if (Fr_Cont_YN==0){
       DF[i,colnames(DF)== "Contamination"]<-as.numeric(0)
+      DF[i,colnames(DF)== "InContamination"]<-as.numeric(0)
     }
   }
   return(DF)
@@ -217,6 +221,7 @@ Fuct_DF_Initial<-function(FoodType){
     Data_Frame<-data.frame("Apple No." = 1:Initial_Fr,
                            "Location"= "Selection Table",
                            "Contamination" = as.numeric("0"),
+                           "InContamination"  = as.numeric("0"),
                            "ExposedAllergen" = FALSE,
                            "TotTime"= as.numeric("0"),
                            "History" = "", 
@@ -232,6 +237,7 @@ Fuct_DF_Initial<-function(FoodType){
     Data_Frame<-data.frame("Pss No." = 1:Initial_Pss,
                            "Location"= "Selection Table",
                            "Contamination" = as.numeric("0"),
+                           "InContamination"  = as.numeric("0"),
                            "ExposedAllergen" = FALSE,
                            "TotTime"= as.numeric("0"),
                            "History"= "",
@@ -246,6 +252,7 @@ Fuct_DF_Initial<-function(FoodType){
     Data_Frame<-data.frame("Pre No." = 1:Initial_Pss,
                            "Location"= "Selection Table",
                            "Contamination" = as.numeric("0"),
+                           "InContamination"  = as.numeric("0"),
                            "ExposedAllergen" = FALSE,
                            "SpoilageCon" = as.numeric(Initial_Spoilage_Con),
                            "SpoiledYN" = FALSE,
@@ -268,6 +275,7 @@ Fuct_DF_Reservice<-function(FoodType){
     Data_Frame<-data.frame("Apple No." = 1:(Initial_Fr-(No_Left_Selection_Fr)),
                            "Location"= "Selection Table",
                            "Contamination" = as.numeric("0"),
+                           "InContamination"  = as.numeric("0"),
                            "ExposedAllergen" = FALSE,
                            "TotTime"= as.numeric("0"),
                            "History" = "", 
@@ -283,6 +291,7 @@ Fuct_DF_Reservice<-function(FoodType){
     Data_Frame<-data.frame("Pss No." = 1:(Initial_Pss-(No_Left_Selection_Pss)),
                            "Location"= "Selection Table",
                            "Contamination" = as.numeric("0"),
+                           "InContamination"  = as.numeric("0"),
                            "ExposedAllergen" = FALSE,
                            "TotTime"= as.numeric("0"),
                            "History" = "", 
@@ -298,6 +307,7 @@ Fuct_DF_Reservice<-function(FoodType){
     Data_Frame<-data.frame("Pre No." = 1:(Initial_Pre-(No_Left_Selection_Pre)),
                            "Location"= "Selection Table",
                            "Contamination" = as.numeric("0"),
+                           "InContamination"  = as.numeric("0"),
                            "ExposedAllergen" = FALSE,
                            "SpoilageCon" = as.numeric(Initial_Spoilage_Con),
                            "SpoiledYN" = FALSE,
@@ -321,6 +331,7 @@ Fuct_DF_Feeding<-function(FoodType){
     Data_Frame<-data.frame("Apple No." = 1:Row_size_Fr,
                            "Location"= "Selection Table",
                            "Contamination" = as.numeric("0"),
+                           "InContamination"  = as.numeric("0"),
                            "ExposedAllergen" = FALSE,
                            "TotTime"= as.numeric("0"),
                            "History" = "", 
@@ -336,6 +347,7 @@ Fuct_DF_Feeding<-function(FoodType){
     Data_Frame<-data.frame("Pss No." = 1:Initial_Pss,
                            "Location"= "Selection Table",
                            "Contamination" = as.numeric("0"),
+                           "InContamination"  = as.numeric("0"),
                            "ExposedAllergen" = FALSE,
                            "TotTime"= as.numeric("0"),
                            "History" = "", 
@@ -350,6 +362,7 @@ Fuct_DF_Feeding<-function(FoodType){
     Data_Frame<-data.frame("Pre No." = 1:Initial_Pre,
                            "Location"= "Selection Table",
                            "Contamination" = as.numeric("0"),
+                           "InContamination"  = as.numeric("0"),
                            "ExposedAllergen" = FALSE,
                            "SpoilageCon" = as.numeric(Initial_Spoilage_Con),
                            "SpoiledYN" = FALSE,
@@ -367,9 +380,9 @@ Fuct_DF_Feeding<-function(FoodType){
 }
 
 #Function for adding Contamination of fruit in data frame into the vector
-Func_FoodCont_Vector<-function(DF){
+Func_FoodCont_Vector<-function(DF,Vector){
   Items_Added<-DF$Contamination[which(DF$Contamination>0)]
-  Vector_Cont_Fr_Serv<-c(Vector_Cont_Fr_Serv,Items_Added)
-  return(Vector_Cont_Fr_Serv)
+  Vector<-c(Vector,Items_Added)
+  return(Vector)
 }
 

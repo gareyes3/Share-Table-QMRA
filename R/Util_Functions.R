@@ -39,12 +39,12 @@ Func_Adding_Time<-function(Column, Time){
 
 #Converting to CFU/g
 
-Func_Convert_Log<-function(DF){
+Func_Convert_Log<-function(DF,Column){
   for (i in 1:nrow(DF)){
-    N<-DF[i,colnames(DF)== "Contamination"]
+    N<-DF[i,colnames(DF)== Column]
     if(N>0){
-    N<-log10(DF[i,colnames(DF)== "Contamination"])
-    DF[i,colnames(DF)== "Contamination"]<-N
+    N<-log10(DF[i,colnames(DF)== Column])
+    DF[i,colnames(DF)== Column]<-N
     }
   }
   return(DF)

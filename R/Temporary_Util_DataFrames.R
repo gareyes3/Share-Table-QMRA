@@ -19,12 +19,12 @@ if(j==1 && k== 1){
     #Adding Contamination to the Dataframe
     Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
     #Adding items to know contaminated items
-    Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame)
+    Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
   } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
     #Adding Contamination to Data Fra
     Fr_Data.Frame<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Fr_Data.Frame),Inputs_Cont_HuNov_Fr))
     #Adding items to know Contaminated Items
-    Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame)
+    Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
   }
   
   
@@ -39,11 +39,11 @@ if(j==1 && k== 1){
   if(salmonella==1 && Calculated_Cont_Pss==1){
     Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Salmonella_Pss,Pss_Contamination_salmonella,Pss_Mean_area)
     #Adding items to know Contaminated Items
-    Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame)
+    Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame, Vector_Cont_Pss_Serv)
   } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
     Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Norovirus_Pss,Pss_Contamination_norovirus,Pss_Mean_area)
     #Adding items to know Contaminated Items
-    Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame)
+    Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame,Vector_Cont_Pss_Serv)
   }
   
   
@@ -57,10 +57,10 @@ if(j==1 && k== 1){
   
   if(salmonella==1 && Calculated_Cont_Pss==1){
     Pre_Data.Frame<-func_Cont_cm2(Pre_Data.Frame,Prevalence_Salmonella_Pre,Pre_Contamination_salmonella,Pre_Mean_area)
-    Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame)
+    Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame,Vector_Cont_Pre_Serv)
   } else if (norovirus == 1 && Calculated_Cont_Pss ==1){
     Pre_Data.Frame<-func_Cont_cm2(Pre_Data.Frame,Prevalence_Norovirus_Pre,Pre_Contamination_norovirus,Pre_Mean_area)
-    Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame)
+    Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame,Vector_Cont_Pre_Serv)
   }
   
   
@@ -88,12 +88,12 @@ if(j>1 && k ==1 ){
       #Adding Contaminations to the Data Frames
       Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
       #Adding Contamination to Vector
-      Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame)
+      Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
     } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
       #Adding Contamination to the Data Frames
       Fr_Data.Frame<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Fr_Data.Frame),Inputs_Cont_HuNov_Fr))
       #Adding Contamination to Vector
-      Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame)
+      Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
     }
     
     #Adding times that the share table items have been shared
@@ -121,10 +121,10 @@ if(j>1 && k ==1 ){
     
     if(salmonella==1 && Calculated_Cont_Pss==1){
       Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Salmonella_Pss,Pss_Contamination_salmonella,Pss_Mean_area)
-      Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame)
+      Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame,Vector_Cont_Pss_Serv)
     } else if (norovirus == 1 && Calculated_Cont_Pss ==1){
       Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Norovirus_Pss,Pss_Contamination_norovirus,Pss_Mean_area)
-      Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame)
+      Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame,Vector_Cont_Pss_Serv)
     }
     
     #Adding times that the share table items have been shared
@@ -151,10 +151,10 @@ if(j>1 && k ==1 ){
     
     if(salmonella==1 && Calculated_Cont_Pre==1){
       Pre_Data.Frame<-func_Cont_cm2(Pre_Data.Frame,Prevalence_Salmonella_Pre,Pre_Contamination_salmonella,Pre_Mean_area)
-      Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame)
+      Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame,Vector_Cont_Pre_Serv)
     } else if (norovirus == 1 && Calculated_Cont_Pre ==1){
       Pre_Data.Frame<-func_Cont_cm2(Pre_Data.Frame,Prevalence_Norovirus_Pre,Pre_Contamination_norovirus,Pre_Mean_area)
-      Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame)
+      Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame,Vector_Cont_Pre_Serv)
     }
     
     #Adding times that the share table items have been shared
@@ -187,12 +187,12 @@ if(j>1 && k ==1 ){
       #Adding Contamination to the Data Frames
       Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
       #Adding Contamination to Vector
-      Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame)
+      Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
     } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
       #Adding Contamination to the Data frames
       Fr_Data.Frame<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Fr_Data.Frame),Inputs_Cont_HuNov_Fr))
       #Adding Contamination to Vector
-      Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame)
+      Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
     }
     
     #Adding Share Times
@@ -219,10 +219,10 @@ if(j>1 && k ==1 ){
     
     if(salmonella==1 && Calculated_Cont_Pss==1){
       Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Salmonella_Pss,Pss_Contamination_salmonella,Pss_Mean_area)
-      Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame)
+      Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame,Vector_Cont_Pss_Serv)
     } else if (norovirus == 1 && Calculated_Cont_Pss ==1){
       Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Norovirus_Pss,Pss_Contamination_norovirus,Pss_Mean_area)
-      Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame)
+      Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame,Vector_Cont_Pss_Serv)
     }
     
     #Adding Share Times
@@ -248,10 +248,10 @@ if(j>1 && k ==1 ){
     
     if(salmonella==1 && Calculated_Cont_Pre==1){
       Pre_Data.Frame<-func_Cont_cm2(Pre_Data.Frame,Prevalence_Salmonella_Pre,Pre_Contamination_salmonella,Pre_Mean_area)
-      Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame)
+      Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame,Vector_Cont_Pre_Serv)
     } else if (norovirus == 1 && Calculated_Cont_Pre ==1){
       Pre_Data.Frame<-func_Cont_cm2(Pre_Data.Frame,Prevalence_Norovirus_Pre,Pre_Contamination_norovirus,Pre_Mean_area)
-      Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame)
+      Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame,Vector_Cont_Pre_Serv)
     }
     
     #Adding Share Times
@@ -291,12 +291,12 @@ if(j>0 && k>1 ){
       #Adding Contamination to the Data Frames
       Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
       #Adding Contamination to Vector
-      Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame)
+      Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
     } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
       #Adding Contamination to the Data Frames
       Fr_Data.Frame<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Fr_Data.Frame),Inputs_Cont_HuNov_Fr))
       #Adding Contamination to Vector
-      Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame)
+      Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
     }
     
     #Adding times that the share table items have been shared
@@ -326,10 +326,10 @@ if(j>0 && k>1 ){
     
     if(salmonella==1 && Calculated_Cont_Pss==1){
       Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Salmonella_Pss,Pss_Contamination_salmonella,Pss_Mean_area)
-      Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame)
+      Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame,Vector_Cont_Pss_Serv)
     } else if (norovirus == 1 && Calculated_Cont_Pss ==1){
       Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Norovirus_Pss,Pss_Contamination_norovirus,Pss_Mean_area)
-      Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame)
+      Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame,Vector_Cont_Pss_Serv)
     }
     
     #Adding times that the share table items have been shared
@@ -357,10 +357,10 @@ if(j>0 && k>1 ){
     
     if(salmonella==1 && Calculated_Cont_Pre==1){
       Pre_Data.Frame<-func_Cont_cm2(Pre_Data.Frame,Prevalence_Salmonella_Pre,Pre_Contamination_salmonella,Pre_Mean_area)
-      Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame)
+      Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame,Vector_Cont_Pre_Serv)
     } else if (norovirus == 1 && Calculated_Cont_Pre ==1){
       Pre_Data.Frame<-func_Cont_cm2(Pre_Data.Frame,Prevalence_Norovirus_Pre,Pre_Contamination_norovirus,Pre_Mean_area)
-      Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame)
+      Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame,Vector_Cont_Pre_Serv)
     }
     
     #Adding times that the share table items have been shared
@@ -394,12 +394,12 @@ if(j>0 && k>1 ){
       #Adding Contamination to the Data Frames
       Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
       #Adding Contamination to Vector
-      Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame)
+      Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
     } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
       #Adding Contamination the the Data Frames
       Fr_Data.Frame<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Fr_Data.Frame),Inputs_Cont_HuNov_Fr))
       #Adding Contamination to Vector
-      Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame)
+      Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
     }
     
     #Adding Share Times
@@ -426,10 +426,10 @@ if(j>0 && k>1 ){
     
     if(salmonella==1 && Calculated_Cont_Pss==1){
       Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Salmonella_Pss,Pss_Contamination_salmonella,Pss_Mean_area)
-      Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame)
+      Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame,Vector_Cont_Pss_Serv)
     } else if (norovirus == 1 && Calculated_Cont_Pss ==1){
       Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Norovirus_Pss,Pss_Contamination_norovirus,Pss_Mean_area)
-      Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame)
+      Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame,Vector_Cont_Pss_Serv)
     }
     
     #Adding Share Times
@@ -454,10 +454,10 @@ if(j>0 && k>1 ){
     
     if(salmonella==1 && Calculated_Cont_Pre==1){
       Pre_Data.Frame<-func_Cont_cm2(Pre_Data.Frame,Prevalence_Salmonella_Pre,Pre_Contamination_salmonella,Pre_Mean_area)
-      Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame)
+      Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame,Vector_Cont_Pre_Serv)
     } else if (norovirus == 1 && Calculated_Cont_Pre ==1){
       Pre_Data.Frame<-func_Cont_cm2(Pre_Data.Frame,Prevalence_Norovirus_Pre,Pre_Contamination_norovirus,Pre_Mean_area)
-      Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame)
+      Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame,Vector_Cont_Pre_Serv)
     }
     
     #Adding Share Times

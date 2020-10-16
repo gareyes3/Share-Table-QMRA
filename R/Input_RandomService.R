@@ -40,10 +40,10 @@
   
   if(norovirus==1){
     TE_H_F<- rbetagen(1,0.76,1.04,.0126,.46) #0.2013#
-    TE_H_S<-.1340 #rtriang(1,.001,.13,.27) #TE between Hands and Surfaces #add 
+    TE_H_S<-rtriang(1,.001,.13,.27) #TE between Hands and Surfaces #add .1340 #
     TE_F_H<-rbetagen(1,0.88,1.01,.048,.164) #add 0.1018#
     TE_F_S<-.0250 #TE between Food and Surfaces
-    TE_S_H<-.1090 #rtriang(1,.036,.03,.22)#.1090 #TE between Surfaces and Hands
+    TE_S_H<- rtriang(1,.036,.07,.22)#.1090 #TE between Surfaces and Hands
     TE_S_F<-.4620 #TE between Surfaces and Foods
     TE_Pre_Mouth<-.339 #TE between Milk to Mouth
   }

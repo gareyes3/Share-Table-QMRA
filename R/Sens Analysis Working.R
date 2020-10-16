@@ -32,8 +32,22 @@ Input_DataFrame_Services_Fr<-data.frame(
   "TE_Pre_Mouth"=TE_Pre_Mouth,
   "OutputContsFr"=Mean_Con_Services_Fr,
   "OutputContMedFr"=Median_Con_Services_Fr,
+  "RatingContFr" = "0",
   stringsAsFactors = FALSE
 )
+
+for (i in 1:nrow(Input_DataFrame_Services_Fr)){
+  a<-Input_DataFrame_Services_Fr[i,colnames(Input_DataFrame_Services_Fr)=="ContaminationStu"]
+  if (a<10){
+    Input_DataFrame_Services_Fr[i,colnames(Input_DataFrame_Services_Fr)=="RatingContFr"]<-"Low"
+  } else if (a>10 && a<1000){
+    Input_DataFrame_Services_Fr[i,colnames(Input_DataFrame_Services_Fr)=="RatingContFr"]<-"Med"
+  }else if (a>1000 && a<10000){
+    Input_DataFrame_Services_Fr[i,colnames(Input_DataFrame_Services_Fr)=="RatingContFr"]<-"MedHigh"
+  }else if (a>10000){
+    Input_DataFrame_Services_Fr[i,colnames(Input_DataFrame_Services_Fr)=="RatingContFr"]<-"High"
+  }
+}
 
 Input_DataFrame_Services_Pss<-data.frame(
   "Service"= 1:(Service_No*Food_Days*Sens_Iterations),
@@ -56,7 +70,7 @@ Input_DataFrame_Services_Pre<-data.frame(
   "Service"= 1:(Service_No*Food_Days*Sens_Iterations),
   "ContaminationStu" = Vector_Con_Services,
   "No_Cont_Students" = Vector_No_Cont_Stu,
-  "ContaminationPss"=Vector_Cont_Pre_Serv_Out,
+  "ContaminationPre"=Vector_Cont_Pre_Serv_Out,
   "No_Cont_Pss"=Vector_No_Cont_Pre,
   "TE_H_F"=Vector_TE_H_F,
   "TE_F_H"=Vector_TE_F_H,
@@ -74,7 +88,7 @@ Input_DataFrame_Services_Pre<-data.frame(
 #Making NA Values 0 
 Input_DataFrame_Services_Fr[is.na(Input_DataFrame_Services_Fr)]<-0
 Input_DataFrame_Services_Pss[is.na(Input_DataFrame_Services_Pss)]<-0
-Input_DataFrame_Services_Pss[is.na(Input_DataFrame_Services_Pre)]<-0
+Input_DataFrame_Services_Pre[is.na(Input_DataFrame_Services_Pre)]<-0
 
 outliers<-boxplot(Input_DataFrame_Services_Fr$OutputContsFr)$out
 print(outliers)
@@ -85,6 +99,9 @@ boxplot(Input_DataFrame_Services_Fr$OutputContsFr)
 
 #Running Partical correlation coefficients
 pcc(X=Input_DataFrame_Services_Fr[,2:12], y=Input_DataFrame_Services_Fr$OutputContsFr)
+p.adjust(PccFr$PCC$original, method = "bonferroni")
+PccFr$PCC$Bonferroni<-p.adjust(PccFr$PCC$original, method = "bonferroni")
+PccFr$PCC
 
 
 pcc(X=Input_DataFrame_Services_Pss[,2:12], y=Input_DataFrame_Services_Pss$OutputContsPss)
@@ -95,8 +112,37 @@ pcc(X=Input_DataFrame_Services_Pre[,2:12], y=Input_DataFrame_Services_Pre$Output
 
 d <- melt(Input_DataFrame_Services_Fr, id.vars="OutputContsFr")
 
+ggplot(data = Input_DataFrame_Services_Fr , aes(x=OutputContsFr, y = ContaminationFr )) + 
+  scale_x_log10()+
+  scale_y_log10()+
+  geom_point(aes(col=RatingContFr))+
+ geom_smooth()
+
+ggplot(data = Input_DataFrame_Services_Fr , aes(x=OutputContsFr, y = ContaminationStu )) + 
+  scale_x_log10()+
+  scale_y_log10()+
+  geom_point()+
+  geom_smooth()
+
+ggplot(data = Input_DataFrame_Services_Fr , aes(x=OutputContsFr, y = TE_F_H )) + 
+  geom_point()+
+  scale_x_log10()+
+  geom_smooth()
+
+ggplot(data = Input_DataFrame_Services_Pss , aes(x=OutputContsPss, y = ContaminationPss )) + 
+  geom_point()+
+  geom_smooth()
+
+ggplot(data = Input_DataFrame_Services_Pre , aes(x=OutputContsPre, y = ContaminationPre )) + 
+  geom_point()+
+  geom_smooth()
+
 
 ggplot(data =d , aes(OutputContsFr,value, col=variable)) + 
+  scale_x_log10()+
+  scale_y_log10(c("ContaminationFr","ContaminationStu"))+
   geom_point() + 
   stat_smooth() +
-  facet_wrap(~variable)
+  facet_wrap(~variable, scales = "free")+
+  xlab("Contamination Items Consumed Log CFU/Fruit")+
+  ylab("Values")

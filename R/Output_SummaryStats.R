@@ -19,7 +19,7 @@ Pre_Data_Days = do.call(rbind,datalistPre_days)
     Total_Consumed_Fr<-Func_Convert_pergram(Total_Consumed_Fr)   #Toggle if we want our units to be log CFU/g instead of Log CFU/Fruit
   }
   
-  Total_Consumed_Fr<-Func_Convert_Log(Total_Consumed_Fr) #Converting to Log
+  Total_Consumed_Fr<-Func_Convert_Log(Total_Consumed_Fr,"Contamination") #Converting to Log
   
   #Share Table Total consumed
   Total_Consumed_ST_Fr<-Total_Consumed_Fr[which(Total_Consumed_Fr$STtimes > 0),]
@@ -44,7 +44,7 @@ Pre_Data_Days = do.call(rbind,datalistPre_days)
   if(Units_Per_gram == 1){
     Total_Consumed_Pss<-Func_Convert_pergram(Total_Consumed_Pss) #Toggle if we want our units to be log CFU/g instead of Log CFU/Pss
   }
-  Total_Consumed_Pss<-Func_Convert_Log(Total_Consumed_Pss) #Converting to Log
+  Total_Consumed_Pss<-Func_Convert_Log(Total_Consumed_Pss, "Contamination") #Converting to Log
   
   #Share Table Total Consumed
   Total_Consumed_ST_Pss<-Total_Consumed_Pss[which(Total_Consumed_Pss$STtimes > 0),]
@@ -69,7 +69,7 @@ Pre_Data_Days = do.call(rbind,datalistPre_days)
   if(Units_Per_gram == 1){
     Total_Consumed_Pre<-Func_Convert_pergram(Total_Consumed_Pre) #Toggle if we want our units to be log CFU/g instead of Log CFU/Pss
   }
-  Total_Consumed_Pre<-Func_Convert_Log(Total_Consumed_Pre) #Converting to Log
+  Total_Consumed_Pre<-Func_Convert_Log(Total_Consumed_Pre, "Contamination") #Converting to Log
   
   #Share Table Total Consumed
   Total_Consumed_ST_Pre<-Total_Consumed_Pre[which(Total_Consumed_Pre$STtimes > 0),]
