@@ -31,7 +31,7 @@ for (l in 1:Sens_Iterations){
     
     for (j in 1:Service_No){
       
- 
+      source("Input_RandomService.R") 
       #Data Frames Source Files
       source("Temporary_Util_DataFrames.R")  
       
@@ -552,6 +552,11 @@ for (l in 1:Sens_Iterations){
       if(Resharing_YN==0){
         Pre_Data.Frame$Location[Pre_Data.Frame$Location=="Shared"]<-"Discarded" 
       } 
+      
+      #Adding Services
+      Fr_Data.Frame<-func_Add_Services(Fr_Data.Frame)
+      Pss_Data.Frame<-func_Add_Services(Pss_Data.Frame)
+      Pre_Data.Frame<-func_Add_Services(Pre_Data.Frame)
       
       #Adding the data to the datalist
       

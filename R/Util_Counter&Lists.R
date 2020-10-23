@@ -50,6 +50,9 @@ Vector_Cont_Pre_Serv<-c() #vector for Contamination of fruit in serivces
 Vector_Cont_Pre_Serv_Out<-c() #vector for final contamination of fruit in services
 Vector_No_Cont_Pre<-c() #Vector for number of contaminated fruit every service.
 
+Total_Fr<-c() #vector for prevalence of contaminated fruit every service
+
+
 
 #vector with tranfer efficiencies. 
 
