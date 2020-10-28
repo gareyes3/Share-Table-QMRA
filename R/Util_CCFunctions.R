@@ -3,6 +3,8 @@
 #Cross_Contamination Functions
 
 Func_Cross_Contamination_Fr<-function(Cont_Student,Fr_Data.Frame, Fr_Picked){
+  Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "TouchesContHist"]<-paste(Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="TouchesContHist"], as.numeric(Cont_Student),sep = ",") #Adding Contamination to
+  #update the Fr Contamination in Data frame
   Tr_H_Fr<-Cont_Student*TE_H_F #Transfer from Hand to Fruit
   Tr_Fr_H<-(Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination")* TE_F_H) #Tranfer from fruit to hand
   Cont_Fr_Updated<- Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination") + Tr_H_Fr - (Tr_Fr_H) #New Contamination of Fruit
