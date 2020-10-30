@@ -1,4 +1,4 @@
-
+#SUMMARY FINALS FOR RIBBON
 
 
 #Appending Data Frame by Type
@@ -43,10 +43,6 @@ ggplot(Total, aes(x = Iteration.N, y = MedianCont, group = Type)) +
   scale_color_manual(name = 'Median', values = c("dodgerblue1", "tomato4", "seagreen1"))+
   theme_bw()+
   scale_x_continuous(breaks = seq(1, nrow(AFr_Summary_DF), by = 1))
-
-
-
-
 
   
 ggplot(Total) + 

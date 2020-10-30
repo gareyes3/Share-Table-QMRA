@@ -22,7 +22,7 @@ for (i in 1:nrow(Individual_Analysis_Fr)){
 
 Touches_Number<-lengths(regmatches(Individual_Analysis_Fr$History, gregexpr("Touched", Individual_Analysis_Fr$History)))
 
-#4. Running Average Contamination of student that touches specific fruit. 
+#5. Running Average Contamination of student that touches specific fruit. 
 
 ListTouches<-strsplit(Individual_Analysis_Fr$TouchesContHist,",")
 ListTouches<-lapply(ListTouches, function(x) x[x!="NA"])
@@ -30,7 +30,7 @@ ListTouches<-lapply(ListTouches, function(x) as.numeric(x))
 TouchesContHist<-sapply(X = ListTouches, FUN = mean)
 Individual_Analysis_Fr$TouchesContHistAvr<-TouchesContHist
 
-#5. Creation of Dataframe for indvidual Analysis 
+#6. Creation of Dataframe for indvidual Analysis 
 
 Analysis_Individual<-data.frame(
   "DeltaCont"= (Individual_Analysis_Fr$Contamination-Individual_Analysis_Fr$InContamination),
@@ -43,13 +43,13 @@ Analysis_Individual<-data.frame(
   "Contamination" = Individual_Analysis_Fr$Contamination
 )
 
-#6.  Sensitivity Analysis of table
+#7.  Sensitivity Analysis of table
 
 Pcc2<-pcc(X=Analysis_Individual[,2:7], y=Analysis_Individual$Contamination,rank = TRUE,nboot = 1000)
 Pcc2
 Pcc2$PRCC
 
-#7 Visuals
+#8 Visuals
 names(Pcc2$PRCC)=c("original", "bias" ,"std.error", "minci","maxci")
 
 ggplot(data = Pcc2$PRCC, aes(x=rownames(Pcc2$PRCC),y=original ))+
