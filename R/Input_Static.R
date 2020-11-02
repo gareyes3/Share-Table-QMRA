@@ -69,7 +69,7 @@
 # Inputs Behavioral Probabilities -----------------------------------------
 
   #Porbability of Student touching other line items before picking their food. 
-  Pr_touch_Food<-0.7
+  Pr_touch_Food<-0
 
   #Probability of student Picking up food from line-
 

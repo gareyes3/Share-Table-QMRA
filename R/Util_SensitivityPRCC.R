@@ -49,9 +49,13 @@
 
 #7.  Sensitivity Analysis of table
 
-  Pcc2<-pcc(X=Analysis_Individual[,2:7], y=Analysis_Individual$Contamination,rank = TRUE,nboot = 1000)
+  Pcc2<-pcc(X=Analysis_Individual[,1:7], y=Analysis_Individual$Contamination,rank = TRUE,nboot = 1000)
   Pcc2
   plot(Pcc2)
+  
+  Pcc3<-pcc(X=Analysis_Individual[,1:6], y=Analysis_Individual$DeltaCont,rank = TRUE,nboot = 1000)
+  Pcc3
+  plot(Pcc3)
 
 
 #8 Visuals , remaing the columns to that no error in ggplot
@@ -62,7 +66,7 @@
   ggplot(data = Pcc2$PRCC, aes(x=rownames(Pcc2$PRCC),y=original ))+
     geom_bar(stat = "identity", position = "identity")+
     geom_errorbar(aes(ymin=minci, ymax=maxci), width=.1,col="blue")+
-    ylab("Partial Correlation Coefficient")+
+    ylab("Partial Correlation Coefficient Input vs Consumption")+
     xlab("Input")+
     coord_flip()
 
@@ -72,12 +76,17 @@
     scale_x_log10()+
     scale_y_log10()+
     geom_point(aes(col=TouchesContHistAvr))+
+    ylab("Contamination Initial")+
+    xlab("Contamination Final")+
     scale_color_gradient(low="green", high="red", trans="log")
   
   ggplot(data = Analysis_Individual, aes(x=DeltaCont, y = TouchesContHistAvr )) + 
     scale_x_log10()+
     scale_y_log10()+
     geom_point(aes(col=Contamination))+
+    xlab("Change in Contamination")+
+    ylab("Contamination on student hands that touched fruit (average)")+
+    labs(col = "Final Contamination")+
     scale_color_gradient(low="green", high="red", trans="log")
   
   ggplot(data = Analysis_Individual, aes(x=DeltaCont, y = TouchesContHistAvr )) + 
