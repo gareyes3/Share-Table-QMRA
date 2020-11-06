@@ -216,12 +216,12 @@
 
 # Re-Sharing, Re-Service 
 
-  #Share Table to Service line after every Day
-  STtoReservice_YN<-1
+  #Share Table to Service line after every Day # note turn in 1 is ST on
+  STtoReservice_YN<-0
   #Re-Service of Items left in Service line after every service.
   Reservice_YN<-1
-  #Re-Sharing of Share table items after every service
-  Resharing_YN<-1
+  #Re-Sharing of Share table items after every service # note turn in 1 is ST on
+  Resharing_YN<-0
   
 
 #Visuals Toggles, if we want to change units in figures. 

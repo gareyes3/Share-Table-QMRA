@@ -22,15 +22,23 @@ Pre_Data_Days = do.call(rbind,datalistPre_days)
   Total_Consumed_Fr<-Func_Convert_Log(Total_Consumed_Fr,"Contamination") #Converting to Log
   
   #Share Table Total consumed
-  Total_Consumed_ST_Fr<-Total_Consumed_Fr[which(Total_Consumed_Fr$STtimes > 0),]
-  Total_Consumed_ST_Fr$Type<-" Consumed Share Table"
+  if(Share_Table_YN){
+    Total_Consumed_ST_Fr<-Total_Consumed_Fr[which(Total_Consumed_Fr$STtimes > 0),]
+    Total_Consumed_ST_Fr$Type<-" Consumed Share Table"
+  }
+
   
   #Selection Table Total consumed
   Total_Consumed_Sel_Fr<-Total_Consumed_Fr[which(Total_Consumed_Fr$STtimes ==0),]
   Total_Consumed_Sel_Fr$Type<-" Consumed Selection Table"
   
   #Binding all three Data Frames Categorized by type
-  Total_Consumed_Fr_Bind<-rbind(Total_Consumed_Fr,Total_Consumed_ST_Fr,Total_Consumed_Sel_Fr)
+  if(Share_Table_YN==1){
+    Total_Consumed_Fr_Bind<-rbind(Total_Consumed_Fr,Total_Consumed_ST_Fr,Total_Consumed_Sel_Fr)
+  } else if (Share_Table_YN==0){
+    Total_Consumed_Fr_Bind<-rbind(Total_Consumed_Fr,Total_Consumed_Sel_Fr)
+  }
+
   
   #Discarded Fruit due to Scenario.
   Fruit_Data_Consumed_Discarded<-rbind(Fr_Data_Days[which(Fr_Data_Days$Location == "Consumed"),],Fr_Data_Days[which(Fr_Data_Days$Location == "Discarded"),])  
@@ -47,16 +55,23 @@ Pre_Data_Days = do.call(rbind,datalistPre_days)
   Total_Consumed_Pss<-Func_Convert_Log(Total_Consumed_Pss, "Contamination") #Converting to Log
   
   #Share Table Total Consumed
-  Total_Consumed_ST_Pss<-Total_Consumed_Pss[which(Total_Consumed_Pss$STtimes > 0),]
-  Total_Consumed_ST_Pss$Type<-" Consumed Share Table"
+  if(Share_Table_YN==1){
+    Total_Consumed_ST_Pss<-Total_Consumed_Pss[which(Total_Consumed_Pss$STtimes > 0),]
+    Total_Consumed_ST_Pss$Type<-" Consumed Share Table"
+  }
+
   
   #Selection Table Total Consumed
   Total_Consumed_Sel_Pss<-Total_Consumed_Pss[which(Total_Consumed_Pss$STtimes ==0),] 
   Total_Consumed_Sel_Pss$Type<-" Consumed Selection Table"
   
   #Binding all three Data Frames Categorized by type
-  Total_Consumed_Pss_Bind<-rbind(Total_Consumed_Pss,Total_Consumed_ST_Pss,Total_Consumed_Sel_Pss)
-  
+  if(Share_Table_YN==1){
+    Total_Consumed_Pss_Bind<-rbind(Total_Consumed_Pss,Total_Consumed_ST_Pss,Total_Consumed_Sel_Pss)
+  }else if (Share_Table_YN==0){
+    Total_Consumed_Pss_Bind<-rbind(Total_Consumed_Pss,Total_Consumed_Sel_Pss)
+  }
+
   #Discarded Pss due to Scenario.
   Pss_Data_Consumed_Discarded<-rbind(Pss_Data_Days[which(Pss_Data_Days$Location == "Consumed"),],Pss_Data_Days[which(Pss_Data_Days$Location == "Discarded"),])  
 
@@ -72,15 +87,22 @@ Pre_Data_Days = do.call(rbind,datalistPre_days)
   Total_Consumed_Pre<-Func_Convert_Log(Total_Consumed_Pre, "Contamination") #Converting to Log
   
   #Share Table Total Consumed
-  Total_Consumed_ST_Pre<-Total_Consumed_Pre[which(Total_Consumed_Pre$STtimes > 0),]
-  Total_Consumed_ST_Pre$Type<-" Consumed Share Table"
+  if(Share_Table_YN==1){
+    Total_Consumed_ST_Pre<-Total_Consumed_Pre[which(Total_Consumed_Pre$STtimes > 0),]
+    Total_Consumed_ST_Pre$Type<-" Consumed Share Table"
+  } 
   
   #Selection Table Total Consumed
   Total_Consumed_Sel_Pre<-Total_Consumed_Pre[which(Total_Consumed_Pss$STtimes ==0),] 
   Total_Consumed_Sel_Pre$Type<-" Consumed Selection Table"
   
   #Binding all three Data Frames Categorized by type
-  Total_Consumed_Pre_Bind<-rbind(Total_Consumed_Pre,Total_Consumed_ST_Pre,Total_Consumed_Sel_Pre)
+  if (Share_Table_YN==1){
+    Total_Consumed_Pre_Bind<-rbind(Total_Consumed_Pre,Total_Consumed_ST_Pre,Total_Consumed_Sel_Pre)
+  } else if (Share_Table_YN==0){
+    Total_Consumed_Pre_Bind<-rbind(Total_Consumed_Pre,Total_Consumed_Sel_Pre)
+  }
+
   
   #Discarded Pre due to Scenario.
   Pre_Data_Consumed_Discarded<-rbind(Pre_Data_Days[which(Pre_Data_Days$Location == "Consumed"),],Pre_Data_Days[which(Pre_Data_Days$Location == "Discarded"),])
@@ -103,10 +125,13 @@ Pre_Data_Days = do.call(rbind,datalistPre_days)
   Fr_Consumed_Sel_95th_Contamination<-quantile(Total_Consumed_Sel_Fr$Contamination, .95, na.rm = TRUE)
 
 #Consumed Items Share Table Only
-  Fr_Consumed_ST_Mean_Contamination<-mean(Total_Consumed_ST_Fr$Contamination, na.rm = TRUE)
-  Fr_Consumed_ST_Median_Contamination<-median(Total_Consumed_ST_Fr$Contamination, na.rm = TRUE)
-  Fr_Consumed_ST_5th_Contamination<-quantile(Total_Consumed_ST_Fr$Contamination, .05, na.rm = TRUE)
-  Fr_Consumed_ST_95th_Contamination<-quantile(Total_Consumed_ST_Fr$Contamination, .95, na.rm = TRUE)
+  if(Share_Table_YN==1){
+    Fr_Consumed_ST_Mean_Contamination<-mean(Total_Consumed_ST_Fr$Contamination, na.rm = TRUE)
+    Fr_Consumed_ST_Median_Contamination<-median(Total_Consumed_ST_Fr$Contamination, na.rm = TRUE)
+    Fr_Consumed_ST_5th_Contamination<-quantile(Total_Consumed_ST_Fr$Contamination, .05, na.rm = TRUE)
+    Fr_Consumed_ST_95th_Contamination<-quantile(Total_Consumed_ST_Fr$Contamination, .95, na.rm = TRUE)
+  }
+
   
 #Allergen Consumed
   Fr_Allergen_Consumed<-sum(Total_Consumed_Fr$ExposedAllergen ==TRUE, na.rm = TRUE)
@@ -120,10 +145,13 @@ Pre_Data_Days = do.call(rbind,datalistPre_days)
   AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "MedianContSelection"]<-Fr_Consumed_Sel_Median_Contamination
   AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "ContSel95th"]<-Fr_Consumed_Sel_95th_Contamination
   AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "ContSel5th"]<-Fr_Consumed_Sel_5th_Contamination
-  AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "MeanContST"]<-Fr_Consumed_ST_Mean_Contamination
-  AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "MedianContST"]<-Fr_Consumed_ST_Median_Contamination
-  AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "ContST95th"]<-Fr_Consumed_ST_95th_Contamination
-  AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "ContST5th"]<-Fr_Consumed_ST_5th_Contamination
+  if(Share_Table_YN==1){
+    AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "MeanContST"]<-Fr_Consumed_ST_Mean_Contamination
+    AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "MedianContST"]<-Fr_Consumed_ST_Median_Contamination
+    AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "ContST95th"]<-Fr_Consumed_ST_95th_Contamination
+    AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "ContST5th"]<-Fr_Consumed_ST_5th_Contamination 
+  }
+
   AFr_Summary_DF[l,colnames(AFr_Summary_DF)== "AllergenConsumed"]<- Fr_Allergen_Consumed
   
 
@@ -142,10 +170,13 @@ Pre_Data_Days = do.call(rbind,datalistPre_days)
   Pss_Consumed_Sel_95th_Contamination<-quantile(Total_Consumed_Sel_Pss$Contamination, .95, na.rm = TRUE)
   
   #Consumed Items Share Table Only
-  Pss_Consumed_ST_Mean_Contamination<-mean(Total_Consumed_ST_Pss$Contamination, na.rm = TRUE)
-  Pss_Consumed_ST_Median_Contamination<-median(Total_Consumed_ST_Pss$Contamination, na.rm = TRUE)
-  Pss_Consumed_ST_5th_Contamination<-quantile(Total_Consumed_ST_Pss$Contamination, .05, na.rm = TRUE)
-  Pss_Consumed_ST_95th_Contamination<-quantile(Total_Consumed_ST_Pss$Contamination, .95, na.rm = TRUE)
+  if(Share_Table_YN==1){
+    Pss_Consumed_ST_Mean_Contamination<-mean(Total_Consumed_ST_Pss$Contamination, na.rm = TRUE)
+    Pss_Consumed_ST_Median_Contamination<-median(Total_Consumed_ST_Pss$Contamination, na.rm = TRUE)
+    Pss_Consumed_ST_5th_Contamination<-quantile(Total_Consumed_ST_Pss$Contamination, .05, na.rm = TRUE)
+    Pss_Consumed_ST_95th_Contamination<-quantile(Total_Consumed_ST_Pss$Contamination, .95, na.rm = TRUE)
+  }
+
 
   #Allergen Consumed
   Pss_Allergen_Consumed<-sum(Total_Consumed_Pss$ExposedAllergen ==TRUE, na.rm = TRUE)
@@ -159,10 +190,12 @@ Pre_Data_Days = do.call(rbind,datalistPre_days)
   APss_Summary_DF[l,colnames(APss_Summary_DF)== "MedianContSelection"]<-Pss_Consumed_Sel_Median_Contamination
   APss_Summary_DF[l,colnames(APss_Summary_DF)== "ContSel95th"]<-Pss_Consumed_Sel_95th_Contamination
   APss_Summary_DF[l,colnames(APss_Summary_DF)== "ContSel5th"]<-Pss_Consumed_Sel_5th_Contamination
-  APss_Summary_DF[l,colnames(APss_Summary_DF)== "MeanContST"]<-Pss_Consumed_ST_Mean_Contamination
-  APss_Summary_DF[l,colnames(APss_Summary_DF)== "MedianContST"]<-Pss_Consumed_ST_Median_Contamination
-  APss_Summary_DF[l,colnames(APss_Summary_DF)== "ContST95th"]<-Pss_Consumed_ST_95th_Contamination
-  APss_Summary_DF[l,colnames(APss_Summary_DF)== "ContST5th"]<-Pss_Consumed_ST_5th_Contamination
+  if(Share_Table_YN==1){
+    APss_Summary_DF[l,colnames(APss_Summary_DF)== "MeanContST"]<-Pss_Consumed_ST_Mean_Contamination
+    APss_Summary_DF[l,colnames(APss_Summary_DF)== "MedianContST"]<-Pss_Consumed_ST_Median_Contamination
+    APss_Summary_DF[l,colnames(APss_Summary_DF)== "ContST95th"]<-Pss_Consumed_ST_95th_Contamination
+    APss_Summary_DF[l,colnames(APss_Summary_DF)== "ContST5th"]<-Pss_Consumed_ST_5th_Contamination
+  }
   APss_Summary_DF[l,colnames(APss_Summary_DF)== "AllergenConsumed"]<- Pss_Allergen_Consumed
     
 #Pre
@@ -181,10 +214,13 @@ Pre_Data_Days = do.call(rbind,datalistPre_days)
   Pre_Consumed_Sel_95th_Contamination<-quantile(Total_Consumed_Sel_Pre$Contamination, .95, na.rm = TRUE)
   
   #Consumed Items Share Table Only
-  Pre_Consumed_ST_Mean_Contamination<-mean(Total_Consumed_ST_Pre$Contamination, na.rm = TRUE)
-  Pre_Consumed_ST_Median_Contamination<-median(Total_Consumed_ST_Pre$Contamination, na.rm = TRUE)
-  Pre_Consumed_ST_5th_Contamination<-quantile(Total_Consumed_ST_Pre$Contamination, .05, na.rm = TRUE)
-  Pre_Consumed_ST_95th_Contamination<-quantile(Total_Consumed_ST_Pre$Contamination, .95, na.rm = TRUE)
+  if(Share_Table_YN==1){
+    Pre_Consumed_ST_Mean_Contamination<-mean(Total_Consumed_ST_Pre$Contamination, na.rm = TRUE)
+    Pre_Consumed_ST_Median_Contamination<-median(Total_Consumed_ST_Pre$Contamination, na.rm = TRUE)
+    Pre_Consumed_ST_5th_Contamination<-quantile(Total_Consumed_ST_Pre$Contamination, .05, na.rm = TRUE)
+    Pre_Consumed_ST_95th_Contamination<-quantile(Total_Consumed_ST_Pre$Contamination, .95, na.rm = TRUE)
+  }
+
   
   #Spoiled Items: 
   Pre_Consumed_Spoiled<-sum(Total_Consumed_Pre$SpoiledYN ==TRUE, na.rm = TRUE)
@@ -202,10 +238,12 @@ Pre_Data_Days = do.call(rbind,datalistPre_days)
   APre_Summary_DF[l,colnames(APre_Summary_DF)== "MedianContSelection"]<-Pre_Consumed_Sel_Median_Contamination
   APre_Summary_DF[l,colnames(APre_Summary_DF)== "ContSel95th"]<-Pre_Consumed_Sel_95th_Contamination
   APre_Summary_DF[l,colnames(APre_Summary_DF)== "ContSel5th"]<-Pre_Consumed_Sel_5th_Contamination
-  APre_Summary_DF[l,colnames(APre_Summary_DF)== "MeanContST"]<-Pre_Consumed_ST_Mean_Contamination
-  APre_Summary_DF[l,colnames(APre_Summary_DF)== "MedianContST"]<-Pre_Consumed_ST_Median_Contamination
-  APre_Summary_DF[l,colnames(APre_Summary_DF)== "ContST95th"]<-Pre_Consumed_ST_95th_Contamination
-  APre_Summary_DF[l,colnames(APre_Summary_DF)== "ContST5th"]<-Pre_Consumed_ST_5th_Contamination
+  if(Share_Table_YN==1){
+    APre_Summary_DF[l,colnames(APre_Summary_DF)== "MeanContST"]<-Pre_Consumed_ST_Mean_Contamination
+    APre_Summary_DF[l,colnames(APre_Summary_DF)== "MedianContST"]<-Pre_Consumed_ST_Median_Contamination
+    APre_Summary_DF[l,colnames(APre_Summary_DF)== "ContST95th"]<-Pre_Consumed_ST_95th_Contamination
+    APre_Summary_DF[l,colnames(APre_Summary_DF)== "ContST5th"]<-Pre_Consumed_ST_5th_Contamination
+  }
   APre_Summary_DF[l,colnames(APre_Summary_DF)== "SpoiledConsumed"]<-Pre_Consumed_Spoiled
   APre_Summary_DF[l,colnames(APre_Summary_DF)== "AllergenConsumed"]<- Pre_Allergen_Consumed
   

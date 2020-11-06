@@ -19,7 +19,9 @@
   #Total Exposure
   Plot_Total_Fr_Contamination<-Exposure_Plot_Function3(Total_Consumed_Fr, "Exposure total Fruit Consumed", "Contamination per Fruit log CFU/Fruit", "Count of Fruit Consumed")
   #Total Exposure from Share Table Items
-  Plot_Total_Fr_ST_Contamination<-Exposure_Plot_Function3(Total_Consumed_ST_Fr, "Exposure Consumed Fruit from Share Tables", "Contamination per Fruit log CFU/Fruit", "Count of Fruit Consumed")
+  if(Share_Table_YN==1){
+    Plot_Total_Fr_ST_Contamination<-Exposure_Plot_Function3(Total_Consumed_ST_Fr, "Exposure Consumed Fruit from Share Tables", "Contamination per Fruit log CFU/Fruit", "Count of Fruit Consumed")
+  }
   #Total Exposure from Selection Table Items
   Plot_Total_Fr_Sel_Contamination<-Exposure_Plot_Function3(Total_Consumed_Sel_Fr, "Exposure Consumed Fruit from Selection Tables", "Contamination per Fruit log CFU/Fruit", "Count of Fruit Consumed")
   
@@ -29,7 +31,9 @@
   #Total Exposure
   Exposure_Plot_Function3(Total_Consumed_Pss, "Exposure total Consumed Pss", "Contamination per Pss log CFU/Pss", "Count of PSs Consumed")
   #Total Exposure from Share Table Items
-  Exposure_Plot_Function3(Total_Consumed_ST_Pss, "Exposure Consumed Pss from Share Tables" ,"Contamination per Pss log CFU/Pss", "Count of PSs Consumed")
+  if(Share_Table_YN){
+    Exposure_Plot_Function3(Total_Consumed_ST_Pss, "Exposure Consumed Pss from Share Tables" ,"Contamination per Pss log CFU/Pss", "Count of PSs Consumed")
+  }
   #Total Exposure from Selection Table Items
   Exposure_Plot_Function3(Total_Consumed_Sel_Pss, "Exposure Consumed Pss from Selection Table" ,"Contamination per Pss log CFU/Pss", "Count of PSs Consumed")
   
@@ -37,7 +41,9 @@
   #Total Exposure
   Exposure_Plot_Function3(Total_Consumed_Pre, "Exposure total Consumed Pre", "Contamination per Pre log CFU/Pre", "Count of Pre Consumed")
   #Total Exposure from Share Table Items
-  Exposure_Plot_Function3(Total_Consumed_ST_Pre, "Exposure Consumed Pre from Share Tables",  "Contamination per Pre log CFU/Pre", "Count of Pre Consumed")
+  if(Share_Table_YN==1){
+    Exposure_Plot_Function3(Total_Consumed_ST_Pre, "Exposure Consumed Pre from Share Tables",  "Contamination per Pre log CFU/Pre", "Count of Pre Consumed")
+  }
   #Total Exposure from Selection Table Items
   Exposure_Plot_Function3(Total_Consumed_Sel_Pre, "Exposure Consumed Pre from Selection Table", "Contamination per Pre log CFU/Pre", "Count of Pre Consumed")
   
