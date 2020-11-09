@@ -1,6 +1,6 @@
 
-setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
-#setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+#setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
 
 #Library
 source("Util_Library.R")
@@ -565,11 +565,13 @@ for (l in 1:Sens_Iterations){
       datalistPss[[j]]<-Pss_Data.Frame
       datalistPre[[j]]<-Pre_Data.Frame
       
+
+      
+      source("Output_Services.R") 
+      
       List_Sens_Fr[[paste(l,k,j)]]<-Fr_Data.Frame
       List_Sens_Pss[[paste(l,k,j)]]<-Pss_Data.Frame
       List_Sens_Pre[[paste(l,k,j)]]<-Pre_Data.Frame
-      
-      source("Output_Services.R") 
       
       message("Service #", j)
       

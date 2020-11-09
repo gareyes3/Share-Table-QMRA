@@ -10,8 +10,23 @@ Individual_Analysis_Fr<-Individual_Analysis_Fr %>%
   group_by(ID) %>% 
   filter(TotServices==max(TotServices))
 
+
+#Washing
+Individual_Analysis_Fr_Consumed<-Individual_Analysis_Fr[which(Individual_Analysis_Fr$Location == "Consumed"),]
+Individual_Analysis_Fr_Consumed_melt<-melt(data =Individual_Analysis_Fr_Consumed[,4:5])
+
+ggplot(data=Individual_Analysis_Fr_Consumed_melt, aes(x=variable, y=value))+
+  geom_boxplot(aes(fill=variable))+
+  scale_y_log10()
+
+ggplot(data=Individual_Analysis_Fr_Consumed_melt, aes(x=value))+
+  geom_histogram(aes(fill=variable))+
+  scale_x_log10()
+
+
+
 #####Turning off Share Tables######
-Individual_Analysis_Fr$STYN<-FALSE
+Individual_Analysis_Fr$STYN<-TRUE
 Individual_Analysis_Fr_NoST<-Individual_Analysis_Fr
 
 #####Turning On Share Tables######
@@ -29,6 +44,8 @@ Individual_Analysis_Fr_Wash<-Individual_Analysis_Fr
 Individual_Analysis_Fr_NoWash<-Individual_Analysis_Fr
 
 EF<-bind_rows(Individual_Analysis_Fr_Wash,Individual_Analysis_Fr_NoWash)
+EF$DeltaCont<-(EF$Contamination-EF$InContamination)
+
 
 ListTouches<-strsplit(EF$TouchesContHist,",")
 ListTouches<-lapply(ListTouches, function(x) x[x!="NA"])
@@ -39,7 +56,7 @@ sum(is.na(TouchesContHist))
 
 Analysis_Individual<-data.frame(
   "InContamination"=EF$InContamination,
-  "Wash"=EF$STYN,
+  "Wash"=EF$WashYN,
   "TouchesContHistAvr"=EF$TouchesContHistAvr,
   "STTimes"= EF$STtimes,
   "TotServices"=EF$TotServices,
@@ -55,7 +72,12 @@ ggplot()+
   geom_histogram(data = Individual_Analysis_Fr_NoWash,aes(x=Contamination), fill = "blue", alpha = 0.4,bins = 100)+
   scale_x_log10()
 
-ggplot(data = EF, aes(x=Contamination, fill= STYN))+
+ggplot(data = EF, aes(x=Contamination, fill= WashYN))+
   geom_histogram(bins = 100)+
   scale_x_log10()+
-  facet_wrap(~STYN)
+  facet_wrap(~WashYN)
+
+ggplot(data = EF, aes(x=DeltaCont, y=TotServices))+
+  geom_point()+
+  scale_x_log10()+
+  facet_wrap(~WashYN)

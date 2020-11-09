@@ -69,7 +69,7 @@
 # Inputs Behavioral Probabilities -----------------------------------------
 
   #Porbability of Student touching other line items before picking their food. 
-  Pr_touch_Food<-0
+  Pr_touch_Food<-.7
 
   #Probability of student Picking up food from line-
 
@@ -217,11 +217,11 @@
 # Re-Sharing, Re-Service 
 
   #Share Table to Service line after every Day # note turn in 1 is ST on
-  STtoReservice_YN<-0
+  STtoReservice_YN<-1
   #Re-Service of Items left in Service line after every service.
   Reservice_YN<-1
   #Re-Sharing of Share table items after every service # note turn in 1 is ST on
-  Resharing_YN<-0
+  Resharing_YN<-1
   
 
 #Visuals Toggles, if we want to change units in figures. 
@@ -236,7 +236,7 @@
   Toggle_SelfAssigned_Pathogens<-0
   
 #Wrapping Apples
-  Wrapping_Apples<-0
+  Wrapping_Apples<-1
   
   
 

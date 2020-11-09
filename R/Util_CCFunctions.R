@@ -41,6 +41,7 @@ Func_Cross_Contamination_Pre<-function(Cont_Student,Pre_Data.Frame, Pre_Picked){
 }
 
 Func_Cross_Contamination_Fr_Consumption_Wrapped<-function(Cont_Student, Fr_Data.Frame, Fr_Picked){
+  Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "TouchesContHist"]<-paste(Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="TouchesContHist"], as.numeric(Cont_Student),sep = ",") #Adding Contamination to
   Tr_H_Fr<-Cont_Student*TE_H_S #Transfer from Hand to Fr
   Tr_Fr_H<-(Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination")* TE_S_H) #Tranfer from Fr to hand
   Cont_Fr_Updated<- Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination") + Tr_H_Fr - (Tr_Fr_H) #New Contamination of Fr
@@ -49,7 +50,8 @@ Func_Cross_Contamination_Fr_Consumption_Wrapped<-function(Cont_Student, Fr_Data.
   Cont_Student<-ifelse(Cont_Student +(Cont_Fr_Difference)<0,0,Cont_Student +(Cont_Fr_Difference)) #Updating Contamination in Student's hands
   Tr_H_Fr_Inside<-Cont_Student*TE_H_F
   Cont_Fr_Consumed<-Tr_H_Fr_Inside
-  Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "Contamination"]<-Cont_Fr_Consumed
+  Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "Contamination"]<- Cont_Fr_Updated
+  Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "ContConsumed"]<- Cont_Fr_Consumed
   Fr_Data.Frame<<-Fr_Data.Frame
   Cont_Student<<-Cont_Student
 }
