@@ -11,17 +11,39 @@ Individual_Analysis_Fr<-Individual_Analysis_Fr %>%
   filter(TotServices==max(TotServices))
 
 
-#Washing
+#Wrapping
 Individual_Analysis_Fr_Consumed<-Individual_Analysis_Fr[which(Individual_Analysis_Fr$Location == "Consumed"),]
 Individual_Analysis_Fr_Consumed_melt<-melt(data =Individual_Analysis_Fr_Consumed[,4:5])
+Individual_Analysis_Fr_Consumed_melt$ID<-1:2200 #Change based on number o fruit
 
+#boxplot
 ggplot(data=Individual_Analysis_Fr_Consumed_melt, aes(x=variable, y=value))+
   geom_boxplot(aes(fill=variable))+
-  scale_y_log10()
+  scale_y_log10()+
+  ggtitle("Exposure fruit wrapped vs if fruit not wrapped")+
+  xlab("Contamination wrapped fruit vs Contamination consumed")+
+  ylab("Contamination PFU/Fruit")
+
+Individual_Analysis_Fr_Consumed$DiffWrapp<-(Individual_Analysis_Fr_Consumed$Contamination-Individual_Analysis_Fr_Consumed$ContConsumed)
+log10(mean(Individual_Analysis_Fr_Consumed$DiffWrapp))
 
 ggplot(data=Individual_Analysis_Fr_Consumed_melt, aes(x=value))+
   geom_histogram(aes(fill=variable))+
   scale_x_log10()
+
+ggplot(data=Individual_Analysis_Fr_Consumed)+
+  geom_point(aes(y = Contamination, x = rownames(Individual_Analysis_Fr_Consumed)), col="blue", alpha=.5)+
+  geom_point(aes(y = ContConsumed, x = rownames(Individual_Analysis_Fr_Consumed)), col="Red", alpha=.5)+
+  scale_y_log10()
+
+#Smooth 
+ggplot(data=Individual_Analysis_Fr_Consumed_melt, aes(x=ID, y=value))+
+  geom_point(aes(col=variable), alpha=.1)+
+  geom_smooth(aes(col=variable))+
+  scale_y_log10()+
+  ggtitle("Reduction contamination consumed due to wrapping fruit")+
+  xlab("Fruit #")+
+  ylab("Contamination HuNov PFU/Fruit")
 
 
 
