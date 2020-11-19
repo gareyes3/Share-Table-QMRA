@@ -67,6 +67,10 @@ Vector_TE_Pre_Mouth<-c()
 #Input Data Frame for services
 Vector_Con_Services<-c()
 
+#Vector to know items left every day
+
+Items_left_everyday<-list()
+
 
 
   

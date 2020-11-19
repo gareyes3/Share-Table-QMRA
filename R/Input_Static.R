@@ -202,11 +202,11 @@
 # Washing Items Effect of washing items
   
   #Washing Between Services
-  Wash_Between_Services<-0
+  Wash_Between_Services<-1
   #Wash Selection Table Fruit
-  Wash_Selection_YN_Fr<-0
+  Wash_Selection_YN_Fr<-1
   #Wash Share Table Items
-  Wash_ST_YN_Fr<-0
+  Wash_ST_YN_Fr<-1
   
 #Share Table Toggle 
   
@@ -217,11 +217,11 @@
 # Re-Sharing, Re-Service 
 
   #Share Table to Service line after every Day # note turn in 1 is ST on
-  STtoReservice_YN<-1
+  STtoReservice_YN<-0
   #Re-Service of Items left in Service line after every service.
-  Reservice_YN<-1
+  Reservice_YN<-0
   #Re-Sharing of Share table items after every service # note turn in 1 is ST on
-  Resharing_YN<-1
+  Resharing_YN<-0
   
 
 #Visuals Toggles, if we want to change units in figures. 

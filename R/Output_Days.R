@@ -154,11 +154,13 @@
 #Washing selection Items
 if(Wash_Selection_YN_Fr==1){
   Left_Selection_Fr$Contamination<-Func_Logred(Left_Selection_Fr$Contamination,Reduction_wash)
+  Left_Selection_Fr$WashHistory<-(Left_Selection_Fr$WashHistory+1)
 }
 
 #washing share table items
 if(Wash_ST_YN_Fr==1){
   Left_ST_Fr$Contamination<-Func_Logred(Left_ST_Fr$Contamination,Reduction_wash)
+  Left_ST_Fr$WashHistory<-(Left_ST_Fr$WashHistory+1)
 }
 
 
@@ -170,3 +172,7 @@ if (STtoReservice_YN == 1 ){
   No_Left_Selection_Fr<-nrow(Left_Selection_Fr)
   Left_ST_Fr<-Left_ST_Fr[0,]
 }  
+  
+#Items left per day
+
+  Items_left_everyday[[paste(l,k)]]<-Left_Selection_Fr
