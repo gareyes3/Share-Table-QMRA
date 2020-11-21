@@ -1,6 +1,6 @@
 
-setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
-#setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+#setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
 
 #Library
 source("Util_Library.R")
@@ -92,6 +92,7 @@ for (l in 1:Sens_Iterations){
             Fr_Picked<-as.numeric(Search.df.fr$Apple.No.)
             Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "Location"]<-"Tray"
             Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="History"], "Tray")
+            Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="History"], "Touched")
           }
         }
         
@@ -143,6 +144,7 @@ for (l in 1:Sens_Iterations){
             Pss_Picked<-as.numeric(Search.df.Pss$Pss.No.)
             Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)== "Location"]<-"Tray"
             Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="History"], "Tray")
+            Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="History"], "Touched")
           }
         }
         
@@ -195,6 +197,7 @@ for (l in 1:Sens_Iterations){
             Pre_Picked<-as.numeric(Search.df.Pre$Pre.No.)
             Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)== "Location"]<-"Tray"
             Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)=="History"], "Tray")
+            Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)=="History"], "Touched")
           }
         }
         
@@ -374,6 +377,7 @@ for (l in 1:Sens_Iterations){
               Fr_ST_Picked<-as.numeric(Search.df.fr_ST$Apple.No.)
               Fr_Data.Frame[as.numeric(row.names(Search.df.fr_ST)),colnames(Search.df.fr)== "Location"]<-"Tray"
               Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)=="History"], "Tray")
+              Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)=="History"], "Touched")
             }
             
             #Contamination from Hand to Fruit or from Fruit to Hand. 
@@ -431,6 +435,7 @@ for (l in 1:Sens_Iterations){
               Pss_ST_Picked<-as.numeric(Search.df.Pss_ST$Pss.No.)
               Pss_Data.Frame[as.numeric(row.names(Search.df.Pss_ST)),colnames(Search.df.Pss)== "Location"]<-"Tray"
               Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)=="History"], "Tray")
+              Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)=="History"], "Touched")
             }
             
             
@@ -482,6 +487,7 @@ for (l in 1:Sens_Iterations){
               Pre_ST_Picked<-as.numeric(Search.df.Pre_ST$Pre.No.)
               Pre_Data.Frame[as.numeric(row.names(Search.df.Pre_ST)),colnames(Search.df.Pre)== "Location"]<-"Tray"
               Pre_Data.Frame[Pre_ST_Picked,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_ST_Picked,colnames(Pre_Data.Frame)=="History"], "Tray")
+              Pre_Data.Frame[Pre_ST_Picked,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_ST_Picked,colnames(Pre_Data.Frame)=="History"], "Touched")
             }
             
             

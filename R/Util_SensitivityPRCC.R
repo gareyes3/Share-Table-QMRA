@@ -49,7 +49,7 @@
 
 #7.  Sensitivity Analysis of table
 
-  Pcc2<-pcc(X=Analysis_Individual[,1:7], y=Analysis_Individual$Contamination,rank = TRUE,nboot = 1000)
+  Pcc2<-pcc(X=Analysis_Individual[,1:6], y=Analysis_Individual$Contamination,rank = TRUE,nboot = 1000)
   Pcc2
   plot(Pcc2)
   
@@ -63,22 +63,33 @@
 
 #Ggplot, here is similar to a tornado plot. Also there are error bars on the 95th percentile
   
+
+  
   ggplot(data = Pcc2$PRCC, aes(x=rownames(Pcc2$PRCC),y=original ))+
     geom_bar(stat = "identity", position = "identity")+
     geom_errorbar(aes(ymin=minci, ymax=maxci), width=.1,col="blue")+
-    ylab("Partial Correlation Coefficient Input vs Consumption")+
-    xlab("Input")+
-    coord_flip()
+    ylab("Partial Correlation Coefficient")+
+    xlab("Action")+
+    ggtitle("Sensitivity Analysis Individual Items: Final Contamination PFU/Item")+
+    scale_x_discrete(labels=c("Initial Contamination", "Shared", "Times in ST", "Total services","Contamination from Touches", "Number of Touches")) +
+    coord_flip()+
+    theme(plot.title = element_text(hjust = 0.5))+
+    theme(text = element_text(size=13))
 
 # More graphs
+  mean(Analysis_Individual$TouchesNo)
 
   ggplot(data = Analysis_Individual, aes(x=Contamination, y = InContamination )) + 
-    scale_x_log10()+
-    scale_y_log10()+
+    scale_x_log10(n.breaks=10)+
+    scale_y_log10(n.breaks=10)+
     geom_point(aes(col=TouchesContHistAvr))+
+    geom_abline(slope=1, intercept=0)+
     ylab("Contamination Initial")+
     xlab("Contamination Final")+
-    scale_color_gradient(low="green", high="red", trans="log")
+    scale_color_gradient(name="Touches Cont",low="green", high="red", trans="log")+
+    ggtitle("Effect of touches on Final Contamination")+
+    theme(plot.title = element_text(hjust = 0.5))+
+    theme(text = element_text(size=12))
   
   ggplot(data = Analysis_Individual, aes(x=DeltaCont, y = TouchesContHistAvr )) + 
     scale_x_log10()+
