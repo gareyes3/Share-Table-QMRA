@@ -351,7 +351,7 @@ ggplot(data = IA_All,aes(x=DeltaCont, fill=Type))+
 ggplot(data = IA_All,aes( y=DeltaCont, x=Type))+
   geom_boxplot(aes(fill=Type))+
   scale_y_continuous(trans = pseudolog10_trans)+
-  geom_text(data = p_meds, aes(x = Type, y = med, label = med), 
+  geom_text(data = p_meds, aes(x = Type, y = mean, label = mean), 
             size = 3, vjust = -1.5)+
   ggtitle("Boxplot Change in Contamination")+ 
   theme(plot.title = element_text(hjust = 0.5))
@@ -360,11 +360,11 @@ sum(Individual_Analysis_Fr_Consumed_W$WashHistory>0)
 
 library(ggallin)
 library(plyr)
-p_meds <- ddply(IA_All, .(Type), summarise, med = median(DeltaCont))
+p_meds <- ddply(IA_All, .(Type), summarise, mean = mean(DeltaCont))
 
 
 
-####Other
+####Other Initial Contaminations
 
 
 IA_Wrapp_Ini<-Individual_Analysis_Fr_Consumed_W[,c(1,6)]
@@ -376,6 +376,8 @@ names(IA_Wrapp_Ini)[2]<-"Contamination"
 IA_All_cIni<-bind_rows(IA_Wash_c,IA_Cont_c,IA_Wrapp_c, IA_Wrapp_Ini)
 
 IA_All_clIni<-Func_Convert_Log(IA_All_cIni,"Contamination")
+
+
 
 ggplot(data = IA_All_clIni,aes(x=Contamination, fill=Type, linetype=Type))+
   geom_density(colour="black", alpha=.2)+
@@ -392,4 +394,9 @@ ggplot(data = IA_All_clIni,aes( y=Contamination, x=Type))+
   xlab("Intervention Type")+
   ggtitle("Boxplot Interventions")+ 
   theme(plot.title = element_text(hjust = 0.5))+
-  scale_y_continuous(n.breaks = 10)
+  scale_y_continuous(n.breaks=10)
+
+median(IA_Wrapp$DeltaCont)
+
+
+View(IA_All_clIni)
