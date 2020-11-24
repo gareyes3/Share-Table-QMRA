@@ -347,21 +347,26 @@ ggplot(data = IA_All_cLog,aes(x=Contamination, fill=Type, linetype=Type))+
   ggtitle("Density Curves Interventions")+ 
   theme(plot.title = element_text(hjust = 0.5))
 
-#Funtion for boxplot
-give.n <- function(x){
-  return(c(y = median(x)*1.05, label = length(x))) 
-  # experiment with the multiplier to find the perfect position
-}
+  #Funtion for boxplot
+  give.n <- function(x){
+    return(c(y = median(x)*1.05, label = length(x))) 
+    # experiment with the multiplier to find the perfect position
+  }
+
+  #function median
+  p_meds <- ddply(IA_All_cLog, .(Type), summarise, median = median(Contamination))
 
 #boxplot Contamination
 ggplot(data = IA_All_cLog,aes( y=Contamination, x=Type))+
   geom_boxplot(aes(fill=Type),varwidth = TRUE)+
   ylab("Contamination Log PFU/Item")+
   xlab("Intervention Type")+
-  ggtitle("Boxplot Interventions")+ 
+  ggtitle("Boxplot Intervention Comparison")+ 
   theme(plot.title = element_text(hjust = 0.5))+
   scale_y_continuous(n.breaks = 15)+
-  stat_summary(fun.data = give.n, geom = "text", fun = median,vjust = -1) 
+  stat_summary(fun.data = give.n, geom = "text", fun = median,vjust = -3)+
+  geom_text(data = p_meds, aes(x = Type, y = median, label = median), 
+            size = 3, vjust = +1.5, color="blue")
 
 #Contaminatio no 0s 
 ggplot(data = IA_All_c,aes(x=Contamination, fill=Type))+

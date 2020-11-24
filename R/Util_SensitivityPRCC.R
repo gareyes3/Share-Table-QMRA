@@ -78,15 +78,24 @@
 
 # More graphs
   mean(Analysis_Individual$TouchesNo)
+  View(Analysis_Individual)
+  
+  Analysis_Individual$InContamination[Analysis_Individual$InContamination==0]<-(10^-5)
+  Analysis_Individual$Contamination[Analysis_Individual$Contamination==0]<-(10^-5)
+  Analysis_Individual$TouchesContHistAvr[Analysis_Individual$TouchesContHistAvr==0]<-(10^-5)
+  Analysis_Individual$InContamination<-log10(Analysis_Individual$InContamination)
+  Analysis_Individual$Contamination<-log10(Analysis_Individual$Contamination)
+  Analysis_Individual$TouchesContHistAvr<-log10(Analysis_Individual$TouchesContHistAvr)
+  
 
   ggplot(data = Analysis_Individual, aes(x=Contamination, y = InContamination )) + 
-    scale_x_log10(n.breaks=10)+
-    scale_y_log10(n.breaks=10)+
+    #scale_x_log10(n.breaks=10)+
+    #scale_y_log10(n.breaks=10)+
     geom_point(aes(col=TouchesContHistAvr))+
     geom_abline(slope=1, intercept=0)+
-    ylab("Contamination Initial")+
-    xlab("Contamination Final")+
-    scale_color_gradient(name="Touches Cont",low="green", high="red", trans="log")+
+    ylab("Contamination Initial Log PFU/Item")+
+    xlab("Contamination Final Log PFU/Item")+
+    scale_color_gradient(name="Touches Cont",low="green", high="red", n.breaks=10)+
     ggtitle("Effect of touches on Final Contamination")+
     theme(plot.title = element_text(hjust = 0.5))+
     theme(text = element_text(size=12))

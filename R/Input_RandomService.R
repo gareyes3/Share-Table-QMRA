@@ -6,7 +6,7 @@
 
   Inputs_Cont_HuNov_Fr<-list(
     #Prevalence of NV in Fruit
-    Prevalence <- rbetagen(1,0.79,1.03,0.0,0.2),
+    Prevalence <-rbetagen(1,0.79,1.03,0.0,0.2),
     #Genormic Copies per PFU
     Genomic_copies_per_PFU<-rnormTrunc(1,3.65,.98,2.00,5.40), #add 3.66,
     #log HuNoV copies per/ g
