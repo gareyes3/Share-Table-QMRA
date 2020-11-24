@@ -44,7 +44,7 @@
   
   #If students won't carry anything then set Pr os 0
   
-  Pr_Student_iC<-.1 #probability of 1 student being contaminated. #set as 0 if self calculated. 
+  Pr_Student_iC<-.01 #probability of 1 student being contaminated. #set as 0 if self calculated. 
   
   
   Number_Student_Pathogens<-1 #Students that are contaminated that will enter the system every week. 
@@ -236,7 +236,7 @@
   Toggle_SelfAssigned_Pathogens<-0
   
 #Wrapping Apples
-  Wrapping_Apples<-1
+  Wrapping_Apples<-0
   
   
 

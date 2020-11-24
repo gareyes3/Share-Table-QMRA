@@ -1,0 +1,44 @@
+IA_Wrapp_Ini_W<-Individual_Analysis_Fr_Consumed_W[,c(1,6)]
+IA_Wrapp_Ini_Wr<-Individual_Analysis_Fr_Consumed_Wr[,c(1,6)]
+IA_Wrapp_Ini_NoI<-Individual_Analysis_Fr_Consumed_NoI[,c(1,6)]
+
+mean(IA_Wrapp_Ini_W$InContamination)
+mean(IA_Wrapp_Ini_Wr$InContamination)
+mean(IA_Wrapp_Ini_NoI$InContamination)
+
+IA_Wrapp_Ini_W$Type<-"Wash"
+IA_Wrapp_Ini_Wr$Type<-"Wrapp"
+IA_Wrapp_Ini_NoI$Type<-"NI"
+
+log10(1200)
+
+IA_All_Ini_1<-bind_rows(IA_Wrapp_Ini_W,IA_Wrapp_Ini_Wr,IA_Wrapp_Ini_NoI)
+
+IA_All_Ini_1[IA_All_Ini_1==0]<-(10e-21)
+
+IA_All_Ini_1cLog<-IA_All_Ini_1
+IA_All_Ini_1cLog$InContamination<-log10(IA_All_Ini_1cLog$InContamination)
+
+ggplot(data = IA_All_Ini_1cLog,aes(x=InContamination, fill=Type, linetype=Type))+
+  geom_density(colour="black", alpha=.2)+
+  scale_x_continuous(n.breaks = 10)+
+  xlab("Contamination log PFU/Item")+
+  ylab("Density")+
+  ggtitle("Density Curves Interventions")+ 
+  theme(plot.title = element_text(hjust = 0.5))
+
+give.n <- function(x){
+  return(c(y = median(x)*1.05, label = length(x))) 
+  # experiment with the multiplier to find the perfect position
+}
+
+#boxplot Contamination
+ggplot(data = IA_All_Ini_1cLog,aes( y=InContamination, x=Type))+
+  geom_boxplot(aes(fill=Type),varwidth = TRUE)+
+  ylab("Contamination Log PFU/Item")+
+  xlab("Intervention Type")+
+  ggtitle("Boxplot Interventions")+ 
+  theme(plot.title = element_text(hjust = 0.5))+
+  scale_y_continuous(n.breaks = 10)+
+  stat_summary(fun.data = give.n, geom = "text", fun = median) 
+

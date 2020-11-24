@@ -233,89 +233,113 @@ ggplot(data=EF, aes(y=DeltaCont))+
 
 
 
-#Comparing all 3
 
-#1. Start from here
-#This section creates a data frame with every item, Including repeated items, since it is a snapshot of the end of every service
-Individual_Analysis_Fr<-bind_rows(List_Sens_Fr)
-
-#2. find the dupplicates
-#this step filters replicated based on the ID
-Individual_Analysis_Fr<-Individual_Analysis_Fr %>% 
-  group_by(ID) %>% 
-  filter(TotServices==max(TotServices))
-
-#3. Run the iterations with Wash on. 
-Individual_Analysis_Fr_Wash<-Individual_Analysis_Fr
+# Intervention Comparison -------------------------------------------------
 
 
-Individual_Analysis_Fr_Consumed_W<-Individual_Analysis_Fr_Wash[which(Individual_Analysis_Fr_Wash$Location == "Consumed"),]
+#STEP 1: WAshing, Run model with washing on Wrapping off. 
 
-###Now Run the process with washing off and Wrapping on. 
-
-#1. Start from here
-#This section creates a data frame with every item, Including repeated items, since it is a snapshot of the end of every service
-Individual_Analysis_Fr<-bind_rows(List_Sens_Fr)
-
-#2. find the dupplicates
-#this step filters replicated based on the ID
-Individual_Analysis_Fr<-Individual_Analysis_Fr %>% 
-  group_by(ID) %>% 
-  filter(TotServices==max(TotServices))
-
-Individual_Analysis_Fr_Consumed<-Individual_Analysis_Fr[which(Individual_Analysis_Fr$Location == "Consumed"),]
+  #1. Start from here
+  Individual_Analysis_Fr<-bind_rows(List_Sens_Fr)
+  
+  #2. find the dupplicates
+  #this step filters replicated based on the ID
+  Individual_Analysis_Fr<-Individual_Analysis_Fr %>% 
+    group_by(ID) %>% 
+    filter(TotServices==max(TotServices))
+  
+  #3. This created the data frame for items when washed was on
+  Individual_Analysis_Fr_Wash<-Individual_Analysis_Fr
+  
+  #4. Narrowing down to consumed Items for exposure compisons
+  Individual_Analysis_Fr_Consumed_W<-Individual_Analysis_Fr_Wash[which(Individual_Analysis_Fr_Wash$Location == "Consumed"),]
+  
+  #5 Delta Contaminations
+  Individual_Analysis_Fr_Consumed_W$DeltaCont<-Individual_Analysis_Fr_Consumed_W$Contamination-Individual_Analysis_Fr_Consumed_W$InContamination
 
 
 
-ggplot(data = Individual_Analysis_Fr_Consumed_W,aes(x=Contamination))+
-  geom_histogram(aes(y=..density..), alpha = 1,fill = "white",color="black",bins = 100)+
-  geom_density(colour="black", fill="red", alpha=.3)+ 
-  scale_x_log10()
+#STEP 2: Turning on Wrapping, Turning off Washing
 
-ggplot(data = Individual_Analysis_Fr_Consumed,aes(x=Contamination))+
-  geom_histogram(aes(y=..density..), alpha = 1,fill = "white",color="black",bins = 100)+
-  geom_density(colour="black", fill="red", alpha=.3)+ 
-  scale_x_log10()
+  #1. Start from here
+  Individual_Analysis_Fr<-bind_rows(List_Sens_Fr)
+  
+  #2. find the dupplicates
+  #this step filters replicated based on the ID
+  Individual_Analysis_Fr<-Individual_Analysis_Fr %>% 
+    group_by(ID) %>% 
+    filter(TotServices==max(TotServices))
+  
+  #3. This one creates the data frame for the wrapped items consumed
+  Individual_Analysis_Fr_Consumed_Wr<-Individual_Analysis_Fr
+  
+  Individual_Analysis_Fr_Consumed_Wr<-Individual_Analysis_Fr[which(Individual_Analysis_Fr$Location == "Consumed"),]
+  
+  #4 Delta Contamination
+  Individual_Analysis_Fr_Consumed_Wr$DeltaCont<-Individual_Analysis_Fr_Consumed_Wr$ContConsumed-Individual_Analysis_Fr_Consumed_Wr$InContamination
 
-ggplot(data = Individual_Analysis_Fr_Consumed,aes(x=ContConsumed))+
-  geom_histogram(aes(y=..density..), alpha = 1,fill = "white",color="black",bins = 100)+
-  geom_density(colour="black", fill="red", alpha=.3)+ 
-  scale_x_log10()
 
-#Making the Delta Cont
+#Step 3. Run the scenarios without Wraaping or Washing
 
-Individual_Analysis_Fr_Consumed_W$DeltaCont<-Individual_Analysis_Fr_Consumed_W$Contamination-Individual_Analysis_Fr_Consumed_W$InContamination
-Individual_Analysis_Fr_Consumed$DeltaCont<-Individual_Analysis_Fr_Consumed$Contamination-Individual_Analysis_Fr_Consumed$InContamination
-Individual_Analysis_Fr_Consumed$DeltaContConsumed<-Individual_Analysis_Fr_Consumed$ContConsumed-Individual_Analysis_Fr_Consumed$InContamination
+  #1. Start from here
+  Individual_Analysis_Fr<-bind_rows(List_Sens_Fr)
+  
+  #2. find the dupplicates
+  #this step filters replicated based on the ID
+  Individual_Analysis_Fr<-Individual_Analysis_Fr %>% 
+    group_by(ID) %>% 
+    filter(TotServices==max(TotServices))
+  
+  #3. This one creates the data frame for the wrapped items consumed
+  Individual_Analysis_Fr_Consumed_NoI<-Individual_Analysis_Fr
+  
+  Individual_Analysis_Fr_Consumed_NoI<-Individual_Analysis_Fr[which(Individual_Analysis_Fr$Location == "Consumed"),]
+  
+  #4. Delta Contamination
+  
+  Individual_Analysis_Fr_Consumed_NoI$DeltaCont<-Individual_Analysis_Fr_Consumed_NoI$Contamination-Individual_Analysis_Fr_Consumed_NoI$InContamination
 
-IA_Wash<-Individual_Analysis_Fr_Consumed_W[,c(1,18)]
-IA_Cont<-Individual_Analysis_Fr_Consumed[,c(1,18)]
-IA_Wrapp<-Individual_Analysis_Fr_Consumed[,c(1,19)]
-IA_Wash$Type<-"Wash"
-IA_Cont$Type<-"Before Wrap"
-IA_Wrapp$Type<-"After Wrap"
 
-names(IA_Wrapp)[2]<-"DeltaCont"
+#Step 5: Wrap for the DF, in order to have them as the same type
 
-IA_All<-bind_rows(IA_Wash,IA_Cont,IA_Wrapp)
-
-IA_Wash_c<-Individual_Analysis_Fr_Consumed_W[,c(1,4)]
-IA_Cont_c<-Individual_Analysis_Fr_Consumed[,c(1,4)]
-IA_Wrapp_c<-Individual_Analysis_Fr_Consumed[,c(1,5)]
-IA_Wrapp_Ini<-Individual_Analysis_Fr_Consumed_W[,c(1,6)]
-
-IA_Wash_c$Type<-"Wash"
-IA_Cont_c$Type<-"Before Wrap"
-IA_Wrapp_c$Type<-"After Wrap"
-IA_Wrapp_Ini$Type<-"Initial"
-names(IA_Wrapp_c)[2]<-"Contamination"
-
-IA_All_c<-bind_rows(IA_Wash_c,IA_Cont_c,IA_Wrapp_c)
-
-IA_All_cl<-Func_Convert_Log(IA_All_c,"Contamination")
+  #1 Creating DF for the DElta Contamination
+  IA_Wash<-Individual_Analysis_Fr_Consumed_W[,c(1,18)]
+  IA_Cont<-Individual_Analysis_Fr_Consumed_NoI[,c(1,18)]
+  IA_Wrapp<-Individual_Analysis_Fr_Consumed_Wr[,c(1,18)]
+  IA_Wash$Type<-"Washed"
+  IA_Cont$Type<-"No Intervention"
+  IA_Wrapp$Type<-"Wrapped"
+  
+  names(IA_Wrapp)[2]<-"DeltaCont"
+  
+  IA_All<-bind_rows(IA_Wash,IA_Cont,IA_Wrapp)
+  
+  #2. Creating Data Frame for Contamination
+  IA_Wash_c<-Individual_Analysis_Fr_Consumed_W[,c(1,4)]
+  IA_Cont_c<-Individual_Analysis_Fr_Consumed_NoI[,c(1,4)]
+  IA_Wrapp_c<-Individual_Analysis_Fr_Consumed_Wr[,c(1,5)]
+  IA_Wrapp_Ini<-Individual_Analysis_Fr_Consumed_W[,c(1,6)]
+  
+  IA_Wash_c$Type<-"Wash"
+  IA_Cont_c$Type<-"No Intervention"
+  IA_Wrapp_c$Type<-"Wrapped"
+  IA_Wrapp_Ini$Type<-"Initial Cont"
+  names(IA_Wrapp_c)[2]<-"Contamination"
+  names(IA_Wrapp_Ini)[2]<-"Contamination"
+  
+  
+  IA_All_c<-bind_rows(IA_Wash_c,IA_Cont_c,IA_Wrapp_c,IA_Wrapp_Ini)
+  
+  IA_All_c[IA_All_c==0]<-(10^-20)
+  
+  #HEre We need to convert 0s to really small or to log.Save as alternate DF please.
+  
+  IA_All_cLog<-IA_All_c
+  IA_All_cLog$Contamination<-log10(IA_All_cLog$Contamination)
+  
 
 #Contamination with log
-ggplot(data = IA_All_cl,aes(x=Contamination, fill=Type, linetype=Type))+
+ggplot(data = IA_All_cLog,aes(x=Contamination, fill=Type, linetype=Type))+
   geom_density(colour="black", alpha=.2)+
   scale_x_continuous(n.breaks = 10)+
   xlab("Contamination log PFU/Item")+
@@ -323,14 +347,21 @@ ggplot(data = IA_All_cl,aes(x=Contamination, fill=Type, linetype=Type))+
   ggtitle("Density Curves Interventions")+ 
   theme(plot.title = element_text(hjust = 0.5))
 
+#Funtion for boxplot
+give.n <- function(x){
+  return(c(y = median(x)*1.05, label = length(x))) 
+  # experiment with the multiplier to find the perfect position
+}
+
 #boxplot Contamination
-ggplot(data = IA_All_cl,aes( y=Contamination, x=Type))+
-  geom_boxplot(aes(fill=Type))+
+ggplot(data = IA_All_cLog,aes( y=Contamination, x=Type))+
+  geom_boxplot(aes(fill=Type),varwidth = TRUE)+
   ylab("Contamination Log PFU/Item")+
   xlab("Intervention Type")+
   ggtitle("Boxplot Interventions")+ 
   theme(plot.title = element_text(hjust = 0.5))+
-  scale_y_continuous(n.breaks = 10)
+  scale_y_continuous(n.breaks = 15)+
+  stat_summary(fun.data = give.n, geom = "text", fun = median,vjust = -1) 
 
 #Contaminatio no 0s 
 ggplot(data = IA_All_c,aes(x=Contamination, fill=Type))+
@@ -400,3 +431,38 @@ median(IA_Wrapp$DeltaCont)
 
 
 View(IA_All_clIni)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#######Random other stuff
+
+
+ggplot(data = Individual_Analysis_Fr_Consumed_W,aes(x=Contamination))+
+  geom_histogram(aes(y=..density..), alpha = 1,fill = "white",color="black",bins = 100)+
+  geom_density(colour="black", fill="red", alpha=.3)+ 
+  scale_x_log10()
+
+ggplot(data = Individual_Analysis_Fr_Consumed,aes(x=Contamination))+
+  geom_histogram(aes(y=..density..), alpha = 1,fill = "white",color="black",bins = 100)+
+  geom_density(colour="black", fill="red", alpha=.3)+ 
+  scale_x_log10()
+
+ggplot(data = Individual_Analysis_Fr_Consumed,aes(x=ContConsumed))+
+  geom_histogram(aes(y=..density..), alpha = 1,fill = "white",color="black",bins = 100)+
+  geom_density(colour="black", fill="red", alpha=.3)+ 
+  scale_x_log10()
