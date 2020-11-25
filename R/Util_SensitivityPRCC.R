@@ -71,7 +71,7 @@
     ylab("Partial Correlation Coefficient")+
     xlab("Action")+
     ggtitle("Sensitivity Analysis Individual Items: Final Contamination PFU/Item")+
-    scale_x_discrete(labels=c("Initial Contamination", "Shared", "Times in ST", "Total services","Contamination from Touches", "Number of Touches")) +
+    scale_x_discrete(labels=c("Initial Contamination", "Shared", "Times in ST", "Total services","Overall Transfer From Touches", "Number of Touches")) +
     coord_flip()+
     theme(plot.title = element_text(hjust = 0.5))+
     theme(text = element_text(size=13))
@@ -82,12 +82,16 @@
   
   Analysis_Individual$InContamination[Analysis_Individual$InContamination==0]<-(10^-5)
   Analysis_Individual$Contamination[Analysis_Individual$Contamination==0]<-(10^-5)
-  Analysis_Individual$TouchesContHistAvr[Analysis_Individual$TouchesContHistAvr==0]<-(10^-5)
+  #Analysis_Individual$TouchesContHistAvr[Analysis_Individual$TouchesContHistAvr==0]<-(10^-5)
   Analysis_Individual$InContamination<-log10(Analysis_Individual$InContamination)
   Analysis_Individual$Contamination<-log10(Analysis_Individual$Contamination)
-  Analysis_Individual$TouchesContHistAvr<-log10(Analysis_Individual$TouchesContHistAvr)
-  
+  #Analysis_Individual$TouchesContHistAvr<-log10(Analysis_Individual$TouchesContHistAvr)
 
+  Analysis_Individual$TouchesContHistAvr[Analysis_Individual$TouchesContHistAvr>0]<-"Pos"
+  Analysis_Individual$TouchesContHistAvr[Analysis_Individual$TouchesContHistAvr<0]<-"Neg"
+  Analysis_Individual$TouchesContHistAvr[Analysis_Individual$TouchesContHistAvr==0]<-"Zero"
+  
+  
   ggplot(data = Analysis_Individual, aes(x=Contamination, y = InContamination )) + 
     #scale_x_log10(n.breaks=10)+
     #scale_y_log10(n.breaks=10)+
@@ -95,10 +99,10 @@
     geom_abline(slope=1, intercept=0)+
     ylab("Contamination Initial Log PFU/Item")+
     xlab("Contamination Final Log PFU/Item")+
-    scale_color_gradient(name="Touches Cont",low="green", high="red", n.breaks=10)+
-    ggtitle("Effect of touches on Final Contamination")+
+    scale_color_gradient(guide="legend",name="Average TR",low="green", high="red",trans = scales::pseudo_log_trans(base = 10),n.breaks=20)+
+    ggtitle("Effect of Touches final Contamination")+
     theme(plot.title = element_text(hjust = 0.5))+
-    theme(text = element_text(size=12))
+    theme(text = element_text(size=12))  
   
   ggplot(data = Analysis_Individual, aes(x=DeltaCont, y = TouchesContHistAvr )) + 
     scale_x_log10()+

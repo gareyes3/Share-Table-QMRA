@@ -71,6 +71,7 @@ for (l in 1:Sens_Iterations){
               Fr_Touched<-as.numeric(Search.df.fr_touched$Apple.No.) #Fruit touched
               Fr_Data.Frame[Fr_Touched,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_Touched,colnames(Fr_Data.Frame)=="History"], "Touched") #Adding History to History
               
+              
               #Cross Contamination from Touching Fruit @Touch
               Func_Cross_Contamination_Fr(Cont_Student = Cont_Student, Fr_Data.Frame = Fr_Data.Frame, Fr_Picked = Fr_Touched)
               #Cross Contamination from Allergens
