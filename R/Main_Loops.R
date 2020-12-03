@@ -1,6 +1,6 @@
 
-#setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
-setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+#setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
 
 #Library
 source("Util_Library.R")

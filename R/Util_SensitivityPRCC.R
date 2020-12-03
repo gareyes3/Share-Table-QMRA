@@ -15,9 +15,9 @@
   STYN_Vector<-c()
   for (i in 1:nrow(Individual_Analysis_Fr)){
     if (Individual_Analysis_Fr[i,colnames(Individual_Analysis_Fr)=="STtimes"]>0){
-      STYN_Vector<-c(STYN_Vector,1)
+      STYN_Vector<-c(STYN_Vector,TRUE)
     }else if(Individual_Analysis_Fr[i,colnames(Individual_Analysis_Fr)=="STtimes"]==0){
-      STYN_Vector<-c(STYN_Vector,0)
+      STYN_Vector<-c(STYN_Vector,FALSE)
     }
   }
 

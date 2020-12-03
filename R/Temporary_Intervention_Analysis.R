@@ -328,7 +328,7 @@ ggplot(data=EF, aes(y=DeltaCont))+
   names(IA_Wrapp_Ini)[2]<-"Contamination"
   
   
-  IA_All_c<-bind_rows(IA_Wash_c,IA_Cont_c,IA_Wrapp_c,IA_Wrapp_Ini)
+  IA_All_c<-bind_rows(IA_Wash_c,IA_Cont_c,IA_Wrapp_c)
   
   IA_All_c[IA_All_c==0]<-(10^-20)
   
@@ -336,6 +336,8 @@ ggplot(data=EF, aes(y=DeltaCont))+
   
   IA_All_cLog<-IA_All_c
   IA_All_cLog$Contamination<-log10(IA_All_cLog$Contamination)
+  
+  IA_All_cLog00<-IA_All_cLog[which(IA_All_cLog$Contamination > 0),]
   
 
 #Contamination with log
