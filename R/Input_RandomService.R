@@ -7,8 +7,6 @@
   Inputs_Cont_HuNov_Fr<-list(
     #Prevalence of NV in Fruit
     Prevalence <-rbetagen(1,0.79,1.03,0.0,0.2),
-    #Genormic Copies per PFU
-    Genomic_copies_per_PFU<-rnormTrunc(1,3.65,.98,2.00,5.40), #add 3.66,
     #log HuNoV copies per/ g
     HuNoV_ContFruit<-rlnormTrunc(1,2.38,3.52, 0,6.97) #add 1.578 #
   )
@@ -37,6 +35,7 @@
 
 # Transfer Efficiencies ---------------------------------------------------
   
+Res_Trans<-1.97
   
   if(norovirus==1){
     TE_H_F<- rbetagen(1,0.76,1.04,.0126,.46) #0.2013#
@@ -46,7 +45,15 @@
     TE_S_H<- rtriang(1,.036,.07,.22)#.1090 #TE between Surfaces and Hands
     TE_S_F<-.4620 #TE between Surfaces and Foods
     TE_Pre_Mouth<-.339 #TE between Milk to Mouth
+    
+    #For new implementation of the model. 
+    TrP_H_F<-inv.logit(rnorm(1,-3.86,Res_Trans))
+    TrP_F_H<-inv.logit(rnorm(1,-2.95,Res_Trans))
+    TrP_H_S<-inv.logit(rnorm(1,-3.82,Res_Trans))
+    TrP_S_H<-inv.logit(rnorm(1,0.11,Res_Trans))
+    
   }
+  
   
   if(salmonella ==1){
     TE_H_F<-.0021
@@ -67,4 +74,14 @@
   
   
   
-
+##Extras, Not Used--------------------------------------------------------------------------------------------------------------
+  #Remove the _PFU if ant to use
+  
+  Inputs_Cont_HuNov_Fr_PFU<-list(
+    #Prevalence of NV in Fruit
+    Prevalence <-rbetagen(1,0.79,1.03,0.0,0.2),
+    #Genormic Copies per PFU NOTE: Not ised right now. 
+    Genomic_copies_per_PFU<-rnormTrunc(1,3.65,.98,2.00,5.40), #add 3.66,
+    #log HuNoV copies per/ g
+    HuNoV_ContFruit<-rlnormTrunc(1,2.38,3.52, 0,6.97) #add 1.578 #
+  )

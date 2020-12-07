@@ -115,4 +115,9 @@ func_Add_Services<-function(DF){
 }
 
 
+#Functions for the Transfer probability. 
+inv.logit<-function(x){
+  exp(x)/(1+exp(x))
+}
+
 

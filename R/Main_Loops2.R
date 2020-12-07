@@ -21,7 +21,7 @@ source("Util_SensAnalysis.R")
 source("Util_Counter&Lists.R")
 #Functions
 source("Util_Functions.R")
-source("Util_CCFunctions.R")
+source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
 for (l in 1:Sens_Iterations){
@@ -73,7 +73,7 @@ for (l in 1:Sens_Iterations){
               
               
               #Cross Contamination from Touching Fruit @Touch
-              Func_Cross_Contamination_Fr(Cont_Student = Cont_Student, Fr_Data.Frame = Fr_Data.Frame, Fr_Picked = Fr_Touched)
+              Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Fr_Data.Frame, Item_Picked= Fr_Touched, Item="Fruit")
               #Cross Contamination from Allergens
               Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_Touched) #Adding Allergen Contamination from touch.
             }
@@ -103,7 +103,7 @@ for (l in 1:Sens_Iterations){
         
         if(Pick_YN_Fr==1){
           #Cross Contamination from Touching Fruit @Tray
-          Func_Cross_Contamination_Fr(Cont_Student = Cont_Student, Fr_Data.Frame = Fr_Data.Frame, Fr_Picked = Fr_Picked)
+          Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Fr_Data.Frame, Item_Picked= Fr_Picked, Item="Fruit")
           Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_Picked) #Adding Allergen Contamination from touch.
         }
         
@@ -125,7 +125,7 @@ for (l in 1:Sens_Iterations){
               Pss_Data.Frame[Pss_Touched,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_Touched,colnames(Pss_Data.Frame)=="History"], "Touched") #Adding History to History
               
               #Cross Contamination from Touching Pss @Touch
-              Func_Cross_Contamination_Pss(Cont_Student = Cont_Student ,Pss_Data.Frame = Pss_Data.Frame, Pss_Picked = Pss_Touched)
+              Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pss_Data.Frame, Item_Picked= Pss_Touched, Item="PSS")
               Pss_Data.Frame<-Func_Allergen_CC(Pss_Data.Frame,Pss_Touched) #Adding Allergen Contamination from touch. 
             }
           }
@@ -155,7 +155,7 @@ for (l in 1:Sens_Iterations){
         
         if(Pick_YN_Pss==1){
           #Cross Contamination from Touching Pss @Tray
-          Func_Cross_Contamination_Pss(Cont_Student = Cont_Student ,Pss_Data.Frame = Pss_Data.Frame, Pss_Picked = Pss_Picked)
+          Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pss_Data.Frame, Item_Picked= Pss_Picked, Item="PSS")
           Pss_Data.Frame<-Func_Allergen_CC(Pss_Data.Frame,Pss_Picked) #Adding Allergen Contamination from touch.
         }
         
@@ -179,7 +179,7 @@ for (l in 1:Sens_Iterations){
               Pre_Data.Frame[Pre_Touched,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_Touched,colnames(Pre_Data.Frame)=="History"], "Touched") #Adding History to History
               
               #Cross Contamination from Touching Pre @Touch
-              Func_Cross_Contamination_Pre(Cont_Student = Cont_Student, Pre_Data.Frame = Pre_Data.Frame, Pre_Picked = Pre_Touched)
+              Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pre_Data.Frame, Item_Picked= Pre_Touched, Item="PRE")
               Pre_Data.Frame<-Func_Allergen_CC(Pre_Data.Frame,Pre_Touched) #Adding Allergen Contamination from touch.
             }
           }
@@ -209,7 +209,7 @@ for (l in 1:Sens_Iterations){
         
         if(Pick_YN_Pre==1){
           #Cross Contamination from Touching Pre @Tray
-          Func_Cross_Contamination_Pre(Cont_Student = Cont_Student, Pre_Data.Frame = Pre_Data.Frame, Pre_Picked = Pre_Picked)
+          Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pre_Data.Frame, Item_Picked= Pre_Picked, Item="PRE")
           Pre_Data.Frame<-Func_Allergen_CC(Pre_Data.Frame,Pre_Picked) #Adding Allergen Contamination from touch.
         }  
         
@@ -236,7 +236,7 @@ for (l in 1:Sens_Iterations){
               Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_Picked) #Adding Allergen Contamination from touch.
             } else if (Wrapping_Apples == 0){
               #Cross Contamination @ Consumption apples not wrapped. 
-              Func_Cross_Contamination_Fr(Cont_Student = Cont_Student, Fr_Data.Frame = Fr_Data.Frame, Fr_Picked = Fr_Picked)
+              Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Fr_Data.Frame, Item_Picked= Fr_Picked, Item="Fruit")
             } #end of if wrapp 
             
           }else{
@@ -244,7 +244,7 @@ for (l in 1:Sens_Iterations){
             Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "Location"]<-"Not Consumed"
             Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="History"], "NotConsumed")
             #Cross Crontamination from apples not being Consumed touch to ST/ Trash
-            Func_Cross_Contamination_Fr(Cont_Student = Cont_Student, Fr_Data.Frame = Fr_Data.Frame, Fr_Picked = Fr_Picked)
+            Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Fr_Data.Frame, Item_Picked= Fr_Picked, Item="Fruit")
             Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_Picked) #Adding Allergen Contamination from touch.
           } #end of eat if statement
         }#end of pick statement
@@ -260,7 +260,7 @@ for (l in 1:Sens_Iterations){
             Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)== "Location"]<-"Consumed" 
             Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="History"], "Consumed")
             #Contamination Insdide Pss @Consumption
-            Func_Cross_Contamination_Pss_Consumption(Cont_Student = Cont_Student, Pss_Data.Frame = Pss_Data.Frame, Pss_Picked = Pss_Picked)
+            Func_Cross_Contamination_Pss_Consumption(Cont_Student=Cont_Student,Pss_Data.Frame = Pss_Data.Frame,Pss_Picked = Pss_Picked)
             Pss_Data.Frame<-Func_Allergen_CC(Pss_Data.Frame,Pss_Picked) #Adding Allergen Contamination from touch.
             
           }else{
@@ -269,7 +269,7 @@ for (l in 1:Sens_Iterations){
             Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="History"], "NotConsumed")
             
             #Contamination from Touch @ Consumption
-            Func_Cross_Contamination_Pss(Cont_Student = Cont_Student, Pss_Data.Frame = Pss_Data.Frame, Pss_Picked = Pss_Picked)
+            Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pss_Data.Frame, Item_Picked= Pss_Picked, Item="PSS")
             Pss_Data.Frame<-Func_Allergen_CC(Pss_Data.Frame,Pss_Picked) #Adding Allergen Contamination from touch.
             
           } #end of Else statement for Eat
@@ -286,7 +286,7 @@ for (l in 1:Sens_Iterations){
             Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)== "Location"]<-"Consumed" 
             Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)=="History"], "Consumed")
             #Contamination Container Pre to Mouth @ Consumption
-            Func_Cross_Contamination_Pre_Consumption(Cont_Student = Cont_Student, Pre_Data.Frame = Pre_Data.Frame, Pre_Picked = Pre_Picked)
+            Func_Cross_Contamination_Pre_Consumption(Cont_Student=Cont_Student,Pre_Data.Frame = Pre_Data.Frame, Pre_Picked = Pre_Picked)
             Pre_Data.Frame<-Func_Allergen_CC(Pre_Data.Frame,Pre_Picked) #Adding Allergen Contamination from touch.
             
           }else{
@@ -294,7 +294,7 @@ for (l in 1:Sens_Iterations){
             Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)=="History"], "NotConsumed")
             
             #Contaminationat Pre Container
-            Func_Cross_Contamination_Pre(Cont_Student = Cont_Student, Pre_Data.Frame = Pre_Data.Frame, Pre_Picked = Pre_Picked)
+            Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pre_Data.Frame, Item_Picked= Pre_Picked, Item="PRE")
             Pre_Data.Frame<-Func_Allergen_CC(Pre_Data.Frame,Pre_Picked) #Adding Allergen Contamination from touch.
           }  
         }
@@ -384,7 +384,7 @@ for (l in 1:Sens_Iterations){
             #Contamination from Hand to Fruit or from Fruit to Hand. 
             if(Pick_ST_YN_Fr==1){
               #Contamination from picking item share table
-              Func_Cross_Contamination_Fr(Cont_Student = Cont_Student, Fr_Data.Frame = Fr_Data.Frame, Fr_Picked = Fr_ST_Picked)
+              Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Fr_Data.Frame, Item_Picked= Fr_ST_Picked, Item="Fruit")
               Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_ST_Picked) #Adding Allergen Contamination
             }
             
@@ -406,14 +406,14 @@ for (l in 1:Sens_Iterations){
                   Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_ST_Picked) #Adding Allergen Contamination from touch.
                 } else if (Wrapping_Apples == 0){
                   #Cross Contamination @ Consumption apples not wrapped. 
-                  Func_Cross_Contamination_Fr(Cont_Student = Cont_Student, Fr_Data.Frame = Fr_Data.Frame, Fr_Picked = Fr_ST_Picked)
+                  Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Fr_Data.Frame, Item_Picked= Fr_ST_Picked, Item="Fruit")
                 } #end of if wrapp 
                 
               }else{
                 Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)== "Location"]<-"Not Consumed"
                 Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)=="History"], "NotConsumed")
                 #Cross Crontamination from apples not consumed from ST
-                Func_Cross_Contamination_Fr(Cont_Student = Cont_Student, Fr_Data.Frame = Fr_Data.Frame, Fr_Picked = Fr_ST_Picked)
+                Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Fr_Data.Frame, Item_Picked= Fr_ST_Picked, Item="Fruit")
                 Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_ST_Picked) #Adding Allergen Contamination from touch.
                 
               } #end of eat if
@@ -443,7 +443,7 @@ for (l in 1:Sens_Iterations){
             #Contamination from Hand to Pss or from Hand to Pss. 
             if(Pick_ST_YN_Pss==1){
               #Contamination at tray
-              Func_Cross_Contamination_Pss(Cont_Student = Cont_Student, Pss_Data.Frame = Pss_Data.Frame, Pss_Picked = Pss_ST_Picked)
+              Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pss_Data.Frame, Item_Picked= Pss_ST_Picked, Item="PSS")
               Pss_Data.Frame<-Func_Allergen_CC(Pss_Data.Frame,Pss_ST_Picked) #Adding Allergen Contamination
             }
             
@@ -466,7 +466,7 @@ for (l in 1:Sens_Iterations){
                 Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)== "Location"]<-"Not Consumed"
                 Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)=="History"], "NotConsumed")
                 #Contamination from Touch @ Not Consumption
-                Func_Cross_Contamination_Pss(Cont_Student = Cont_Student, Pss_Data.Frame = Pss_Data.Frame, Pss_Picked = Pss_ST_Picked)
+                Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pss_Data.Frame, Item_Picked= Pss_ST_Picked, Item="PSS")
                 Pss_Data.Frame<-Func_Allergen_CC(Pss_Data.Frame,Pss_ST_Picked) #Adding Allergen Contamination from touch.
               }
             }
@@ -494,7 +494,7 @@ for (l in 1:Sens_Iterations){
             
             #Contamination from Hand to Fruit or from Hand to Fruit. 
             if(Pick_ST_YN_Pre==1){
-              Func_Cross_Contamination_Pre(Cont_Student = Cont_Student, Pre_Data.Frame = Pre_Data.Frame, Pre_Picked = Pre_ST_Picked)
+              Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pss_Data.Frame, Item_Picked= Pss_ST_Picked, Item="PSS")
               Pre_Data.Frame<-Func_Allergen_CC(Pre_Data.Frame,Pre_ST_Picked) #Adding Allergen Contamination
             }
             
@@ -518,7 +518,7 @@ for (l in 1:Sens_Iterations){
                 Pre_Data.Frame[Pre_ST_Picked,colnames(Pre_Data.Frame)== "Location"]<-"Not Consumed"
                 Pre_Data.Frame[Pre_ST_Picked,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_ST_Picked,colnames(Pre_Data.Frame)=="History"], "NotConsumed")
                 #Contaminationat Pre Container
-                Func_Cross_Contamination_Pre(Cont_Student = Cont_Student, Pre_Data.Frame = Pre_Data.Frame, Pre_Picked = Pre_ST_Picked)
+                Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pre_Data.Frame, Item_Picked= Pre_ST_Picked, Item="PRE")
                 Pre_Data.Frame<-Func_Allergen_CC(Pre_Data.Frame,Pre_ST_Picked) #Adding Allergen Contamination from touch.
               }
             }

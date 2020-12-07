@@ -4,46 +4,23 @@
 #Inputs for this function #Inputs_ICont_Student
 
 
-Func_ICont_Student<-function(IC_salmonella,mass_feces_hands,HU_NV_in_Feces,Genomic_copies_per_PFU,... ){
+Func_ICont_Student<-function(IC_salmonella,mass_feces_hands,HU_NV_in_Feces,... ){
   #Salmonella
   if(salmonella ==1){
     IC_Student<-IC_salmonella  #CFU/Hand
     return(IC_Student)
   } 
   if(norovirus ==1){
-    Personal_Contamination<-((10^mass_feces_hands) * (10^HU_NV_in_Feces))/(10^Genomic_copies_per_PFU) #PFU/Hand
-    IC_Student<- Personal_Contamination #PFU/Hand
+    Personal_Contamination<-((10^mass_feces_hands) * (10^HU_NV_in_Feces)) #GEC/g
+    IC_Student<- Personal_Contamination #GEC/Hand
+    IC_Student<-round(IC_Student,digits = 0)
     return(IC_Student)
   }
 }
 
 
-
-
 # Initial Contamination Functions --------------------------------------------
 
-#this function changes contamination from CFU CM^2 to CFU/g
-#NOTE: Not being USED Right now.Here just in case 
-func_Cont_Fr<-function(DF, Prevalence, area_av , area_sd, logContamination, weight_av, weight_sd ){
-  #Df= Data frame
-  #Prevalence = parameter Prevalence of pathogen
-  # Contamination = Initial Contamination of the pathogen. 
-  # parameter for volume_av
-  # parameter for volume_sd
-  # parameter for log contamination
-  for(i in 1:nrow(DF)){
-    Fr_Cont_YN<- ifelse(runif(1)<Prevalence,1,0) 
-    Fr_Area<-rnorm(1,area_av,area_sd)
-    Fr_Weight<-rnorm(1,weight_av,weight_sd)
-    Contamination<-(10^(logContamination)* Fr_Area)/(Fr_Weight)
-    if(Fr_Cont_YN==1){
-      DF[i,colnames(DF)== "Contamination"]<-Contamination
-    } else if (Fr_Cont_YN==0){
-      DF[i,colnames(DF)== "Contamination"]<-0
-    }
-  }
-  return(DF)
-}
 
 #Function that adds contminations to Data frames and converts from CFU/cm^2 to CFU/Apple or item
 func_Cont_cm2<-function(DF, Prevalence, logContamination, Fr_Mean_area ){
@@ -65,13 +42,16 @@ func_Cont_cm2<-function(DF, Prevalence, logContamination, Fr_Mean_area ){
   return(DF)
 }
 
+
+
 #Special Function that adds norovirus to fruit items
 #Inputs For Function: Inputs_Cont_HuNov_Fr
 
-func_Cont_HuNoV_Fr<-function(DF, Prevalence,Genomic_copies_per_PFU,HuNoV_ContFruit){
+func_Cont_HuNoV_Fr<-function(DF, Prevalence,HuNoV_ContFruit){
   for (i in 1:nrow(DF)){
     Fr_Cont_YN<- ifelse(runif(1)<Prevalence,1,0)
-    Contamination<-(10^HuNoV_ContFruit)/(10^Genomic_copies_per_PFU) *Fr_Mean_weight #PFU/Apple
+    Contamination<-(10^HuNoV_ContFruit)*Fr_Mean_weight #GEC/Apple
+    Contamination<-round(Contamination,digits = 0)
     if(Fr_Cont_YN==1){
       DF[i,colnames(DF)== "Contamination"]<-Contamination
       DF[i,colnames(DF)== "InContamination"]<-Contamination
@@ -82,7 +62,6 @@ func_Cont_HuNoV_Fr<-function(DF, Prevalence,Genomic_copies_per_PFU,HuNoV_ContFru
   }
   return(DF)
 }
-
 #Functions for Growth Models
 
 # Growth Model for Enteric -------------------------------------------------------------
@@ -155,6 +134,7 @@ Func_Growth_Sto_Norovirus_Plastic<-function(Condition,DF,TimeVar){
       N<-log10(DF[i,colnames(DF)== "Contamination"])
       Con_Final<-ifelse(N==0,N,N + Growth)
       Con_Final<-10^Con_Final
+      Con_Final<-round(Con_Final,digits = 0) #rounding for the binomial
       DF[i,colnames(DF)== "Contamination"]<-Con_Final
     }
   } 
@@ -174,6 +154,7 @@ Func_Growth_Sto_Norovirus<-function(Condition,DF,TimeVar){
       N<-log10(DF[i,colnames(DF)== "Contamination"])
       Con_Final<-ifelse(N==0,N,N + Growth)
       Con_Final<-10^Con_Final
+      Con_Final<-round(Con_Final,digits = 0) #rounding for the binomial
       DF[i,colnames(DF)== "Contamination"]<-Con_Final
     }
     return(DF)
@@ -187,6 +168,7 @@ Func_Growth_Sto_Norovirus<-function(Condition,DF,TimeVar){
       N<-log10(DF[i,colnames(DF)== "Contamination"])
       Con_Final<-ifelse(N==0,N,N + Growth)
       Con_Final<-10^Con_Final
+      Con_Final<-round(Con_Final,digits = 0) #rounding for the binomial
       DF[i,colnames(DF)== "Contamination"]<-Con_Final
     }
     return(DF)
@@ -214,3 +196,69 @@ Func_Growth_Milk_Spoilage<-function(Temp,DF,TimeVar){
 
 
 
+
+
+
+#Extras Not Used:
+
+#Special Function that adds norovirus to fruit items
+#Inputs For Function: Inputs_Cont_HuNov_Fr
+#Note Note bein Used as Backup.
+#Change name remove_PFU
+
+func_Cont_HuNoV_Fr_PFU<-function(DF, Prevalence,Genomic_copies_per_PFU,HuNoV_ContFruit){
+  for (i in 1:nrow(DF)){
+    Fr_Cont_YN<- ifelse(runif(1)<Prevalence,1,0)
+    Contamination<-(10^HuNoV_ContFruit)/(10^Genomic_copies_per_PFU) *Fr_Mean_weight #PFU/Apple
+    if(Fr_Cont_YN==1){
+      DF[i,colnames(DF)== "Contamination"]<-Contamination
+      DF[i,colnames(DF)== "InContamination"]<-Contamination
+    } else if (Fr_Cont_YN==0){
+      DF[i,colnames(DF)== "Contamination"]<-as.numeric(0)
+      DF[i,colnames(DF)== "InContamination"]<-as.numeric(0)
+    }
+  }
+  return(DF)
+}
+
+
+
+#this function changes contamination from CFU CM^2 to CFU/g
+#NOTE: Not being USED Right now.Here just in case 
+func_Cont_Fr<-function(DF, Prevalence, area_av , area_sd, logContamination, weight_av, weight_sd ){
+  #Df= Data frame
+  #Prevalence = parameter Prevalence of pathogen
+  # Contamination = Initial Contamination of the pathogen. 
+  # parameter for volume_av
+  # parameter for volume_sd
+  # parameter for log contamination
+  for(i in 1:nrow(DF)){
+    Fr_Cont_YN<- ifelse(runif(1)<Prevalence,1,0) 
+    Fr_Area<-rnorm(1,area_av,area_sd)
+    Fr_Weight<-rnorm(1,weight_av,weight_sd)
+    Contamination<-(10^(logContamination)* Fr_Area)/(Fr_Weight)
+    if(Fr_Cont_YN==1){
+      DF[i,colnames(DF)== "Contamination"]<-Contamination
+    } else if (Fr_Cont_YN==0){
+      DF[i,colnames(DF)== "Contamination"]<-0
+    }
+  }
+  return(DF)
+}
+
+
+#Note Note bein Used as Backup.
+#Change name remove_PFU
+#Initial Contamination of Student
+Func_ICont_Student_PFU<-function(IC_salmonella,mass_feces_hands,HU_NV_in_Feces,Genomic_copies_per_PFU,... ){
+  #Salmonella
+  if(salmonella ==1){
+    IC_Student<-IC_salmonella  #CFU/Hand
+    return(IC_Student)
+  } 
+  if(norovirus ==1){
+    Personal_Contamination<-((10^mass_feces_hands) * (10^HU_NV_in_Feces))/(10^Genomic_copies_per_PFU) #PFU/Hand
+    IC_Student<- Personal_Contamination #PFU/Hand
+    return(IC_Student)
+  }
+}
