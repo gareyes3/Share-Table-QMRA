@@ -26,6 +26,8 @@ Func_Cross_Contamination<-function(Cont_Student,Data.Frame, Item_Picked, Item){
       Cont_Student<<-Cont_Student
   } else if (norovirus ==1){
       Conta<-Func_Index_DF(Data.Frame,Item_Picked,"Contamination")
+      Conta<-round(Conta,digits = 0)
+      Cont_Student<-round(Cont_Student,digits = 0)
       Tr_H_F<-rbinom(n=1,size = Cont_Student, prob = TrP_H_F)
       Tr_F_H<-rbinom(n=1,size = Conta,prob = TrP_F_H)
       #Overall Transfer for tracking

@@ -58,3 +58,16 @@ Func_Cross_Contamination_Fr<-function(Cont_Student,Fr_Data.Frame, Fr_Picked){
   Fr_Data.Frame<<-Fr_Data.Frame
   Cont_Student<<-Cont_Student
 }
+
+
+
+
+alpha<-.04
+betar<-.055
+hunov<-.2
+
+1-((gamma((alpha+beta))*gamma(beta+hunov))/(gamma(hunov)*gamma(alpha+beta+hunov)))
+
+beta
+
+1-beta(alpha,(betar+hunov))/beta(alpha,betar)

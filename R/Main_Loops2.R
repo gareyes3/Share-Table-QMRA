@@ -494,7 +494,7 @@ for (l in 1:Sens_Iterations){
             
             #Contamination from Hand to Fruit or from Hand to Fruit. 
             if(Pick_ST_YN_Pre==1){
-              Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pss_Data.Frame, Item_Picked= Pss_ST_Picked, Item="PSS")
+              Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pre_Data.Frame, Item_Picked= Pre_ST_Picked, Item="PRE")
               Pre_Data.Frame<-Func_Allergen_CC(Pre_Data.Frame,Pre_ST_Picked) #Adding Allergen Contamination
             }
             
