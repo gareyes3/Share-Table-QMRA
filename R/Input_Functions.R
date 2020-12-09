@@ -195,11 +195,44 @@ Func_Growth_Milk_Spoilage<-function(Temp,DF,TimeVar){
 } 
 
 
+#Dose Response Function----------------------------------------
+
+Func_DR_Infection<-function(DF){
+  alpha<-.04
+  betar<-.055
+  for (i in 1:nrow(DF)){
+    hunov<-DF[i,colnames(DF)== "Contamination"]
+    Probinf<-(1-((gamma((alpha+beta))*gamma(beta+hunov))/(gamma(hunov)*gamma(alpha+beta+hunov))))
+    Infected_YN<-ifelse(runif(1)<Probinf,1,0) 
+    if(Infected_YN==1){
+      DF[i,colnames(DF)== "Infected"]<-TRUE
+    }
+  }
+  return(DF)
+} 
+
+
+Func_DR_Illness<-function(DF){
+  nw<-0.086
+  r<-2.55E-3
+  for (i in 1:nrow(DF)){
+    hunov<-DF[i,colnames(DF)== "Contamination"]
+    if(DF[i,colnames(DF)== "Contamination"] == TRUE){
+      Probill<-1-(1+nw*hunov)^(-r)
+      Ill_YN<-ifelse(runif(1)<Probill,1,0)
+      if(Infected_YN==1){
+        DF[i,colnames(DF)== "Illness"]<-TRUE
+      }
+    } else{
+      DF[i,colnames(DF)== "Illness"]<-FALSE
+    }
+  }
+  return(DF)
+} 
 
 
 
-
-#Extras Not Used:
+#Extras Not Used:----------------------------------------------------------------------------------------------------------------------
 
 #Special Function that adds norovirus to fruit items
 #Inputs For Function: Inputs_Cont_HuNov_Fr

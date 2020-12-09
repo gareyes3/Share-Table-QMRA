@@ -66,6 +66,8 @@ alpha<-.04
 betar<-.055
 hunov<-100
 
+
+
 1-((gamma((alpha+beta))*gamma(beta+hunov))/(gamma(hunov)*gamma(alpha+beta+hunov)))
 
 beta
@@ -74,5 +76,53 @@ beta
 
 nw<-0.086
 r<-2.55E-3
+hunov<-100000000
 
 1-(1+nw*hunov)^(-r)
+
+Probill<-1-(1+nw*hunov)^(-r)
+Ill_YN<-ifelse(runif(1)<Probill,1,0)
+
+
+Func_DR_Infection<-function(DF){
+  alpha<-.04
+  betar<-.055
+  for (i in 1:nrow(DF)){
+    hunov<-DF[i,colnames(DF)== "Contamination"]
+    Probinf<-(1-beta(alpha,(betar+hunov))/beta(alpha,betar))
+    Infected_YN<-ifelse(runif(1)<Probinf,1,0) 
+    if(Infected_YN==1){
+      DF[i,colnames(DF)== "Infection"]<-TRUE
+    }else{
+      DF[i,colnames(DF)== "Infection"]<-FALSE
+    }
+  }
+  return(DF)
+} 
+
+
+Func_DR_Illness<-function(DF){
+  nw<-0.086
+  r<-2.55E-3
+  for (i in 1:nrow(DF)){
+    hunov<-DF[i,colnames(DF)== "Contamination"]
+    if(DF[i,colnames(DF)== "Infection"] == TRUE){
+      Probill<-1-(1+nw*hunov)^(-r)
+      Ill_YN<-ifelse(runif(1)<Probill,1,0)
+      if(Ill_YN==1){
+        DF[i,colnames(DF)== "Illness"]<-TRUE
+      }else{
+        DF[i,colnames(DF)== "Illness"]<-FALSE
+      }
+    } else{
+      DF[i,colnames(DF)== "Illness"]<-FALSE
+    }
+  }
+  return(DF)
+} 
+
+
+Fr_Data_Days<-Func_DR_Infection(Fr_Data_Days)
+Fr_Data_Days<-Func_DR_Illness(Fr_Data_Days)
+sum(Fr_Data_Days$Infection==TRUE)
+sum(Fr_Data_Days$Illness==TRUE)

@@ -288,6 +288,8 @@ if(j>0 && j<=(Service_No-1)){
       Left_ST_Pre<-Func_Spoilage_YN(Left_ST_Pre)
     }
   }
+  
+  
 
 
 # Summarizing For Input DF ---------------------------------------------------------
