@@ -1,28 +1,4 @@
 
-setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
-#setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
-
-#Library
-source("Util_Library.R")
-
-
-
-####RUN FROM HERE####
-
-# Source Files ------------------------------------------------------------
-start_time<-Sys.time()
-
-#Inputs
-
-source("Input_Static.R")
-source("Input_Functions.R")
-source("Util_DFFunctions.R")
-source("Util_SensAnalysis.R")
-source("Util_Counter&Lists.R")
-#Functions
-source("Util_Functions.R")
-source("Util_CCFunctions2.R")
-source("Util_VisualFunctions.R")
 
 for (l in 1:Sens_Iterations){
   # Meal Day ----------------------------------------------------------------
@@ -34,7 +10,7 @@ for (l in 1:Sens_Iterations){
       
       source("Input_RandomService.R") 
       #Data Frames Source Files
-      source("Temporary_Util_DataFrames.R")  
+      source("Util_DataFrames.R")  
       
       
       
@@ -603,9 +579,9 @@ for (l in 1:Sens_Iterations){
 
 
 
-  source("Output_SummaryStats.R") 
+  source("Summary_WeekSens.R") 
   
-  source("Output_Visuals.R")
+  
   
   
   message("Done Gathering Data", l)

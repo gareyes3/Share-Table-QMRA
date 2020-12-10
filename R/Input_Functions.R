@@ -198,14 +198,16 @@ Func_Growth_Milk_Spoilage<-function(Temp,DF,TimeVar){
 #Dose Response Function----------------------------------------
 
 Func_DR_Infection<-function(DF){
-  alpha<-.04
-  betar<-.055
+  alpha<-0.04
+  betar<-0.055
   for (i in 1:nrow(DF)){
-    hunov<-DF[i,colnames(DF)== "Contamination"]
-    Probinf<-(1-((gamma((alpha+beta))*gamma(beta+hunov))/(gamma(hunov)*gamma(alpha+beta+hunov))))
+    hunov<-as.numeric(DF[i,colnames(DF)== "Contamination"])
+    Probinf<-(1-hyperg_1F1(a = alpha,b = alpha+betar,x = -hunov))
     Infected_YN<-ifelse(runif(1)<Probinf,1,0) 
     if(Infected_YN==1){
-      DF[i,colnames(DF)== "Infected"]<-TRUE
+      DF[i,colnames(DF)== "Infection"]<-TRUE
+    }else{
+      DF[i,colnames(DF)== "Infection"]<-FALSE
     }
   }
   return(DF)
@@ -213,15 +215,17 @@ Func_DR_Infection<-function(DF){
 
 
 Func_DR_Illness<-function(DF){
-  nw<-0.086
-  r<-2.55E-3
+  nw<-2.55E-3
+  r<-0.086
   for (i in 1:nrow(DF)){
     hunov<-DF[i,colnames(DF)== "Contamination"]
-    if(DF[i,colnames(DF)== "Contamination"] == TRUE){
+    if(DF[i,colnames(DF)== "Infection"] == TRUE){
       Probill<-1-(1+nw*hunov)^(-r)
       Ill_YN<-ifelse(runif(1)<Probill,1,0)
-      if(Infected_YN==1){
+      if(Ill_YN==1){
         DF[i,colnames(DF)== "Illness"]<-TRUE
+      }else{
+        DF[i,colnames(DF)== "Illness"]<-FALSE
       }
     } else{
       DF[i,colnames(DF)== "Illness"]<-FALSE

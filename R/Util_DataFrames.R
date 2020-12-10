@@ -5,97 +5,62 @@
 #SERVICE 1 DAY 1 CREATION ================================================================
 
 
-  # Fruit -------------------------------------------------------------------
+# Fruit -------------------------------------------------------------------
 
 
 if(j==1 && k== 1){
-  Fr_Data.Frame<-data.frame("Apple No." = 1:Initial_Fr,
-                            "Location"= "Selection Table",
-                            "Contamination" = as.numeric("0"),
-                            "ExposedAllergen" = FALSE,
-                            "TotTime"= as.numeric("0"),
-                            "History" = "", 
-                            "STtimes"= as.numeric("0"),
-                            "Initial Service" = "1",
-                            "Service" = j,
-                            "Initial Day" = "1",
-                            "Day" = k,
-                            stringsAsFactors = FALSE
-                            
-  )
+  Fr_Data.Frame<-Fuct_DF_Initial(FoodType = "Fruit")
   
   
   #Adding Initial Contaminations of fruit Data frame based on initial cont and prevalence CFU/Fruit
   
   
   if(salmonella==1 && Calculated_Cont_Fr==1){
-    #Adding items to the Dataframe
+    #Adding Contamination to the Dataframe
     Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
     #Adding items to know contaminated items
-    Items_Added<-Fr_Data.Frame$Contamination[which(Fr_Data.Frame$Contamination>0)]
-    Vector_Cont_Fr_Serv<-c(Vector_Cont_Fr_Serv,Items_Added)
+    Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
   } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
+    #Adding Contamination to Data Fra
     Fr_Data.Frame<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Fr_Data.Frame),Inputs_Cont_HuNov_Fr))
     #Adding items to know Contaminated Items
-    Items_Added<-Fr_Data.Frame$Contamination[which(Fr_Data.Frame$Contamination>0)]
-    Vector_Cont_Fr_Serv<-c(Vector_Cont_Fr_Serv,Items_Added)
+    Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
   }
-
-
-  # Pss ---------------------------------------------------------------------
-
-
   
-  Pss_Data.Frame<-data.frame("Pss No." = 1:Initial_Pss,
-                             "Location"= "Selection Table",
-                             "Contamination" = as.numeric("0"),
-                             "ExposedAllergen" = FALSE,
-                             "TotTime"= as.numeric("0"),
-                             "History"= "",
-                             "STtimes"= as.numeric("0"),
-                             "Initial Service" = "1", 
-                             "Service" = j,
-                             "Initial Day" = "1",
-                             "Day" = k,
-                             stringsAsFactors = FALSE
-  )
+  
+  # Pss ---------------------------------------------------------------------
+  
+  
+  
+  Pss_Data.Frame<-Fuct_DF_Initial(FoodType = "Pss")
   
   #Adding initial contamination based on prevalence and area of the item #CFU/Pss
   
   if(salmonella==1 && Calculated_Cont_Pss==1){
     Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Salmonella_Pss,Pss_Contamination_salmonella,Pss_Mean_area)
+    #Adding items to know Contaminated Items
+    Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame, Vector_Cont_Pss_Serv)
   } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
     Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Norovirus_Pss,Pss_Contamination_norovirus,Pss_Mean_area)
+    #Adding items to know Contaminated Items
+    Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame,Vector_Cont_Pss_Serv)
   }
   
   
   
-
   # Pre ---------------------------------------------------------------------
-
-
-  Pre_Data.Frame<-data.frame("Pre No." = 1:Initial_Pss,
-                             "Location"= "Selection Table",
-                             "Contamination" = as.numeric("0"),
-                             "ExposedAllergen" = FALSE,
-                             "SpoilageCon" = as.numeric(Initial_Spoilage_Con),
-                             "SpoiledYN" = FALSE,
-                             "TotTime"= as.numeric("0"),
-                             "History" = "", 
-                             "STtimes"= as.numeric("0"),
-                             "Initial Service" = "1",
-                             "Service" = j,
-                             "Initial Day" = "1",
-                             "Day" = k,
-                              stringsAsFactors = FALSE
-  )
+  
+  
+  Pre_Data.Frame<-Fuct_DF_Initial(FoodType = "Pre")
   
   #Adding initial contamination based on prevalence and area of the item #CFU/Pss
   
   if(salmonella==1 && Calculated_Cont_Pss==1){
     Pre_Data.Frame<-func_Cont_cm2(Pre_Data.Frame,Prevalence_Salmonella_Pre,Pre_Contamination_salmonella,Pre_Mean_area)
+    Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame,Vector_Cont_Pre_Serv)
   } else if (norovirus == 1 && Calculated_Cont_Pss ==1){
     Pre_Data.Frame<-func_Cont_cm2(Pre_Data.Frame,Prevalence_Norovirus_Pre,Pre_Contamination_norovirus,Pre_Mean_area)
+    Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame,Vector_Cont_Pre_Serv)
   }
   
   
@@ -111,35 +76,24 @@ if(j>1 && k ==1 ){
   
   if(Reservice_YN==1){
     
-
-  # Fruit -------------------------------------------------------------------
-
-
     
-    Fr_Data.Frame<-data.frame("Apple No." = 1:(Initial_Fr-(No_Left_Selection_Fr)),
-                              "Location"= "Selection Table",
-                              "Contamination" = as.numeric("0"),
-                              "ExposedAllergen" = FALSE,
-                              "TotTime"= as.numeric("0"),
-                              "History" = "", 
-                              "STtimes"= as.numeric("0"),
-                              "Initial Service" = j,
-                              "Service" = j,
-                              "Initial Day" = k,
-                              "Day" = k,
-                              stringsAsFactors = FALSE
-                              
-    )
+    # Fruit -------------------------------------------------------------------
+  
+    
+    
+    Fr_Data.Frame<-Fuct_DF_Reservice(FoodType = "Fruit")
     
     #Adding Initial Contaminations of fruit
     if(salmonella==1 && Calculated_Cont_Fr==1){
+      #Adding Contaminations to the Data Frames
       Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
-      Items_Added<-Fr_Data.Frame$Contamination[which(Fr_Data.Frame$Contamination>0)]
-      Vector_Cont_Fr_Serv<-c(Vector_Cont_Fr_Serv,Items_Added)
+      #Adding Contamination to Vector
+      Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
     } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
+      #Adding Contamination to the Data Frames
       Fr_Data.Frame<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Fr_Data.Frame),Inputs_Cont_HuNov_Fr))
-      Items_Added<-Fr_Data.Frame$Contamination[which(Fr_Data.Frame$Contamination>0)]
-      Vector_Cont_Fr_Serv<-c(Vector_Cont_Fr_Serv,Items_Added)
+      #Adding Contamination to Vector
+      Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
     }
     
     #Adding times that the share table items have been shared
@@ -156,33 +110,21 @@ if(j>1 && k ==1 ){
     Fr_Data.Frame$Service<-j
     Fr_Data.Frame$Day<-k
     
-
-  # Pss ---------------------------------------------------------------------
-
-
     
-    Pss_Data.Frame<-data.frame("Pss No." = 1:(Initial_Pss-(No_Left_Selection_Pss)),
-                              "Location"= "Selection Table",
-                              "Contamination" = as.numeric("0"),
-                              "ExposedAllergen" = FALSE,
-                              "TotTime"= as.numeric("0"),
-                              "History" = "", 
-                              "STtimes"= as.numeric("0"),
-                              "Initial Service" = j,
-                              "Service" = j,
-                              "Initial Day" = k,
-                              "Day" = k,
-                              stringsAsFactors = FALSE
-                              
-    )
+    # Pss ---------------------------------------------------------------------
     
+    
+    
+    Pss_Data.Frame<-Fuct_DF_Reservice(FoodType = "Pss")
     
     #Adding initial contamination based on prevalence and area of the item #CFU/Pss
     
     if(salmonella==1 && Calculated_Cont_Pss==1){
       Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Salmonella_Pss,Pss_Contamination_salmonella,Pss_Mean_area)
+      Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame,Vector_Cont_Pss_Serv)
     } else if (norovirus == 1 && Calculated_Cont_Pss ==1){
       Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Norovirus_Pss,Pss_Contamination_norovirus,Pss_Mean_area)
+      Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame,Vector_Cont_Pss_Serv)
     }
     
     #Adding times that the share table items have been shared
@@ -199,33 +141,20 @@ if(j>1 && k ==1 ){
     Pss_Data.Frame$Service<-j
     Pss_Data.Frame$Day<-k
     
-
-# Pre ---------------------------------------------------------------------
-
     
-    Pre_Data.Frame<-data.frame("Pre No." = 1:(Initial_Pre-(No_Left_Selection_Pre)),
-                               "Location"= "Selection Table",
-                               "Contamination" = as.numeric("0"),
-                               "ExposedAllergen" = FALSE,
-                               "SpoilageCon" = as.numeric(Initial_Spoilage_Con),
-                               "SpoiledYN" = FALSE,
-                               "TotTime"= as.numeric("0"),
-                               "History" = "", 
-                               "STtimes"= as.numeric("0"),
-                               "Initial Service" = j,
-                               "Service" = j,
-                               "Initial Day" = k,
-                               "Day" = k,
-                               stringsAsFactors = FALSE
-                               
-    )
+    # Pre ---------------------------------------------------------------------
+    
+    
+    Pre_Data.Frame<-Fuct_DF_Reservice(FoodType = "Pre")
     
     #Adding initial contamination based on prevalence and area of the item #CFU/Pss
     
     if(salmonella==1 && Calculated_Cont_Pre==1){
       Pre_Data.Frame<-func_Cont_cm2(Pre_Data.Frame,Prevalence_Salmonella_Pre,Pre_Contamination_salmonella,Pre_Mean_area)
+      Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame,Vector_Cont_Pre_Serv)
     } else if (norovirus == 1 && Calculated_Cont_Pre ==1){
       Pre_Data.Frame<-func_Cont_cm2(Pre_Data.Frame,Prevalence_Norovirus_Pre,Pre_Contamination_norovirus,Pre_Mean_area)
+      Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame,Vector_Cont_Pre_Serv)
     }
     
     #Adding times that the share table items have been shared
@@ -242,41 +171,30 @@ if(j>1 && k ==1 ){
     Pre_Data.Frame$Service<-j
     Pre_Data.Frame$Day<-k
     
-  #Else if statements for no reservice
+    #Else if statements for no reservice
     
   } else if (Reservice_YN==0){
     
-
-  # Fruit -------------------------------------------------------------------
-
-
     
-     Fr_Data.Frame<-data.frame("Apple No." = 1:Initial_Fr,
-                              "Location"= "Selection Table",
-                              "Contamination" = as.numeric("0"),
-                              "ExposedAllergen" = FALSE,
-                              "TotTime"= as.numeric("0"),
-                              "History" = "", 
-                              "STtimes"= as.numeric("0"),
-                              "Initial Service" = "1",
-                              "Service" = j,
-                              "Initial Day" = k,
-                              "Day" = k,
-                              stringsAsFactors = FALSE
-                              
-    )
+    # Fruit -------------------------------------------------------------------
+    
+    
+    
+    Fr_Data.Frame<-Fuct_DF_Initial(FoodType = "Fruit")
     
     #Adding Initial Contaminations of fruit 
-     if(salmonella==1 && Calculated_Cont_Fr==1){
-       Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
-       Items_Added<-Fr_Data.Frame$Contamination[which(Fr_Data.Frame$Contamination>0)]
-       Vector_Cont_Fr_Serv<-c(Vector_Cont_Fr_Serv,Items_Added)
-     } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
-       Fr_Data.Frame<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Fr_Data.Frame),Inputs_Cont_HuNov_Fr))
-       Items_Added<-Fr_Data.Frame$Contamination[which(Fr_Data.Frame$Contamination>0)]
-       Vector_Cont_Fr_Serv<-c(Vector_Cont_Fr_Serv,Items_Added)
-     }
-     
+    if(salmonella==1 && Calculated_Cont_Fr==1){
+      #Adding Contamination to the Data Frames
+      Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
+      #Adding Contamination to Vector
+      Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
+    } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
+      #Adding Contamination to the Data frames
+      Fr_Data.Frame<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Fr_Data.Frame),Inputs_Cont_HuNov_Fr))
+      #Adding Contamination to Vector
+      Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
+    }
+    
     #Adding Share Times
     
     #Resharing Toggle
@@ -290,31 +208,21 @@ if(j>1 && k ==1 ){
     Fr_Data.Frame$Day<-k
     
     
-
-  # Pss ---------------------------------------------------------------------
-
-
     
-    Pss_Data.Frame<-data.frame("Pss No." = 1:Initial_Pss,
-                               "Location"= "Selection Table",
-                               "Contamination" = as.numeric("0"),
-                               "ExposedAllergen" = FALSE,
-                               "TotTime"= as.numeric("0"),
-                               "History"= "",
-                               "STtimes"= as.numeric("0"),
-                               "Initial Service" = "1", 
-                               "Service" = j,
-                               "Initial Day" = k,
-                               "Day" = k,
-                               stringsAsFactors = FALSE
-    )
+    # Pss ---------------------------------------------------------------------
+    
+    
+    
+    Pss_Data.Frame<-Fuct_DF_Initial(FoodType = "Pss")
     
     #Adding initial contamination based on prevalence and area of the item #CFU/Pss
     
     if(salmonella==1 && Calculated_Cont_Pss==1){
       Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Salmonella_Pss,Pss_Contamination_salmonella,Pss_Mean_area)
+      Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame,Vector_Cont_Pss_Serv)
     } else if (norovirus == 1 && Calculated_Cont_Pss ==1){
       Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Norovirus_Pss,Pss_Contamination_norovirus,Pss_Mean_area)
+      Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame,Vector_Cont_Pss_Serv)
     }
     
     #Adding Share Times
@@ -329,33 +237,21 @@ if(j>1 && k ==1 ){
     Pss_Data.Frame$Service<-j
     Pss_Data.Frame$Day<-k
     
-
-  # Pre ---------------------------------------------------------------------
-
+    
+    # Pre ---------------------------------------------------------------------
     
     
-    Pre_Data.Frame<-data.frame("Pre No." = 1:Initial_Pss,
-                               "Location"= "Selection Table",
-                               "Contamination" = as.numeric("0"),
-                               "ExposedAllergen" = FALSE,
-                               "SpoilageCon" = as.numeric(Initial_Spoilage_Con),
-                               "SpoiledYN" = FALSE,
-                               "TotTime"= as.numeric("0"),
-                               "History" = "", 
-                               "STtimes"= as.numeric("0"),
-                               "Initial Service" = "1",
-                               "Service" = j,
-                               "Initial Day" = k,
-                               "Day" = k,
-                               stringsAsFactors = FALSE
-    )
+    
+    Pre_Data.Frame<-Fuct_DF_Initial(FoodType = "Pre")
     
     #Adding initial contamination based on prevalence and area of the item #CFU/Pss
     
     if(salmonella==1 && Calculated_Cont_Pre==1){
       Pre_Data.Frame<-func_Cont_cm2(Pre_Data.Frame,Prevalence_Salmonella_Pre,Pre_Contamination_salmonella,Pre_Mean_area)
+      Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame,Vector_Cont_Pre_Serv)
     } else if (norovirus == 1 && Calculated_Cont_Pre ==1){
       Pre_Data.Frame<-func_Cont_cm2(Pre_Data.Frame,Prevalence_Norovirus_Pre,Pre_Contamination_norovirus,Pre_Mean_area)
+      Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame,Vector_Cont_Pre_Serv)
     }
     
     #Adding Share Times
@@ -384,34 +280,23 @@ if(j>0 && k>1 ){
   
   if(Reservice_YN==1){
     
-
-  # Fruit ----------------------------------------------------------------------
-
     
-    Fr_Data.Frame<-data.frame("Apple No." = 1:(Initial_Fr-(No_Left_Selection_Fr)),
-                              "Location"= "Selection Table",
-                              "Contamination" = as.numeric("0"),
-                              "ExposedAllergen" = FALSE,
-                              "TotTime"= as.numeric("0"),
-                              "History" = "", 
-                              "STtimes"= as.numeric("0"),
-                              "Initial Service" = j,
-                              "Service" = j,
-                              "Initial Day" = k,
-                              "Day" = k,
-                              stringsAsFactors = FALSE
-                              
-    )
+    # Fruit ----------------------------------------------------------------------
+    
+    
+    Fr_Data.Frame<-Fuct_DF_Reservice(FoodType = "Fruit")
     
     #Adding Initial Contaminations of fruit 
     if(salmonella==1 && Calculated_Cont_Fr==1){
+      #Adding Contamination to the Data Frames
       Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
-      Items_Added<-Fr_Data.Frame$Contamination[which(Fr_Data.Frame$Contamination>0)]
-      Vector_Cont_Fr_Serv<-c(Vector_Cont_Fr_Serv,Items_Added)
+      #Adding Contamination to Vector
+      Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
     } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
+      #Adding Contamination to the Data Frames
       Fr_Data.Frame<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Fr_Data.Frame),Inputs_Cont_HuNov_Fr))
-      Items_Added<-Fr_Data.Frame$Contamination[which(Fr_Data.Frame$Contamination>0)]
-      Vector_Cont_Fr_Serv<-c(Vector_Cont_Fr_Serv,Items_Added)
+      #Adding Contamination to Vector
+      Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
     }
     
     #Adding times that the share table items have been shared
@@ -430,32 +315,21 @@ if(j>0 && k>1 ){
     Fr_Data.Frame$Day<-k
     
     
-
-  # Pss ---------------------------------------------------------------------
-
-
     
-    Pss_Data.Frame<-data.frame("Pss No." = 1:(Initial_Pss-(No_Left_Selection_Pss)),
-                               "Location"= "Selection Table",
-                               "Contamination" = as.numeric("0"),
-                               "ExposedAllergen" = FALSE,
-                               "TotTime"= as.numeric("0"),
-                               "History" = "", 
-                               "STtimes"= as.numeric("0"),
-                               "Initial Service" = j,
-                               "Service" = j,
-                               "Initial Day" = k,
-                               "Day" = k,
-                               stringsAsFactors = FALSE
-                               
-    )
+    # Pss ---------------------------------------------------------------------
+    
+    
+    
+    Pss_Data.Frame<-Fuct_DF_Reservice(FoodType = "Pss")
     
     #Adding initial contamination based on prevalence and area of the item #CFU/Pss
     
     if(salmonella==1 && Calculated_Cont_Pss==1){
       Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Salmonella_Pss,Pss_Contamination_salmonella,Pss_Mean_area)
+      Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame,Vector_Cont_Pss_Serv)
     } else if (norovirus == 1 && Calculated_Cont_Pss ==1){
       Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Norovirus_Pss,Pss_Contamination_norovirus,Pss_Mean_area)
+      Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame,Vector_Cont_Pss_Serv)
     }
     
     #Adding times that the share table items have been shared
@@ -472,34 +346,21 @@ if(j>0 && k>1 ){
     Pss_Data.Frame$Service<-j
     Pss_Data.Frame$Day<-k
     
-
-  # Pre ---------------------------------------------------------------------
-
-
     
-    Pre_Data.Frame<-data.frame("Pre No." = 1:(Initial_Pre-(No_Left_Selection_Pre)),
-                               "Location"= "Selection Table",
-                               "Contamination" = as.numeric("0"),
-                               "ExposedAllergen" = FALSE,
-                               "SpoilageCon" = as.numeric(Initial_Spoilage_Con),
-                               "SpoiledYN" = FALSE,
-                               "TotTime"= as.numeric("0"),
-                               "History" = "", 
-                               "STtimes"= as.numeric("0"),
-                               "Initial Service" = j,
-                               "Service" = j,
-                               "Initial Day" = k,
-                               "Day" = k,
-                               stringsAsFactors = FALSE
-                               
-    )
+    # Pre ---------------------------------------------------------------------
+    
+    
+    
+    Pre_Data.Frame<-Fuct_DF_Reservice(FoodType = "Pre")
     
     #Adding initial contamination based on prevalence and area of the item #CFU/Pss
     
     if(salmonella==1 && Calculated_Cont_Pre==1){
       Pre_Data.Frame<-func_Cont_cm2(Pre_Data.Frame,Prevalence_Salmonella_Pre,Pre_Contamination_salmonella,Pre_Mean_area)
+      Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame,Vector_Cont_Pre_Serv)
     } else if (norovirus == 1 && Calculated_Cont_Pre ==1){
       Pre_Data.Frame<-func_Cont_cm2(Pre_Data.Frame,Prevalence_Norovirus_Pre,Pre_Contamination_norovirus,Pre_Mean_area)
+      Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame,Vector_Cont_Pre_Serv)
     }
     
     #Adding times that the share table items have been shared
@@ -520,36 +381,25 @@ if(j>0 && k>1 ){
     
   } else if (Reservice_YN==0){
     
-
-
-  # Fruit -------------------------------------------------------------------
-
     
     
-    Fr_Data.Frame<-data.frame("Apple No." = 1:Initial_Fr,
-                              "Location"= "Selection Table",
-                              "Contamination" = as.numeric("0"),
-                              "ExposedAllergen" = FALSE,
-                              "TotTime"= as.numeric("0"),
-                              "History" = "", 
-                              "STtimes"= as.numeric("0"),
-                              "Initial Service" = j,
-                              "Service" = j,
-                              "Initial Day" = k,
-                              "Day" = k,
-                              stringsAsFactors = FALSE
-                              
-    )
+    # Fruit -------------------------------------------------------------------
+    
+    
+    
+    Fr_Data.Frame<-Fuct_DF_Initial(FoodType = "Fruit")
     
     #Adding Initial Contaminations of fruit 
     if(salmonella==1 && Calculated_Cont_Fr==1){
+      #Adding Contamination to the Data Frames
       Fr_Data.Frame<-func_Cont_cm2(Fr_Data.Frame,Prevalence_Salmonella_Fr,Fr_Contamination_salmonella,Fr_Mean_area)
-      Items_Added<-Fr_Data.Frame$Contamination[which(Fr_Data.Frame$Contamination>0)]
-      Vector_Cont_Fr_Serv<-c(Vector_Cont_Fr_Serv,Items_Added)
+      #Adding Contamination to Vector
+      Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
     } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
+      #Adding Contamination the the Data Frames
       Fr_Data.Frame<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Fr_Data.Frame),Inputs_Cont_HuNov_Fr))
-      Items_Added<-Fr_Data.Frame$Contamination[which(Fr_Data.Frame$Contamination>0)]
-      Vector_Cont_Fr_Serv<-c(Vector_Cont_Fr_Serv,Items_Added)
+      #Adding Contamination to Vector
+      Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
     }
     
     #Adding Share Times
@@ -565,31 +415,21 @@ if(j>0 && k>1 ){
     Fr_Data.Frame$Day<-k
     
     
-
-  # Pss ---------------------------------------------------------------------
-
-
     
-    Pss_Data.Frame<-data.frame("Pss No." = 1:Initial_Pss,
-                               "Location"= "Selection Table",
-                               "Contamination" = as.numeric("0"),
-                               "ExposedAllergen" = FALSE,
-                               "TotTime"= as.numeric("0"),
-                               "History"= "",
-                               "STtimes"= as.numeric("0"),
-                               "Initial Service" = j, 
-                               "Service" = j,
-                               "Initial Day" = k,
-                               "Day" = k,
-                               stringsAsFactors = FALSE
-    )
+    # Pss ---------------------------------------------------------------------
+    
+    
+    
+    Pss_Data.Frame<-Fuct_DF_Initial(FoodType = "Pss")
     
     #Adding initial contamination based on prevalence and area of the item #CFU/Pss
     
     if(salmonella==1 && Calculated_Cont_Pss==1){
       Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Salmonella_Pss,Pss_Contamination_salmonella,Pss_Mean_area)
+      Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame,Vector_Cont_Pss_Serv)
     } else if (norovirus == 1 && Calculated_Cont_Pss ==1){
       Pss_Data.Frame<-func_Cont_cm2(Pss_Data.Frame,Prevalence_Norovirus_Pss,Pss_Contamination_norovirus,Pss_Mean_area)
+      Vector_Cont_Pss_Serv<-Func_FoodCont_Vector(DF=Pss_Data.Frame,Vector_Cont_Pss_Serv)
     }
     
     #Adding Share Times
@@ -604,32 +444,20 @@ if(j>0 && k>1 ){
     Pss_Data.Frame$Service<-j
     Pss_Data.Frame$Day<-k
     
-
-  # Pre ---------------------------------------------------------------------
-
     
-    Pre_Data.Frame<-data.frame("Pre No." = 1:Initial_Pss,
-                               "Location"= "Selection Table",
-                               "Contamination" = as.numeric("0"),
-                               "ExposedAllergen" = FALSE,
-                               "SpoilageCon" = as.numeric(Initial_Spoilage_Con),
-                               "SpoiledYN" = FALSE,
-                               "TotTime"= as.numeric("0"),
-                               "History" = "", 
-                               "STtimes"= as.numeric("0"),
-                               "Initial Service" = j,
-                               "Service" = j,
-                               "Initial Day" = k,
-                               "Day" = k,
-                               stringsAsFactors = FALSE
-    )
+    # Pre ---------------------------------------------------------------------
+    
+    
+    Pre_Data.Frame<-Fuct_DF_Initial(FoodType = "Pre")
     
     #Adding initial contamination based on prevalence and area of the item #CFU/Pss
     
     if(salmonella==1 && Calculated_Cont_Pre==1){
       Pre_Data.Frame<-func_Cont_cm2(Pre_Data.Frame,Prevalence_Salmonella_Pre,Pre_Contamination_salmonella,Pre_Mean_area)
+      Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame,Vector_Cont_Pre_Serv)
     } else if (norovirus == 1 && Calculated_Cont_Pre ==1){
       Pre_Data.Frame<-func_Cont_cm2(Pre_Data.Frame,Prevalence_Norovirus_Pre,Pre_Contamination_norovirus,Pre_Mean_area)
+      Vector_Cont_Pre_Serv<-Func_FoodCont_Vector(DF=Pre_Data.Frame,Vector_Cont_Pre_Serv)
     }
     
     #Adding Share Times
@@ -655,6 +483,3 @@ if(j>0 && k>1 ){
 V_Shared_Fr<-c(0)
 V_Shared_Pss<-c(0)
 V_Shared_Pre<-c(0)
-
-
-

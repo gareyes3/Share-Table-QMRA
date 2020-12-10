@@ -1,0 +1,35 @@
+---
+title: "Summary_Plots_All"
+author: "Gustavo Reyes"
+date: "12/10/2020"
+output: html_document
+---
+```{r}
+#Creating Data Frame of Consumed Items
+
+#1. Start from here
+Individual_Analysis_Fr<-bind_rows(List_Sens_Fr)
+
+#2. find the dupplicates
+#this step filters replicated based on the ID
+Individual_Analysis_Fr<-Individual_Analysis_Fr %>% 
+  group_by(ID) %>% 
+  filter(TotServices==max(TotServices))
+
+#3. Narrowing down to consumed Items for exposure compisons
+Individual_Analysis_Fr<-Individual_Analysis_Fr[which(Individual_Analysis_Fr$Location == "Consumed"),]
+```
+
+```{r}
+#Dose Response. Adding the Dose Response to the Items
+Individual_Analysis_Fr<-Func_DR_Infection(Individual_Analysis_Fr)
+Individual_Analysis_Fr<-Func_DR_Illness(Individual_Analysis_Fr)
+
+#Number of ITems per category
+Number_Inf_Fr<-sum(Individual_Analysis_Fr$Infection==TRUE)
+print(paste(Number_Inf_Fr ,"Students Infected"))
+
+Number_Ill_Fr<-sum(Individual_Analysis_Fr$Illness==TRUE)
+print(paste(Number_Ill_Fr ,"Students Ill"))
+```
+

@@ -25,6 +25,9 @@
   #Days we are trying to Iterate. Days
   Food_Days<-5
 
+  #Weeks
+  
+  Sens_Iterations<-1
 
  
 # Sevice Line Information -------------------------------------------------

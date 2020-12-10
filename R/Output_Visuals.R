@@ -1,8 +1,5 @@
 
 
-
-
-
 # CREATION OF VISUALS -----------------------------------------------------
 
 
@@ -10,9 +7,11 @@
   
   Plot_Total_Fr_Contamination_Stag<-Exposure_Staggered_Function2(Total_Consumed_Fr_Bind,Contamination = Contamination, Type = Type, "Total Exposure Fruit", "Contamination per Fruit log CFU/Fruit", "Count of Fruit Consumed")
   Plot_Total_Pss_Contamination_Stag<-Exposure_Staggered_Function2(Total_Consumed_Pss_Bind,Contamination = Contamination, Type = Type, "Total Exposure Pss","Contamination per Pss log CFU/Pss", "Count of PSs Consumed")
-  Plot_Total_Pss_Contamination_Stag<-Exposure_Staggered_Function2(Total_Consumed_Pre_Bind,Contamination = Contamination, Type = Type, "Total Exposure Pre", "Contamination per Pre log CFU/Pre", "Count of Pre Consumed")
+  Plot_Total_Pre_Contamination_Stag<-Exposure_Staggered_Function2(Total_Consumed_Pre_Bind,Contamination = Contamination, Type = Type, "Total Exposure Pre", "Contamination per Pre log CFU/Pre", "Count of Pre Consumed")
 
-  Func_GGsave(Plot_Total_Fr_Contamination_Stag,"Graphs","Histogram")  
+  Func_GGsave(Plot_Total_Fr_Contamination_Stag,"Graphs","StaggeredHistFr_Week")
+  Func_GGsave(Plot_Total_Pss_Contamination_Stag,"Graphs","StaggeredHistPss_Week") 
+  Func_GGsave(Plot_Total_Pre_Contamination_Stag,"Graphs","StaggeredHistPre_Week") 
   # Histogram Exposure Visuals Not Staggered ----------------------------------------------
   
   #Fruit

@@ -1,0 +1,259 @@
+---
+title: "Intervention Analysis"
+author: "Gustavo Reyes"
+date: "12/10/2020"
+output: html_document
+---
+```{r}
+#Intervention Analysis for Washing and Wraaping Fruit. 
+```
+
+```{r}
+#Setting Working Directory
+setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+#setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+```
+
+```{r}
+#Opening Libary and Inputs
+source("Util_Library.R")
+```
+
+Scenario where washing is on and wrapping is off
+```{r}
+#Inputs and Source Files
+# Source Files ------------------------------------------------------------
+start_time<-Sys.time()
+
+#Inputs
+
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+#Changing Inputs for Washing on, Wraaping off. 
+  #Washing Between Services
+  Wash_Between_Services<-0
+  #Wash Selection Table Fruit
+  Wash_Selection_YN_Fr<-1
+  #Wash Share Table Items
+  Wash_ST_YN_Fr<-1
+  
+#Changing Wrapping off:
+  #Wrapping Apples
+  Wrapping_Apples<-0
+```
+
+```{r warning=TRUE}
+#Running Loop First: 
+source("Main_Loops2.R")
+```
+
+```{r}
+
+#STEP 1: WAshing, Run model with washing on Wrapping off. 
+
+  #1. Start from here
+  Individual_Analysis_Fr<-bind_rows(List_Sens_Fr)
+  
+  #2. find the dupplicates
+  #this step filters replicated based on the ID
+  Individual_Analysis_Fr<-Individual_Analysis_Fr %>% 
+    group_by(ID) %>% 
+    filter(TotServices==max(TotServices))
+  
+  #3. This created the data frame for items when washed was on
+  Individual_Analysis_Fr_Wash<-Individual_Analysis_Fr
+  
+  #4. Narrowing down to consumed Items for exposure compisons
+  Individual_Analysis_Fr_Consumed_W<-Individual_Analysis_Fr_Wash[which(Individual_Analysis_Fr_Wash$Location == "Consumed"),]
+  
+  #5 Delta Contaminations
+  Individual_Analysis_Fr_Consumed_W$DeltaCont<-Individual_Analysis_Fr_Consumed_W$Contamination-Individual_Analysis_Fr_Consumed_W$InContamination
+
+```
+
+Scenario where wrapping is on and washing is off
+```{r}
+#Inputs and Source Files
+# Source Files ------------------------------------------------------------
+start_time<-Sys.time()
+
+#Inputs
+
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+#Changing Inputs for Washing off, Wraaping on. 
+  #Washing Between Services
+  Wash_Between_Services<-0
+  #Wash Selection Table Fruit
+  Wash_Selection_YN_Fr<-0
+  #Wash Share Table Items
+  Wash_ST_YN_Fr<-0
+  
+#Changing Wrapping off:
+  #Wrapping Apples
+  Wrapping_Apples<-1
+```
+
+```{r}
+#Running Loop again: 
+source("Main_Loops2.R")
+```
+
+```{r}
+#STEP 2: Turning on Wrapping, Turning off Washing
+
+  #1. Start from here
+  Individual_Analysis_Fr<-bind_rows(List_Sens_Fr)
+  
+  #2. find the dupplicates
+  #this step filters replicated based on the ID
+  Individual_Analysis_Fr<-Individual_Analysis_Fr %>% 
+    group_by(ID) %>% 
+    filter(TotServices==max(TotServices))
+  
+  #3. This one creates the data frame for the wrapped items consumed
+  Individual_Analysis_Fr_Consumed_Wr<-Individual_Analysis_Fr
+  
+  Individual_Analysis_Fr_Consumed_Wr<-Individual_Analysis_Fr[which(Individual_Analysis_Fr$Location == "Consumed"),]
+  
+  #4 Delta Contamination
+  Individual_Analysis_Fr_Consumed_Wr$DeltaCont<-Individual_Analysis_Fr_Consumed_Wr$ContConsumed-Individual_Analysis_Fr_Consumed_Wr$InContamination
+
+```
+
+
+Scenario where it both of the interventions are off
+
+```{r}
+#Inputs and Source Files
+# Source Files ------------------------------------------------------------
+start_time<-Sys.time()
+
+#Inputs
+
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+#Changing Inputs for Washing off, Wraaping on. 
+  #Washing Between Services
+  Wash_Between_Services<-0
+  #Wash Selection Table Fruit
+  Wash_Selection_YN_Fr<-0
+  #Wash Share Table Items
+  Wash_ST_YN_Fr<-0
+  
+#Changing Wrapping off:
+  #Wrapping Apples
+  Wrapping_Apples<-0
+```
+
+```{r}
+#Running Loop again: 
+source("Main_Loops2.R")
+```
+
+```{r}
+#Step 3. Run the scenarios without Wraaping or Washing
+
+  #1. Start from here
+  Individual_Analysis_Fr<-bind_rows(List_Sens_Fr)
+  
+  #2. find the dupplicates
+  #this step filters replicated based on the ID
+  Individual_Analysis_Fr<-Individual_Analysis_Fr %>% 
+    group_by(ID) %>% 
+    filter(TotServices==max(TotServices))
+  
+  #3. This one creates the data frame for the wrapped items consumed
+  Individual_Analysis_Fr_Consumed_NoI<-Individual_Analysis_Fr
+  
+  Individual_Analysis_Fr_Consumed_NoI<-Individual_Analysis_Fr[which(Individual_Analysis_Fr$Location == "Consumed"),]
+  
+  #4. Delta Contamination
+  
+  Individual_Analysis_Fr_Consumed_NoI$DeltaCont<-Individual_Analysis_Fr_Consumed_NoI$Contamination-Individual_Analysis_Fr_Consumed_NoI$InContamination
+
+```
+
+
+Now the summary Part, Creation of graph and figures.
+
+```{r}
+#Step 4: Wrap for the DF, in order to have them as the same type
+
+  #1 Creating DF for the DElta Contamination
+  IA_Wash<-Individual_Analysis_Fr_Consumed_W[,c(1,18)]
+  IA_Cont<-Individual_Analysis_Fr_Consumed_NoI[,c(1,18)]
+  IA_Wrapp<-Individual_Analysis_Fr_Consumed_Wr[,c(1,18)]
+  IA_Wash$Type<-"Washed"
+  IA_Cont$Type<-"No Intervention"
+  IA_Wrapp$Type<-"Wrapped"
+  
+  names(IA_Wrapp)[2]<-"DeltaCont"
+  
+  IA_All<-bind_rows(IA_Wash,IA_Cont,IA_Wrapp)
+  
+  #2. Creating Data Frame for Contamination
+  IA_Wash_c<-Individual_Analysis_Fr_Consumed_W[,c(1,4)]
+  IA_Cont_c<-Individual_Analysis_Fr_Consumed_NoI[,c(1,4)]
+  IA_Wrapp_c<-Individual_Analysis_Fr_Consumed_Wr[,c(1,5)]
+  IA_Wrapp_Ini<-Individual_Analysis_Fr_Consumed_W[,c(1,6)]
+  
+  IA_Wash_c$Type<-"Wash"
+  IA_Cont_c$Type<-"No Intervention"
+  IA_Wrapp_c$Type<-"Wrapped"
+  IA_Wrapp_Ini$Type<-"Initial Cont"
+  names(IA_Wrapp_c)[2]<-"Contamination"
+  names(IA_Wrapp_Ini)[2]<-"Contamination"
+  
+  
+  IA_All_c<-bind_rows(IA_Wash_c,IA_Cont_c,IA_Wrapp_c)
+  
+  
+  #Making 0s into very small values
+  IA_All_c[IA_All_c==0]<-(10^-20)
+```
+
+```{r}
+  #Making the Contaminations into log Scale, may not be necessary to analyze. 
+  IA_All_cLog<-IA_All_c
+  IA_All_cLog$Contamination<-log10(IA_All_cLog$Contamination)
+  
+  IA_All_cLog00<-IA_All_cLog[which(IA_All_cLog$Contamination > 0),]
+```
+
+```{r}
+#Creation of plot with the log scale, density
+#Contamination with log
+ggplot(data = IA_All_cLog,aes(x=Contamination, fill=Type, linetype=Type))+
+  geom_density(colour="black", alpha=.2)+
+  scale_x_continuous(n.breaks = 10)+
+  xlab("Contamination log GEC/Item")+
+  ylab("Density")+
+  ggtitle("Density Curves Interventions")+ 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+

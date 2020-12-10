@@ -60,11 +60,18 @@ Func_Cross_Contamination_Fr<-function(Cont_Student,Fr_Data.Frame, Fr_Picked){
 }
 
 
+library("gsl")
+
+
 
 
 alpha<-.04
 betar<-.055
-hunov<-100
+hunov<-40000
+
+1-hyperg_1F1(a = alpha,b = alpha+betar,x = -hunov)
+1-beta(alpha,(betar+hunov))/beta(alpha,betar)
+
 
 
 
@@ -74,13 +81,13 @@ beta
 
 1-beta(alpha,(betar+hunov))/beta(alpha,betar)
 
-nw<-0.086
-r<-2.55E-3
-hunov<-100000000
+nw<-2.55E-3
+r<-0.086
+hunov<-10E10
 
-1-(1+nw*hunov)^(-r)
+1-(1+(nw*hunov))^(-r)
 
-Probill<-1-(1+nw*hunov)^(-r)
+Probill<-1-(1+(nw*hunov))^(-r)
 Ill_YN<-ifelse(runif(1)<Probill,1,0)
 
 

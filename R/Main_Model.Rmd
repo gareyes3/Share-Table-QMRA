@@ -1,0 +1,49 @@
+---
+title: "Main Model-Run once"
+author: "Gustavo Reyes"
+date: "12/10/2020"
+output: html_document
+---
+
+```{r}
+#Setting Working Directory
+setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+#setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+```
+
+```{r}
+#Opening Libary and Inputs
+source("Util_Library.R")
+```
+
+```{r}
+#Inputs and Source Files
+# Source Files ------------------------------------------------------------
+start_time<-Sys.time()
+
+#Inputs
+
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+```
+
+```{r warning=TRUE}
+#Running Loop
+source("Main_Loops2.R")
+```
+
+```{r}
+#Visuals
+source("Output_Visuals.R")
+```
+```{r}
+
+```
+

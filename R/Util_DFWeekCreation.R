@@ -1,6 +1,5 @@
-#Variables for Sensitivity Analysis
 
-Sens_Iterations<-1
+
 
 #Data Frames for Sens Analysis
 AFr_Summary_DF<-data.frame(
