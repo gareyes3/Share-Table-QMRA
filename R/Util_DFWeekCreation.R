@@ -59,3 +59,18 @@ APre_Summary_DF<-data.frame(
   stringsAsFactors = FALSE
 )
 
+
+
+#Dose Response Dataframe
+
+AFr_DR_Summary_DF<-data.frame(
+  "Week"= 1:Sens_Iterations,
+  "NoInfected"=as.numeric(""),
+  "NoIll"=as.numeric(""),
+  stringsAsFactors = FALSE
+)
+
+
+
+
+

@@ -74,8 +74,6 @@ Items_left_everyday<-list()
 
 
   
-  
-
 
 
 
