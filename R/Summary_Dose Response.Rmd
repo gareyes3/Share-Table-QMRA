@@ -4,32 +4,91 @@ author: "Gustavo Reyes"
 date: "12/10/2020"
 output: html_document
 ---
+
+Here we organize the Data and Divide it into sections. 
 ```{r}
-#Creating Data Frame of Consumed Items
+#Creating Data Frame of Consumed Items for all the products
+
+  #Fruit
 
 #1. Start from here
 Individual_Analysis_Fr<-bind_rows(List_Sens_Fr)
+
+#Adding Type Column
+Individual_Analysis_Fr$Type<-"Fruit"
 
 #2. find the dupplicates
 #this step filters replicated based on the ID
 Individual_Analysis_Fr<-Individual_Analysis_Fr %>% 
   group_by(ID) %>% 
-  filter(TotServices==max(TotServices))
+  filter(TotServices==max(TotServices))%>%
+  filter(Location=="Consumed")%>%
+  select(ID,Type,ConsumedBy,Contamination, ContConsumed, Infection,Illness)
 
-#3. Narrowing down to consumed Items for exposure compisons
-Individual_Analysis_Fr<-Individual_Analysis_Fr[which(Individual_Analysis_Fr$Location == "Consumed"),]
+
+  #PSS
+
+#1. Start from here
+Individual_Analysis_Pss<-bind_rows(List_Sens_Pss)
+
+#Adding Type Column
+Individual_Analysis_Pss$Type<-"Pss"
+
+#2. find the dupplicates
+#this step filters replicated based on the ID
+Individual_Analysis_Pss<-Individual_Analysis_Pss %>% 
+  group_by(ID) %>% 
+  filter(TotServices==max(TotServices))%>%
+  filter(Location=="Consumed")%>%
+  select(ID,Type,ConsumedBy,Contamination, ContConsumed, Infection,Illness)
+
+
+  #Pre 
+
+#1. Start from here
+Individual_Analysis_Pre<-bind_rows(List_Sens_Pre)
+
+#Adding Type 
+Individual_Analysis_Pre$Type<-"Pre"
+
+#2. find the dupplicates
+#this step filters replicated based on the ID
+Individual_Analysis_Pre<-Individual_Analysis_Pre %>% 
+  group_by(ID) %>% 
+  filter(TotServices==max(TotServices))%>%
+  filter(Location=="Consumed")%>%
+  select(ID,Type,ConsumedBy,Contamination, ContConsumed, Infection,Illness)
+
+
+
+
 ```
 
 ```{r}
-#Dose Response. Adding the Dose Response to the Items
-Individual_Analysis_Fr<-Func_DR_Infection(Individual_Analysis_Fr)
-Individual_Analysis_Fr<-Func_DR_Illness(Individual_Analysis_Fr)
+#Creating one data frame with the columns of interest to sort them ouy by student
 
-#Number of ITems per category
-Number_Inf_Fr<-sum(Individual_Analysis_Fr$Infection==TRUE)
+DF_DR_Analysis<-bind_rows(Individual_Analysis_Fr,Individual_Analysis_Pss, Individual_Analysis_Pre)%>%
+  group_by(ConsumedBy)%>%
+  summarise(Contamination = sum(Contamination))
+
+
+DF_DR_Analysis$Infection<-as.logical("")
+DF_DR_Analysis$Illness<-as.logical("")
+
+
+```
+
+
+```{r}
+#Dose Response. Adding the Dose Response to the Items
+DF_DR_Analysis<-Func_DR_Infection(DF_DR_Analysis)
+DF_DR_Analysis<-Func_DR_Illness(DF_DR_Analysis)
+
+#Number of Items per category
+Number_Inf_Fr<-sum(DF_DR_Analysis$Infection==TRUE)
 print(paste(Number_Inf_Fr ,"Students Infected"))
 
-Number_Ill_Fr<-sum(Individual_Analysis_Fr$Illness==TRUE)
+Number_Ill_Fr<-sum(DF_DR_Analysis$Illness==TRUE)
 print(paste(Number_Ill_Fr ,"Students Ill"))
 ```
 

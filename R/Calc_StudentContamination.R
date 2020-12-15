@@ -13,7 +13,7 @@ if (Cont_Student>0){
 if(Toggle_SelfAssigned_Pathogens==1){
   if( k == Student_Pathogen_Day[Student_Pathogen_Count] 
       && j == Student_Pathogen_Service[Student_Pathogen_Count] 
-      && i == Student_Pathogen_No[Student_Pathogen_Count]){
+      && z == Student_Pathogen_No[Student_Pathogen_Count]){
     Cont_Student<-do.call(Func_ICont_Student,Inputs_ICont_Student)
     Vector_Contaminations<-c(Vector_Contaminations,Cont_Student)
     #print("A student is contaminated with Pathogens")
@@ -32,7 +32,7 @@ Cont_Student_Allergen_YN<-ifelse(runif(1)<Pr_Student_Allergen,1,0)
 if(Toggle_SelfAssigned_Allergens==1){
   if( k == Student_Allergen_Day[Student_Allergen_Count] 
       && j == Student_Allergen_Service[Student_Allergen_Count] 
-      && i == Student_Allergen_No[Student_Allergen_Count]){
+      && z == Student_Allergen_No[Student_Allergen_Count]){
     Cont_Student_Allergen_YN <- 1 
     #print("A student is contaminated with Allergens")
     Student_Allergen_Count<-(Student_Allergen_Count+1)

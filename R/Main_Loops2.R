@@ -17,7 +17,7 @@ for (l in 1:Sens_Iterations){
       
       # FUNCTION RUNS ITERATIONS ------------------------------------------------Meal 1 of 200 kids
       
-      for (i in 1:N_Iterations){
+      for (z in 1:N_Iterations){
         
         #Random Inputs
         source("Input_Random.R")   
@@ -204,6 +204,7 @@ for (l in 1:Sens_Iterations){
         if(Pick_YN_Fr==1){
           if(Eat_YN_Fr==1){
             Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "Location"]<-"Consumed"
+            Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "ConsumedBy"]<-(paste(l,k,j,z))
             Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="History"], "Consumed")
             #Contamination
             if (Wrapping_Apples == 1){
@@ -234,6 +235,7 @@ for (l in 1:Sens_Iterations){
           if(Eat_YN_Pss==1){
             
             Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)== "Location"]<-"Consumed" 
+            Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)== "ConsumedBy"]<-(paste(l,k,j,z))
             Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="History"], "Consumed")
             #Contamination Insdide Pss @Consumption
             Func_Cross_Contamination_Pss_Consumption(Cont_Student=Cont_Student,Pss_Data.Frame = Pss_Data.Frame,Pss_Picked = Pss_Picked)
@@ -260,6 +262,7 @@ for (l in 1:Sens_Iterations){
           if(Eat_YN_Pre==1){
             
             Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)== "Location"]<-"Consumed" 
+            Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)== "ConsumedBy"]<-(paste(l,k,j,z))
             Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)=="History"], "Consumed")
             #Contamination Container Pre to Mouth @ Consumption
             Func_Cross_Contamination_Pre_Consumption(Cont_Student=Cont_Student,Pre_Data.Frame = Pre_Data.Frame, Pre_Picked = Pre_Picked)
@@ -374,6 +377,7 @@ for (l in 1:Sens_Iterations){
             if(Pick_ST_YN_Fr==1){  
               if(Eat_YN_ST_Fr==1){
                 Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)== "Location"]<-"Consumed"
+                Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)== "ConsumedBy"]<-(paste(l,k,j,z))
                 Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)=="History"], "Consumed")
                 #Contamination
                 if (Wrapping_Apples == 1){
@@ -433,6 +437,7 @@ for (l in 1:Sens_Iterations){
             if(Pick_ST_YN_Pss==1){  
               if(Eat_YN_ST_Pss==1){
                 Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)== "Location"]<-"Consumed"
+                Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)== "ConsumedBy"]<-(paste(l,k,j,z))
                 Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)=="History"], "Consumed")
                 #Cross Contamination @ Consumption
                 Func_Cross_Contamination_Pss_Consumption(Cont_Student = Cont_Student, Pss_Data.Frame = Pss_Data.Frame, Pss_Picked = Pss_ST_Picked)
@@ -485,6 +490,7 @@ for (l in 1:Sens_Iterations){
               if(Eat_YN_ST_Pre==1){
                 #Updating Values in DF
                 Pre_Data.Frame[Pre_ST_Picked,colnames(Pre_Data.Frame)== "Location"]<-"Consumed"
+                Pre_Data.Frame[Pre_ST_Picked,colnames(Pre_Data.Frame)== "ConsumedBy"]<-(paste(l,k,j,z))
                 Pre_Data.Frame[Pre_ST_Picked,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_ST_Picked,colnames(Pre_Data.Frame)=="History"], "Consumed")
                 #Contamination Container Pre to Mouth @ Consumption
                 Func_Cross_Contamination_Pre_Consumption(Cont_Student = Cont_Student, Pre_Data.Frame = Pre_Data.Frame, Pre_Picked = Pre_ST_Picked)
@@ -580,7 +586,7 @@ for (l in 1:Sens_Iterations){
 
 
   source("Summary_WeekSens.R")
-  source("Summary_WeeksDR.R") 
+  #source("Summary_WeeksDR.R") 
   
   
   
