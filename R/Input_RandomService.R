@@ -52,6 +52,7 @@ Res_Trans<-1.97
     TrP_H_S<-inv.logit(rnorm(1,-3.82,Res_Trans))
     TrP_S_H<-inv.logit(rnorm(1,0.11,Res_Trans))
     
+    
   }
   
   

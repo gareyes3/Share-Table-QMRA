@@ -239,7 +239,7 @@
   Toggle_SelfAssigned_Pathogens<-0
   
 #Wrapping Apples
-  Wrapping_Apples<-0
+  Wrapping_Apples<-1
   
   
 

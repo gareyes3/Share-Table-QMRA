@@ -3,14 +3,27 @@
 #Cross_Contamination Fruit. 
 
 Func_Cross_Contamination<-function(Cont_Student,Data.Frame, Item_Picked, Item){
+  Conta<-Func_Index_DF(Data.Frame,Item_Picked,"Contamination")
+  
   if(salmonella==1){
-      Conta<-Func_Index_DF(Data.Frame,Item_Picked,"Contamination")
       #update the Fr Contamination in Data frame
       Tr_H_F<-Cont_Student*TE_H_F #Transfer from Hand to Fruit
       Tr_F_H<-(Conta* TE_F_H) #Tranfer from fruit to hand
+  }else if (norovirus ==1 && Wrapping_Apples==0){
+    Conta<-round(Conta,digits = 0)
+    Cont_Student<-round(Cont_Student,digits = 0)
+    Tr_H_F<-rbinom(n=1,size = Cont_Student, prob = TrP_H_F)
+    Tr_F_H<-rbinom(n=1,size = Conta,prob = TrP_F_H)
+  } else if (norovirus ==1 && Wrapping_Apples==1){
+    Conta<-round(Conta,digits = 0)
+    Cont_Student<-round(Cont_Student,digits = 0)
+    Tr_H_F<-rbinom(n=1,size = Cont_Student, prob = TrP_H_S)
+    Tr_F_H<-rbinom(n=1,size = Conta,prob = TrP_S_H)
+  }
       #Contamination Tranfered History. 
       Overall_Tr<-(Tr_H_F-Tr_F_H)
       Data.Frame[Item_Picked,colnames(Data.Frame)== "TouchesContHist"]<-paste(Data.Frame[Item_Picked,colnames(Data.Frame)=="TouchesContHist"], as.numeric(Overall_Tr),sep = ",") #Adding Contamination to
+      #Continuing Contamination
       Cont_Updated<- Conta + Overall_Tr #New Contamination of Fruit
       Cont_Difference<-Conta-(Cont_Updated) #Difference in contamination to update student contamination
       Data.Frame[Item_Picked,colnames(Data.Frame)== "Contamination"]<-Cont_Updated #update the Fr Contamination in Data frame
@@ -24,44 +37,43 @@ Func_Cross_Contamination<-function(Cont_Student,Data.Frame, Item_Picked, Item){
         Pre_Data.Frame<<-Data.Frame
       }
       Cont_Student<<-Cont_Student
-  } else if (norovirus ==1){
-      Conta<-Func_Index_DF(Data.Frame,Item_Picked,"Contamination")
-      Conta<-round(Conta,digits = 0)
-      Cont_Student<-round(Cont_Student,digits = 0)
-      Tr_H_F<-rbinom(n=1,size = Cont_Student, prob = TrP_H_F)
-      Tr_F_H<-rbinom(n=1,size = Conta,prob = TrP_F_H)
-      #Overall Transfer for tracking
-      Overall_Tr<-(Tr_H_F-Tr_F_H) #GEC tranfered
-      Data.Frame[Item_Picked,colnames(Data.Frame)== "TouchesContHist"]<-paste(Data.Frame[Item_Picked,colnames(Data.Frame)=="TouchesContHist"], as.numeric(Overall_Tr),sep = ",") #Adding Contamination to
-      #Continuing Contamination: 
-      Cont_Updated<- Conta + Overall_Tr #New Contamination of Fruit
-      Cont_Difference<-Conta-(Cont_Updated) #Difference in contamination to update student contamination
-      Data.Frame[Item_Picked,colnames(Data.Frame)== "Contamination"]<-Cont_Updated #update the Fr Contamination in Data frame
-      Cont_Student<-ifelse(Cont_Student +( Cont_Difference)<0,0,Cont_Student +(Cont_Difference)) #Updating Contamination in Student's hands
-      if (Item=="Fruit"){
-        Fr_Data.Frame<<-Data.Frame
-      } else if (Item == "PSS"){
-        Pss_Data.Frame<<-Data.Frame
-      }else if (Item=="PRE"){
-        Pre_Data.Frame<<-Data.Frame
-      }
-      Cont_Student<<-Cont_Student
-  }
-}
-
+  } 
 
 Func_Cross_Contamination_Fr_Consumption_Wrapped<-function(Cont_Student, Fr_Data.Frame, Fr_Picked){
-  Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "TouchesContHist"]<-paste(Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="TouchesContHist"], as.numeric(Cont_Student),sep = ",") #Adding Contamination to
-  Tr_H_Fr<-Cont_Student*TE_H_S #Transfer from Hand to Fr
-  Tr_Fr_H<-(Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination")* TE_S_H) #Tranfer from Fr to hand
-  Cont_Fr_Updated<- Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination") + Tr_H_Fr - (Tr_Fr_H) #New Contamination of Fr
-  Cont_Fr_Difference<-Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination")-(Cont_Fr_Updated) #Difference in contamination to update student contamination
-  Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "Contamination"]<-Cont_Fr_Updated #update the Fr Contamination in Data frame
-  Cont_Student<-ifelse(Cont_Student +(Cont_Fr_Difference)<0,0,Cont_Student +(Cont_Fr_Difference)) #Updating Contamination in Student's hands
-  Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "TouchesContHist"]<-paste(Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="TouchesContHist"], as.numeric(Cont_Student),sep = ",") #Adding Contamination to
-  Tr_H_Fr_Inside<-Cont_Student*TE_H_F
-  Cont_Fr_Consumed<-Tr_H_Fr_Inside
-  Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "Contamination"]<- Cont_Fr_Updated
+  #Contamination of Fruit
+  Conta<-Func_Index_DF(Fr_Data.Frame,Fr_Picked,"Contamination")
+  
+  if(salmonella==1){
+    #update the Fr Contamination in Data frame
+    Tr_H_F<-Cont_Student*TE_H_F #Transfer from Hand to Fruit
+    Tr_F_H<-(Conta* TE_F_H) #Tranfer from fruit to hand
+  }else if(norovirus ==1 && Wrapping_Apples==1){
+    Conta<-round(Conta,digits = 0)
+    Cont_Student<-round(Cont_Student,digits = 0)
+    Tr_H_F<-rbinom(n=1,size = Cont_Student, prob = TrP_H_S)
+    Tr_F_H<-rbinom(n=1,size = Conta,prob = TrP_S_H)
+  }
+  
+  Overall_Tr<-(Tr_H_F-Tr_F_H)
+  Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "TouchesContHist"]<-paste(Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="TouchesContHist"], as.numeric(Overall_Tr),sep = ",") #Adding Contamination to
+
+  Cont_Updated<- Conta + Overall_Tr #New Contamination of Fruit
+  Cont_Difference<-Conta-(Cont_Updated) #Difference in contamination to update student contamination
+  Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "Contamination"]<-Cont_Updated #update the Fr Contamination in Data frame
+  Cont_Student<-ifelse(Cont_Student +(Cont_Difference)<0,0,Cont_Student +(Cont_Difference)) #Updating Contamination in Student's hands
+  #Adding Contamination to Inside of Fruit
+  if(salmonella==1){
+    #update the Fr Contamination in Data frame
+    Tr_H_F_Inside<-Cont_Student*TE_H_F
+  }else if (norovirus ==1 && Wrapping_Apples==1){
+    Cont_Student<-round(Cont_Student,digits = 0)
+    Tr_H_F_Inside<-rbinom(n=1,size = Cont_Student, prob = TrP_H_F)
+  }
+  Overall_Tr<-Tr_H_F_Inside
+  Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "TouchesContHist"]<-paste(Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="TouchesContHist"], as.numeric(Overall_Tr),sep = ",") #Adding Contamination to
+  
+  Cont_Fr_Consumed<-Tr_H_F_Inside
+  Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "Contamination"]<- Cont_Updated
   Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "ContConsumed"]<- Cont_Fr_Consumed
   Fr_Data.Frame<<-Fr_Data.Frame
   Cont_Student<<-Cont_Student
