@@ -20,6 +20,7 @@ source("Util_Library.R")
 #Inputs and Source Files
 # Source Files ------------------------------------------------------------
 start_time<-Sys.time()
+set.seed(1)
 
 #Inputs
 

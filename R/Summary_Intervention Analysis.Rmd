@@ -7,7 +7,8 @@ output:
   html_document: default
 ---
 ```{r}
-#Intervention Analysis for Washing and Wraaping Fruit. 
+#Intervention Analysis for Washing and Wraaping Fruit.
+
 ```
 
 ```{r}
@@ -113,7 +114,7 @@ source("Util_VisualFunctions.R")
 ```
 
 ```{r}
-#Running Loop again: 
+#Running Loop again:
 source("Main_Loops2.R")
 ```
 
@@ -236,7 +237,7 @@ Now the summary Part, Creation of graph and figures.
   
   
   #Making 0s into very small values
-  IA_All_c[IA_All_c==0]<-(10^-20)
+  IA_All_c[IA_All_c==0]<-(.1)
 ```
 
 ```{r}
@@ -250,8 +251,16 @@ Now the summary Part, Creation of graph and figures.
 ```{r}
 #Creation of plot with the log scale, density
 #Contamination with log
-ggplot(data = IA_All_cLog,aes(x=Contamination, fill=Type, linetype=Type))+
+ggplot(data = IA_All_cLog00,aes(x=Contamination, fill=Type, linetype=Type))+
   geom_density(colour="black", alpha=.2)+
+  scale_x_continuous(n.breaks = 10)+
+  xlab("Contamination log GEC/Item")+
+  ylab("Density")+
+  ggtitle("Density Curves Interventions")+ 
+  theme(plot.title = element_text(hjust = 0.5))
+
+ggplot(data = IA_All_cLog00,aes(x=Contamination, fill=Type, linetype=Type))+
+  geom_histogram(colour="black", alpha=.2)+
   scale_x_continuous(n.breaks = 10)+
   xlab("Contamination log GEC/Item")+
   ylab("Density")+
@@ -259,9 +268,10 @@ ggplot(data = IA_All_cLog,aes(x=Contamination, fill=Type, linetype=Type))+
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
+
 ```{r}
 #Creation of the Boxplots
-
+library(plyr)
   #Funtion for boxplot
   give.n <- function(x){
     return(c(y = median(x)*1.05, label = length(x))) 
@@ -269,10 +279,10 @@ ggplot(data = IA_All_cLog,aes(x=Contamination, fill=Type, linetype=Type))+
   }
 
   #function median
-  p_meds <- ddply(IA_All_cLog, .(Type), summarise, median = median(Contamination))
+  p_meds <- ddply(IA_All_cLog00, .(Type), summarise, median = median(Contamination))
 
 #boxplot Contamination
-ggplot(data = IA_All_cLog,aes( y=Contamination, x=Type))+
+ggplot(data = IA_All_cLog00,aes( y=Contamination, x=Type))+
   geom_boxplot(aes(fill=Type),varwidth = TRUE)+
   ylab("Contamination Log PFU/Item")+
   xlab("Intervention Type")+
@@ -282,5 +292,71 @@ ggplot(data = IA_All_cLog,aes( y=Contamination, x=Type))+
   stat_summary(fun.data = give.n, geom = "text", fun = median,vjust = -3)+
   geom_text(data = p_meds, aes(x = Type, y = median, label = median), 
             size = 3, vjust = +1.5, color="blue")
+```
+
+```{r}
+#Dose Response
+Vec_Infected_NI<-c()
+Vec_Infected_W<-c()
+Vec_Infected_Wr<-c()
+
+Vec_Ill_NI<-c()
+Vec_Ill_W<-c()
+Vec_Ill_Wr<-c()
+
+  #No Intervention
+for (i in 1:100){
+  #Dose Response. Adding the Dose Response to the Items
+Individual_Analysis_Fr_Consumed_NoI<-Func_DR_Infection(Individual_Analysis_Fr_Consumed_NoI)
+Individual_Analysis_Fr_Consumed_NoI<-Func_DR_Illness(Individual_Analysis_Fr_Consumed_NoI)
+
+#Number of Items per category
+Number_Inf_NI<-sum(Individual_Analysis_Fr_Consumed_NoI$Infection==TRUE)
+Vec_Infected_NI<-c(Vec_Infected_NI,Number_Inf_NI)
+
+Number_Ill_NI<-sum(Individual_Analysis_Fr_Consumed_NoI$Illness==TRUE)
+Vec_Ill_NI<-c(Vec_Ill_NI,Number_Ill_NI)
+}
+
+median(Number_Inf_NI)
+mean(Number_Ill_NI)
+
+
+  #No Wash
+for (i in 1:100){
+  #Dose Response. Adding the Dose Response to the Items
+Individual_Analysis_Fr_Consumed_Wr<-Func_DR_Infection(Individual_Analysis_Fr_Consumed_Wr)
+Individual_Analysis_Fr_Consumed_Wr<-Func_DR_Illness(Individual_Analysis_Fr_Consumed_Wr)
+
+#Number of Items per category
+Number_Inf_Wr<-sum(Individual_Analysis_Fr_Consumed_Wr$Infection==TRUE)
+Vec_Infected_Wr<-c(Vec_Infected_Wr,Number_Inf_Wr)
+
+Number_Ill_Wr<-sum(Individual_Analysis_Fr_Consumed_Wr$Illness==TRUE)
+Vec_Ill_Wr<-c(Vec_Ill_Wr,Number_Ill_Wr)
+}
+
+median(Number_Inf_Wr)
+mean(Number_Ill_Wr)
+
+
+
+
+#Wrapped
+
+for (i in 1:100){
+Individual_Analysis_Fr_Consumed_W<-Func_DR_Infection(Individual_Analysis_Fr_Consumed_W)
+Individual_Analysis_Fr_Consumed_W<-Func_DR_Illness(Individual_Analysis_Fr_Consumed_W)
+
+#Number of Items per category
+Number_Inf_W<-sum(Individual_Analysis_Fr_Consumed_W$Infection==TRUE)
+Vec_Infected_W<-c(Vec_Infected_W,Number_Inf_W)
+
+Number_Ill_W<-sum(Individual_Analysis_Fr_Consumed_W$Illness==TRUE)
+Vec_Ill_W<-c(Vec_Ill_W,Number_Ill_W)
+}
+
+median(Number_Inf_W)
+mean(Number_Ill_W)
 ```
 

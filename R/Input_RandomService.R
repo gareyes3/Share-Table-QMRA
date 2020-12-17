@@ -6,9 +6,9 @@
 
   Inputs_Cont_HuNov_Fr<-list(
     #Prevalence of NV in Fruit
-    Prevalence <-rbetagen(1,0.79,1.03,0.0,0.2),
+    Prevalence <-.087,#rbetagen(1,0.79,1.03,0.0,0.2),
     #log HuNoV copies per/ g
-    HuNoV_ContFruit<-rlnormTrunc(1,2.38,3.52, 0,6.97) #add 1.578 #
+    HuNoV_ContFruit<-1.578 #rlnormTrunc(1,2.38,3.52, 0,6.97) #add 1.578 #
   )
 
 #Inputs for Func_Growth_Sto_Ecoli. Located in Input_Functions
