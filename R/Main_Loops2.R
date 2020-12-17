@@ -209,7 +209,7 @@ for (l in 1:Sens_Iterations){
             #Contamination
             if (Wrapping_Apples == 1){
               #Cross Contamination at consumption if apples wrapped
-              Func_Cross_Contamination_Fr_Consumption_Wrapped(Cont_Student = Cont_Student, Fr_Data.Frame = Fr_Data.Frame, Fr_Picked = Fr_Picked)
+              Func_Cross_Contamination_Consumption_Wrapped(Cont_Student = Cont_Student,Data.Frame = Fr_Data.Frame,Item_Picked = Fr_Picked,Item = "Fruit")
               Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_Picked) #Adding Allergen Contamination from touch.
             } else if (Wrapping_Apples == 0){
               #Cross Contamination @ Consumption apples not wrapped. 
@@ -238,7 +238,7 @@ for (l in 1:Sens_Iterations){
             Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)== "ConsumedBy"]<-(paste(l,k,j,z))
             Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="History"], "Consumed")
             #Contamination Insdide Pss @Consumption
-            Func_Cross_Contamination_Pss_Consumption(Cont_Student=Cont_Student,Pss_Data.Frame = Pss_Data.Frame,Pss_Picked = Pss_Picked)
+            Func_Cross_Contamination_Consumption_Wrapped(Cont_Student = Cont_Student,Data.Frame = Pss_Data.Frame,Item_Picked = Pss_Picked,Item = "PSS")
             Pss_Data.Frame<-Func_Allergen_CC(Pss_Data.Frame,Pss_Picked) #Adding Allergen Contamination from touch.
             
           }else{
@@ -382,7 +382,7 @@ for (l in 1:Sens_Iterations){
                 #Contamination
                 if (Wrapping_Apples == 1){
                   #Cross Contamination at consumption if apples wrapped
-                  Func_Cross_Contamination_Fr_Consumption_Wrapped(Cont_Student = Cont_Student, Fr_Data.Frame = Fr_Data.Frame, Fr_Picked = Fr_ST_Picked)
+                  Func_Cross_Contamination_Consumption_Wrapped(Cont_Student = Cont_Student,Data.Frame = Fr_Data.Frame,Item_Picked = Fr_ST_Picked ,Item = "Fruit")
                   Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_ST_Picked) #Adding Allergen Contamination from touch.
                 } else if (Wrapping_Apples == 0){
                   #Cross Contamination @ Consumption apples not wrapped. 
@@ -440,7 +440,7 @@ for (l in 1:Sens_Iterations){
                 Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)== "ConsumedBy"]<-(paste(l,k,j,z))
                 Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)=="History"], "Consumed")
                 #Cross Contamination @ Consumption
-                Func_Cross_Contamination_Pss_Consumption(Cont_Student = Cont_Student, Pss_Data.Frame = Pss_Data.Frame, Pss_Picked = Pss_ST_Picked)
+                Func_Cross_Contamination_Consumption_Wrapped(Cont_Student = Cont_Student,Data.Frame = Pss_Data.Frame,Item_Picked = Pss_ST_Picked,Item = "PSS")
                 Pss_Data.Frame<-Func_Allergen_CC(Pss_Data.Frame,Pss_ST_Picked) #Adding Allergen Contamination from touch.
                 
               }else{

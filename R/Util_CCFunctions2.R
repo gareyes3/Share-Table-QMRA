@@ -9,17 +9,17 @@ Func_Cross_Contamination<-function(Cont_Student,Data.Frame, Item_Picked, Item){
       #update the Fr Contamination in Data frame
       Tr_H_F<-Cont_Student*TE_H_F #Transfer from Hand to Fruit
       Tr_F_H<-(Conta* TE_F_H) #Tranfer from fruit to hand
-  }else if (norovirus ==1 && Wrapping_Apples==0 && Item == "Fruit"|"Pre" ){
+  }else if (norovirus ==1 && Wrapping_Apples==0 && Item == "Fruit"){
     Conta<-round(Conta,digits = 0)
     Cont_Student<-round(Cont_Student,digits = 0)
     Tr_H_F<-rbinom(n=1,size = Cont_Student, prob = TrP_H_F)
     Tr_F_H<-rbinom(n=1,size = Conta,prob = TrP_F_H)
-  } else if (norovirus ==1 && Wrapping_Apples==1){
+  }else if (norovirus ==1 && Wrapping_Apples==0 && (Item=="PSS" || Item=="PRE")){
     Conta<-round(Conta,digits = 0)
     Cont_Student<-round(Cont_Student,digits = 0)
     Tr_H_F<-rbinom(n=1,size = Cont_Student, prob = TrP_H_S)
     Tr_F_H<-rbinom(n=1,size = Conta,prob = TrP_S_H)
-  }else if (norovirus ==1 && Wrapping_Apples==0 && Item=="PSS"){
+  }else if (norovirus ==1 && Wrapping_Apples==1){
     Conta<-round(Conta,digits = 0)
     Cont_Student<-round(Cont_Student,digits = 0)
     Tr_H_F<-rbinom(n=1,size = Cont_Student, prob = TrP_H_S)
@@ -52,7 +52,7 @@ Func_Cross_Contamination_Consumption_Wrapped<-function(Cont_Student, Data.Frame,
     #update the Fr Contamination in Data frame
     Tr_H_F<-Cont_Student*TE_H_F #Transfer from Hand to Fruit
     Tr_F_H<-(Conta* TE_F_H) #Tranfer from fruit to hand
-  }else if(norovirus ==1 && Wrapping_Apples==1){
+  }else if(norovirus ==1 ){
     Conta<-round(Conta,digits = 0)
     Cont_Student<-round(Cont_Student,digits = 0)
     Tr_H_F<-rbinom(n=1,size = Cont_Student, prob = TrP_H_S)
@@ -60,8 +60,8 @@ Func_Cross_Contamination_Consumption_Wrapped<-function(Cont_Student, Data.Frame,
   }
   
   Overall_Tr<-(Tr_H_F-Tr_F_H)
-  Data.Frame[Fr_Picked,colnames(Data.Frame)== "TouchesContHist"]<-paste(Data.Frame[Fr_Picked,colnames(Data.Frame)=="TouchesContHist"], as.numeric(Overall_Tr),sep = ",") #Adding Contamination to
-
+  Data.Frame[Item_Picked,colnames(Data.Frame)== "TouchesContHist"]<-paste(Data.Frame[Item_Picked,colnames(Data.Frame)=="TouchesContHist"], as.numeric(Overall_Tr),sep = ",") #Adding Contamination to
+  #Continuing Cross Contamination
   Cont_Updated<- Conta + Overall_Tr #New Contamination of Fruit
   Cont_Difference<-Conta-(Cont_Updated) #Difference in contamination to update student contamination
   Data.Frame[Fr_Picked,colnames(Data.Frame)== "Contamination"]<-Cont_Updated #update the Fr Contamination in Data frame
@@ -75,11 +75,11 @@ Func_Cross_Contamination_Consumption_Wrapped<-function(Cont_Student, Data.Frame,
     Tr_H_F_Inside<-rbinom(n=1,size = Cont_Student, prob = TrP_H_F)
   }
   Overall_Tr<-Tr_H_F_Inside
-  Data.Frame[Fr_Picked,colnames(Data.Frame)== "TouchesContHist"]<-paste(Data.Frame[Fr_Picked,colnames(Data.Frame)=="TouchesContHist"], as.numeric(Overall_Tr),sep = ",") #Adding Contamination to
+  Data.Frame[Item_Picked,colnames(Data.Frame)== "TouchesContHist"]<-paste(Data.Frame[Item_Picked,colnames(Data.Frame)=="TouchesContHist"], as.numeric(Overall_Tr),sep = ",") #Adding Contamination to
   
-  Cont_Fr_Consumed<-Tr_H_F_Inside
-  Data.Frame[Fr_Picked,colnames(Data.Frame)== "Contamination"]<- Cont_Updated
-  Data.Frame[Fr_Picked,colnames(Data.Frame)== "ContConsumed"]<- Cont_Fr_Consumed
+  Cont_Consumed<-Tr_H_F_Inside
+  Data.Frame[Item_Picked,colnames(Data.Frame)== "Contamination"]<- Cont_Updated
+  Data.Frame[Item_Picked,colnames(Data.Frame)== "ContConsumed"]<- Cont_Consumed
 
 
   if(Item=="Fruit"){
