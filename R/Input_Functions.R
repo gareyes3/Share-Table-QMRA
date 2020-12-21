@@ -47,8 +47,10 @@ func_Cont_cm2<-function(DF, Prevalence, logContamination, Fr_Mean_area ){
 #Special Function that adds norovirus to fruit items
 #Inputs For Function: Inputs_Cont_HuNov_Fr
 
-func_Cont_HuNoV_Fr<-function(DF, Prevalence,HuNoV_ContFruit){
+func_Cont_HuNoV_Fr<-function(DF){
   for (i in 1:nrow(DF)){
+    Prevalence <-0.0865215#rbetagen(1,0.79,1.03,0.0,0.2) #
+    HuNoV_ContFruit<-1.578# rlnormTrunc(1,2.38,3.52, 0,6.97) #add 
     Fr_Cont_YN<- ifelse(runif(1)<Prevalence,1,0)
     Contamination<-(10^HuNoV_ContFruit)*Fr_Mean_weight #GEC/Apple
     Contamination<-round(Contamination,digits = 0)

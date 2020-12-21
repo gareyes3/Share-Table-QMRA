@@ -13,8 +13,8 @@ output:
 
 ```{r}
 #Setting Working Directory
-setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
-#setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+#setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
 ```
 
 ```{r}
@@ -29,7 +29,6 @@ Scenario where washing is on and wrapping is off
 start_time<-Sys.time()
 
 #Inputs
-
 source("Input_Static.R")
 source("Input_Functions.R")
 source("Util_DFFunctions.R")
@@ -89,7 +88,6 @@ Scenario where wrapping is on and washing is off
 start_time<-Sys.time()
 
 #Inputs
-
 source("Input_Static.R")
 source("Input_Functions.R")
 source("Util_DFFunctions.R")
@@ -149,7 +147,6 @@ Scenario where it both of the interventions are off
 start_time<-Sys.time()
 
 #Inputs
-
 source("Input_Static.R")
 source("Input_Functions.R")
 source("Util_DFFunctions.R")
@@ -179,6 +176,8 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
+
+
 #Step 3. Run the scenarios without Wraaping or Washing
 
   #1. Start from here
@@ -223,35 +222,58 @@ Now the summary Part, Creation of graph and figures.
   IA_Wash_c<-Individual_Analysis_Fr_Consumed_W[,c(1,4)]
   IA_Cont_c<-Individual_Analysis_Fr_Consumed_NoI[,c(1,4)]
   IA_Wrapp_c<-Individual_Analysis_Fr_Consumed_Wr[,c(1,5)]
-  IA_Wrapp_Ini<-Individual_Analysis_Fr_Consumed_W[,c(1,6)]
+  
+  #Initial
+  IA_Wash_Ini<-Individual_Analysis_Fr_Consumed_W[,c(1,8)]
+  IA_Cont_Ini<-Individual_Analysis_Fr_Consumed_NoI[,c(1,8)]
+  IA_Wrapp_Ini<-Individual_Analysis_Fr_Consumed_Wr[,c(1,8)]
+
   
   IA_Wash_c$Type<-"Wash"
   IA_Cont_c$Type<-"No Intervention"
   IA_Wrapp_c$Type<-"Wrapped"
-  IA_Wrapp_Ini$Type<-"Initial Cont"
+  
+  #Initial
+  IA_Wrapp_Ini$Type<-"Initial Cont Wr"
+  IA_Cont_Ini$Type<-"Initial Cont NI"
+  IA_Wash_Ini$Type<-"Initial Cont Wash"
+  
   names(IA_Wrapp_c)[2]<-"Contamination"
+  
+  #Initial
   names(IA_Wrapp_Ini)[2]<-"Contamination"
+  names(IA_Wash_Ini)[2]<-"Contamination"
+  names(IA_Cont_Ini)[2]<-"Contamination"
   
   
   IA_All_c<-bind_rows(IA_Wash_c,IA_Cont_c,IA_Wrapp_c)
   
+  IA_All_Ini<-bind_rows(IA_Wrapp_Ini,IA_Wash_Ini,IA_Cont_Ini)
+  
   
   #Making 0s into very small values
   IA_All_c[IA_All_c==0]<-(.1)
+  
+  IA_All_Ini[IA_All_Ini==0]<-(.1)
 ```
 
 ```{r}
   #Making the Contaminations into log Scale, may not be necessary to analyze. 
   IA_All_cLog<-IA_All_c
   IA_All_cLog$Contamination<-log10(IA_All_cLog$Contamination)
-  
   IA_All_cLog00<-IA_All_cLog[which(IA_All_cLog$Contamination > 0),]
+  
+  #Initial
+  IA_All_IniLog<-IA_All_Ini
+  IA_All_IniLog$Contamination<-log10(IA_All_IniLog$Contamination)
+  IA_All_IniLog00<-IA_All_IniLog[which(IA_All_IniLog$Contamination > 0),]
+  
 ```
 
 ```{r}
 #Creation of plot with the log scale, density
 #Contamination with log
-ggplot(data = IA_All_cLog00,aes(x=Contamination, fill=Type, linetype=Type))+
+ggplot(data = IA_All_cLog,aes(x=Contamination, fill=Type, linetype=Type))+
   geom_density(colour="black", alpha=.2)+
   scale_x_continuous(n.breaks = 10)+
   xlab("Contamination log GEC/Item")+
@@ -259,7 +281,7 @@ ggplot(data = IA_All_cLog00,aes(x=Contamination, fill=Type, linetype=Type))+
   ggtitle("Density Curves Interventions")+ 
   theme(plot.title = element_text(hjust = 0.5))
 
-ggplot(data = IA_All_cLog00,aes(x=Contamination, fill=Type, linetype=Type))+
+ggplot(data = IA_All_cLog,aes(x=Contamination, fill=Type, linetype=Type))+
   geom_histogram(colour="black", alpha=.2)+
   scale_x_continuous(n.breaks = 10)+
   xlab("Contamination log GEC/Item")+
@@ -304,17 +326,26 @@ Vec_Ill_NI<-c()
 Vec_Ill_W<-c()
 Vec_Ill_Wr<-c()
 
+detach(package:plyr)
+DR_NOI_FR<-(Individual_Analysis_Fr_Consumed_NoI)%>%
+  group_by(ConsumedBy)%>%
+  summarise(Contamination = sum(Contamination))
+DR_NOI_FR$Infection<-as.logical("")
+DR_NOI_FR$Illness<-as.logical("")
+
+
   #No Intervention
-for (i in 1:100){
+
+for (i in 1:5){
   #Dose Response. Adding the Dose Response to the Items
-Individual_Analysis_Fr_Consumed_NoI<-Func_DR_Infection(Individual_Analysis_Fr_Consumed_NoI)
-Individual_Analysis_Fr_Consumed_NoI<-Func_DR_Illness(Individual_Analysis_Fr_Consumed_NoI)
+DR_NOI_FR<-Func_DR_Infection(DR_NOI_FR)
+DR_NOI_FR<-Func_DR_Illness(DR_NOI_FR)
 
 #Number of Items per category
-Number_Inf_NI<-sum(Individual_Analysis_Fr_Consumed_NoI$Infection==TRUE)
+Number_Inf_NI<-sum(DR_NOI_FR$Infection==TRUE)
 Vec_Infected_NI<-c(Vec_Infected_NI,Number_Inf_NI)
 
-Number_Ill_NI<-sum(Individual_Analysis_Fr_Consumed_NoI$Illness==TRUE)
+Number_Ill_NI<-sum(DR_NOI_FR$Illness==TRUE)
 Vec_Ill_NI<-c(Vec_Ill_NI,Number_Ill_NI)
 }
 
@@ -322,17 +353,26 @@ median(Number_Inf_NI)
 mean(Number_Ill_NI)
 
 
-  #No Wash
-for (i in 1:100){
+
+  #Wrapped
+
+DR_WR_FR<-(Individual_Analysis_Fr_Consumed_Wr)%>%
+  group_by(ConsumedBy)%>%
+  summarise(Contamination = sum(Contamination))
+DR_WR_FR$Infection<-as.logical("")
+DR_WR_FR$Illness<-as.logical("")
+
+  #No Intervention
+for (i in 1:5){
   #Dose Response. Adding the Dose Response to the Items
-Individual_Analysis_Fr_Consumed_Wr<-Func_DR_Infection(Individual_Analysis_Fr_Consumed_Wr)
-Individual_Analysis_Fr_Consumed_Wr<-Func_DR_Illness(Individual_Analysis_Fr_Consumed_Wr)
+DR_WR_FR<-Func_DR_Infection(DR_WR_FR)
+DR_WR_FR<-Func_DR_Illness(DR_WR_FR)
 
 #Number of Items per category
-Number_Inf_Wr<-sum(Individual_Analysis_Fr_Consumed_Wr$Infection==TRUE)
+Number_Inf_Wr<-sum(DR_WR_FR$Infection==TRUE)
 Vec_Infected_Wr<-c(Vec_Infected_Wr,Number_Inf_Wr)
 
-Number_Ill_Wr<-sum(Individual_Analysis_Fr_Consumed_Wr$Illness==TRUE)
+Number_Ill_Wr<-sum(DR_WR_FR$Illness==TRUE)
 Vec_Ill_Wr<-c(Vec_Ill_Wr,Number_Ill_Wr)
 }
 
@@ -342,17 +382,25 @@ mean(Number_Ill_Wr)
 
 
 
-#Wrapped
+  #Washed
 
-for (i in 1:100){
-Individual_Analysis_Fr_Consumed_W<-Func_DR_Infection(Individual_Analysis_Fr_Consumed_W)
-Individual_Analysis_Fr_Consumed_W<-Func_DR_Illness(Individual_Analysis_Fr_Consumed_W)
+DR_W_FR<-(Individual_Analysis_Fr_Consumed_W)%>%
+  group_by(ConsumedBy)%>%
+  summarise(Contamination = sum(Contamination))
+DR_W_FR$Infection<-as.logical("")
+DR_W_FR$Illness<-as.logical("")
+
+  #No Intervention
+for (i in 1:5){
+  #Dose Response. Adding the Dose Response to the Items
+DR_W_FR<-Func_DR_Infection(DR_W_FR)
+DR_W_FR<-Func_DR_Illness(DR_W_FR)
 
 #Number of Items per category
-Number_Inf_W<-sum(Individual_Analysis_Fr_Consumed_W$Infection==TRUE)
+Number_Inf_W<-sum(DR_WR_FR$Infection==TRUE)
 Vec_Infected_W<-c(Vec_Infected_W,Number_Inf_W)
 
-Number_Ill_W<-sum(Individual_Analysis_Fr_Consumed_W$Illness==TRUE)
+Number_Ill_W<-sum(DR_W_FR$Illness==TRUE)
 Vec_Ill_W<-c(Vec_Ill_W,Number_Ill_W)
 }
 

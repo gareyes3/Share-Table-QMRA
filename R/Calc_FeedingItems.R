@@ -12,7 +12,7 @@
       #Adding Contamination to Vector
       Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Extra_Items_Fr,Vector_Cont_Fr_Serv)
     } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
-      Extra_Items_Fr<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Extra_Items_Fr),Inputs_Cont_HuNov_Fr))
+      Extra_Items_Fr<-func_Cont_HuNoV_Fr(Extra_Items_Fr)
       #Adding Contamination to Vector
       Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Extra_Items_Fr,Vector_Cont_Fr_Serv)
     }

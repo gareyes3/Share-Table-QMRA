@@ -64,7 +64,7 @@ Func_Cross_Contamination_Consumption_Wrapped<-function(Cont_Student, Data.Frame,
   #Continuing Cross Contamination
   Cont_Updated<- Conta + Overall_Tr #New Contamination of Fruit
   Cont_Difference<-Conta-(Cont_Updated) #Difference in contamination to update student contamination
-  Data.Frame[Fr_Picked,colnames(Data.Frame)== "Contamination"]<-Cont_Updated #update the Fr Contamination in Data frame
+  Data.Frame[Item_Picked,colnames(Data.Frame)== "Contamination"]<-Cont_Updated #update the Fr Contamination in Data frame
   Cont_Student<-ifelse(Cont_Student +(Cont_Difference)<0,0,Cont_Student +(Cont_Difference)) #Updating Contamination in Student's hands
   #Adding Contamination to Inside of Fruit
   if(salmonella==1){

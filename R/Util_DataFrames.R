@@ -22,7 +22,7 @@ if(j==1 && k== 1){
     Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
   } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
     #Adding Contamination to Data Fra
-    Fr_Data.Frame<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Fr_Data.Frame),Inputs_Cont_HuNov_Fr))
+    Fr_Data.Frame<-func_Cont_HuNoV_Fr(Fr_Data.Frame)
     #Adding items to know Contaminated Items
     Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
   }
@@ -91,7 +91,7 @@ if(j>1 && k ==1 ){
       Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
     } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
       #Adding Contamination to the Data Frames
-      Fr_Data.Frame<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Fr_Data.Frame),Inputs_Cont_HuNov_Fr))
+      Fr_Data.Frame<-func_Cont_HuNoV_Fr(Fr_Data.Frame)
       #Adding Contamination to Vector
       Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
     }
@@ -190,7 +190,7 @@ if(j>1 && k ==1 ){
       Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
     } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
       #Adding Contamination to the Data frames
-      Fr_Data.Frame<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Fr_Data.Frame),Inputs_Cont_HuNov_Fr))
+      Fr_Data.Frame<-func_Cont_HuNoV_Fr(Fr_Data.Frame)
       #Adding Contamination to Vector
       Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
     }
@@ -294,7 +294,7 @@ if(j>0 && k>1 ){
       Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
     } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
       #Adding Contamination to the Data Frames
-      Fr_Data.Frame<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Fr_Data.Frame),Inputs_Cont_HuNov_Fr))
+      Fr_Data.Frame<-func_Cont_HuNoV_Fr(Fr_Data.Frame)
       #Adding Contamination to Vector
       Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
     }
@@ -397,7 +397,7 @@ if(j>0 && k>1 ){
       Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
     } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
       #Adding Contamination the the Data Frames
-      Fr_Data.Frame<-do.call(func_Cont_HuNoV_Fr,c(list(DF=Fr_Data.Frame),Inputs_Cont_HuNov_Fr))
+      Fr_Data.Frame<-func_Cont_HuNoV_Fr(Fr_Data.Frame)
       #Adding Contamination to Vector
       Vector_Cont_Fr_Serv<-Func_FoodCont_Vector(DF=Fr_Data.Frame,Vector_Cont_Fr_Serv)
     }
