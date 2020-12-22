@@ -93,10 +93,11 @@ Func_Rep_DR<-function(DF_DR_Analysis){
 }
 
 
-lista<-replicate(100,Func_Rep_DR(DF_DR_Analysis),simplify = "vector" )
+lista<-replicate(100,Func_Rep_DR(DF_DR_Analysis),simplify = TRUE )
+lisy<-as.data.frame(t(lista))
 
 
-lista<-as.data.frame(lista)
+
 
 ```
 
