@@ -23,7 +23,7 @@ Individual_Analysis_Fr<-Individual_Analysis_Fr %>%
   group_by(ID) %>% 
   filter(TotServices==max(TotServices))%>%
   filter(Location=="Consumed")%>%
-  select(ID,Type,ConsumedBy,Contamination, ContConsumed, Infection,Illness)
+  select(ID,Type,ConsumedBy,Contamination, ContConsumed, Infection,Illness,week)
 
 
   #PSS
@@ -40,7 +40,7 @@ Individual_Analysis_Pss<-Individual_Analysis_Pss %>%
   group_by(ID) %>% 
   filter(TotServices==max(TotServices))%>%
   filter(Location=="Consumed")%>%
-  select(ID,Type,ConsumedBy,Contamination, ContConsumed, Infection,Illness)
+  select(ID,Type,ConsumedBy,Contamination, ContConsumed, Infection,Illness,week)
 
 
   #Pre 
@@ -57,7 +57,7 @@ Individual_Analysis_Pre<-Individual_Analysis_Pre %>%
   group_by(ID) %>% 
   filter(TotServices==max(TotServices))%>%
   filter(Location=="Consumed")%>%
-  select(ID,Type,ConsumedBy,Contamination, ContConsumed, Infection,Illness)
+  select(ID,Type,ConsumedBy,Contamination, ContConsumed, Infection,Illness,week)
 
 
 
@@ -71,7 +71,7 @@ DF_DR_Analysis<-bind_rows(Individual_Analysis_Fr,Individual_Analysis_Pss, Indivi
   group_by(ConsumedBy)%>%
   summarise(Contamination = sum(Contamination))
 
-
+DF_DR_Analysis$week <- substr(DF_DR_Analysis$ConsumedBy, 1, 1)
 DF_DR_Analysis$Infection<-as.logical("")
 DF_DR_Analysis$Illness<-as.logical("")
 
@@ -92,12 +92,50 @@ Func_Rep_DR<-function(DF_DR_Analysis){
   return(l)
 }
 
+#Function to extract list into a Data Frame
+Func_List2DF<-function(list){
+  df<-data.frame(matrix(unlist(list), nrow=length(list), byrow=T),stringsAsFactors=FALSE)
+  return(df)
+}
 
-lista<-replicate(100,Func_Rep_DR(DF_DR_Analysis),simplify = TRUE )
-lisy<-as.data.frame(t(lista))
+lista<-replicate(5,Func_Rep_DR(DF_DR_Analysis),simplify = FALSE )
+
+DF_DR_Rep<-Func_List2DF(lista)
 
 
+```
 
+```{r}
+#Analysis For weekly Dose Response
+
+Reps_DR<-100
+
+List_week_DR<-split(x=DF_DR_Analysis,f=DF_DR_Analysis$week)
+lista<-replicate(Reps_DR,lapply(List_week_DR,Func_Rep_DR),simplify = FALSE)
+list_Df_Rep<-lapply(lista, Func_List2DF)
+list_Df_Rep<-lapply(list_Df_Rep, setNames, c("Infections", "Illness"))
+list_Df_Rep<-lapply(list_Df_Rep,bind_rows)
+list_Df_Rep<-bind_cols(list_Df_Rep)
+
+
+df_inf_Week = list_Df_Rep[,seq(1, ncol(list_Df_Rep), 2) ]
+df_ill_Week = list_Df_Rep[,seq(2, ncol(list_Df_Rep), 2) ]
+
+df_inf_Week<-as.data.frame(t(df_inf_Week))
+df_ill_Week<-as.data.frame(t(df_ill_Week))
+
+rownames(df_inf_Week)<-paste("Rep",1:Reps_DR)
+rownames(df_ill_Week)<-paste("Rep",1:Reps_DR)
+colnames(df_inf_Week)<-paste("Week",1:Sens_Iterations)
+colnames(df_ill_Week)<-paste("Week",1:Sens_Iterations)
+
+
+Summary_list_Df_Rep<-as.data.frame(list_Df_Rep,)
+Summary_list_Df_Rep<-lapply(X=Summary_list_Df_Rep, mean)
+Summary_list_Df_Rep<-as.data.frame(Summary_list_Df_Rep)
+aaaaa<-split(Summary_list_Df_Rep, rep(1:ncol(Summary_list_Df_Rep), each= 2))
+aaaaa<-bind_cols(aaaaa)
+                                
 
 ```
 

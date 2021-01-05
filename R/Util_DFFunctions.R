@@ -19,10 +19,11 @@ Fuct_DF_Initial<-function(FoodType){
                            "WashHistory"= as.numeric("0"),
                            "TotServices"=as.numeric("0"),
                            "STtimes"= as.numeric("0"),
-                           "Initial Service" = "1",
-                           "Service" = j,
                            "Initial Day" = "1",
+                           "Initial Service" = "1",
                            "Day" = k,
+                           "Service" = j,
+                           "week"=l,
                            stringsAsFactors = FALSE
                            
     )
@@ -43,10 +44,11 @@ Fuct_DF_Initial<-function(FoodType){
                            "WashHistory"= as.numeric("0"),
                            "TotServices"=as.numeric("0"),
                            "STtimes"= as.numeric("0"),
-                           "Initial Service" = "1", 
-                           "Service" = j,
                            "Initial Day" = "1",
+                           "Initial Service" = "1",
                            "Day" = k,
+                           "Service" = j,
+                           "week"=l,
                            stringsAsFactors = FALSE
     )
   }else if (FoodType == "Pre"){
@@ -68,10 +70,11 @@ Fuct_DF_Initial<-function(FoodType){
                            "WashHistory"= as.numeric("0"),
                            "TotServices"=as.numeric("0"),
                            "STtimes"= as.numeric("0"),
-                           "Initial Service" = "1",
-                           "Service" = j,
                            "Initial Day" = "1",
+                           "Initial Service" = "1",
                            "Day" = k,
+                           "Service" = j,
+                           "week"=l,
                            stringsAsFactors = FALSE
     )
   }
@@ -97,10 +100,11 @@ Fuct_DF_Reservice<-function(FoodType){
                            "WashHistory"= as.numeric("0"),
                            "TotServices"=as.numeric("0"),
                            "STtimes"= as.numeric("0"),
-                           "Initial Service" = j,
-                           "Service" = j,
                            "Initial Day" = k,
+                           "Initial Service" = j,
                            "Day" = k,
+                           "Service" = j,
+                           "week"=l,
                            stringsAsFactors = FALSE
                            
     )
@@ -121,10 +125,11 @@ Fuct_DF_Reservice<-function(FoodType){
                            "WashHistory"= as.numeric("0"),
                            "TotServices"=as.numeric("0"),
                            "STtimes"= as.numeric("0"),
-                           "Initial Service" = j,
-                           "Service" = j,
                            "Initial Day" = k,
+                           "Initial Service" = j,
                            "Day" = k,
+                           "Service" = j,
+                           "week"=l,
                            stringsAsFactors = FALSE
                            
     )
@@ -147,10 +152,11 @@ Fuct_DF_Reservice<-function(FoodType){
                            "WashHistory"= as.numeric("0"),
                            "TotServices"=as.numeric("0"),
                            "STtimes"= as.numeric("0"),
-                           "Initial Service" = j,
-                           "Service" = j,
                            "Initial Day" = k,
+                           "Initial Service" = j,
                            "Day" = k,
+                           "Service" = j,
+                           "week"=l,
                            stringsAsFactors = FALSE
                            
     )
@@ -177,10 +183,11 @@ Fuct_DF_Feeding<-function(FoodType){
                            "WashHistory"= as.numeric("0"),
                            "TotServices"=as.numeric("0"),
                            "STtimes"= as.numeric("0"),
-                           "Initial Service" = "1",
-                           "Service" = j,
                            "Initial Day" = "1",
+                           "Initial Service" = "1",
                            "Day" = k,
+                           "Service" = j,
+                           "week"=l,
                            stringsAsFactors = FALSE
                            
     )
@@ -201,10 +208,11 @@ Fuct_DF_Feeding<-function(FoodType){
                            "WashHistory"= as.numeric("0"),
                            "TotServices"=as.numeric("0"),
                            "STtimes"= as.numeric("0"),
-                           "Initial Service" = "1",
-                           "Service" = j,
                            "Initial Day" = "1",
+                           "Initial Service" = "1",
                            "Day" = k,
+                           "Service" = j,
+                           "week"=l,
                            stringsAsFactors = FALSE
     )
   }else if (FoodType=="Pre"){
@@ -226,10 +234,11 @@ Fuct_DF_Feeding<-function(FoodType){
                            "WashHistory"= as.numeric("0"),
                            "TotServices"=as.numeric("0"),
                            "STtimes"= as.numeric("0"),
-                           "Initial Service" = "1",
-                           "Service" = j,
                            "Initial Day" = "1",
+                           "Initial Service" = "1",
                            "Day" = k,
+                           "Service" = j,
+                           "week"=l,
                            stringsAsFactors = FALSE
     )
   }
