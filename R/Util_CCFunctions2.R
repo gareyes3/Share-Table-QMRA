@@ -2,8 +2,8 @@
 #Searching for the Touched Fruit Function
 
 Func_Touched<-function(DF){
-  Search.df.fr_touched<-Func_seach_Data4(DF,DF$Location,"Selection Table",Row_size_Fr) #Searching for fruit to touch
-  Fr_Touched<-as.numeric(Search.df.fr_touched$Apple.No.) #Fruit touched
+  Search.df.item_touched<-Func_seach_Data4(DF,DF$Location,"Selection Table",Row_size_Fr) #Searching for fruit to touch
+  Fr_Touched<-as.numeric(Search.df.item_touched$Item.No.) #Fruit touched
   DF[Fr_Touched,colnames(DF)=="History"]<-paste(DF[Fr_Touched,colnames(DF)=="History"], "Touched") #Adding History to History
   
   #Cross Contamination from Touching Fruit @Touch
@@ -12,7 +12,6 @@ Func_Touched<-function(DF){
   DF<-Func_Allergen_CC(DF,Fr_Touched) #Adding Allergen Contamination from touch.
   return(DF)
 }
-
 
 
 

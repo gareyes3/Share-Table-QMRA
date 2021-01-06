@@ -18,7 +18,7 @@
     }
     
     Fr_Data.Frame<-rbind(Extra_Items_Fr,Fr_Data.Frame)
-    Fr_Data.Frame$Apple.No.<- 1:nrow(Fr_Data.Frame)
+    Fr_Data.Frame$Item.No.<- 1:nrow(Fr_Data.Frame)
     row.names(Fr_Data.Frame)<-1:nrow(Fr_Data.Frame)
     
   }
@@ -41,7 +41,7 @@
     }
     
     Pss_Data.Frame<-rbind(Extra_Items_Pss,Pss_Data.Frame)
-    Pss_Data.Frame$Pss.No.<- 1:nrow(Pss_Data.Frame)
+    Pss_Data.Frame$Item.No.<- 1:nrow(Pss_Data.Frame)
     row.names(Pss_Data.Frame)<-1:nrow(Pss_Data.Frame)
     
   }
@@ -67,7 +67,7 @@
     }
     
     Pre_Data.Frame<-rbind(Extra_Items_Pre,Pre_Data.Frame)
-    Pre_Data.Frame$Pre.No.<- 1:nrow(Pre_Data.Frame)
+    Pre_Data.Frame$Item.No.<- 1:nrow(Pre_Data.Frame)
     row.names(Pre_Data.Frame)<-1:nrow(Pre_Data.Frame)
     
   }

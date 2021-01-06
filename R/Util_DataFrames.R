@@ -105,7 +105,7 @@ if(j>1 && k ==1 ){
       Fr_Data.Frame<-rbind(Left_Selection_Fr,Fr_Data.Frame)
     }
     #Reseting Numbers in Data Frames
-    Fr_Data.Frame$Apple.No.<- 1:nrow(Fr_Data.Frame)
+    Fr_Data.Frame$Item.No.<- 1:nrow(Fr_Data.Frame)
     row.names(Fr_Data.Frame)<-1:nrow(Fr_Data.Frame)
     Fr_Data.Frame$Service<-j
     Fr_Data.Frame$Day<-k
@@ -136,7 +136,7 @@ if(j>1 && k ==1 ){
       Pss_Data.Frame<-rbind(Left_Selection_Pss,Pss_Data.Frame)
     }
     #Reseting Numbers in Data Frames
-    Pss_Data.Frame$Pss.No.<- 1:nrow(Pss_Data.Frame)
+    Pss_Data.Frame$Item.No.<- 1:nrow(Pss_Data.Frame)
     row.names(Pss_Data.Frame)<-1:nrow(Pss_Data.Frame)
     Pss_Data.Frame$Service<-j
     Pss_Data.Frame$Day<-k
@@ -166,7 +166,7 @@ if(j>1 && k ==1 ){
       Pre_Data.Frame<-rbind(Left_Selection_Pre,Pre_Data.Frame)
     }
     #Reseting Numbers in Data Frames
-    Pre_Data.Frame$Pre.No.<- 1:nrow(Pre_Data.Frame)
+    Pre_Data.Frame$Item.No.<- 1:nrow(Pre_Data.Frame)
     row.names(Pre_Data.Frame)<-1:nrow(Pre_Data.Frame)
     Pre_Data.Frame$Service<-j
     Pre_Data.Frame$Day<-k
@@ -202,7 +202,7 @@ if(j>1 && k ==1 ){
       Fr_Data.Frame<-rbind(Fr_Data.Frame,Left_ST_Fr)
     }
     #Resetting Numbers and counters
-    Fr_Data.Frame$Apple.No.<- 1:nrow(Fr_Data.Frame)
+    Fr_Data.Frame$Item.No.<- 1:nrow(Fr_Data.Frame)
     row.names(Fr_Data.Frame)<-1:nrow(Fr_Data.Frame)
     Fr_Data.Frame$Service<-j
     Fr_Data.Frame$Day<-k
@@ -232,7 +232,7 @@ if(j>1 && k ==1 ){
       Pss_Data.Frame<-rbind(Pss_Data.Frame,Left_ST_Pss)
     }
     #Resetting Numbers and counters
-    Pss_Data.Frame$Pss.No.<- 1:nrow(Pss_Data.Frame)
+    Pss_Data.Frame$Item.No.<- 1:nrow(Pss_Data.Frame)
     row.names(Pss_Data.Frame)<-1:nrow(Pss_Data.Frame)
     Pss_Data.Frame$Service<-j
     Pss_Data.Frame$Day<-k
@@ -261,7 +261,7 @@ if(j>1 && k ==1 ){
       Pre_Data.Frame<-rbind(Pre_Data.Frame,Left_ST_Pre)
     }
     #Resetting Numbers and counters
-    Pre_Data.Frame$Pre.No.<- 1:nrow(Pre_Data.Frame)
+    Pre_Data.Frame$Item.No.<- 1:nrow(Pre_Data.Frame)
     row.names(Pre_Data.Frame)<-1:nrow(Pre_Data.Frame)
     Pre_Data.Frame$Service<-j
     Pre_Data.Frame$Day<-k
@@ -309,7 +309,7 @@ if(j>0 && k>1 ){
       Fr_Data.Frame<-rbind(Left_Selection_Fr,Fr_Data.Frame)
     }
     #Reseting Numbers in Data Frames
-    Fr_Data.Frame$Apple.No.<- 1:nrow(Fr_Data.Frame)
+    Fr_Data.Frame$Item.No.<- 1:nrow(Fr_Data.Frame)
     row.names(Fr_Data.Frame)<-1:nrow(Fr_Data.Frame)
     Fr_Data.Frame$Service<-j
     Fr_Data.Frame$Day<-k
@@ -341,7 +341,7 @@ if(j>0 && k>1 ){
       Pss_Data.Frame<-rbind(Left_Selection_Pss,Pss_Data.Frame)
     }
     #Reseting Numbers in Data Frames
-    Pss_Data.Frame$Pss.No.<- 1:nrow(Pss_Data.Frame)
+    Pss_Data.Frame$Item.No.<- 1:nrow(Pss_Data.Frame)
     row.names(Pss_Data.Frame)<-1:nrow(Pss_Data.Frame)
     Pss_Data.Frame$Service<-j
     Pss_Data.Frame$Day<-k
@@ -372,7 +372,7 @@ if(j>0 && k>1 ){
       Pre_Data.Frame<-rbind(Left_Selection_Pre,Pre_Data.Frame)
     }
     #Reseting Numbers in Data Frames
-    Pre_Data.Frame$Pre.No.<- 1:nrow(Pre_Data.Frame)
+    Pre_Data.Frame$Item.No.<- 1:nrow(Pre_Data.Frame)
     row.names(Pre_Data.Frame)<-1:nrow(Pre_Data.Frame)
     Pre_Data.Frame$Service<-j
     Pre_Data.Frame$Day<-k
@@ -409,7 +409,7 @@ if(j>0 && k>1 ){
       Fr_Data.Frame<-rbind(Fr_Data.Frame,Left_ST_Fr)
     }
     #Resetting Numbers and counters
-    Fr_Data.Frame$Apple.No.<- 1:nrow(Fr_Data.Frame)
+    Fr_Data.Frame$Item.No.<- 1:nrow(Fr_Data.Frame)
     row.names(Fr_Data.Frame)<-1:nrow(Fr_Data.Frame)
     Fr_Data.Frame$Service<-j
     Fr_Data.Frame$Day<-k
@@ -439,7 +439,7 @@ if(j>0 && k>1 ){
       Pss_Data.Frame<-rbind(Pss_Data.Frame,Left_ST_Pss)
     }
     #Resetting Numbers and counters
-    Pss_Data.Frame$Pss.No.<- 1:nrow(Pss_Data.Frame)
+    Pss_Data.Frame$Item.No.<- 1:nrow(Pss_Data.Frame)
     row.names(Pss_Data.Frame)<-1:nrow(Pss_Data.Frame)
     Pss_Data.Frame$Service<-j
     Pss_Data.Frame$Day<-k
@@ -467,7 +467,7 @@ if(j>0 && k>1 ){
       Pre_Data.Frame<-rbind(Pre_Data.Frame,Left_ST_Pre)
     }
     #Resetting Numbers and counters
-    Pre_Data.Frame$Pre.No.<- 1:nrow(Pre_Data.Frame)
+    Pre_Data.Frame$Item.No.<- 1:nrow(Pre_Data.Frame)
     row.names(Pre_Data.Frame)<-1:nrow(Pre_Data.Frame)
     Pre_Data.Frame$Service<-j
     Pre_Data.Frame$Day<-k

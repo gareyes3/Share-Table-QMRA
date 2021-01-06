@@ -41,17 +41,7 @@ for (l in 1:Sens_Iterations){
           Sum_Fr_Available<-sum(Fr_Available, na.rm = TRUE)
           if(Sum_Fr_Available>ntouched_Fr){
             for (i in 1:ntouched_Fr){
-              
-              #Searching for the Touched Fruit
-              Search.df.fr_touched<-Func_seach_Data4(Fr_Data.Frame,Fr_Data.Frame$Location,"Selection Table",Row_size_Fr) #Searching for fruit to touch
-              Fr_Touched<-as.numeric(Search.df.fr_touched$Apple.No.) #Fruit touched
-              Fr_Data.Frame[Fr_Touched,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_Touched,colnames(Fr_Data.Frame)=="History"], "Touched") #Adding History to History
-              
-              
-              #Cross Contamination from Touching Fruit @Touch
-              Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Fr_Data.Frame, Item_Picked= Fr_Touched, Item="Fruit")
-              #Cross Contamination from Allergens
-              Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_Touched) #Adding Allergen Contamination from touch.
+              Fr_Data.Frame<-Func_Touched(Fr_Data.Frame)
             }
           }
         }
@@ -66,7 +56,7 @@ for (l in 1:Sens_Iterations){
           if(Sum_Fr_Available>0){   
             Search.df.fr<-Func_seach_Data4(Fr_Data.Frame,Fr_Data.Frame$Location,"Selection Table",Row_size_Fr)
             #Fruit Selected #
-            Fr_Picked<-as.numeric(Search.df.fr$Apple.No.)
+            Fr_Picked<-as.numeric(Search.df.fr$Item.No.)
             Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "Location"]<-"Tray"
             Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="History"], "Tray")
             Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="History"], "Touched")
@@ -97,7 +87,7 @@ for (l in 1:Sens_Iterations){
               
               #Searching the Touched Pss
               Search.df.Pss_touched<-Func_seach_Data4(Pss_Data.Frame,Pss_Data.Frame$Location,"Selection Table",Row_size_Pss) #Searching for Pss to touch
-              Pss_Touched<-as.numeric(Search.df.Pss_touched$Pss.No.) #Pss touched
+              Pss_Touched<-as.numeric(Search.df.Pss_touched$Item.No.) #Pss touched
               Pss_Data.Frame[Pss_Touched,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_Touched,colnames(Pss_Data.Frame)=="History"], "Touched") #Adding History to History
               
               #Cross Contamination from Touching Pss @Touch
@@ -118,7 +108,7 @@ for (l in 1:Sens_Iterations){
           if(Sum_Pss_Available>0){
             Search.df.Pss<-Func_seach_Data4(Pss_Data.Frame,Pss_Data.Frame$Location,"Selection Table",Row_size_Pss)
             #Pss Selected #
-            Pss_Picked<-as.numeric(Search.df.Pss$Pss.No.)
+            Pss_Picked<-as.numeric(Search.df.Pss$Item.No.)
             Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)== "Location"]<-"Tray"
             Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="History"], "Tray")
             Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="History"], "Touched")
@@ -151,7 +141,7 @@ for (l in 1:Sens_Iterations){
               
               #Searching the Touched Pre
               Search.df.Pre_touched<-Func_seach_Data4(Pre_Data.Frame,Pre_Data.Frame$Location,"Selection Table",Row_size_Pre) #Searching for Pre to touch
-              Pre_Touched<-as.numeric(Search.df.Pre_touched$Pre.No.) #Pre touched
+              Pre_Touched<-as.numeric(Search.df.Pre_touched$Item.No.) #Pre touched
               Pre_Data.Frame[Pre_Touched,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_Touched,colnames(Pre_Data.Frame)=="History"], "Touched") #Adding History to History
               
               #Cross Contamination from Touching Pre @Touch
@@ -171,7 +161,7 @@ for (l in 1:Sens_Iterations){
           if(Sum_Pre_Available>0){
             Search.df.Pre<-Func_seach_Data4(Pre_Data.Frame,Pre_Data.Frame$Location,"Selection Table",Row_size_Pre)
             #Pre Selected #
-            Pre_Picked<-as.numeric(Search.df.Pre$Pre.No.)
+            Pre_Picked<-as.numeric(Search.df.Pre$Item.No.)
             Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)== "Location"]<-"Tray"
             Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)=="History"], "Tray")
             Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)=="History"], "Touched")
@@ -354,7 +344,7 @@ for (l in 1:Sens_Iterations){
             if(Pick_ST_YN_Fr==1){
               Search.df.fr_ST<-Func_Search_Data(Fr_Data.Frame,Fr_Data.Frame$Location,"Shared",1)
               #Fruit from share table selected #
-              Fr_ST_Picked<-as.numeric(Search.df.fr_ST$Apple.No.)
+              Fr_ST_Picked<-as.numeric(Search.df.fr_ST$Item.No.)
               Fr_Data.Frame[as.numeric(row.names(Search.df.fr_ST)),colnames(Search.df.fr)== "Location"]<-"Tray"
               Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)=="History"], "Tray")
               Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)=="History"], "Touched")
@@ -413,7 +403,7 @@ for (l in 1:Sens_Iterations){
             if(Pick_ST_YN_Pss==1){
               Search.df.Pss_ST<-Func_Search_Data(Pss_Data.Frame,Pss_Data.Frame$Location,"Shared",1)
               #Pss from share table selected #
-              Pss_ST_Picked<-as.numeric(Search.df.Pss_ST$Pss.No.)
+              Pss_ST_Picked<-as.numeric(Search.df.Pss_ST$Item.No.)
               Pss_Data.Frame[as.numeric(row.names(Search.df.Pss_ST)),colnames(Search.df.Pss)== "Location"]<-"Tray"
               Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)=="History"], "Tray")
               Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)=="History"], "Touched")
@@ -466,7 +456,7 @@ for (l in 1:Sens_Iterations){
             if(Pick_ST_YN_Pre==1){
               Search.df.Pre_ST<-Func_Search_Data(Pre_Data.Frame,Pre_Data.Frame$Location,"Shared",1)
               #Pre from share table selected #
-              Pre_ST_Picked<-as.numeric(Search.df.Pre_ST$Pre.No.)
+              Pre_ST_Picked<-as.numeric(Search.df.Pre_ST$Item.No.)
               Pre_Data.Frame[as.numeric(row.names(Search.df.Pre_ST)),colnames(Search.df.Pre)== "Location"]<-"Tray"
               Pre_Data.Frame[Pre_ST_Picked,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_ST_Picked,colnames(Pre_Data.Frame)=="History"], "Tray")
               Pre_Data.Frame[Pre_ST_Picked,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_ST_Picked,colnames(Pre_Data.Frame)=="History"], "Touched")
