@@ -1,19 +1,47 @@
 
 #Searching for the Touched Fruit Function
 
-Func_Touched<-function(DF){
-  Search.df.item_touched<-Func_seach_Data4(DF,DF$Location,"Selection Table",Row_size_Fr) #Searching for fruit to touch
-  Fr_Touched<-as.numeric(Search.df.item_touched$Item.No.) #Fruit touched
-  DF[Fr_Touched,colnames(DF)=="History"]<-paste(DF[Fr_Touched,colnames(DF)=="History"], "Touched") #Adding History to History
+Func_Touched<-function(DF,Item,RowSizeVar,Item_Picked){
+  #DF= Data Frame
+  #RowSizeVar= Variable Row Size from inputs
+  #Item = "Fruit" , "PSS" or "PRE"
+  #Item_Picked: Fr_Tocuhed or Pre_Toched, Pss_Touched
   
+  Search.df.item_touched<-Func_seach_Data4(DF,DF$Location,"Selection Table",RowSizeVar) #Searching for fruit to touch
+  Item_Picked<-as.numeric(Search.df.item_touched$Item.No.) #Fruit touched
+  DF[Item_Picked,colnames(DF)=="History"]<-paste(DF[Item_Picked,colnames(DF)=="History"], "Touched") #Adding History to History
   #Cross Contamination from Touching Fruit @Touch
-  Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=DF, Item_Picked= Fr_Touched, Item="Fruit")
+  Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=DF, Item_Picked= Item_Picked, Item=Item)
   #Cross Contamination from Allergens
-  DF<-Func_Allergen_CC(DF,Fr_Touched) #Adding Allergen Contamination from touch.
-  return(DF)
+  DF<-Func_Allergen_CC(DF,Item_Picked) #Adding Allergen Contamination from touch.
+  if (Item=="Fruit"){
+    Fr_Data.Frame<<-DF
+  } else if (Item == "PSS"){
+    Pss_Data.Frame<<-DF
+  }else if (Item=="PRE"){
+    Pre_Data.Frame<<-DF
+  }
 }
 
-
+#Function for Picked Items
+Func_Picked<-function(DF, Item_Picked, Item){
+  Search.df.fr<-Func_seach_Data4(DF,DF$Location,"Selection Table",Row_size_Fr)
+  #Fruit Selected #
+  Item_Picked<-as.numeric(Search.df.fr$Item.No.)
+  DF[Item_Picked,colnames(DF)== "Location"]<-"Tray"
+  DF[Item_Picked,colnames(DF)=="History"]<-paste(DF[Item_Picked,colnames(DF)=="History"], "Tray")
+  DF[Item_Picked,colnames(DF)=="History"]<-paste(DF[Item_Picked,colnames(DF)=="History"], "Touched")
+  if (Item=="Fruit"){
+    Fr_Data.Frame<<-DF
+    Fr_Picked<<-Item_Picked
+  } else if (Item == "PSS"){
+    Pss_Data.Frame<<-DF
+    Pss_Picked<<-Item_Picked
+  }else if (Item=="PRE"){
+    Pre_Data.Frame<<-DF
+    Pre_Picked<<-Item_Picked
+  }
+}
 
 
 #Cross_Contamination Fruit. 

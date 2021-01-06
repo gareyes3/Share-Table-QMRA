@@ -14,7 +14,7 @@ if(Toggle_SelfAssigned_Pathogens==1){
       && j == Student_Pathogen_Service[Student_Pathogen_Count] 
       && z == Student_Pathogen_No[Student_Pathogen_Count]){
     Cont_Student<-do.call(Func_ICont_Student,Inputs_ICont_Student)
-    #print("A student is contaminated with Pathogens")
+    print(Cont_Student)
     Student_Pathogen_Count<-(Student_Pathogen_Count+1)
     if(Student_Pathogen_Count>Number_Student_Pathogens){
       Student_Pathogen_Count<-Number_Student_Pathogens

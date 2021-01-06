@@ -27,7 +27,7 @@
 
   #Weeks
   
-  Sens_Iterations<-5
+  Sens_Iterations<-1
 
  
 # Sevice Line Information -------------------------------------------------
@@ -47,7 +47,7 @@
   
   #If students won't carry anything then set Pr os 0
   
-  Pr_Student_iC<-0 #probability of 1 student being contaminated. #set as 0 if self calculated. 
+  Pr_Student_iC<-0.01 #probability of 1 student being contaminated. #set as 0 if self calculated. 
   
   
   Number_Student_Pathogens<-1 #Students that are contaminated that will enter the system every week. 
@@ -236,7 +236,7 @@
   Toggle_SelfAssigned_Allergens<-1
   
 #Initial Contamination
-  Toggle_SelfAssigned_Pathogens<-1
+  Toggle_SelfAssigned_Pathogens<-0
   
 #Wrapping Apples
   Wrapping_Apples<-0

@@ -65,15 +65,28 @@ Individual_Analysis_Pre<-Individual_Analysis_Pre %>%
 ```
 
 ```{r}
-#Creating one data frame with the columns of interest to sort them ouy by student
+#Creating one data frame with the columns of interest to sort them out by student
+all_Items<-0
+Fruit_Only<-1
 
-DF_DR_Analysis<-bind_rows(Individual_Analysis_Fr,Individual_Analysis_Pss, Individual_Analysis_Pre)%>%
+if(all_Items==1){
+  DF_DR_Analysis<-bind_rows(Individual_Analysis_Fr,Individual_Analysis_Pss, Individual_Analysis_Pre)%>%
   group_by(ConsumedBy)%>%
   summarise(Contamination = sum(Contamination))
 
 DF_DR_Analysis$week <- substr(DF_DR_Analysis$ConsumedBy, 1, 1)
 DF_DR_Analysis$Infection<-as.logical("")
 DF_DR_Analysis$Illness<-as.logical("")
+} else if (Fruit_Only==1){
+    DF_DR_Analysis<-Individual_Analysis_Fr%>%
+      group_by(ConsumedBy)%>%
+      summarise(Contamination = sum(Contamination))
+
+    DF_DR_Analysis$week <- substr(DF_DR_Analysis$ConsumedBy, 1, 1)
+    DF_DR_Analysis$Infection<-as.logical("")
+    DF_DR_Analysis$Illness<-as.logical("")
+}
+
 
 
 ```
@@ -130,11 +143,6 @@ colnames(df_inf_Week)<-paste("Week",1:Sens_Iterations)
 colnames(df_ill_Week)<-paste("Week",1:Sens_Iterations)
 
 
-Summary_list_Df_Rep<-as.data.frame(list_Df_Rep,)
-Summary_list_Df_Rep<-lapply(X=Summary_list_Df_Rep, mean)
-Summary_list_Df_Rep<-as.data.frame(Summary_list_Df_Rep)
-aaaaa<-split(Summary_list_Df_Rep, rep(1:ncol(Summary_list_Df_Rep), each= 2))
-aaaaa<-bind_cols(aaaaa)
                                 
 
 ```
