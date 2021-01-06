@@ -42,14 +42,6 @@ if(salmonella ==1){
   TE_Pre_Mouth<-.3397#TE between Surfaces and Hands
 }
 
-#Adding TE to Vectors
-Vector_TE_H_F<-c(Vector_TE_H_F,TE_H_F )
-Vector_TE_F_H<-c(Vector_TE_F_H,TE_F_H )
-Vector_TE_H_S<-c(Vector_TE_H_S, TE_H_S)
-Vector_TE_S_H<-c(Vector_TE_S_H,TE_S_H)
-Vector_TE_S_F<-c(Vector_TE_S_F, TE_S_F)
-Vector_TE_F_S<-c(Vector_TE_F_S, TE_F_S)
-Vector_TE_Pre_Mouth<-c(Vector_TE_Pre_Mouth,TE_Pre_Mouth)
 
 # Calculation of Items Touches Service Line -------------------------------
 

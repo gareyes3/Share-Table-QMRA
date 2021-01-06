@@ -292,44 +292,7 @@ if(j>0 && j<=(Service_No-1)){
   
 
 
-# Summarizing For Input DF ---------------------------------------------------------
 
-#Contminated Students and their contamination
-Mean_Cont_Service<-mean(Vector_Contaminations)
-Vector_Con_Services<-c(Vector_Con_Services,Mean_Cont_Service)
-
-#Number of studets contaminated
-No_Students_Cont<-length(Vector_Contaminations)
-Vector_No_Cont_Stu<-c(Vector_No_Cont_Stu,No_Students_Cont)
-Vector_Contaminations<-c()
-
-#Contamination of fruit
-Mean_Cont_Fr<- mean(Vector_Cont_Fr_Serv)
-Vector_Cont_Fr_Serv_Out<-c(Vector_Cont_Fr_Serv_Out,Mean_Cont_Fr)
-
-#Contamination of Pss
-
-Mean_Cont_Pss<- mean(Vector_Cont_Pss_Serv)
-Vector_Cont_Pss_Serv_Out<-c(Vector_Cont_Pss_Serv_Out,Mean_Cont_Pss)
-
-#Contamination of Pre
-Mean_Cont_Pre<- mean(Vector_Cont_Pre_Serv)
-Vector_Cont_Pre_Serv_Out<-c(Vector_Cont_Pre_Serv_Out,Mean_Cont_Pre)
-
-#Number of fruit items contaminated per service
-No_Cont_Fr<-length(Vector_Cont_Fr_Serv)
-Vector_No_Cont_Fr<-c(Vector_No_Cont_Fr,No_Cont_Fr)
-Vector_Cont_Fr_Serv<-c()
-
-#Number of Pss items contaminated per service
-No_Cont_Pss<-length(Vector_Cont_Pss_Serv)
-Vector_No_Cont_Pss<-c(Vector_No_Cont_Pss,No_Cont_Pss)
-Vector_Cont_Pss_Serv<-c()
-
-#Number of Pre items contaminated per service
-No_Cont_Pre<-length(Vector_Cont_Pre_Serv)
-Vector_No_Cont_Pre<-c(Vector_No_Cont_Pre,No_Cont_Pre)
-Vector_Cont_Pre_Serv<-c()
 
 
 
