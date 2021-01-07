@@ -1,8 +1,4 @@
 
-# #Inputs for Norovirus in fruit. Added to dataframe ----------------------
-
-
-
 
 #Inputs for Func_Growth_Sto_Ecoli. Located in Input_Functions
   
@@ -32,7 +28,6 @@
   
 ##Extras, Not Used--------------------------------------------------------------------------------------------------------------
   #Remove the _PFU if ant to use
-  
   Inputs_Cont_HuNov_Fr_PFU<-list(
     #Prevalence of NV in Fruit
     Prevalence <-rbetagen(1,0.79,1.03,0.0,0.2),

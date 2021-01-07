@@ -1,14 +1,14 @@
 
 # Outputs creation on Individual service data frames -----------------------------------------------------------------
 
-  Fr_DF <- paste("Fr_Data.Frame_D", k,"_S",j, sep = "")
-  assign(Fr_DF, Fr_Data.Frame)
+  #Fr_DF <- paste("Fr_Data.Frame_D", k,"_S",j, sep = "")
+  #assign(Fr_DF, Fr_Data.Frame)
   
-  Pss_DF <- paste("Pss_Data.Frame_D", k,"_S",j, sep = "")
-  assign(Pss_DF, Pss_Data.Frame)
+  #Pss_DF <- paste("Pss_Data.Frame_D", k,"_S",j, sep = "")
+  #assign(Pss_DF, Pss_Data.Frame)
   
-  Pre_DF <- paste("Pre_Data.Frame_D", k,"_S",j, sep = "")
-  assign(Pre_DF, Pre_Data.Frame)
+  #Pre_DF <- paste("Pre_Data.Frame_D", k,"_S",j, sep = "")
+  #assign(Pre_DF, Pre_Data.Frame)
 
 
 # VECTORS -----------------------------------------------------------------

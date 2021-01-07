@@ -27,7 +27,7 @@
 
   #Weeks
   
-  Sens_Iterations<-1
+  Sens_Iterations<-5
 
  
 # Sevice Line Information -------------------------------------------------
@@ -233,7 +233,7 @@
   
   
 #Allergen Toggles
-  Toggle_SelfAssigned_Allergens<-1
+  Toggle_SelfAssigned_Allergens<-0
   
 #Initial Contamination
   Toggle_SelfAssigned_Pathogens<-0

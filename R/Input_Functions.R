@@ -1,3 +1,4 @@
+
 #INPUT FUNCTIONS ============================================================================= 
 
 # Function Contamination in Student Hands ------------------------------------------
@@ -23,6 +24,8 @@ Func_ICont_Student<-function(IC_salmonella,mass_feces_hands,HU_NV_in_Feces,... )
 
 
 #Function that adds contminations to Data frames and converts from CFU/cm^2 to CFU/Apple or item
+
+
 func_Cont_cm2<-function(DF, Prevalence, logContamination, Fr_Mean_area ){
   #Df= Data frame
   #Prevalence = parameter Prevalence of pathogen
@@ -49,7 +52,7 @@ func_Cont_cm2<-function(DF, Prevalence, logContamination, Fr_Mean_area ){
 
 func_Cont_HuNoV_Fr<-function(DF){
   for (i in 1:nrow(DF)){
-    Prevalence <-0#rbetagen(1,0.79,1.03,0.0,0.2) #0.0865215
+    Prevalence <-rbetagen(1,0.79,1.03,0.0,0.2) #0.0865215
     HuNoV_ContFruit<-rlnormTrunc(1,2.38,3.52, 0,6.97) #add 1.578
     Fr_Cont_YN<- ifelse(runif(1)<Prevalence,1,0)
     Contamination<-(10^HuNoV_ContFruit)*Fr_Mean_weight #GEC/Apple
@@ -162,7 +165,7 @@ Func_Growth_Sto_Norovirus<-function(Condition,DF,TimeVar){
     return(DF)
   } else if (Condition == "refrigerated"){
     f<-0
-    b1<--.08
+    b1<-(-.08)
     b2<-4.63
     for (i in 1:nrow(DF)){
       TimeVar<-TimeVar/24

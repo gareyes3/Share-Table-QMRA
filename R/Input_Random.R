@@ -15,6 +15,9 @@ Inputs_ICont_Student<-list(
 
 Res_Trans<-1.97
 
+#SEEDS
+
+
 if(norovirus==1){
   TE_H_F<- rbetagen(1,0.76,1.04,.0126,.46) #0.2013#
   TE_H_S<-rtriang(1,.001,.13,.27) #TE between Hands and Surfaces #add .1340 #

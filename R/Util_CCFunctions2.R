@@ -8,10 +8,17 @@ Func_Touched<-function(DF,Item,RowSizeVar,Item_Picked){
   #Item_Picked: Fr_Tocuhed or Pre_Toched, Pss_Touched
   
   Search.df.item_touched<-Func_seach_Data4(DF,DF$Location,"Selection Table",RowSizeVar) #Searching for fruit to touch
-  Item_Picked<-as.numeric(Search.df.item_touched$Item.No.) #Fruit touched
+  Item_Picked<-as.numeric(Search.df.item_touched$Item.No.) #ITem touched
   DF[Item_Picked,colnames(DF)=="History"]<-paste(DF[Item_Picked,colnames(DF)=="History"], "Touched") #Adding History to History
   #Cross Contamination from Touching Fruit @Touch
   Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=DF, Item_Picked= Item_Picked, Item=Item)
+  if (Item=="Fruit"){
+    DF<-Fr_Data.Frame
+  } else if (Item == "PSS"){
+    DF<-Pss_Data.Frame
+  }else if (Item=="PRE"){
+    DF<-Pre_Data.Frame
+  }
   #Cross Contamination from Allergens
   DF<-Func_Allergen_CC(DF,Item_Picked) #Adding Allergen Contamination from touch.
   if (Item=="Fruit"){

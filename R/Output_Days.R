@@ -1,14 +1,14 @@
 
 # CREATION OF DAYS DATA FRAMES ---------------------------------------------
 
-  Fr_DF_Day <- paste("Fr_Data_D", k, sep = "")
-  assign(Fr_DF_Day, Fr_Data)
+  #Fr_DF_Day <- paste("Fr_Data_D", k, sep = "")
+  #assign(Fr_DF_Day, Fr_Data)
   
-  Pss_DF_Day <- paste("Pss_Data_D", k, sep = "")
-  assign(Pss_DF_Day, Pss_Data)
+  #Pss_DF_Day <- paste("Pss_Data_D", k, sep = "")
+  #assign(Pss_DF_Day, Pss_Data)
   
-  Pre_DF_Day <- paste("Pre_Data_D", k, sep = "")
-  assign(Pre_DF_Day, Pre_Data)
+  #Pre_DF_Day <- paste("Pre_Data_D", k, sep = "")
+  #assign(Pre_DF_Day, Pre_Data)
 
 
 

@@ -37,9 +37,7 @@ for (l in 1:Sens_Iterations){
           Fr_Available<-Fr_Data.Frame$Location == "Selection Table" 
           Sum_Fr_Available<-sum(Fr_Available, na.rm = TRUE)
           if(Sum_Fr_Available>ntouched_Fr){
-            for (i in 1:ntouched_Fr){
-              Func_Touched(DF = Fr_Data.Frame,Item = "Fruit",RowSizeVar = Row_size_Fr,Item_Picked = Fr_Touched)
-            }
+            replicate(ntouched_Fr,Func_Touched(DF = Fr_Data.Frame,Item = "Fruit",RowSizeVar = Row_size_Fr,Item_Picked = Fr_Touched))
           }
         }
         
@@ -75,9 +73,7 @@ for (l in 1:Sens_Iterations){
           Pss_Available<-Pss_Data.Frame$Location == "Selection Table" 
           Sum_Pss_Available<-sum(Pss_Available, na.rm = TRUE)
           if(Sum_Pss_Available>ntouched_Pss){
-            for (i in 1:ntouched_Pss){
-              Func_Touched(DF = Pss_Data.Frame,Item = "PSS",RowSizeVar = Row_size_Pss,Item_Picked = Pss_Touched)
-            }
+            replicate(ntouched_Pss,Func_Touched(DF = Pss_Data.Frame,Item = "PSS",RowSizeVar = Row_size_Pss,Item_Picked = Pss_Touched))
           }
         }
         
@@ -116,9 +112,7 @@ for (l in 1:Sens_Iterations){
           Pre_Available<-Pre_Data.Frame$Location == "Selection Table" 
           Sum_Pre_Available<-sum(Pre_Available, na.rm = TRUE)
           if(Sum_Pre_Available>ntouched_Pre){
-            for (i in 1:ntouched_Pre){
-              Func_Touched(DF = Pre_Data.Frame,Item = "PRE",RowSizeVar = Row_size_Pre,Item_Picked = Pre_Touched)
-            }
+            replicate(ntouched_Pre,Func_Touched(DF = Pre_Data.Frame,Item = "PRE",RowSizeVar = Row_size_Pre,Item_Picked = Pre_Touched))
           }
         }
         
@@ -133,12 +127,7 @@ for (l in 1:Sens_Iterations){
             Func_Picked(DF = Pre_Data.Frame,Item_Picked = Pre_Picked, Item = "PRE")
           }
         }
-        
-        
-        
         #Contamination From Hands to Pre going to Tray
-        
-        
         if(Pick_YN_Pre==1){
           #Cross Contamination from Touching Pre @Tray
           Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pre_Data.Frame, Item_Picked= Pre_Picked, Item="PRE")
@@ -541,8 +530,7 @@ for (l in 1:Sens_Iterations){
 
 
 
-  source("Summary_WeekSens.R")
-  #source("Summary_WeeksDR.R") 
+  #source("Summary_WeekSens.R")
   
   
   
