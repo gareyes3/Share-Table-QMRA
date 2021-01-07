@@ -11,23 +11,13 @@ Func_Touched<-function(DF,Item,RowSizeVar,Item_Picked){
   Item_Picked<-as.numeric(Search.df.item_touched$Item.No.) #ITem touched
   DF[Item_Picked,colnames(DF)=="History"]<-paste(DF[Item_Picked,colnames(DF)=="History"], "Touched") #Adding History to History
   #Cross Contamination from Touching Fruit @Touch
-  Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=DF, Item_Picked= Item_Picked, Item=Item)
-  if (Item=="Fruit"){
-    DF<-Fr_Data.Frame
-  } else if (Item == "PSS"){
-    DF<-Pss_Data.Frame
-  }else if (Item=="PRE"){
-    DF<-Pre_Data.Frame
-  }
+  OutputsCCF<-Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=DF, Item_Picked= Item_Picked, Item=Item)
+  Cont_Student<-OutputsCCF$Cont_Student
+  DF<-OutputsCCF$Data.Frame
   #Cross Contamination from Allergens
   DF<-Func_Allergen_CC(DF,Item_Picked) #Adding Allergen Contamination from touch.
-  if (Item=="Fruit"){
-    Fr_Data.Frame<<-DF
-  } else if (Item == "PSS"){
-    Pss_Data.Frame<<-DF
-  }else if (Item=="PRE"){
-    Pre_Data.Frame<<-DF
-  }
+  OutputsFT<-list(DF=DF, Cont_Student=Cont_Student)
+  return(OutputsFT)
 }
 
 #Function for Picked Items
@@ -38,16 +28,9 @@ Func_Picked<-function(DF, Item_Picked, Item){
   DF[Item_Picked,colnames(DF)== "Location"]<-"Tray"
   DF[Item_Picked,colnames(DF)=="History"]<-paste(DF[Item_Picked,colnames(DF)=="History"], "Tray")
   DF[Item_Picked,colnames(DF)=="History"]<-paste(DF[Item_Picked,colnames(DF)=="History"], "Touched")
-  if (Item=="Fruit"){
-    Fr_Data.Frame<<-DF
-    Fr_Picked<<-Item_Picked
-  } else if (Item == "PSS"){
-    Pss_Data.Frame<<-DF
-    Pss_Picked<<-Item_Picked
-  }else if (Item=="PRE"){
-    Pre_Data.Frame<<-DF
-    Pre_Picked<<-Item_Picked
-  }
+  DF<-DF
+  Item_Picked<-Item_Picked
+  OutputFP<-list(DF=DF, Item_Picked=Item_Picked)
 }
 
 
@@ -85,14 +68,9 @@ Func_Cross_Contamination<-function(Cont_Student,Data.Frame, Item_Picked, Item){
       Data.Frame[Item_Picked,colnames(Data.Frame)== "Contamination"]<-Cont_Updated #update the Fr Contamination in Data frame
       Cont_Student<-ifelse(Cont_Student +(Cont_Difference)<0,0,Cont_Student +(Cont_Difference)) #Updating Contamination in Student's hands
       #Adding Variables to Global Environment
-      if (Item=="Fruit"){
-        Fr_Data.Frame<<-Data.Frame
-      } else if (Item == "PSS"){
-        Pss_Data.Frame<<-Data.Frame
-      }else if (Item=="PRE"){
-        Pre_Data.Frame<<-Data.Frame
-      }
-      Cont_Student<<-Cont_Student
+      OutputsFCC<-list(Data.Frame=Data.Frame, Cont_Student=Cont_Student)
+      return(OutputsFCC)
+
   } 
 
 Func_Cross_Contamination_Consumption_Wrapped<-function(Cont_Student, Data.Frame, Item_Picked, Item){
