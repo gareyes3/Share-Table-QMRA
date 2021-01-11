@@ -1,5 +1,8 @@
-  Student_Counter<-(Student_Counter+1)
-  z<-Student_Counter
+Student_Loop<-function(){
+  
+  Fr_Data.Frame<-Fr_Data.Frame
+  Pss_Data.Frame<-Pss_Data.Frame
+  Pre_Data.Frame<-Pre_Data.Frame
   
   #Random Inputs for every kid. 
   source("Input_Random.R")  #We good!  
@@ -9,9 +12,9 @@
   source("Calc_FeedingItems.R")
   
   
-  #Student Selection ===================================================
+  #STUDENT SELECTION =====================================================================================================
   
-  #FRUIT
+  #Fruit---------------------------------------------------------------
   
   #Student Touching Fruit in line
   
@@ -23,7 +26,7 @@
     Fr_Available<-Fr_Data.Frame$Location == "Selection Table" 
     Sum_Fr_Available<-sum(Fr_Available, na.rm = TRUE)
     if(Sum_Fr_Available>ntouched_Fr){
-      for (i in ntouched_Fr){
+      for (i in 1:ntouched_Fr){
         OutputsFT<-Func_Touched(DF = Fr_Data.Frame, RowSizeVar = Row_size_Fr, Item = "Fruit", Item_Picked = Fr_Touched)
         Cont_Student<-OutputsFT$Cont_Student
         Fr_Data.Frame<-OutputsFT$DF
@@ -39,23 +42,26 @@
     Fr_Available<-Fr_Data.Frame$Location == "Selection Table" 
     Sum_Fr_Available<-as.numeric(sum(Fr_Available,na.rm = TRUE))
     if(Sum_Fr_Available>0){   
-      OutputFP<-Func_Picked(DF = Fr_Data.Frame,Item_Picked = Fr_Picked, Item = "Fruit")
+      OutputFP<-Func_Picked(DF = Fr_Data.Frame,Item_Picked = Fr_Picked,Location = "Selection Table")
       Fr_Data.Frame<-OutputFP$DF
       Fr_Picked<-OutputFP$Item_Picked
+      #Cross Contamination from Touching Fruit @Tray
+      #Contamination from Hand to fruit Going into Tray
+      OutputFCC<-Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Fr_Data.Frame, Item_Picked= Fr_Picked, Item="Fruit")
+      Fr_Data.Frame<-OutputFCC$Data.Frame
+      Cont_Student<-OutputFCC$Cont_Student
+      Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_Picked) #Adding Allergen Contamination from touch.
     }
   }
   
   
   
-  #Contamination from Hand to fruit Going into Tray
   
-  if(Pick_YN_Fr==1){
-    #Cross Contamination from Touching Fruit @Tray
-    Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Fr_Data.Frame, Item_Picked= Fr_Picked, Item="Fruit")
-    Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_Picked) #Adding Allergen Contamination from touch.
-  }
   
-  #PSS
+
+  
+  #Pss-----------------------------------------------------------------------
+  
   #Did student touch other Pss based on probability 
   Touch_YN_Pss<-ifelse(runif(1)<Pr_touch_Food,1,0) 
   
@@ -65,7 +71,11 @@
     Pss_Available<-Pss_Data.Frame$Location == "Selection Table" 
     Sum_Pss_Available<-sum(Pss_Available, na.rm = TRUE)
     if(Sum_Pss_Available>ntouched_Pss){
-      replicate(ntouched_Pss,Func_Touched(DF = Pss_Data.Frame,Item = "PSS",RowSizeVar = Row_size_Pss,Item_Picked = Pss_Touched))
+      for (i in 1:ntouched_Pss){
+        OutputsFT<-Func_Touched(DF = Pss_Data.Frame, RowSizeVar = Row_size_Pss, Item = "PSS", Item_Picked = Pss_Touched)
+        Cont_Student<-OutputsFT$Cont_Student
+        Pss_Data.Frame<-OutputsFT$DF
+      }
     }
   }
   
@@ -78,22 +88,25 @@
     Pss_Available<-Pss_Data.Frame$Location == "Selection Table" 
     Sum_Pss_Available<-sum(Pss_Available, na.rm = TRUE)
     if(Sum_Pss_Available>0){
-      Func_Picked(DF = Pss_Data.Frame,Item_Picked = Pss_Picked, Item = "PSS")
+      OutputFP<-Func_Picked(DF = Pss_Data.Frame,Item_Picked = Pss_Picked,Location = "Selection Table")
+      Pss_Data.Frame<-OutputFP$DF
+      Pss_Picked<-OutputFP$Item_Picked
+      #Cross Contamination from Touching PSS @Tray
+      #Contamination from Hand to PSS Going into Tray
+      OutputFCC<-Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pss_Data.Frame, Item_Picked= Pss_Picked, Item="PSS")
+      Pss_Data.Frame<-OutputFCC$Data.Frame
+      Cont_Student<-OutputFCC$Cont_Student
+      Pss_Data.Frame<-Func_Allergen_CC(Pss_Data.Frame,Pss_Picked) #Adding Allergen Contamination from touch.
     }
   }
   
   
-  #Contamination From Hands to Pss going to Tray
+
   
   
-  if(Pick_YN_Pss==1){
-    #Cross Contamination from Touching Pss @Tray
-    Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pss_Data.Frame, Item_Picked= Pss_Picked, Item="PSS")
-    Pss_Data.Frame<-Func_Allergen_CC(Pss_Data.Frame,Pss_Picked) #Adding Allergen Contamination from touch.
-  }
+
   
-  
-  #PRE
+  #Pre-------------------------------------------------------------------------------------
   
   #Did the Student touch any Pre during selection? 
   Touch_YN_Pre<-ifelse(runif(1)<Pr_touch_Food,1,0) 
@@ -104,7 +117,11 @@
     Pre_Available<-Pre_Data.Frame$Location == "Selection Table" 
     Sum_Pre_Available<-sum(Pre_Available, na.rm = TRUE)
     if(Sum_Pre_Available>ntouched_Pre){
-      replicate(ntouched_Pre,Func_Touched(DF = Pre_Data.Frame,Item = "PRE",RowSizeVar = Row_size_Pre,Item_Picked = Pre_Touched))
+      for (i in 1:ntouched_Pre){
+        OutputsFT<-Func_Touched(DF = Pre_Data.Frame, RowSizeVar = Row_size_Pre, Item = "PRE", Item_Picked = Pre_Touched)
+        Cont_Student<-OutputsFT$Cont_Student
+        Pre_Data.Frame<-OutputsFT$DF
+      }
     }
   }
   
@@ -116,195 +133,123 @@
     Pre_Available<-Pre_Data.Frame$Location == "Selection Table" 
     Sum_Pre_Available<-sum(Pre_Available, na.rm = TRUE)
     if(Sum_Pre_Available>0){
-      Func_Picked(DF = Pre_Data.Frame,Item_Picked = Pre_Picked, Item = "PRE")
+      OutputFP<-Func_Picked(DF = Pre_Data.Frame,Item_Picked = Pre_Picked,Location = "Selection Table")
+      Pre_Data.Frame<-OutputFP$DF
+      Pre_Picked<-OutputFP$Item_Picked
+      #Cross Contamination from Touching Pre @Tray
+      #Contamination from Hand to Pre Going into Tray
+      OutputFCC<-Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pre_Data.Frame, Item_Picked= Pre_Picked, Item="PRE")
+      Pre_Data.Frame<-OutputFCC$Data.Frame
+      Cont_Student<-OutputFCC$Cont_Student
+      Pre_Data.Frame<-Func_Allergen_CC(Pre_Data.Frame,Pre_Picked) #Adding Allergen Contamination from touch.
     }
   }
-  #Contamination From Hands to Pre going to Tray
-  if(Pick_YN_Pre==1){
-    #Cross Contamination from Touching Pre @Tray
-    Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pre_Data.Frame, Item_Picked= Pre_Picked, Item="PRE")
-    Pre_Data.Frame<-Func_Allergen_CC(Pre_Data.Frame,Pre_Picked) #Adding Allergen Contamination from touch.
-  }  
   
   
-  # Consumption==========================================================================
+
   
   
+  # CONSUMPTION===========================================================================================================
   
-  #Fruit
+  
+  #Fruit------------------------------------------------------------------
   
   #Did the student consume the Fruit?
   Eat_YN_Fr<-ifelse(runif(1)<Pr_eat_Fr,1,0)
   
   #Changing Data Frame so it updates when student consumes fruit.
   
-  if(Pick_YN_Fr==1){
-    if(Eat_YN_Fr==1){
-      Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "Location"]<-"Consumed"
-      Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "ConsumedBy"]<-(paste(l,k,j,z))
-      Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="History"], "Consumed")
-      #Contamination
-      if (Wrapping_Apples == 1){
-        #Cross Contamination at consumption if apples wrapped
-        Func_Cross_Contamination_Consumption_Wrapped(Cont_Student = Cont_Student,Data.Frame = Fr_Data.Frame,Item_Picked = Fr_Picked,Item = "Fruit")
-        Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_Picked) #Adding Allergen Contamination from touch.
-      } else if (Wrapping_Apples == 0){
-        #Cross Contamination @ Consumption apples not wrapped. 
-        Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Fr_Data.Frame, Item_Picked= Fr_Picked, Item="Fruit")
-      } #end of if wrapp 
-      
-    }else{
-      #Updating Location and History for consumption
-      Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "Location"]<-"Not Consumed"
-      Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="History"], "NotConsumed")
-      #Cross Crontamination from apples not being Consumed touch to ST/ Trash
-      Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Fr_Data.Frame, Item_Picked= Fr_Picked, Item="Fruit")
-      Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_Picked) #Adding Allergen Contamination from touch.
-    } #end of eat if statement
+  if(Pick_YN_Fr==1 && Sum_Fr_Available>0){
+    OutputsFEFr<-Func_Eat_Fr(Eat_YN_Item = Eat_YN_Fr, DF = Fr_Data.Frame,Item_Picked = Fr_Picked,Item = "Fruit")
+    Cont_Student<-OutputsFEFr$Cont_Student
+    Fr_Data.Frame<-OutputsFEFr$DF
   }#end of pick statement
   
-  #Pss
+  
+  #Pss------------------------------------------------------------------
+  
   #Did student consume the Pss
   Eat_YN_Pss<-ifelse(runif(1)<Pr_eat_Pss,1,0)
   
   #Changing Data Frame for consumption of Pss
-  if(Pick_YN_Pss==1){
-    if(Eat_YN_Pss==1){
-      
-      Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)== "Location"]<-"Consumed" 
-      Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)== "ConsumedBy"]<-(paste(l,k,j,z))
-      Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="History"], "Consumed")
-      #Contamination Insdide Pss @Consumption
-      Func_Cross_Contamination_Consumption_Wrapped(Cont_Student = Cont_Student,Data.Frame = Pss_Data.Frame,Item_Picked = Pss_Picked,Item = "PSS")
-      Pss_Data.Frame<-Func_Allergen_CC(Pss_Data.Frame,Pss_Picked) #Adding Allergen Contamination from touch.
-      
-    }else{
-      #Updating Data frame Location and History
-      Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)== "Location"]<-"Not Consumed" 
-      Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="History"], "NotConsumed")
-      
-      #Contamination from Touch @ Consumption
-      Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pss_Data.Frame, Item_Picked= Pss_Picked, Item="PSS")
-      Pss_Data.Frame<-Func_Allergen_CC(Pss_Data.Frame,Pss_Picked) #Adding Allergen Contamination from touch.
-      
-    } #end of Else statement for Eat
+  if(Pick_YN_Pss==1 && Sum_Pss_Available>0){
+    OutputsFEPss<-Func_Eat_Pss(Eat_YN_Item = Eat_YN_Pss,DF = Pss_Data.Frame, Item_Picked = Pss_Picked, Item = "PSS")
+    Cont_Student<-OutputsFEPss$Cont_Student
+    Pss_Data.Frame<-OutputsFEPss$DF
   } #end of If
   
-  #Pre
+  
+  #Pre -----------------------------------------------------------------
+  
   #Did student consume the Pre
   Eat_YN_Pre<-ifelse(runif(1)<Pr_eat_Pre,1,0)
   
   #Changind Data Frame for consumption of Pre
-  if(Pick_YN_Pre==1){
-    if(Eat_YN_Pre==1){
-      
-      Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)== "Location"]<-"Consumed" 
-      Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)== "ConsumedBy"]<-(paste(l,k,j,z))
-      Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)=="History"], "Consumed")
-      #Contamination Container Pre to Mouth @ Consumption
-      Func_Cross_Contamination_Pre_Consumption(Cont_Student=Cont_Student,Pre_Data.Frame = Pre_Data.Frame, Pre_Picked = Pre_Picked)
-      Pre_Data.Frame<-Func_Allergen_CC(Pre_Data.Frame,Pre_Picked) #Adding Allergen Contamination from touch.
-      
-    }else{
-      Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)== "Location"]<-"Not Consumed"  
-      Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)=="History"], "NotConsumed")
-      
-      #Contaminationat Pre Container
-      Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pre_Data.Frame, Item_Picked= Pre_Picked, Item="PRE")
-      Pre_Data.Frame<-Func_Allergen_CC(Pre_Data.Frame,Pre_Picked) #Adding Allergen Contamination from touch.
-    }  
+  if(Sum_Pre_Available>0){
+    if(Pick_YN_Pre==1){
+      OutputFEPre<-Func_Eat_Pre(Eat_YN_Item = Eat_YN_Pre,DF = Pre_Data.Frame, Item_Picked = Pre_Picked, Item = "PRE")
+      Cont_Student<-OutputFEPre$Cont_Student
+      Pre_Data.Frame<-OutputFEPre$DF
+    }
   }
+
   
   
-  
-  
-  #Not Consumed items to share table=======================================================
+  #NOT CONSUMED TO ST=====================================================================================================
   
   if(Share_Table_YN==1){ 
     
     #Proability of the student sharing their food. 
     Share_YN_Food<-ifelse(runif(1)<Pr_share_Food,1,0)
     
-    #Fruit 
-    #Items in Share Table:
+    #Fruit--------------------------------------------------------------------
     
-    if(Pick_YN_Fr==1){  
-      if(Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="Location"]== "Not Consumed"){
-        if(Share_YN_Food==1){
-          Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "Location"]<-"Shared"
-          Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="History"], "Shared")
-          Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="STtimes"]<-Func_Index_DF(Fr_Data.Frame,Fr_Picked,"STtimes")+1
-          V_Shared_Fr<-(V_Shared_Fr+1)
-        }else{
-          Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "Location"]<-"Not Shared" 
-          Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)=="History"], "NotShared")
-        }
-      }
+    if(Pick_YN_Fr==1 && Sum_Fr_Available>0){  
+      Fr_Data.Frame<-Func_Shared(DF = Fr_Data.Frame, Item_Picked = Fr_Picked,Share_YN_Food=Share_YN_Food)
     }
-    #Pss
     
-    if(Pick_YN_Pss==1){  
-      if(Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="Location"]== "Not Consumed"){
-        if(Share_YN_Food==1){
-          Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)== "Location"]<-"Shared"
-          Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="History"], "Shared")
-          Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="STtimes"]<-Func_Index_DF(Pss_Data.Frame,Pss_Picked,"STtimes")+1
-          V_Shared_Pss<-(V_Shared_Pss+1)
-        }else{
-          Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)== "Location"]<-"Not Shared"
-          Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_Picked,colnames(Pss_Data.Frame)=="History"], "NotShared")
-        }
-      }
+    #Pss--------------------------------------------------------------------
+    
+    if(Pick_YN_Pss==1 && Sum_Pss_Available>0){  
+      Pss_Data.Frame<-Func_Shared(DF = Pss_Data.Frame, Item_Picked = Pss_Picked,Share_YN_Food=Share_YN_Food)
     }
-    #Pre
     
-    if(Pick_YN_Pre==1){    
-      if(Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)=="Location"]== "Not Consumed"){
-        if(Share_YN_Food==1){
-          Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)== "Location"]<-"Shared"
-          Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)=="History"], "Shared")
-          Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)=="STtimes"]<-Func_Index_DF(Pre_Data.Frame,Pre_Picked,"STtimes")+1
-          V_Shared_Pre<-(V_Shared_Pre+1)
-        }else{
-          Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)== "Location"]<-" Not Shared"
-          Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)=="History"], "NotShared")
-        }
-      }
+    #Pre--------------------------------------------------------------------
+    
+    if(Pick_YN_Pre==1 && Sum_Pre_Available>0){    
+      Pre_Data.Frame<-Func_Shared(DF = Pre_Data.Frame, Item_Picked = Pre_Picked,Share_YN_Food=Share_YN_Food)
     }
     
     
     
-    #Picking and consuming ST items ==================================================================
+    #PICKING AND CONSUMING ST ITEMS =====================================================================================
     
     
-    #Shared Fruit
+    # Select Fruit---------------------------------------------------------------------------------------------
+    
     Items_Shared<-Fr_Data.Frame$Location == "Shared" 
     Sum_Shared<-sum(Items_Shared, na.rm = TRUE)
     if(Sum_Shared>0){
       
-      #Fruit
-      
       #Did a student pick an item for the share table? 
       Pick_ST_YN_Fr<-ifelse(runif(1)<Pr_Pick_ST_Fr,1,0) 
-      
       #Fruit picked from Share Table. 
       if(Pick_ST_YN_Fr==1){
-        Search.df.fr_ST<-Func_Search_Data(Fr_Data.Frame,Fr_Data.Frame$Location,"Shared",1)
-        #Fruit from share table selected #
-        Fr_ST_Picked<-as.numeric(Search.df.fr_ST$Item.No.)
-        Fr_Data.Frame[as.numeric(row.names(Search.df.fr_ST)),colnames(Search.df.fr_ST)== "Location"]<-"Tray"
-        Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)=="History"], "Tray")
-        Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)=="History"], "Touched")
+        OutputFP_ST<-Func_Picked_ST(DF = Fr_Data.Frame,Item_Picked_ST = Fr_ST_Picked)
+        Fr_Data.Frame<-OutputFP_ST$DF
+        Fr_ST_Picked<-OutputFP_ST$Item_Picked_ST
       }
       
       #Contamination from Hand to Fruit or from Fruit to Hand. 
       if(Pick_ST_YN_Fr==1){
         #Contamination from picking item share table
-        Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Fr_Data.Frame, Item_Picked= Fr_ST_Picked, Item="Fruit")
+        OutputFCC_ST<-Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Fr_Data.Frame, Item_Picked= Fr_ST_Picked, Item="Fruit")
+        Fr_Data.Frame<-OutputFCC_ST$Data.Frame
+        Cont_Student<-OutputFCC_ST$Cont_Student
         Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_ST_Picked) #Adding Allergen Contamination
       }
       
-      #Consumption of share table item
+      #Consuming Fruit--------------------------------------------------------------------------
       
       #Did the student consume the Fruit?
       Eat_YN_ST_Fr<-ifelse(runif(1)<Pr_eat_ST_Fr,1,0)
@@ -312,33 +257,14 @@
       #Changing Data Frame so it updates when student consumes fruit.
       
       if(Pick_ST_YN_Fr==1){  
-        if(Eat_YN_ST_Fr==1){
-          Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)== "Location"]<-"Consumed"
-          Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)== "ConsumedBy"]<-(paste(l,k,j,z))
-          Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)=="History"], "Consumed")
-          #Contamination
-          if (Wrapping_Apples == 1){
-            #Cross Contamination at consumption if apples wrapped
-            Func_Cross_Contamination_Consumption_Wrapped(Cont_Student = Cont_Student,Data.Frame = Fr_Data.Frame,Item_Picked = Fr_ST_Picked ,Item = "Fruit")
-            Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_ST_Picked) #Adding Allergen Contamination from touch.
-          } else if (Wrapping_Apples == 0){
-            #Cross Contamination @ Consumption apples not wrapped. 
-            Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Fr_Data.Frame, Item_Picked= Fr_ST_Picked, Item="Fruit")
-          } #end of if wrapp 
-          
-        }else{
-          Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)== "Location"]<-"Not Consumed"
-          Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)=="History"]<-paste(Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)=="History"], "NotConsumed")
-          #Cross Crontamination from apples not consumed from ST
-          Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Fr_Data.Frame, Item_Picked= Fr_ST_Picked, Item="Fruit")
-          Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_ST_Picked) #Adding Allergen Contamination from touch.
-          
-        } #end of eat if
+        OutputsFEFr<-Func_Eat_Fr(Eat_YN_Item = Eat_YN_ST_Fr, DF = Fr_Data.Frame,Item_Picked = Fr_ST_Picked,Item = "Fruit")
+        Cont_Student<-OutputsFEFr$Cont_Student
+        Fr_Data.Frame<-OutputsFEFr$DF
       } # end of picking if
-      
     }  #end of if to make sure there are ST items
     
-    #Shared Pss
+    #Picking Pss------------------------------------------------------------------------
+    
     Items_Shared_Pss<-Pss_Data.Frame$Location == "Shared" 
     Sum_Shared_Pss<-sum(Items_Shared_Pss, na.rm = TRUE)
     if(Sum_Shared_Pss>0){
@@ -348,23 +274,22 @@
       
       #Pss picked from Share Table. 
       if(Pick_ST_YN_Pss==1){
-        Search.df.Pss_ST<-Func_Search_Data(Pss_Data.Frame,Pss_Data.Frame$Location,"Shared",1)
-        #Pss from share table selected #
-        Pss_ST_Picked<-as.numeric(Search.df.Pss_ST$Item.No.)
-        Pss_Data.Frame[as.numeric(row.names(Search.df.Pss_ST)),colnames(Search.df.Pss_ST)== "Location"]<-"Tray"
-        Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)=="History"], "Tray")
-        Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)=="History"], "Touched")
+        OutputFP_ST<-Func_Picked_ST(DF = Pss_Data.Frame,Item_Picked_ST = Pss_ST_Picked)
+        Pss_Data.Frame<-OutputFP_ST$DF
+        Pss_ST_Picked<-OutputFP_ST$Item_Picked_ST
       }
       
       
       #Contamination from Hand to Pss or from Hand to Pss. 
       if(Pick_ST_YN_Pss==1){
-        #Contamination at tray
-        Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pss_Data.Frame, Item_Picked= Pss_ST_Picked, Item="PSS")
+        #Contamination from picking item share table
+        OutputFCC_ST<-Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pss_Data.Frame, Item_Picked=  Pss_ST_Picked, Item="PSS")
+        Pss_Data.Frame<-OutputFCC_ST$Data.Frame
+        Cont_Student<-OutputFCC_ST$Cont_Student
         Pss_Data.Frame<-Func_Allergen_CC(Pss_Data.Frame,Pss_ST_Picked) #Adding Allergen Contamination
       }
       
-      #Consumption of share table item
+      #Consuming Pss-------------------------------------------------------------------------
       
       #Did the student consume the Fruit?
       Eat_YN_ST_Pss<-ifelse(runif(1)<Pr_eat_ST_Pss,1,0)
@@ -372,25 +297,13 @@
       #Changing Data Frame so it updates when student consumes fruit.
       
       if(Pick_ST_YN_Pss==1){  
-        if(Eat_YN_ST_Pss==1){
-          Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)== "Location"]<-"Consumed"
-          Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)== "ConsumedBy"]<-(paste(l,k,j,z))
-          Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)=="History"], "Consumed")
-          #Cross Contamination @ Consumption
-          Func_Cross_Contamination_Consumption_Wrapped(Cont_Student = Cont_Student,Data.Frame = Pss_Data.Frame,Item_Picked = Pss_ST_Picked,Item = "PSS")
-          Pss_Data.Frame<-Func_Allergen_CC(Pss_Data.Frame,Pss_ST_Picked) #Adding Allergen Contamination from touch.
-          
-        }else{
-          Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)== "Location"]<-"Not Consumed"
-          Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)=="History"]<-paste(Pss_Data.Frame[Pss_ST_Picked,colnames(Pss_Data.Frame)=="History"], "NotConsumed")
-          #Contamination from Touch @ Not Consumption
-          Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pss_Data.Frame, Item_Picked= Pss_ST_Picked, Item="PSS")
-          Pss_Data.Frame<-Func_Allergen_CC(Pss_Data.Frame,Pss_ST_Picked) #Adding Allergen Contamination from touch.
-        }
+        OutputsFEPss<-Func_Eat_Pss(Eat_YN_Item = Eat_YN_ST_Pss,DF = Pss_Data.Frame, Item_Picked = Pss_ST_Picked, Item = "PSS")
+        Cont_Student<-OutputsFEPss$Cont_Student
+        Pss_Data.Frame<-OutputsFEPss$DF
       }
     }
     
-    #Shared Pre
+    #Picking Pre---------------------------------------------------------------------------
     
     Items_Shared_Pre<-Pre_Data.Frame$Location == "Shared" 
     Sum_Shared_Pre<-sum(Items_Shared_Pre, na.rm = TRUE)
@@ -401,46 +314,44 @@
       
       #Pre picked from Share Table. 
       if(Pick_ST_YN_Pre==1){
-        Search.df.Pre_ST<-Func_Search_Data(Pre_Data.Frame,Pre_Data.Frame$Location,"Shared",1)
-        #Pre from share table selected #
-        Pre_ST_Picked<-as.numeric(Search.df.Pre_ST$Item.No.)
-        Pre_Data.Frame[as.numeric(row.names(Search.df.Pre_ST)),colnames(Search.df.Pre_ST)== "Location"]<-"Tray"
-        Pre_Data.Frame[Pre_ST_Picked,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_ST_Picked,colnames(Pre_Data.Frame)=="History"], "Tray")
-        Pre_Data.Frame[Pre_ST_Picked,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_ST_Picked,colnames(Pre_Data.Frame)=="History"], "Touched")
+        OutputFP_ST<-Func_Picked_ST(DF = Pre_Data.Frame,Item_Picked_ST = Pre_ST_Picked)
+        Pre_Data.Frame<-OutputFP_ST$DF
+        Pre_ST_Picked<-OutputFP_ST$Item_Picked_ST
       }
       
-      
-      #Contamination from Hand to Fruit or from Hand to Fruit. 
       if(Pick_ST_YN_Pre==1){
-        Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pre_Data.Frame, Item_Picked= Pre_ST_Picked, Item="PRE")
+        #Contamination from picking item share table
+        OutputFCC_ST<-Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pre_Data.Frame, Item_Picked= Pre_ST_Picked, Item="PRE")
+        Pre_Data.Frame<-OutputFCC_ST$Data.Frame
+        Cont_Student<-OutputFCC_ST$Cont_Student
         Pre_Data.Frame<-Func_Allergen_CC(Pre_Data.Frame,Pre_ST_Picked) #Adding Allergen Contamination
       }
       
-      #Consumption of share table item
+      
+      
+      #Consuming Pre--------------------------------------------------------------------------
       
       #Did the student consume the Fruit?
       Eat_YN_ST_Pre<-ifelse(runif(1)<Pr_eat_ST_Pre,1,0)
       
       #Changing Data Frame so it updates when student consumes fruit.
-      
-      if(Pick_ST_YN_Pre==1){  
-        if(Eat_YN_ST_Pre==1){
-          #Updating Values in DF
-          Pre_Data.Frame[Pre_ST_Picked,colnames(Pre_Data.Frame)== "Location"]<-"Consumed"
-          Pre_Data.Frame[Pre_ST_Picked,colnames(Pre_Data.Frame)== "ConsumedBy"]<-(paste(l,k,j,z))
-          Pre_Data.Frame[Pre_ST_Picked,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_ST_Picked,colnames(Pre_Data.Frame)=="History"], "Consumed")
-          #Contamination Container Pre to Mouth @ Consumption
-          Func_Cross_Contamination_Pre_Consumption(Cont_Student = Cont_Student, Pre_Data.Frame = Pre_Data.Frame, Pre_Picked = Pre_ST_Picked)
-          Pre_Data.Frame<-Func_Allergen_CC(Pre_Data.Frame,Pre_ST_Picked) #Adding Allergen Contamination from touch.
-          
-        }else{
-          Pre_Data.Frame[Pre_ST_Picked,colnames(Pre_Data.Frame)== "Location"]<-"Not Consumed"
-          Pre_Data.Frame[Pre_ST_Picked,colnames(Pre_Data.Frame)=="History"]<-paste(Pre_Data.Frame[Pre_ST_Picked,colnames(Pre_Data.Frame)=="History"], "NotConsumed")
-          #Contaminationat Pre Container
-          Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pre_Data.Frame, Item_Picked= Pre_ST_Picked, Item="PRE")
-          Pre_Data.Frame<-Func_Allergen_CC(Pre_Data.Frame,Pre_ST_Picked) #Adding Allergen Contamination from touch.
+      if(Sum_Pre_Available>0){
+        if(Pick_ST_YN_Pre==1){  
+          if(Eat_YN_ST_Pre==1){
+            OutputFEPre<-Func_Eat_Pre(Eat_YN_Item = Eat_YN_ST_Pre,DF = Pre_Data.Frame, Item_Picked = Pre_ST_Picked, Item = "PRE")
+            Cont_Student<-OutputFEPre$Cont_Student
+            Pre_Data.Frame<-OutputFEPre$DF
+          }
         }
       }
+
+      
     }#end of if there is st items loop
-  }#end of toggle loop
+  }#end of Share Table  toggle loop
+  
+  Fr_Data.Frame<<-Fr_Data.Frame
+  Pss_Data.Frame<<-Pss_Data.Frame
+  Pre_Data.Frame<<-Pre_Data.Frame
+}
+
   

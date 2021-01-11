@@ -21,8 +21,11 @@ Func_Touched<-function(DF,Item,RowSizeVar,Item_Picked){
 }
 
 #Function for Picked Items
-Func_Picked<-function(DF, Item_Picked, Item){
-  Search.df.fr<-Func_seach_Data4(DF,DF$Location,"Selection Table",Row_size_Fr)
+Func_Picked<-function(DF, Item_Picked, Location){
+  #DF = Data Frame
+  #ITem Picked
+  #Location = "Selection Table" or Shared
+  Search.df.fr<-Func_seach_Data4(DF,DF$Location,Location,Row_size_Fr)
   #Fruit Selected #
   Item_Picked<-as.numeric(Search.df.fr$Item.No.)
   DF[Item_Picked,colnames(DF)== "Location"]<-"Tray"
@@ -34,11 +37,132 @@ Func_Picked<-function(DF, Item_Picked, Item){
 }
 
 
+Func_Picked_ST<-function(DF,Item_Picked_ST){
+  Search.df.fr_ST<-Func_seach_Data4(DF,DF$Location,"Shared",1)
+  #Fruit from share table selected #
+  Item_Picked_ST<-as.numeric(Search.df.fr_ST$Item.No.)
+  DF[as.numeric(row.names(Search.df.fr_ST)),colnames(Search.df.fr_ST)== "Location"]<-"Tray"
+  DF[Item_Picked_ST,colnames(DF)=="History"]<-paste(DF[Item_Picked_ST,colnames(DF)=="History"], "Tray")
+  DF[Item_Picked_ST,colnames(DF)=="History"]<-paste(DF[Item_Picked_ST,colnames(DF)=="History"], "Touched")
+  DF<-DF
+  Item_Picked_ST<-Item_Picked_ST
+  OutputFP_ST<-list(DF=DF, Item_Picked_ST=Item_Picked_ST)
+}
+
+
+Func_Eat_Fr<-function(Eat_YN_Item, DF, Item_Picked,Item){
+  #Eat_YN_ITem:Eat_YN_Fr
+  #DF: Fr_Data.Frame
+  #Item_Picked: Fr_Picked
+  #Item= "Friut"
+  if(Eat_YN_Item==1){
+    DF[Item_Picked,colnames(DF)== "Location"]<-"Consumed"
+    DF[Item_Picked,colnames(DF)== "ConsumedBy"]<-(paste(l,k,j,z))
+    DF[Item_Picked,colnames(DF)=="History"]<-paste(DF[Item_Picked,colnames(DF)=="History"], "Consumed")
+    #Contamination
+    if (Wrapping_Apples == 1){
+      #Cross Contamination at consumption if apples wrapped
+      OutputsCCFW<-Func_Cross_Contamination_Consumption_Wrapped(Cont_Student=Cont_Student,Data.Frame=DF, Item_Picked= Item_Picked)
+      Cont_Student<-OutputsCCFW$Cont_Student
+      DF<-OutputsCCFW$Data.Frame
+      DF<-Func_Allergen_CC(DF,Item_Picked) #Adding Allergen Contamination from touch.
+    } else if (Wrapping_Apples == 0){
+      #Cross Contamination @ Consumption apples not wrapped. 
+      OutputsCCF<-Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=DF, Item_Picked= Item_Picked, Item=Item)
+      Cont_Student<-OutputsCCF$Cont_Student
+      DF<-OutputsCCF$Data.Frame
+    } #end of if wrapp 
+  }else if(Eat_YN_Item==0){
+    #Updating Location and History for consumption
+    DF[Item_Picked,colnames(DF)== "Location"]<-"Not Consumed"
+    DF[Item_Picked,colnames(DF)=="History"]<-paste(DF[Item_Picked,colnames(DF)=="History"], "NotConsumed")
+    #Cross Crontamination from apples not being Consumed touch to ST/ Trash
+    OutputsCCF<-Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=DF, Item_Picked= Item_Picked, Item=Item)
+    Cont_Student<-OutputsCCF$Cont_Student
+    DF<-OutputsCCF$Data.Frame
+    DF<-Func_Allergen_CC(DF,Item_Picked) #Adding Allergen Contamination from touch.
+  } #end of eat if statement
+  OutputsFEFr<-list(DF=DF, Cont_Student=Cont_Student)
+  return(OutputsFEFr)
+}
+
+
+Func_Eat_Pss<-function(Eat_YN_Item,DF,Item_Picked, Item){
+  #Eat_YN_Item = Eat_YN_Pss
+  #DF=Pss.Data.Frame
+  #Item_Picked= Pss_Picked
+  #Item = "PSS
+  if(Eat_YN_Item==1){
+    DF[Item_Picked,colnames(DF)== "Location"]<-"Consumed" 
+    DF[Item_Picked,colnames(DF)== "ConsumedBy"]<-(paste(l,k,j,z))
+    DF[Item_Picked,colnames(DF)=="History"]<-paste(DF[Item_Picked,colnames(DF)=="History"], "Consumed")
+    #Contamination Insdide Pss @Consumption
+    OutputsCCFW<-Func_Cross_Contamination_Consumption_Wrapped(Cont_Student=Cont_Student,Data.Frame=DF, Item_Picked= Item_Picked)
+    Cont_Student<-OutputsCCFW$Cont_Student
+    DF<-OutputsCCFW$Data.Frame
+    DF<-Func_Allergen_CC(DF,Item_Picked) #Adding Allergen Contamination from touch.
+  }else if(Eat_YN_Item== 0){
+    #Updating Data frame Location and History
+    DF[Item_Picked,colnames(DF)== "Location"]<-"Not Consumed" 
+    DF[Item_Picked,colnames(DF)=="History"]<-paste(DF[Item_Picked,colnames(DF)=="History"], "NotConsumed")
+    #Contamination from Touch @ Consumption
+    OutputsCCF<-Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=DF, Item_Picked= Item_Picked, Item=Item)
+    Cont_Student<-OutputsCCF$Cont_Student
+    DF<-OutputsCCF$Data.Frame
+    DF<-Func_Allergen_CC(DF,Item_Picked) #Adding Allergen Contamination from touch.
+  } #end of Else statement for Eat
+  OutputsFEPss<-list(DF=DF, Cont_Student=Cont_Student)
+  return(OutputsFEPss)
+}
+
+
+
+Func_Eat_Pre<-function(Eat_YN_Item,DF, Item_Picked, Item){
+  if(Eat_YN_Item==1){
+    DF[Item_Picked,colnames(DF)== "Location"]<-"Consumed" 
+    DF[Item_Picked,colnames(DF)== "ConsumedBy"]<-(paste(l,k,j,z))
+    DF[Item_Picked,colnames(DF)=="History"]<-paste(DF[Item_Picked,colnames(DF)=="History"], "Consumed")
+    #Contamination Container Pre to Mouth @ Consumption
+    OutputFCCPre<-Func_Cross_Contamination_Pre_Consumption(Cont_Student=Cont_Student,DF = DF, Item_Picked = Item_Picked)
+    Cont_Student<-OutputFCCPre$Cont_Student
+    DF<-OutputFCCPre$DF
+    DF<-Func_Allergen_CC(DF,Item_Picked) #Adding Allergen Contamination from touch.
+  }else if(Eat_YN_Item==0){
+    DF[Item_Picked,colnames(DF)== "Location"]<-"Not Consumed"  
+    DF[Item_Picked,colnames(DF)=="History"]<-paste(DF[Item_Picked,colnames(DF)=="History"], "NotConsumed")
+    
+    #Contaminationat Pre Container
+    OutputsCCF<-Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=DF, Item_Picked= Item_Picked, Item=Item)
+    Cont_Student<-OutputsCCF$Cont_Student
+    DF<-OutputsCCF$Data.Frame
+    DF<-Func_Allergen_CC(DF,Item_Picked) #Adding Allergen Contamination from touch.
+  } 
+  OutputFEPre<-list(DF=DF,Cont_Student=Cont_Student)
+  return(OutputFEPre)
+}
+
+Func_Shared<-function(DF, Item_Picked,Share_YN_Food){
+  #DF = Main Data Frame of Item
+  #Item Picked = Item picked from Selection
+  if(DF[Item_Picked,colnames(DF)=="Location"]== "Not Consumed"){
+    if(Share_YN_Food==1){
+      DF[Item_Picked,colnames(DF)== "Location"]<-"Shared"
+      DF[Item_Picked,colnames(DF)=="History"]<-paste(DF[Item_Picked,colnames(DF)=="History"], "Shared")
+      DF[Item_Picked,colnames(DF)=="STtimes"]<-Func_Index_DF(DF,Item_Picked,"STtimes")+1
+      V_Shared_Fr<-(V_Shared_Fr+1)
+    }else{
+      DF[Item_Picked,colnames(DF)== "Location"]<-"Not Shared" 
+      DF[Item_Picked,colnames(DF)=="History"]<-paste(DF[Item_Picked,colnames(DF)=="History"], "NotShared")
+    }
+  }
+  return(DF)
+}
+
+#======================================================================================================================
 #Cross_Contamination Fruit. 
 
 Func_Cross_Contamination<-function(Cont_Student,Data.Frame, Item_Picked, Item){
   Conta<-Func_Index_DF(Data.Frame,Item_Picked,"Contamination")
-  
   if(salmonella==1){
       #update the Fr Contamination in Data frame
       Tr_H_F<-Cont_Student*TE_H_F #Transfer from Hand to Fruit
@@ -73,7 +197,7 @@ Func_Cross_Contamination<-function(Cont_Student,Data.Frame, Item_Picked, Item){
 
   } 
 
-Func_Cross_Contamination_Consumption_Wrapped<-function(Cont_Student, Data.Frame, Item_Picked, Item){
+Func_Cross_Contamination_Consumption_Wrapped<-function(Cont_Student, Data.Frame, Item_Picked){
   #Contamination of Fruit
   Conta<-Func_Index_DF(Data.Frame,Item_Picked,"Contamination")
   
@@ -109,29 +233,25 @@ Func_Cross_Contamination_Consumption_Wrapped<-function(Cont_Student, Data.Frame,
   Cont_Consumed<-Tr_H_F_Inside
   Data.Frame[Item_Picked,colnames(Data.Frame)== "Contamination"]<- Cont_Updated
   Data.Frame[Item_Picked,colnames(Data.Frame)== "ContConsumed"]<- Cont_Consumed
-
-
-  if(Item=="Fruit"){
-    Fr_Data.Frame<<-Data.Frame
-  }else if(Item=="PSS"){
-    Pss_Data.Frame<<-Data.Frame
-  }
-  Cont_Student<<-Cont_Student
+#Outputs
+  OutputsFCCW<-list(Data.Frame=Data.Frame, Cont_Student=Cont_Student)
+  return(OutputsFCCW)
 }
 
 
 
-Func_Cross_Contamination_Pre_Consumption<-function(Cont_Student, Pre_Data.Frame, Pre_Picked){
+Func_Cross_Contamination_Pre_Consumption<-function(Cont_Student, DF, Item_Picked){
   Tr_H_Pre<-Cont_Student*TE_H_S #Transfer from Hand to Pre
-  Tr_Pre_H<-(Func_Index_DF(Pre_Data.Frame,Pre_Picked,"Contamination")* TE_S_H) #Tranfer from Pre to hand
-  Cont_Pre_Updated<- Func_Index_DF(Pre_Data.Frame,Pre_Picked,"Contamination") + Tr_H_Pre - (Tr_Pre_H) #New Contamination of Pre
-  Cont_Pre_Difference<-Func_Index_DF(Pre_Data.Frame,Pre_Picked,"Contamination")-(Cont_Pre_Updated) #Difference in contamination to update student contamination
-  Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)== "Contamination"]<-Cont_Pre_Updated #update the Pre Contamination in Data frame
+  Tr_Pre_H<-(Func_Index_DF(DF,Item_Picked,"Contamination")* TE_S_H) #Tranfer from Pre to hand
+  Cont_Pre_Updated<- Func_Index_DF(DF,Item_Picked,"Contamination") + Tr_H_Pre - (Tr_Pre_H) #New Contamination of Pre
+  Cont_Pre_Difference<-Func_Index_DF(DF,Item_Picked,"Contamination")-(Cont_Pre_Updated) #Difference in contamination to update student contamination
+  DF[Item_Picked,colnames(DF)== "Contamination"]<-Cont_Pre_Updated #update the Pre Contamination in Data frame
   Cont_Student<-ifelse(Cont_Student +(Cont_Pre_Difference)<0,0,Cont_Student +(Cont_Pre_Difference)) #Updating Contamination in Student's hands
-  Tr_Pre_Mouth<-(Func_Index_DF(Pre_Data.Frame,Pre_Picked,"Contamination")* TE_Pre_Mouth)
+  Tr_Pre_Mouth<-(Func_Index_DF(DF,Item_Picked,"Contamination")* TE_Pre_Mouth)
   Cont_Pre_Consumed<-Tr_Pre_Mouth
-  Pre_Data.Frame[Pre_Picked,colnames(Pre_Data.Frame)== "Contamination"]<-Cont_Pre_Consumed
-  Pre_Data.Frame<<-Pre_Data.Frame
-  Cont_Student<<-Cont_Student
+  DF[Item_Picked,colnames(DF)== "Contamination"]<-Cont_Pre_Consumed
+  OutputFCCPre<-list(DF=DF, Cont_Student=Cont_Student)
+  return(OutputFCCPre)
+  
 }
 

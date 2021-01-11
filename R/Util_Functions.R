@@ -4,9 +4,11 @@
 
 #--Function for searching data frame--
 # a=Data Frame looking b= Colum in data frame c= Keywrd using "", d=number of selections
+#WARNING, has errors, not used. 
 Func_Search_Data<-function(a,b,c,d){
   a[ sample( which(b==c),d),]  
 }
+
 
 Func_seach_Data4<-function(a,b,c,d){
   subset<-a[which(b==c),]
