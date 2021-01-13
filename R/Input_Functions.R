@@ -52,7 +52,7 @@ func_Cont_cm2<-function(DF, Prevalence, logContamination, Fr_Mean_area ){
 
 func_Cont_HuNoV_Fr<-function(DF){
   for (i in 1:nrow(DF)){
-    Prevalence <-rbetagen(1,0.79,1.03,0.0,0.2) #0.0865215
+    Prevalence <-0#rbetagen(1,0.79,1.03,0.0,0.2) #0.0865215
     HuNoV_ContFruit<-rlnormTrunc(1,2.38,3.52, 0,6.97) #add 1.578
     Fr_Cont_YN<- ifelse(runif(1)<Prevalence,1,0)
     Contamination<-(10^HuNoV_ContFruit)*Fr_Mean_weight #GEC/Apple

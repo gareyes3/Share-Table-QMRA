@@ -14,8 +14,11 @@ for (l in 1:Sens_Iterations){
       source("Util_DataFrames.R")  
       
       #Beginning of Student Iteration========================================
-      for (i in 1:N_Iterations){
-        Student_Loop()
+      for (z in 1:N_Iterations){
+        Outputs_Student_Loop<-Student_Loop()
+        Fr_Data.Frame<-Outputs_Student_Loop$Fr_Data.Frame
+        Pss_Data.Frame<-Outputs_Student_Loop$Pss_Data.Frame
+        Pre_Data.Frame<-Outputs_Student_Loop$Pre_Data.Frame
       }
       
       #Updated items from not consumed, not shared, etc to wasted. 
@@ -69,7 +72,7 @@ for (l in 1:Sens_Iterations){
       List_Sens_Pss[[paste(l,k,j)]]<-Pss_Data.Frame
       List_Sens_Pre[[paste(l,k,j)]]<-Pre_Data.Frame
       
-      message("Service #", j)
+      #message("Service #", j)
       
     } #end of second loop
     

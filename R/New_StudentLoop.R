@@ -349,9 +349,8 @@ Student_Loop<-function(){
     }#end of if there is st items loop
   }#end of Share Table  toggle loop
   
-  Fr_Data.Frame<<-Fr_Data.Frame
-  Pss_Data.Frame<<-Pss_Data.Frame
-  Pre_Data.Frame<<-Pre_Data.Frame
+  Outputs_Student_Loop<-list(Fr_Data.Frame=Fr_Data.Frame, Pss_Data.Frame=Pss_Data.Frame,Pre_Data.Frame=Pre_Data.Frame)
+  return(Outputs_Student_Loop)
 }
 
   
