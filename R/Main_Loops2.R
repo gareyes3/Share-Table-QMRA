@@ -1,4 +1,4 @@
-setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+
 #Week Iteration =============================================================
 for (l in 1:Sens_Iterations){
   

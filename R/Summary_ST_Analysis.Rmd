@@ -9,14 +9,22 @@ Share Table Analysis
 
 #1Run with Share Table on. 
 ```{r}
-
+Func_Rep_DR<-function(DF_DR_Analysis){
+  DF_DR_Analysis$Infection<-apply(DF_DR_Analysis,1,Func_DR_Infection)
+  Number_Inf_Fr<-sum(DF_DR_Analysis$Infection==TRUE)
+  #
+  DF_DR_Analysis$Illness<-apply(DF_DR_Analysis,1,Func_DR_Illness)
+  Number_Ill_Fr<-sum(DF_DR_Analysis$Illness==TRUE)
+  l<-list("infection"=Number_Inf_Fr, "Illness"=Number_Ill_Fr )
+  return(l)
+}
 ```
 
 
 ```{r}
 #Setting Working Directory
-#setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
-setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+#setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
 ```
 
 ```{r}
@@ -56,6 +64,7 @@ source("Main_Loops2.R")
 
 #1. Start from here
 Individual_Analysis_Fr<-bind_rows(List_Sens_Fr)
+Individual_Analysis_Fr_CopON<-bind_rows(List_Sens_Fr)
 
 #Adding Type Column
 Individual_Analysis_Fr$Type<-"Fruit"
@@ -121,6 +130,7 @@ source("Main_Loops2.R")
 
 #1. Start from here
 Individual_Analysis_Fr<-bind_rows(List_Sens_Fr)
+Individual_Analysis_Fr_CopON<-bind_rows(List_Sens_Fr)
 
 #Adding Type Column
 Individual_Analysis_Fr$Type<-"Fruit"
@@ -295,9 +305,9 @@ df_inf_Week_Tog_Box<-bind_rows(df_inf_Week_ON_Box_Prev,df_inf_Week_OFF_Box_Prev)
 ggplot(df_inf_Week_Tog_Box, aes(x = variable, y = Prev, fill=Int)) + 
   geom_boxplot() + 
   theme_bw()+
-  ylab("# Infected Student")+
+  ylab("Prevalence of Infected Student")+
   xlab("Week #") +
-  ggtitle("Weekly Dose Response Distribution 100 replicates Infected Students")+ 
+  ggtitle("ST Status: Compaison Weekly Dose Response Distribution: Prevalence Infected Students")+ 
   theme(plot.title = element_text(hjust = 0.5))+
   labs(fill = "ST Status")
 
@@ -311,14 +321,22 @@ df_ill_Week_Tog_Box<-bind_rows(df_ill_Week_ON_Box_Prev,df_ill_Week_OFF_Box_Prev)
 ggplot(df_ill_Week_Tog_Box, aes(x = variable, y = Prev, fill=Int)) + 
   geom_boxplot() + 
   theme_bw()+
-  ylab("# ill Student")+
+  ylab("Prevalence of Ill Students")+
   xlab("Week #") +
-  ggtitle("Weekly Dose Response Distribution 100 replicates ill Students")+ 
+  ggtitle("ST Status: Compaison Weekly Dose Response Distribution: Prevalence Ill Students")+ 
   theme(plot.title = element_text(hjust = 0.5))+
   labs(fill = "ST Status")
 
 ```
 
+#Comparison of amounts consumed. 
+```{r}
+ST_OFF_Analysis_Con<-ST_OFF_Analysis_Copy
+ST_ON_Analysis_Con<-ST_ON_Analysis_Copy
+
+
+
+```
 
 
 #Plots Creation for Exposure
@@ -338,6 +356,7 @@ ggplot(data = ST_ON_Analysis_Log,aes(x=Log))+
 
 
 ```
+
 ```{r}
 ST_ON_Analysis$Category<-""
 ST_ON_Analysis$OnOff<-"ON"
