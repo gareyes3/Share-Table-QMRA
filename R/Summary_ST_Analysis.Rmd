@@ -23,8 +23,8 @@ Func_Rep_DR<-function(DF_DR_Analysis){
 
 ```{r}
 #Setting Working Directory
-setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
-#setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+#setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
 ```
 
 ```{r}
@@ -130,7 +130,7 @@ source("Main_Loops2.R")
 
 #1. Start from here
 Individual_Analysis_Fr<-bind_rows(List_Sens_Fr)
-Individual_Analysis_Fr_CopON<-bind_rows(List_Sens_Fr)
+Individual_Analysis_Fr_CopOFF<-bind_rows(List_Sens_Fr)
 
 #Adding Type Column
 Individual_Analysis_Fr$Type<-"Fruit"
