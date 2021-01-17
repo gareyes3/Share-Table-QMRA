@@ -23,8 +23,8 @@ Func_Rep_DR<-function(DF_DR_Analysis){
 
 ```{r}
 #Setting Working Directory
-setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
-#setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+#setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
 ```
 
 ```{r}
@@ -330,6 +330,7 @@ Ill_Prev_Comb<-ggplot(df_ill_Week_Tog_Box, aes(x = variable, y = Prev, fill=Int)
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 
 ggsave(filename = "Ill_Prev_Comb.png", path = "Dose Response",width = 40,height = 10,)
+print(Ill_Prev_Comb)
 
 ```
 
@@ -352,8 +353,8 @@ Ribbon_Ill_DF<-bind_rows(Ribon_Ill_OFF,Ribon_Ill_ON)
 
 Ribbon_Ill<-ggplot(Ribbon_Ill_DF, aes(x = variable, y = PrevMed, group = Type)) + 
   geom_ribbon(aes(ymin = Prev975, ymax = Prev025, fill=Type), alpha=0.3 )+ 
-  geom_point(aes(x = variable, y = PrevMed, color = Type))+
-  geom_line(aes(x= variable, y= PrevMed,color = Type), size = .5) +   
+  geom_point(aes(color = Type))+
+  geom_line(aes(color = Type), size = .5) +   
   labs(x = "Week #", y = "Prevalence of Ill Student per Week") +
   scale_fill_manual(name = '2.5th-97.5th Percentile', values = c("dodgerblue1", "tomato4", "seagreen1"))+ 
   scale_color_manual(name = 'Median', values = c("dodgerblue1", "tomato4", "seagreen1"))+
@@ -362,8 +363,9 @@ Ribbon_Ill<-ggplot(Ribbon_Ill_DF, aes(x = variable, y = PrevMed, group = Type)) 
 
 ggsave(filename = "Ribbon_Ill.png", path = "Dose Response",width = 20,height = 7,)
 
-
+print(Ribbon_Ill)
 ```
+
 
 
 #Comparison of amounts consumed. 
@@ -389,57 +391,178 @@ ggplot(data =ST_Comb_Analysis_Con, aes(x = Type,fill=Location)  )+
 ST_ON_Analysis_Log<-ST_ON_Analysis
 ST_ON_Analysis_Log$Contamination[ST_ON_Analysis_Log$Contamination==0]<-(.99)
 ST_ON_Analysis_Log$Log<-log10(ST_ON_Analysis_Log$Contamination)
+ST_ON_Analysis_Log$Category<-""
+ST_ON_Analysis_Log$OnOff<-"ON"
 
-ggplot(data = ST_ON_Analysis_Log,aes(x=Log))+
-  geom_histogram(colour="black", alpha=.2,bins = 10)+
-  scale_x_continuous(n.breaks = 10)+
+ST_OFF_Analysis_Log<-ST_OFF_Analysis
+ST_OFF_Analysis_Log$Contamination[ST_OFF_Analysis_Log$Contamination==0]<-(.99)
+ST_OFF_Analysis_Log$Log<-log10(ST_OFF_Analysis_Log$Contamination)
+ST_OFF_Analysis_Log$Category<-""
+ST_OFF_Analysis_Log$OnOff<-"OFF"
+
+
+ST_ON_Analysis$OnOff<-"ON"
+ST_OFF_Analysis$OnOff<-"OFF"
+ST_Comb_Analysis_Log<-bind_rows(ST_ON_Analysis_Log,ST_OFF_Analysis_Log)
+ST_Comb_Analysis<-bind_rows(ST_ON_Analysis,ST_OFF_Analysis)
+
+
+Wrapped_Histograms<-ggplot(data = ST_Comb_Analysis_Log,aes(x=Log))+
+  geom_histogram(colour="black", alpha=.2,bins =15,boundary = -.001)+
+  facet_wrap(~ OnOff)+
+  scale_x_continuous( )+
   xlab("Contamination log GEC/Item")+
-  ylab("Density")+
-  ggtitle("Density Curves Interventions")+ 
-  theme(plot.title = element_text(hjust = 0.5))
+  ylab("Number of Students")+
+  ggtitle("Share Tables ON: Contamination distribution Consumed by Students")+ 
+  theme(plot.title = element_text(hjust = 0.5))+
+  stat_bin(aes(y=..count.., label=..count..), geom="text", vjust=-.2,bins=15, boundary = -.001,size=3)
 
+ggsave(filename = "Wrapped_Histograms.png", path = "Dose Response",width = 10,height = 6,)
+print(Wrapped_Histograms)
+
+ST_Comb_Analysis$Contamination<-log10(ST_Comb_Analysis$Contamination)
+ggplot(data = ST_Comb_Analysis)+
+  geom_boxplot(mapping = aes(x=OnOff, y =Contamination, fill =OnOff),varwidth = TRUE)
 
 ```
 
 ```{r}
-ST_ON_Analysis$Category<-""
-ST_ON_Analysis$OnOff<-"ON"
 
-for (i in 1:nrow(ST_ON_Analysis)){
-  Conta<-as.numeric(ST_ON_Analysis$Contamination[i])
-  if(Conta == 0 ){
-    ST_ON_Analysis$Category[i] <-"0"
+
+for (i in 1:nrow(ST_ON_Analysis_Log)){
+  Conta<-as.numeric(ST_ON_Analysis_Log$Contamination[i])
+  if(Conta == .99 ){
+    ST_ON_Analysis_Log$Category[i] <-"0"
   } else if(Conta >0 && Conta< 100 ){
-    ST_ON_Analysis$Category[i]  <-"<0 - 100"
-  }else if(Conta > 100 && Conta < 1000 ){
-    ST_ON_Analysis$Category[i]  <-"100 - 1000"
-  }else if(Conta > 1000 ){
-    ST_ON_Analysis$Category[i]  <-">1000"
+    ST_ON_Analysis_Log$Category[i]  <-"<0 - 99"
+  }else if(Conta >= 100 && Conta < 1000 ){
+    ST_ON_Analysis_Log$Category[i]  <-"100 - 999"
+  }else if(Conta >=1000 ){
+    ST_ON_Analysis_Log$Category[i]  <-">=1000"
   }
 }
 
 
+PlotOrder<-c("0","<0 - 99","100 - 999",">=1000")
 
-PlotOrder<-c("0","<0 - 100","100 - 1000",">1000")
-
-ST_ON_Analysis %>% 
+ST_ON_Analysis_Log %>% 
   count(Category) %>% 
-  mutate(perc = n / nrow(ST_ON_Analysis)) %>%
+  mutate(perc = n / nrow(ST_ON_Analysis_Log)) %>%
   slice(match(Category,PlotOrder))-> tips2
 
 tips2$OnOff<-"ON"
 
+#off
+
+for (i in 1:nrow(ST_OFF_Analysis_Log)){
+  Conta<-as.numeric(ST_OFF_Analysis_Log$Contamination[i])
+  if(Conta == .99 ){
+    ST_OFF_Analysis_Log$Category[i] <-"0"
+  } else if(Conta >0 && Conta< 100 ){
+    ST_OFF_Analysis_Log$Category[i]  <-"<0 - 99"
+  }else if(Conta >= 100 && Conta < 1000 ){
+    ST_OFF_Analysis_Log$Category[i]  <-"100 - 999"
+  }else if(Conta >=1000 ){
+    ST_OFF_Analysis_Log$Category[i]  <-">=1000"
+  }
+}
 
 
-ggplot(data =tips2, aes(x = OnOff,y=perc, fill=factor(Category, levels=c("0","<0 - 100","100 - 1000",">1000"))))+
-  geom_col(width = .1)+
+PlotOrder<-c("0","<0 - 99","100 - 999",">=1000")
+
+ST_OFF_Analysis_Log %>% 
+  count(Category) %>% 
+  mutate(perc = n / nrow(ST_OFF_Analysis_Log)) %>%
+  slice(match(Category,PlotOrder))-> tips3
+
+tips3$OnOff<-"OFF"
+
+tips4<-bind_rows(tips2,tips3)
+
+ggplot(data =tips4, aes(x = OnOff,y=perc, fill=factor(Category, levels=c("0","<0 - 99","100 - 999",">=1000"))))+
+  geom_col(width = .2)+
   geom_text_repel(aes(x = OnOff, 
                       y = perc, 
-                      label = paste(round(perc*100,2),"%")),nudge_y = -.2, nudge_x = .25, direction = "y")+
+                      label = paste(round(perc*100,2),"%")),nudge_y = -.2, nudge_x = .15, direction = "x")+
+  geom_text_repel(aes(x = OnOff, 
+                      y = perc, 
+                      label = n),nudge_x = -.15,nudge_y = -.2, direction = "x")+
   labs(fill = "Category")+
-  scale_x_discrete(expand = c(.3, 0))
+  scale_x_discrete(expand = c(.5, 0))+
+  coord_flip()+
+  xlab(label = "Share Table Status")+
+  ylab(label = "")+
+    ggtitle("Composition on Exposure of Individual Students (%)")+ 
+  theme(plot.title = element_text(hjust = 0.5))
 
 ```
 
+#Summary Table
+```{r}
+N_Student_ContSTON<-nrow(ST_ON_Analysis)
+N_Student_ContSTOFF<-nrow(ST_OFF_Analysis)
+
+
+MeanPRevON<-mean(df_ill_Week_ON_Box_Prev$Prev)
+PRev975ON<-quantile(df_ill_Week_ON_Box_Prev$Prev,.975)
+PRev025ON<-quantile(df_ill_Week_ON_Box_Prev$Prev,.025)
+
+MeanPRevOFF<-mean(df_ill_Week_OFF_Box_Prev$Prev)
+PRev975OFF<-quantile(df_ill_Week_OFF_Box_Prev$Prev,.975)
+PRev025OFF<-quantile(df_ill_Week_OFF_Box_Prev$Prev,.025)
+
+MeanPRevinfON<-mean(df_inf_Week_ON_Box_Prev$Prev)
+PRev975infON<-quantile(df_inf_Week_ON_Box_Prev$Prev,.975)
+PRev025infON<-quantile(df_inf_Week_ON_Box_Prev$Prev,.025)
+
+MeanPRevinfOFF<-mean(df_inf_Week_OFF_Box_Prev$Prev)
+PRev975infOFF<-quantile(df_inf_Week_OFF_Box_Prev$Prev,.975)
+PRev025infOFF<-quantile(df_inf_Week_OFF_Box_Prev$Prev,.025)
+
+
+
+Summary_Comparison<-data.frame(
+  "Treatment" = c(1:2),
+  "Treatment Desc" = c("Baseline:ST ON", "Baseline: Share Tables OFF"),
+  "NWeeks" = Sens_Iterations,
+  "Participating Students" = N_Iterations*Service_No* Food_Days*Sens_Iterations,
+  "NStudentCosumedFood" = c(N_Student_ContSTON,N_Student_ContSTOFF),
+  "Prevalence Consump" = (Summary_Comparison$NStudentCosumedFood /Summary_Comparison$Participating.Students),
+  "0" = c(tips2$perc[4],0)*100 ,
+  ">0" = c(tips2$perc[3],0)*100,
+  ">100"=c(tips2$perc[2],0)*100,
+  ">1000"= c(tips2$perc[1],0)*100,
+    "Mean Prevalence Inf" = c(MeanPRevinfON,MeanPRevinfOFF)*100,
+  "Top 97.5 Inf"=c(PRev975infON,PRev975infOFF)*100,
+  "Bot 025 Inf"=c(PRev025infON,PRev025infOFF)*100,
+  "Mean Prevalence Ill" = c(MeanPRevON,MeanPRevOFF)*100,
+  "Top 97.5 Ill"=c(PRev975ON,PRev975OFF)*100,
+  "Bot 025 Ill"=c(PRev025ON,PRev025OFF)*100,
+  stringsAsFactors = FALSE
+  )
+
+
+
+
+
+
+give.n <- function(x){
+ return(c(y = median(x)*1.05, label = length(x))) 
+# experiment with the multiplier to find the perfect position
+}
+
+
+# plot
+ggplot(mtcars, aes(factor(cyl), mpg, label=rownames(mtcars))) +
+ geom_boxplot(fill = "grey80", colour = "#3366FF") +
+ stat_summary(fun.data = give.n, geom = "text", fun.y = median) 
+
+
+
+ggplot(data = df_ill_Week_Tog_Box, aes(x= Int , y = Prev))+
+  geom_boxplot() 
+
+
+```
 
 
