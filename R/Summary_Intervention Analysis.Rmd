@@ -13,8 +13,8 @@ output:
 
 ```{r}
 #Setting Working Directory
-setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
-#setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+#setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
 ```
 
 ```{r}
@@ -129,7 +129,7 @@ source("Main_Loops2.R")
     filter(TotServices==max(TotServices))
   
   #3. This one creates the data frame for the wrapped items consumed
-  Individual_Analysis_Fr_Consumed_Wr<-Individual_Analysis_Fr
+  Individual_Analysis_Fr_Wr<-Individual_Analysis_Fr
   
   Individual_Analysis_Fr_Consumed_Wr<-Individual_Analysis_Fr[which(Individual_Analysis_Fr$Location == "Consumed"),]
   
@@ -137,6 +137,454 @@ source("Main_Loops2.R")
   Individual_Analysis_Fr_Consumed_Wr$DeltaCont<-Individual_Analysis_Fr_Consumed_Wr$ContConsumed-Individual_Analysis_Fr_Consumed_Wr$InContamination
 
 ```
+
+
+#Dose Response Model Wash on
+
+```{r}
+#ST ON
+Individual_Analysis_Fr_Wash_Copy<-Individual_Analysis_Fr_Wash
+#Individual_Analysis_Fr_Wash<-Individual_Analysis_Fr_Wash_Copy
+
+df1<-Individual_Analysis_Fr_Wash_Copy %>% 
+  group_by(week) %>% 
+  summarize(count=n())
+df1$week<-paste("Week",df1$week)
+
+
+
+ Individual_Analysis_Fr_Wash<-Individual_Analysis_Fr_Wash%>%
+      group_by(ConsumedBy)%>%
+      summarise(Contamination = sum(Contamination))
+
+    Individual_Analysis_Fr_Wash$week <- substr(Individual_Analysis_Fr_Wash$ConsumedBy, 1, 3) 
+    Individual_Analysis_Fr_Wash$Infection<-as.logical("")
+    Individual_Analysis_Fr_Wash$Illness<-as.logical("")
+    
+#Analysis For weekly Dose Response ON
+
+Reps_DR<-100
+
+List_week_DR<-split(x=Individual_Analysis_Fr_Wash,f=Individual_Analysis_Fr_Wash$week)
+lista<-replicate(Reps_DR,lapply(List_week_DR,Func_Rep_DR),simplify = FALSE)
+list_Df_Rep<-lapply(lista, Func_List2DF)
+list_Df_Rep<-lapply(list_Df_Rep, setNames, c("Infections", "Illness"))
+list_Df_Rep<-lapply(list_Df_Rep,bind_rows)
+list_Df_Rep<-bind_cols(list_Df_Rep)
+
+
+df_inf_Week_Wash = list_Df_Rep[,seq(1, ncol(list_Df_Rep), 2) ]
+df_ill_Week_Wash = list_Df_Rep[,seq(2, ncol(list_Df_Rep), 2) ]
+
+df_inf_Week_Wash<-as.data.frame(t(df_inf_Week_Wash))
+df_ill_Week_Wash<-as.data.frame(t(df_ill_Week_Wash))
+
+rownames(df_inf_Week_Wash)<-paste("Rep",1:Reps_DR)
+rownames(df_ill_Week_Wash)<-paste("Rep",1:Reps_DR)
+colnames(df_inf_Week_Wash)<-paste("Week",1:Sens_Iterations)
+colnames(df_ill_Week_Wash)<-paste("Week",1:Sens_Iterations)    
+
+```
+
+#Dose Response Model Wrapp on
+
+```{r}
+#ST ON
+Individual_Analysis_Fr_Wr_Copy<-Individual_Analysis_Fr_Wr
+#Individual_Analysis_Fr_Wr<-Individual_Analysis_Fr_Wr_Copy
+
+df1<-Individual_Analysis_Fr_Wr_Copy %>% 
+  group_by(week) %>% 
+  summarize(count=n())
+df1$week<-paste("Week",df1$week)
+
+
+
+ Individual_Analysis_Fr_Wr<-Individual_Analysis_Fr_Wr%>%
+      group_by(ConsumedBy)%>%
+      summarise(Contamination = sum(Contamination))
+
+    Individual_Analysis_Fr_Wr$week <- substr(Individual_Analysis_Fr_Wr$ConsumedBy, 1, 3) 
+    Individual_Analysis_Fr_Wr$Infection<-as.logical("")
+    Individual_Analysis_Fr_Wr$Illness<-as.logical("")
+    
+#Analysis For weekly Dose Response ON
+
+Reps_DR<-100
+
+List_week_DR<-split(x=Individual_Analysis_Fr_Wr,f=Individual_Analysis_Fr_Wr$week)
+lista<-replicate(Reps_DR,lapply(List_week_DR,Func_Rep_DR),simplify = FALSE)
+list_Df_Rep<-lapply(lista, Func_List2DF)
+list_Df_Rep<-lapply(list_Df_Rep, setNames, c("Infections", "Illness"))
+list_Df_Rep<-lapply(list_Df_Rep,bind_rows)
+list_Df_Rep<-bind_cols(list_Df_Rep)
+
+
+df_inf_Week_Wr = list_Df_Rep[,seq(1, ncol(list_Df_Rep), 2) ]
+df_ill_Week_Wr = list_Df_Rep[,seq(2, ncol(list_Df_Rep), 2) ]
+
+df_inf_Week_Wr<-as.data.frame(t(df_inf_Week_Wr))
+df_ill_Week_Wr<-as.data.frame(t(df_ill_Week_Wr))
+
+rownames(df_inf_Week_Wr)<-paste("Rep",1:Reps_DR)
+rownames(df_ill_Week_Wr)<-paste("Rep",1:Reps_DR)
+colnames(df_inf_Week_Wr)<-paste("Week",1:Sens_Iterations)
+colnames(df_ill_Week_Wr)<-paste("Week",1:Sens_Iterations)    
+
+```
+
+#Individual boxplots washed
+```{r}
+df_inf_Week_Wash_Box <- melt(df_inf_Week_Wash, measure.var = paste("Week",1:Sens_Iterations))
+
+df_inf_Week_Wash_Box_Prev<-merge(df_inf_Week_Wash_Box, df1, by.x='variable', by.y='week')
+df_inf_Week_Wash_Box_Prev$Prev<-df_inf_Week_Wash_Box_Prev$value/df_inf_Week_Wash_Box_Prev$count
+
+ggplot(df_inf_Week_Wash_Box_Prev, aes(x = variable, y = Prev)) + 
+  geom_boxplot() + 
+  theme_bw()+
+  ylab("# Infected Student")+
+  xlab("Week #") +
+  ggtitle("ST ON: Dose Response 100 replicates, Prevalence of Infected Students by week")+ 
+  theme(plot.title = element_text(hjust = 0.5))
+
+df_ill_Week_Wash_Box <- melt(df_ill_Week_Wash, measure.var = paste("Week",1:Sens_Iterations))
+df_ill_Week_Wash_Box_Prev<-merge(df_ill_Week_Wash_Box, df1, by.x='variable', by.y='week')
+df_ill_Week_Wash_Box_Prev$Prev<-df_ill_Week_Wash_Box_Prev$value/df_ill_Week_Wash_Box_Prev$count
+
+ggplot(df_ill_Week_Wash_Box_Prev, aes(x = variable, y = Prev)) + 
+  geom_boxplot() + 
+  theme_bw()+
+  ylab("Prevalence of Ill Students")+
+  xlab("Week #")+
+  ggtitle("ST ON: Dose Response 100 replicates, Prevalence of Ill Students by week")+ 
+  theme(plot.title = element_text(hjust = 0.5))
+
+```
+#Individual Boxplot Wrapped
+
+```{r}
+df_inf_Week_Wr_Box <- melt(df_inf_Week_Wr, measure.var = paste("Week",1:Sens_Iterations))
+
+df_inf_Week_Wr_Box_Prev<-merge(df_inf_Week_Wr_Box, df1, by.x='variable', by.y='week')
+df_inf_Week_Wr_Box_Prev$Prev<-df_inf_Week_Wr_Box_Prev$value/df_inf_Week_Wr_Box_Prev$count
+
+ggplot(df_inf_Week_Wr_Box_Prev, aes(x = variable, y = Prev)) + 
+  geom_boxplot() + 
+  theme_bw()+
+  ylab("# Infected Student")+
+  xlab("Week #") +
+  ggtitle("ST ON: Dose Response 100 replicates, Prevalence of Infected Students by week")+ 
+  theme(plot.title = element_text(hjust = 0.5))
+
+df_ill_Week_Wr_Box <- melt(df_ill_Week_Wr, measure.var = paste("Week",1:Sens_Iterations))
+df_ill_Week_Wr_Box_Prev<-merge(df_ill_Week_Wr_Box, df1, by.x='variable', by.y='week')
+df_ill_Week_Wr_Box_Prev$Prev<-df_ill_Week_Wr_Box_Prev$value/df_ill_Week_Wr_Box_Prev$count
+
+ggplot(df_ill_Week_Wr_Box_Prev, aes(x = variable, y = Prev)) + 
+  geom_boxplot() + 
+  theme_bw()+
+  ylab("Prevalence of Ill Students")+
+  xlab("Week #")+
+  ggtitle("ST ON: Dose Response 100 replicates, Prevalence of Ill Students by week")+ 
+  theme(plot.title = element_text(hjust = 0.5))
+
+```
+
+#Boxplot Together
+```{r}
+#Infected
+df_inf_Week_Wash_Box_Prev$Int<-"Wash"
+df_inf_Week_Wr_Box_Prev$Int<-"Wrapped"
+
+df_inf_Week_Tog_Box<-bind_rows(df_inf_Week_Wash_Box_Prev,df_inf_Week_Wr_Box_Prev)
+
+ggplot(df_inf_Week_Tog_Box, aes(x = variable, y = Prev, fill=Int)) + 
+  geom_boxplot() + 
+  theme_bw()+
+  ylab("Prevalence of Infected Student")+
+  xlab("Week #") +
+  ggtitle("ST Status: Compaison Weekly Dose Response Distribution: Prevalence Infected Students")+ 
+  theme(plot.title = element_text(hjust = 0.5))+
+  labs(fill = "ST Status")
+
+#Ill
+
+df_ill_Week_Wash_Box_Prev$Int<-"Wash"
+df_ill_Week_Wr_Box_Prev$Int<-"Wrapped"
+
+df_ill_Week_Tog_Box<-bind_rows(df_ill_Week_Wash_Box_Prev,df_ill_Week_Wr_Box_Prev)
+
+Ill_Prev_Comb_WW<-ggplot(df_ill_Week_Tog_Box, aes(x = variable, y = Prev, fill=Int)) + 
+  geom_boxplot() + 
+  theme_bw()+
+  ylab("Prevalence of Ill Students")+
+  xlab("Week #") +
+  ggtitle("ST Status: Compaison Weekly Dose Response Distribution: Prevalence Ill Students")+ 
+  theme(plot.title = element_text(hjust = 0.5))+
+  labs(fill = "ST Status")+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+ggsave(filename = "Ill_Prev_CombWW.png", path = "Dose Response",width = 40,height = 10,)
+print(Ill_Prev_Comb)
+
+```
+
+#Ribon Together
+```{r}
+
+
+Ribon_Ill_Wr<-df_ill_Week_Wr_Box_Prev%>%
+  group_by(variable)%>%
+  summarise(PrevMed= median(Prev),Prev975= quantile(Prev,.975),Prev025= quantile(Prev,.025))%>%
+  mutate(Type = "Off")
+
+df_ill_Week_Wash_Box_Prev<-df_ill_Week_Wash_Box_Prev[,-2]
+
+Ribon_Ill_Wash<-df_ill_Week_Wash_Box_Prev%>%
+  group_by(variable)%>%
+  summarise(PrevMed= median(Prev),Prev975= quantile(Prev,.975),Prev025= quantile(Prev,.025))%>%
+  mutate(Type = "on")
+
+Ribbon_Ill_DF<-bind_rows(Ribon_Ill_Wr,Ribon_Ill_Wash)
+
+Ribbon_Ill_WW<-ggplot(Ribbon_Ill_DF, aes(x = variable, y = PrevMed, group = Type)) + 
+  geom_ribbon(aes(ymin = Prev975, ymax = Prev025, fill=Type), alpha=0.3 )+ 
+  geom_point(aes(color = Type))+
+  geom_line(aes(color = Type), size = .5) +   
+  labs(x = "Week #", y = "Prevalence of Ill Student per Week") +
+  scale_fill_manual(name = '2.5th-97.5th Percentile', values = c("dodgerblue1", "tomato4", "seagreen1"))+ 
+  scale_color_manual(name = 'Median', values = c("dodgerblue1", "tomato4", "seagreen1"))+
+  theme_bw()+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+ggsave(filename = "Ribbon_Ill_WW.png", path = "Dose Response",width = 20,height = 7,)
+
+print(Ribbon_Ill)
+```
+
+#Comparison of amounts consumed. 
+```{r}
+ST_Wr_Analysis_Con<-Individual_Analysis_Fr_Wr_Copy
+ST_Wash_Analysis_Con<-Individual_Analysis_Fr_Wash_Copy
+
+ST_Wr_Analysis_Con$Type<-"Wrapped"
+ST_Wash_Analysis_Con$Type<-"Washed"
+
+ST_Comb_Analysis_Con<-bind_rows(ST_Wr_Analysis_Con,ST_Wash_Analysis_Con)
+
+ggplot(data =ST_Comb_Analysis_Con, aes(x = Type,fill=Location)  )+
+  geom_bar()+
+  geom_text(stat = "count",aes(label=..count..),position = position_stack(vjust = .5))
+
+```
+
+#Plots Creation for Exposure
+```{r}
+#Histogram Exposure
+ST_Wash_Analysis_Log<-Individual_Analysis_Fr_Wash
+ST_Wash_Analysis_Log$Contamination[ST_Wash_Analysis_Log$Contamination==0]<-(.99)
+ST_Wash_Analysis_Log$Log<-log10(ST_Wash_Analysis_Log$Contamination)
+ST_Wash_Analysis_Log$Category<-""
+ST_Wash_Analysis_Log$OnOff<-"Washed"
+
+ST_Wr_Analysis_Log<-Individual_Analysis_Fr_Wr
+ST_Wr_Analysis_Log$Contamination[ST_Wr_Analysis_Log$Contamination==0]<-(.99)
+ST_Wr_Analysis_Log$Log<-log10(ST_Wr_Analysis_Log$Contamination)
+ST_Wr_Analysis_Log$Category<-""
+ST_Wr_Analysis_Log$OnOff<-"Wrapped"
+
+
+Individual_Analysis_Fr_Wash$OnOff<-"Washed"
+Individual_Analysis_Fr_Wr$OnOff<-"Wrapped"
+WW_Comb_Analysis_Log<-bind_rows(ST_Wash_Analysis_Log,ST_Wr_Analysis_Log)
+WW_Comb_Analysis<-bind_rows(Individual_Analysis_Fr_Wash,Individual_Analysis_Fr_Wr)
+
+
+Wrapped_Histograms_WW<-ggplot(data = WW_Comb_Analysis_Log,aes(x=Log))+
+  geom_histogram(colour="black", alpha=.2,bins =15,boundary = -.001)+
+  facet_wrap(~ OnOff)+
+  scale_x_continuous( )+
+  xlab("Contamination log GEC/Item")+
+  ylab("Number of Students")+
+  ggtitle("Interventions: Contamination distribution Consumed by Students")+ 
+  theme(plot.title = element_text(hjust = 0.5))+
+  stat_bin(aes(y=..count.., label=..count..), geom="text", vjust=-.2,bins=15, boundary = -.001,size=3)
+
+ggsave(filename = "Wrapped_Histograms_WW.png", path = "Dose Response",width = 10,height = 6,)
+print(Wrapped_Histograms_WW)
+
+WW_Comb_Analysis$Contamination<-log10(WW_Comb_Analysis$Contamination)
+ggplot(data = WW_Comb_Analysis)+
+  geom_boxplot(mapping = aes(x=OnOff, y =Contamination, fill =OnOff),varwidth = TRUE)
+
+```
+
+
+```{r}
+
+
+for (i in 1:nrow(ST_Wash_Analysis_Log)){
+  Conta<-as.numeric(ST_Wash_Analysis_Log$Contamination[i])
+  if(Conta == .99 ){
+    ST_Wash_Analysis_Log$Category[i] <-"0"
+  } else if(Conta >0 && Conta< 100 ){
+    ST_Wash_Analysis_Log$Category[i]  <-"<0 - 99"
+  }else if(Conta >= 100 && Conta < 1000 ){
+    ST_Wash_Analysis_Log$Category[i]  <-"100 - 999"
+  }else if(Conta >=1000 ){
+    ST_Wash_Analysis_Log$Category[i]  <-">=1000"
+  }
+}
+
+
+PlotOrder<-c("0","<0 - 99","100 - 999",">=1000")
+
+ST_Wash_Analysis_Log %>% 
+  count(Category) %>% 
+  mutate(perc = n / nrow(ST_Wash_Analysis_Log)) %>%
+  slice(match(Category,PlotOrder))-> tips2
+
+tips2$OnOff<-"Washed"
+
+#off
+
+for (i in 1:nrow(ST_Wr_Analysis_Log)){
+  Conta<-as.numeric(ST_Wr_Analysis_Log$Contamination[i])
+  if(Conta == .99 ){
+    ST_Wr_Analysis_Log$Category[i] <-"0"
+  } else if(Conta >0 && Conta< 100 ){
+    ST_Wr_Analysis_Log$Category[i]  <-"<0 - 99"
+  }else if(Conta >= 100 && Conta < 1000 ){
+    ST_Wr_Analysis_Log$Category[i]  <-"100 - 999"
+  }else if(Conta >=1000 ){
+    ST_Wr_Analysis_Log$Category[i]  <-">=1000"
+  }
+}
+
+
+PlotOrder<-c("0","<0 - 99","100 - 999",">=1000")
+
+ST_Wr_Analysis_Log %>% 
+  count(Category) %>% 
+  mutate(perc = n / nrow(ST_Wr_Analysis_Log)) %>%
+  slice(match(Category,PlotOrder))-> tips3
+
+tips3$OnOff<-"Wrapped"
+
+tips4<-bind_rows(tips2,tips3)
+
+library("ggrepel")
+
+ggplot(data =tips4, aes(x = OnOff,y=perc, fill=factor(Category, levels=c("0","<0 - 99","100 - 999",">=1000"))))+
+  geom_col(width = .2)+
+  geom_text_repel(aes(x = OnOff, 
+                      y = perc, 
+                      label = paste(round(perc*100,2),"%")),nudge_y = -.2, nudge_x = .15, direction = "x")+
+  geom_text_repel(aes(x = OnOff, 
+                      y = perc, 
+                      label = n),nudge_x = -.15,nudge_y = -.2, direction = "x")+
+  labs(fill = "Category")+
+  scale_x_discrete(expand = c(.5, 0))+
+  coord_flip()+
+  xlab(label = "Intervention")+
+  ylab(label = "")+
+    ggtitle("Composition on Exposure of Individual Students (%)")+ 
+  theme(plot.title = element_text(hjust = 0.5))
+
+```
+
+
+#Summary Table
+```{r}
+N_Student_ContSTWashed<-nrow(Individual_Analysis_Fr_Wash)
+N_Student_ContSTWr<-nrow(Individual_Analysis_Fr_Wr)
+
+
+MeanPRevWash<-mean(df_ill_Week_Wash_Box_Prev$Prev)
+PRev975Wash<-quantile(df_ill_Week_Wash_Box_Prev$Prev,.975)
+PRev025Wash<-quantile(df_ill_Week_Wash_Box_Prev$Prev,.025)
+
+MeanPRevWr<-mean(df_ill_Week_Wr_Box_Prev$Prev)
+PRev975Wr<-quantile(df_ill_Week_Wr_Box_Prev$Prev,.975)
+PRev025Wr<-quantile(df_ill_Week_Wr_Box_Prev$Prev,.025)
+
+MeanPRevinfWash<-mean(df_inf_Week_Wash_Box_Prev$Prev)
+PRev975infWash<-quantile(df_inf_Week_Wash_Box_Prev$Prev,.975)
+PRev025infWash<-quantile(df_inf_Week_Wash_Box_Prev$Prev,.025)
+
+MeanPRevinfWr<-mean(df_inf_Week_Wr_Box_Prev$Prev)
+PRev975infWr<-quantile(df_inf_Week_Wr_Box_Prev$Prev,.975)
+PRev025infWr<-quantile(df_inf_Week_Wr_Box_Prev$Prev,.025)
+
+
+Summary_Comparison_WW<-data.frame(
+  "Treatment" = c(1:2),
+  "Treatment Desc" = c("Baseline:ST Wash", "Baseline: Share Tables Wr"))
+
+Summary_Comparison_WW<-data.frame(
+    "Treatment" = c(1:2),
+  "Treatment Desc" = c("Baseline:ST Wash", "Baseline: Share Tables Wr"),
+  "NWeeks" = Sens_Iterations,
+  "Participating Students" = N_Iterations*Service_No* Food_Days*Sens_Iterations,
+  "NStudentCosumedFood" = c(N_Student_ContSTWashed,N_Student_ContSTWr),
+  "Prevalence Consump" = (Summary_Comparison_WW$NStudentCosumedFood /Summary_Comparison_WW$Participating.Students),
+  "0" = c(tips2$perc[4],0)*100 ,
+  ">0" = c(tips2$perc[3],0)*100,
+  ">100"=c(tips2$perc[2],0)*100,
+  ">1000"= c(tips2$perc[1],0)*100,
+    "Mean Prevalence Inf" = c(MeanPRevinfWash,MeanPRevinfWr)*100,
+  "Top 97.5 Inf"=c(PRev975infWash,PRev975infWr)*100,
+  "Bot 025 Inf"=c(PRev025infWash,PRev025infWr)*100,
+  "Mean Prevalence Ill" = c(MeanPRevWash,MeanPRevWr)*100,
+  "Top 97.5 Ill"=c(PRev975Wash,PRev975Wr)*100,
+  "Bot 025 Ill"=c(PRev025Wash,PRev025Wr)*100,
+  stringsAsFactors = FALSE
+  )
+
+
+
+
+
+
+give.n <- function(x){
+ return(c(y = median(x)*1.05, label = length(x))) 
+# experiment with the multiplier to find the perfect position
+}
+
+
+# plot
+ggplot(mtcars, aes(factor(cyl), mpg, label=rownames(mtcars))) +
+ geom_boxplot(fill = "grey80", colour = "#3366FF") +
+ stat_summary(fun.data = give.n, geom = "text", fun.y = median) 
+
+
+
+ggplot(data = df_ill_Week_Tog_Box, aes(x= Int , y = Prev))+
+  geom_boxplot() 
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 Scenario where it both of the interventions are off

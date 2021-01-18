@@ -50,7 +50,7 @@ Student_Loop<-function(){
       OutputFCC<-Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Fr_Data.Frame, Item_Picked= Fr_Picked, Item="Fruit")
       Fr_Data.Frame<-OutputFCC$Data.Frame
       Cont_Student<-OutputFCC$Cont_Student
-      Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_Picked) #Adding Allergen Contamination from touch.
+      #Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_Picked) #Adding Allergen Contamination from touch.
     }
   }
   
@@ -96,7 +96,7 @@ Student_Loop<-function(){
       OutputFCC<-Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pss_Data.Frame, Item_Picked= Pss_Picked, Item="PSS")
       Pss_Data.Frame<-OutputFCC$Data.Frame
       Cont_Student<-OutputFCC$Cont_Student
-      Pss_Data.Frame<-Func_Allergen_CC(Pss_Data.Frame,Pss_Picked) #Adding Allergen Contamination from touch.
+      #Pss_Data.Frame<-Func_Allergen_CC(Pss_Data.Frame,Pss_Picked) #Adding Allergen Contamination from touch.
     }
   }
   
@@ -141,7 +141,7 @@ Student_Loop<-function(){
       OutputFCC<-Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pre_Data.Frame, Item_Picked= Pre_Picked, Item="PRE")
       Pre_Data.Frame<-OutputFCC$Data.Frame
       Cont_Student<-OutputFCC$Cont_Student
-      Pre_Data.Frame<-Func_Allergen_CC(Pre_Data.Frame,Pre_Picked) #Adding Allergen Contamination from touch.
+      #Pre_Data.Frame<-Func_Allergen_CC(Pre_Data.Frame,Pre_Picked) #Adding Allergen Contamination from touch.
     }
   }
   
@@ -246,7 +246,7 @@ Student_Loop<-function(){
         OutputFCC_ST<-Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Fr_Data.Frame, Item_Picked= Fr_ST_Picked, Item="Fruit")
         Fr_Data.Frame<-OutputFCC_ST$Data.Frame
         Cont_Student<-OutputFCC_ST$Cont_Student
-        Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_ST_Picked) #Adding Allergen Contamination
+        #Fr_Data.Frame<-Func_Allergen_CC(Fr_Data.Frame,Fr_ST_Picked) #Adding Allergen Contamination
       }
       
       #Consuming Fruit--------------------------------------------------------------------------
@@ -286,7 +286,7 @@ Student_Loop<-function(){
         OutputFCC_ST<-Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pss_Data.Frame, Item_Picked=  Pss_ST_Picked, Item="PSS")
         Pss_Data.Frame<-OutputFCC_ST$Data.Frame
         Cont_Student<-OutputFCC_ST$Cont_Student
-        Pss_Data.Frame<-Func_Allergen_CC(Pss_Data.Frame,Pss_ST_Picked) #Adding Allergen Contamination
+        #Pss_Data.Frame<-Func_Allergen_CC(Pss_Data.Frame,Pss_ST_Picked) #Adding Allergen Contamination
       }
       
       #Consuming Pss-------------------------------------------------------------------------
@@ -324,7 +324,7 @@ Student_Loop<-function(){
         OutputFCC_ST<-Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=Pre_Data.Frame, Item_Picked= Pre_ST_Picked, Item="PRE")
         Pre_Data.Frame<-OutputFCC_ST$Data.Frame
         Cont_Student<-OutputFCC_ST$Cont_Student
-        Pre_Data.Frame<-Func_Allergen_CC(Pre_Data.Frame,Pre_ST_Picked) #Adding Allergen Contamination
+        #Pre_Data.Frame<-Func_Allergen_CC(Pre_Data.Frame,Pre_ST_Picked) #Adding Allergen Contamination
       }
       
       

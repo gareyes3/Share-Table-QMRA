@@ -15,7 +15,7 @@ Func_Touched<-function(DF,Item,RowSizeVar,Item_Picked){
   Cont_Student<-OutputsCCF$Cont_Student
   DF<-OutputsCCF$Data.Frame
   #Cross Contamination from Allergens
-  DF<-Func_Allergen_CC(DF,Item_Picked) #Adding Allergen Contamination from touch.
+  #DF<-Func_Allergen_CC(DF,Item_Picked) #Adding Allergen Contamination from touch.
   OutputsFT<-list(DF=DF, Cont_Student=Cont_Student)
   return(OutputsFT)
 }
@@ -65,7 +65,7 @@ Func_Eat_Fr<-function(Eat_YN_Item, DF, Item_Picked,Item){
       OutputsCCFW<-Func_Cross_Contamination_Consumption_Wrapped(Cont_Student=Cont_Student,Data.Frame=DF, Item_Picked= Item_Picked)
       Cont_Student<-OutputsCCFW$Cont_Student
       DF<-OutputsCCFW$Data.Frame
-      DF<-Func_Allergen_CC(DF,Item_Picked) #Adding Allergen Contamination from touch.
+      #DF<-Func_Allergen_CC(DF,Item_Picked) #Adding Allergen Contamination from touch.
     } else if (Wrapping_Apples == 0){
       #Cross Contamination @ Consumption apples not wrapped. 
       OutputsCCF<-Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=DF, Item_Picked= Item_Picked, Item=Item)
@@ -80,7 +80,7 @@ Func_Eat_Fr<-function(Eat_YN_Item, DF, Item_Picked,Item){
     OutputsCCF<-Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=DF, Item_Picked= Item_Picked, Item=Item)
     Cont_Student<-OutputsCCF$Cont_Student
     DF<-OutputsCCF$Data.Frame
-    DF<-Func_Allergen_CC(DF,Item_Picked) #Adding Allergen Contamination from touch.
+    #DF<-Func_Allergen_CC(DF,Item_Picked) #Adding Allergen Contamination from touch.
   } #end of eat if statement
   OutputsFEFr<-list(DF=DF, Cont_Student=Cont_Student)
   return(OutputsFEFr)
@@ -100,7 +100,7 @@ Func_Eat_Pss<-function(Eat_YN_Item,DF,Item_Picked, Item){
     OutputsCCFW<-Func_Cross_Contamination_Consumption_Wrapped(Cont_Student=Cont_Student,Data.Frame=DF, Item_Picked= Item_Picked)
     Cont_Student<-OutputsCCFW$Cont_Student
     DF<-OutputsCCFW$Data.Frame
-    DF<-Func_Allergen_CC(DF,Item_Picked) #Adding Allergen Contamination from touch.
+    #DF<-Func_Allergen_CC(DF,Item_Picked) #Adding Allergen Contamination from touch.
   }else if(Eat_YN_Item== 0){
     #Updating Data frame Location and History
     DF[Item_Picked,colnames(DF)== "Location"]<-"Not Consumed" 
@@ -109,7 +109,7 @@ Func_Eat_Pss<-function(Eat_YN_Item,DF,Item_Picked, Item){
     OutputsCCF<-Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=DF, Item_Picked= Item_Picked, Item=Item)
     Cont_Student<-OutputsCCF$Cont_Student
     DF<-OutputsCCF$Data.Frame
-    DF<-Func_Allergen_CC(DF,Item_Picked) #Adding Allergen Contamination from touch.
+    #DF<-Func_Allergen_CC(DF,Item_Picked) #Adding Allergen Contamination from touch.
   } #end of Else statement for Eat
   OutputsFEPss<-list(DF=DF, Cont_Student=Cont_Student)
   return(OutputsFEPss)
@@ -126,7 +126,7 @@ Func_Eat_Pre<-function(Eat_YN_Item,DF, Item_Picked, Item){
     OutputFCCPre<-Func_Cross_Contamination_Pre_Consumption(Cont_Student=Cont_Student,DF = DF, Item_Picked = Item_Picked)
     Cont_Student<-OutputFCCPre$Cont_Student
     DF<-OutputFCCPre$DF
-    DF<-Func_Allergen_CC(DF,Item_Picked) #Adding Allergen Contamination from touch.
+    #DF<-Func_Allergen_CC(DF,Item_Picked) #Adding Allergen Contamination from touch.
   }else if(Eat_YN_Item==0){
     DF[Item_Picked,colnames(DF)== "Location"]<-"Not Consumed"  
     DF[Item_Picked,colnames(DF)=="History"]<-paste(DF[Item_Picked,colnames(DF)=="History"], "NotConsumed")
@@ -135,7 +135,7 @@ Func_Eat_Pre<-function(Eat_YN_Item,DF, Item_Picked, Item){
     OutputsCCF<-Func_Cross_Contamination(Cont_Student=Cont_Student,Data.Frame=DF, Item_Picked= Item_Picked, Item=Item)
     Cont_Student<-OutputsCCF$Cont_Student
     DF<-OutputsCCF$Data.Frame
-    DF<-Func_Allergen_CC(DF,Item_Picked) #Adding Allergen Contamination from touch.
+    #DF<-Func_Allergen_CC(DF,Item_Picked) #Adding Allergen Contamination from touch.
   } 
   OutputFEPre<-list(DF=DF,Cont_Student=Cont_Student)
   return(OutputFEPre)
