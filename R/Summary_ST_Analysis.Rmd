@@ -7,24 +7,10 @@ output: html_document
 Share Table Analysis
 
 
-#1Run with Share Table on. 
-```{r}
-Func_Rep_DR<-function(DF_DR_Analysis){
-  DF_DR_Analysis$Infection<-apply(DF_DR_Analysis,1,Func_DR_Infection)
-  Number_Inf_Fr<-sum(DF_DR_Analysis$Infection==TRUE)
-  #
-  DF_DR_Analysis$Illness<-apply(DF_DR_Analysis,1,Func_DR_Illness)
-  Number_Ill_Fr<-sum(DF_DR_Analysis$Illness==TRUE)
-  l<-list("infection"=Number_Inf_Fr, "Illness"=Number_Ill_Fr )
-  return(l)
-}
-```
-
-
 ```{r}
 #Setting Working Directory
-#setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
-setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+#setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
 ```
 
 ```{r}
@@ -168,7 +154,7 @@ df1$week<-paste("Week",df1$week)
       group_by(ConsumedBy)%>%
       summarise(Contamination = sum(Contamination))
 
-    ST_ON_Analysis$week <- substr(ST_ON_Analysis$ConsumedBy, 1, 3) 
+    ST_ON_Analysis$week <- substr(ST_ON_Analysis$ConsumedBy, 1, 2) 
     ST_ON_Analysis$Infection<-as.logical("")
     ST_ON_Analysis$Illness<-as.logical("")
     
@@ -209,7 +195,7 @@ ST_OFF_Analysis_Copy<-ST_OFF_Analysis
       group_by(ConsumedBy)%>%
       summarise(Contamination = sum(Contamination))
 
-    ST_OFF_Analysis$week <- substr(ST_OFF_Analysis$ConsumedBy, 1, 3)
+    ST_OFF_Analysis$week <- substr(ST_OFF_Analysis$ConsumedBy, 1, 2)
     ST_OFF_Analysis$Infection<-as.logical("")
     ST_OFF_Analysis$Illness<-as.logical("")
     
@@ -239,6 +225,8 @@ colnames(df_ill_Week_OFF)<-paste("Week",1:Sens_Iterations)
 
 ```
 
+#Individual boxplot for infections
+
 ```{r}
 df_inf_Week_ON_Box <- melt(df_inf_Week_ON, measure.var = paste("Week",1:Sens_Iterations))
 
@@ -267,6 +255,8 @@ ggplot(df_ill_Week_ON_Box_Prev, aes(x = variable, y = Prev)) +
 
 ```
 
+
+#Individual boxplot for illness. 
 ```{r}
 
 
@@ -375,6 +365,9 @@ print(Ribbon_Ill)
 ```{r}
 ST_OFF_Analysis_Con<-Individual_Analysis_Fr_CopOFF
 ST_ON_Analysis_Con<-Individual_Analysis_Fr_CopON
+
+Total_Items_ON<-nrow(ST_ON_Analysis_Con)
+Total_Items_OFF<-nrow(ST_OFF_Analysis_Con)
 
 ST_OFF_Analysis_Con$Type<-"off"
 ST_ON_Analysis_Con$Type<-"on"
@@ -531,10 +524,10 @@ Summary_Comparison<-data.frame(
   "Participating Students" = N_Iterations*Service_No* Food_Days*Sens_Iterations,
   "NStudentCosumedFood" = c(N_Student_ContSTON,N_Student_ContSTOFF),
   "Prevalence Consump" = "",
-  "0" = c(tips2$perc[4],0)*100 ,
-  ">0" = c(tips2$perc[3],0)*100,
-  ">100"=c(tips2$perc[2],0)*100,
-  ">1000"= c(tips2$perc[1],0)*100,
+  "0" = c(tips2$perc[4],tips3$perc[4])*100 ,
+  ">0" = c(tips2$perc[3],tips3$perc[3])*100,
+  ">100"=c(tips2$perc[2],tips3$perc[2])*100,
+  ">1000"= c(tips2$perc[1],tips3$perc[1])*100,
     "Mean Prevalence Inf" = c(MeanPRevinfON,MeanPRevinfOFF)*100,
   "Top 97.5 Inf"=c(PRev975infON,PRev975infOFF)*100,
   "Bot 025 Inf"=c(PRev025infON,PRev025infOFF)*100,
