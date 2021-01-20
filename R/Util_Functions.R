@@ -123,3 +123,23 @@ inv.logit<-function(x){
 }
 
 
+
+
+#Dose Response. Adding the Dose Response to the Items
+Func_Rep_DR<-function(DF_DR_Analysis){
+  DF_DR_Analysis$Infection<-apply(DF_DR_Analysis,1,Func_DR_Infection)
+  Number_Inf_Fr<-sum(DF_DR_Analysis$Infection==TRUE)
+  #
+  DF_DR_Analysis$Illness<-apply(DF_DR_Analysis,1,Func_DR_Illness)
+  Number_Ill_Fr<-sum(DF_DR_Analysis$Illness==TRUE)
+  l<-list("infection"=Number_Inf_Fr, "Illness"=Number_Ill_Fr )
+  return(l)
+}
+
+#Function to extract list into a Data Frame
+Func_List2DF<-function(list){
+  df<-data.frame(matrix(unlist(list), nrow=length(list), byrow=T),stringsAsFactors=FALSE)
+  return(df)
+}
+
+
