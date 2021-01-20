@@ -45,9 +45,3 @@ if(Toggle_SelfAssigned_Allergens==1){
 
 #Total transfer of particles=================================================================
 
-Tr_H_Fr<-Cont_Student*TE_H_F
-Tr_Fr_H<-Cont_Fr*TE_F_H
-Tr_H_Pss<- Cont_Student*TE_H_F
-Tr_Pss_H<-Cont_Pss*TE_F_H
-Tr_H_Pre<-Cont_Student*TE_H_F
-Tr_Pre_H<-Cont_Pre*TE_F_H 

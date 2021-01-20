@@ -37,6 +37,7 @@ source("Util_Library.R")
 # Source Files ------------------------------------------------------------
 
 #Inputs
+source("New_StudentLoop.R")
 source("Input_Static.R")
 source("Input_Functions.R")
 source("Util_DFFunctions.R")
@@ -90,6 +91,7 @@ ST_ON_Analysis<-Individual_Analysis_Fr
 
 
 #Inputs
+source("New_StudentLoop.R")
 source("Input_Static.R")
 source("Input_Functions.R")
 source("Util_DFFunctions.R")
@@ -336,13 +338,14 @@ print(Ill_Prev_Comb)
 
 #Ribon Together
 ```{r}
+#df_ill_Week_OFF_Box_Prev<-df_ill_Week_OFF_Box_Prev[-2]
 
 Ribon_Ill_OFF<-df_ill_Week_OFF_Box_Prev%>%
   group_by(variable)%>%
   summarise(PrevMed= median(Prev),Prev975= quantile(Prev,.975),Prev025= quantile(Prev,.025))%>%
   mutate(Type = "Off")
 
-df_ill_Week_ON_Box_Prev<-df_ill_Week_ON_Box_Prev[,-2]
+#df_ill_Week_ON_Box_Prev<-df_ill_Week_ON_Box_Prev[,-2]
 
 Ribon_Ill_ON<-df_ill_Week_ON_Box_Prev%>%
   group_by(variable)%>%
@@ -527,7 +530,7 @@ Summary_Comparison<-data.frame(
   "NWeeks" = Sens_Iterations,
   "Participating Students" = N_Iterations*Service_No* Food_Days*Sens_Iterations,
   "NStudentCosumedFood" = c(N_Student_ContSTON,N_Student_ContSTOFF),
-  "Prevalence Consump" = (Summary_Comparison$NStudentCosumedFood /Summary_Comparison$Participating.Students),
+  "Prevalence Consump" = "",
   "0" = c(tips2$perc[4],0)*100 ,
   ">0" = c(tips2$perc[3],0)*100,
   ">100"=c(tips2$perc[2],0)*100,
@@ -541,21 +544,8 @@ Summary_Comparison<-data.frame(
   stringsAsFactors = FALSE
   )
 
+Summary_Comparison$Prevalence.Consump<-(Summary_Comparison$NStudentCosumedFood /Summary_Comparison$Participating.Students)
 
-
-
-
-
-give.n <- function(x){
- return(c(y = median(x)*1.05, label = length(x))) 
-# experiment with the multiplier to find the perfect position
-}
-
-
-# plot
-ggplot(mtcars, aes(factor(cyl), mpg, label=rownames(mtcars))) +
- geom_boxplot(fill = "grey80", colour = "#3366FF") +
- stat_summary(fun.data = give.n, geom = "text", fun.y = median) 
 
 
 

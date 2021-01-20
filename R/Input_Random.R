@@ -8,7 +8,9 @@ Inputs_ICont_Student<-list(
   IC_salmonella=8.9*10^6,
   #Norovirus parameters
   mass_feces_hands= rpert(1,-8,-3,-1,shape = 4), #-3.49,#
-  HU_NV_in_Feces=rpert(1,4,8,10,shape = 4) #7.66#
+  HU_NV_in_Feces=rpert(1,4,8,10,shape = 4), #7.66#
+  Pr_WashingHand = .46,
+  LogRed = rpert(1,0.17,0.45,6,shape = 4)
 )
 
 # Transfer Efficiencies ---------------------------------------------------

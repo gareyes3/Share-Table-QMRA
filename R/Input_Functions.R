@@ -5,7 +5,7 @@
 #Inputs for this function #Inputs_ICont_Student
 
 
-Func_ICont_Student<-function(IC_salmonella,mass_feces_hands,HU_NV_in_Feces,... ){
+Func_ICont_Student<-function(IC_salmonella,mass_feces_hands,HU_NV_in_Feces,Pr_WashingHand,LogRed,... ){
   #Salmonella
   if(salmonella ==1){
     IC_Student<-IC_salmonella  #CFU/Hand
@@ -14,6 +14,10 @@ Func_ICont_Student<-function(IC_salmonella,mass_feces_hands,HU_NV_in_Feces,... )
   if(norovirus ==1){
     Personal_Contamination<-((10^mass_feces_hands) * (10^HU_NV_in_Feces)) #GEC/g
     IC_Student<- Personal_Contamination #GEC/Hand
+    HawashingYN<-ifelse(runif(1)<Pr_WashingHand,1,0)
+      if(HawashingYN==1){
+        IC_Student*(10^LogRed)
+      }
     IC_Student<-round(IC_Student,digits = 0)
     return(IC_Student)
   }
