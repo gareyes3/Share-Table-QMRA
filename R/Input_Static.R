@@ -27,7 +27,7 @@
 
   #Weeks
   
-  Sens_Iterations<-10
+  Sens_Iterations<-2
 
  
 # Sevice Line Information -------------------------------------------------
