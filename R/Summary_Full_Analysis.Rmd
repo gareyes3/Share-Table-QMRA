@@ -9,8 +9,8 @@ output: html_document
 ```{r}
 
 #Setting Working Directory-------------------------------------
-#setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
-setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+#setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
 ```
 
 ```{r}
@@ -534,29 +534,48 @@ print(barchart_Expos)
 
 List_Summary_Table<-list(ST_ON_Analysis,ST_OFF_Analysis,ST_ONWash_Analysis,ST_ONWr_Analysis,ST_OFFWash_Analysis,ST_OFFWr_Analysis)
 
-NStudentsConsumed<-sapply(List_Summary_Table, nrow)
-MeanPRevalneces<-sapply(List_Summary_Table,mean,"Prev")
+  Treatment_Names<-c("ON", "OFF", "ONWash","ONWr", "OFFWash","OFFWr")
 
+  NStudentsConsumed<-sapply(List_Summary_Table, nrow)
 
+List_Summary_Table_Ill<-list(df_ill_Week_ON_Box_Prev,df_ill_Week_OFF_Box_Prev,df_ill_Week_ONWash_Box_Prev,df_ill_Week_ONWr_Box_Prev,df_ill_Week_OFFWash_Box_Prev,df_ill_Week_OFFWr_Box_Prev)
 
+List_Summary_Table_Ill_Col<-lapply(List_Summary_Table_Ill,"[[","Prev")
+  
+  MeanPRevalneces<-sapply(X =List_Summary_Table_Ill_Col,FUN = mean )
+  Prevs975<-sapply(X =List_Summary_Table_Ill_Col,FUN = quantile,.975  )
+  Prevs025<-sapply(X =List_Summary_Table_Ill_Col,FUN = quantile,.025  )
 
-
-MeanPRevON<-mean(df_ill_Week_ON_Box_Prev$Prev)
-PRev975ON<-quantile(df_ill_Week_ON_Box_Prev$Prev,.975)
-PRev025ON<-quantile(df_ill_Week_ON_Box_Prev$Prev,.025)
-
-MeanPRevOFF<-mean(df_ill_Week_OFF_Box_Prev$Prev)
-PRev975OFF<-quantile(df_ill_Week_OFF_Box_Prev$Prev,.975)
-PRev025OFF<-quantile(df_ill_Week_OFF_Box_Prev$Prev,.025)
-
-MeanPRevinfON<-mean(df_inf_Week_ON_Box_Prev$Prev)
-PRev975infON<-quantile(df_inf_Week_ON_Box_Prev$Prev,.975)
-PRev025infON<-quantile(df_inf_Week_ON_Box_Prev$Prev,.025)
-
-MeanPRevinfOFF<-mean(df_inf_Week_OFF_Box_Prev$Prev)
-PRev975infOFF<-quantile(df_inf_Week_OFF_Box_Prev$Prev,.975)
-PRev025infOFF<-quantile(df_inf_Week_OFF_Box_Prev$Prev,.025)
-
+List_Percentages_Dist<-list(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tipsOFFWr)
+  ZerosL<-unlist(sapply(List_Percentages_Dist,function(x) x[4,3]))
+  ZeroNine<-unlist(sapply(List_Percentages_Dist,function(x) x[3,3]))
+  Nine_3Nine<-unlist(sapply(List_Percentages_Dist,function(x) x[2,3]))
+  ThousandsL<-unlist(sapply(List_Percentages_Dist,function(x) x[1,3]))
+  
+  #Creation of Data Frame
+  
+  Summary_Comparison_Treatments<-data.frame(
+  "Treatment" = c(1:6),
+  "Treatment Desc" = Treatment_Names
+)
+  
+  Summary_Comparison_Treatments<-data.frame(
+  "Treatment" = c(1:6),
+  "Treatment Desc" = Treatment_Names,
+  "NWeeks" = Sens_Iterations,
+  "Participating Students" = N_Iterations*Service_No* Food_Days*Sens_Iterations,
+  "NStudentCosumedFood" = NStudentsConsumed,
+  "0" = ZerosL*100 ,
+  ">0" = ZeroNine*100,
+  ">100"=Nine_3Nine*100,
+  ">1000"= ThousandsL*100,
+  "Mean Prevalence Ill" = MeanPRevalneces*100,
+  "Top 97.5 Ill"=Prevs975*100,
+  "Bot 025 Ill"=Prevs025*100,
+  stringsAsFactors = FALSE
+  )
+  
+  
 ```
 
 
