@@ -87,13 +87,20 @@ Func_DF_Prevalence<-function(AnalysisDFCop, df_Ill_Week, Intervention){
 }
 
 
-Func_DF_Locations<-function(){
-  ST_OFF_Analysis_Con<-Individual_Analysis_Fr_CopOFF
-  ST_ON_Analysis_Con<-Individual_Analysis_Fr_CopON
-  ST_ONWash_Analysis_Con<-Individual_Analysis_Fr_CopONWash
-  ST_ONWr_Analysis_Con<-Individual_Analysis_Fr_CopONWr
-  ST_OFFWash_Analysis_Con<-Individual_Analysis_Fr_CopOFFWash
-  ST_OFFWr_Analysis_Con<-Individual_Analysis_Fr_CopOFFWr
+func_remove_repeats<-function(DF){
+  DF %>% 
+    group_by(ID) %>% 
+    filter(TotServices==max(TotServices))->DF
+  return(DF)
+}
+
+Func_DF_Locations_1<-function(){
+  ST_OFF_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_CopOFF)
+  ST_ON_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_CopON)
+  ST_ONWash_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_CopONWash)
+  ST_ONWr_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_CopONWr)
+  ST_OFFWash_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_CopOFFWash)
+  ST_OFFWr_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_CopOFFWr)
   
   Total_Items_ON<-nrow(ST_ON_Analysis_Con)
   Total_Items_OFF<-nrow(ST_OFF_Analysis_Con)
@@ -108,6 +115,46 @@ Func_DF_Locations<-function(){
   ST_Comb_Analysis_Con<-bind_rows(ST_OFF_Analysis_Con,ST_ON_Analysis_Con,ST_ONWash_Analysis_Con,ST_ONWr_Analysis_Con,ST_OFFWash_Analysis_Con,ST_OFFWr_Analysis_Con)
   
   return(ST_Comb_Analysis_Con)
+}
+
+
+
+Func_DF_Locations<-function(){
+  ST_OFF_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_CopOFF)
+  ST_ON_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_CopON)
+  ST_ONWash_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_CopONWash)
+  ST_ONWr_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_CopONWr)
+  ST_OFFWash_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_CopOFFWash)
+  ST_OFFWr_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_CopOFFWr)
+  
+  T1<-nrow(ST_ON_Analysis_Con)
+  T2<-nrow(ST_OFF_Analysis_Con)
+  T3<-nrow(ST_ONWash_Analysis_Con)
+  T4<-nrow(ST_ONWr_Analysis_Con)
+  T5<-nrow(ST_OFFWash_Analysis_Con)
+  T6<-nrow(ST_OFFWr_Analysis_Con)
+  
+  T1C<-sum(ST_ON_Analysis_Con$Location=="Consumed")
+  T2C<-sum(ST_OFF_Analysis_Con$Location=="Consumed")
+  T3C<-sum(ST_ONWash_Analysis_Con$Location=="Consumed")
+  T4C<-sum(ST_ONWr_Analysis_Con$Location=="Consumed")
+  T5C<-sum(ST_OFFWash_Analysis_Con$Location=="Consumed")
+  T6C<-sum(ST_OFFWr_Analysis_Con$Location=="Consumed")
+  
+  T1D<-sum(ST_ON_Analysis_Con$Location=="Discarded")
+  T2D<-sum(ST_OFF_Analysis_Con$Location=="Discarded")
+  T3D<-sum(ST_ONWash_Analysis_Con$Location=="Discarded")
+  T4D<-sum(ST_ONWr_Analysis_Con$Location=="Discarded")
+  T5D<-sum(ST_OFFWash_Analysis_Con$Location=="Discarded")
+  T6D<-sum(ST_OFFWr_Analysis_Con$Location=="Discarded")
+  
+ Vector_Total_Items<-c(T1,T2,T3,T4,T5,T6)
+ Vector_Total_Item_Con<-c(T1C,T2C,T3C,T4C,T5C,T6C)
+ Vector_Total_Item_Dis<-c(T1D,T2D,T3D,T4D,T5D,T6D)
+  
+  outputsLocations<-list(Vector_Total_Items=Vector_Total_Items,Vector_Total_Item_Con=Vector_Total_Item_Con,Vector_Total_Item_Dis=Vector_Total_Item_Dis)
+  
+  return(outputsLocations)
 }
 
 

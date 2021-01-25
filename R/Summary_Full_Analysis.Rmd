@@ -9,8 +9,8 @@ output: html_document
 ```{r}
 
 #Setting Working Directory-------------------------------------
-setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
-#setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+#setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
 ```
 
 ```{r}
@@ -461,12 +461,23 @@ print(Ill_Prev_Comb)
 
 #Consumption Locations
 ```{r}
-ST_Comb_Analysis_Con<-Func_DF_Locations()
+ST_Comb_Analysis_Con<-Func_DF_Locations_1()
 
-ggplot(data =ST_Comb_Analysis_Con, aes(x = Type,fill=Location)  )+
+Food_sec<-ggplot(data =ST_Comb_Analysis_Con, aes(x = Type,fill=Location)  )+
   geom_bar()+
-  geom_text(stat = "count",aes(label=..count..),position = position_stack(vjust = .5))
+  geom_text(stat = "count",aes(label=..count..),position = position_stack(vjust = .5))+
+  xlab("Number of Fruit Items")+
+  ylab("Intervention")+
+  ggtitle("Share Table Interventions: Items Consumed vs Discarded")+ 
+  theme(plot.title = element_text(hjust = 0.5))
 
+outputsLocations<-Func_DF_Locations()
+Vector_Total_Items<-outputsLocations$Vector_Total_Items
+Vector_Total_Item_Con<-outputsLocations$Vector_Total_Item_Con
+Vector_Total_Item_Dis<-outputsLocations$Vector_Total_Item_Dis
+
+ggsave(filename = "Food_sec.png", path = "Dose Response",width = 8,height = 6,)
+print(Food_sec)
 
 ```
 
@@ -525,7 +536,10 @@ barchart_Expos<-ggplot(data =tips4, aes(x = OnOff,y=perc, fill=factor(Category, 
     ggtitle("Composition on Exposure of Individual Students (%)")+ 
   theme(plot.title = element_text(hjust = 0.5))
 
-ggsave(filename = "barchart_Expos.png", path = "Dose Response",width = 8,height = 8,)
+ggplot(data =tips4, aes(fill=OnOff,y=perc, x=factor(Category, levels=c("0","<0 - 99","100 - 999",">=1000"))))+
+  geom_bar(position="dodge", stat="identity")
+
+ggsave(filename = "barchart_Expos.png", path = "Dose Response",width = 10,height = 6,)
 print(barchart_Expos)
 
 ```
@@ -565,6 +579,12 @@ List_Percentages_Dist<-list(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tips
   "NWeeks" = Sens_Iterations,
   "Participating Students" = N_Iterations*Service_No* Food_Days*Sens_Iterations,
   "NStudentCosumedFood" = NStudentsConsumed,
+  #"ConsumptionRate"=Summary_Comparison_Treatments$NStudentCosumedFood/Summary_Comparison_Treatments$Participating.Students*100,
+  "TotalFruitSystem"= Vector_Total_Items,
+  "TotalFruitConsumed"=Vector_Total_Item_Con,
+  "TotalFruitDiscarded"=Vector_Total_Item_Dis,
+  #"PercentConsumed"=Summary_Comparison_Treatments$TotalFruitConsumed/Summary_Comparison_Treatments$TotalFruitSystem,
+  #"PercentDiscarded"=Summary_Comparison_Treatments$TotalFruitDiscarded/Summary_Comparison_Treatments$TotalFruitSystem,
   "0" = ZerosL*100 ,
   ">0" = ZeroNine*100,
   ">100"=Nine_3Nine*100,
@@ -575,6 +595,32 @@ List_Percentages_Dist<-list(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tips
   stringsAsFactors = FALSE
   )
   
+  
+  Summary_Comparison_Treatments<-data.frame(
+  "Treatment" = c(1:6),
+  "Treatment Desc" = Treatment_Names,
+  "NWeeks" = Sens_Iterations,
+  "Participating Students" = N_Iterations*Service_No* Food_Days*Sens_Iterations,
+  "NStudentCosumedFood" = NStudentsConsumed,
+  "ConsumptionRate"=Summary_Comparison_Treatments$NStudentCosumedFood/Summary_Comparison_Treatments$Participating.Students*100,
+  "TotalFruitSystem"= Vector_Total_Items,
+  "TotalFruitConsumed"=Vector_Total_Item_Con,
+  "TotalFruitDiscarded"=Vector_Total_Item_Dis,
+  "PercentConsumed"=Summary_Comparison_Treatments$TotalFruitConsumed/Summary_Comparison_Treatments$TotalFruitSystem*100,
+  "PercentDiscarded"=Summary_Comparison_Treatments$TotalFruitDiscarded/Summary_Comparison_Treatments$TotalFruitSystem*100,
+  "0" = ZerosL*100 ,
+  ">0" = ZeroNine*100,
+  ">100"=Nine_3Nine*100,
+  ">1000"= ThousandsL*100,
+  "Mean Prevalence Ill" = MeanPRevalneces*100,
+  "Top 97.5 Ill"=Prevs975*100,
+  "Bot 025 Ill"=Prevs025*100,
+  stringsAsFactors = FALSE
+  )
+  
+  write.csv(x =  Summary_Comparison_Treatments,"G:/Share Table QMRA/Share-Table-QMRA/R/Dose Response/SummaryComparison.csv", row.names = FALSE )
+  
+
   
 ```
 

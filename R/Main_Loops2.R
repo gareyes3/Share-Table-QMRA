@@ -33,6 +33,12 @@ for (l in 1:Sens_Iterations){
         Fr_Data.Frame$Location[Fr_Data.Frame$Location=="Shared"]<-"Discarded" 
       } 
       
+      #####
+      if(k==Food_Days){
+        Fr_Data.Frame$Location[Fr_Data.Frame$Location=="Selection Table"]<-"Discarded"
+        Fr_Data.Frame$Location[Fr_Data.Frame$Location=="Shared"]<-"Discarded"
+      }
+      
       Pss_Data.Frame$Location[Pss_Data.Frame$Location=="Not Shared"]<-"Discarded"
       
       Pss_Data.Frame$Location[Pss_Data.Frame$Location=="Not Consumed"]<-"Discarded"
@@ -52,6 +58,8 @@ for (l in 1:Sens_Iterations){
       if(Resharing_YN==0){
         Pre_Data.Frame$Location[Pre_Data.Frame$Location=="Shared"]<-"Discarded" 
       } 
+      
+      
       
       #Adding Services
       Fr_Data.Frame<-func_Add_Services(Fr_Data.Frame)

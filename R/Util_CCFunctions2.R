@@ -41,7 +41,7 @@ Func_Picked_ST<-function(DF,Item_Picked_ST){
   Search.df.fr_ST<-Func_seach_Data4(DF,DF$Location,"Shared",1)
   #Fruit from share table selected #
   Item_Picked_ST<-as.numeric(Search.df.fr_ST$Item.No.)
-  DF[as.numeric(row.names(Search.df.fr_ST)),colnames(Search.df.fr_ST)== "Location"]<-"Tray"
+  DF[Item_Picked_ST,colnames(Search.df.fr_ST)== "Location"]<-"Tray"
   DF[Item_Picked_ST,colnames(DF)=="History"]<-paste(DF[Item_Picked_ST,colnames(DF)=="History"], "Tray")
   DF[Item_Picked_ST,colnames(DF)=="History"]<-paste(DF[Item_Picked_ST,colnames(DF)=="History"], "Touched")
   DF<-DF
@@ -57,7 +57,7 @@ Func_Eat_Fr<-function(Eat_YN_Item, DF, Item_Picked,Item){
   #Item= "Friut"
   if(Eat_YN_Item==1){
     DF[Item_Picked,colnames(DF)== "Location"]<-"Consumed"
-    DF[Item_Picked,colnames(DF)== "ConsumedBy"]<-(paste(l,k,j,z))
+    DF[Item_Picked,colnames(DF)== "ConsumedBy"]<-(paste(l,"",k,j,z))
     DF[Item_Picked,colnames(DF)=="History"]<-paste(DF[Item_Picked,colnames(DF)=="History"], "Consumed")
     #Contamination
     if (Wrapping_Apples == 1){
@@ -94,7 +94,7 @@ Func_Eat_Pss<-function(Eat_YN_Item,DF,Item_Picked, Item){
   #Item = "PSS
   if(Eat_YN_Item==1){
     DF[Item_Picked,colnames(DF)== "Location"]<-"Consumed" 
-    DF[Item_Picked,colnames(DF)== "ConsumedBy"]<-(paste(l,k,j,z))
+    DF[Item_Picked,colnames(DF)== "ConsumedBy"]<-(paste(l,"",k,j,z))
     DF[Item_Picked,colnames(DF)=="History"]<-paste(DF[Item_Picked,colnames(DF)=="History"], "Consumed")
     #Contamination Insdide Pss @Consumption
     OutputsCCFW<-Func_Cross_Contamination_Consumption_Wrapped(Cont_Student=Cont_Student,Data.Frame=DF, Item_Picked= Item_Picked)
@@ -120,7 +120,7 @@ Func_Eat_Pss<-function(Eat_YN_Item,DF,Item_Picked, Item){
 Func_Eat_Pre<-function(Eat_YN_Item,DF, Item_Picked, Item){
   if(Eat_YN_Item==1){
     DF[Item_Picked,colnames(DF)== "Location"]<-"Consumed" 
-    DF[Item_Picked,colnames(DF)== "ConsumedBy"]<-(paste(l,k,j,z))
+    DF[Item_Picked,colnames(DF)== "ConsumedBy"]<-(paste(l,"",k,j,z))
     DF[Item_Picked,colnames(DF)=="History"]<-paste(DF[Item_Picked,colnames(DF)=="History"], "Consumed")
     #Contamination Container Pre to Mouth @ Consumption
     OutputFCCPre<-Func_Cross_Contamination_Pre_Consumption(Cont_Student=Cont_Student,DF = DF, Item_Picked = Item_Picked)
