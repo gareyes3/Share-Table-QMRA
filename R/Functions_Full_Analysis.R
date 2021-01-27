@@ -34,7 +34,7 @@ Func_Asys_ContbyStudent<-function(AnalysisDF){
     group_by(ConsumedBy)%>%
     summarise(Contamination = sum(Contamination))
   
-  AnalysisDF$week <- substr(AnalysisDF$ConsumedBy, 1, 2) 
+  AnalysisDF$week <- substr(AnalysisDF$ConsumedBy, 1, 3) 
   AnalysisDF$Infection<-as.logical("")
   AnalysisDF$Illness<-as.logical("")
   return(AnalysisDF)

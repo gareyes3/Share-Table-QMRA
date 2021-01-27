@@ -9,7 +9,7 @@ Inputs_ICont_Student<-list(
   #Norovirus parameters
   mass_feces_hands= rpert(1,-8,-3,-1,shape = 4), #-3.49,#
   HU_NV_in_Feces=rpert(1,4,8,10,shape = 4), #7.66#
-  Pr_WashingHand = .46,
+  Pr_WashingHand = .42,
   LogRed = rpert(1,0.17,0.45,6,shape = 4)
 )
 

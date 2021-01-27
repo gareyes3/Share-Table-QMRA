@@ -331,8 +331,10 @@ ST_OFFWr_Analysis<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fruit
 ```{r}
 #ST ON-------------------------------------
 ST_ON_Analysis_Copy<-ST_ON_Analysis
+#ST_ON_Analysis<-ST_ON_Analysis_Copy
 ST_ON_Analysis<-Func_Asys_ContbyStudent(ST_ON_Analysis)
-
+#Drop NAs
+#ST_ON_Analysis<- ST_ON_Analysis[!is.na(ST_ON_Analysis$Contamination), ]
 
 #Analysis For weekly Dose Response ON
 
@@ -346,6 +348,7 @@ df_ill_Week_ON<-OutputsDRON$df_ill_Week
 ```{r}
 #ST OFF-------------------------------------
 ST_OFF_Analysis_Copy<-ST_OFF_Analysis
+#ST_OFF_Analysis<-ST_OFF_Analysis_Copy
 ST_OFF_Analysis<-Func_Asys_ContbyStudent(ST_OFF_Analysis)
 
 
@@ -362,6 +365,8 @@ df_ill_Week_OFF<-OutputsDROFF$df_ill_Week
 #ST ON Wash ONF-------------------------------------
 ST_ONWash_Analysis_Copy<-ST_ONWash_Analysis
 ST_ONWash_Analysis<-Func_Asys_ContbyStudent(ST_ONWash_Analysis)
+#Drop NAs
+ST_ONWash_Analysis<- ST_ONWash_Analysis[!is.na(ST_ONWash_Analysis$Contamination), ]
 
 
 #Analysis For weekly Dose Response ON
@@ -377,7 +382,8 @@ df_ill_Week_ONWash<-OutputsDRONWash$df_ill_Week
 #ST ON Wrapp ON-------------------------------------
 ST_ONWr_Analysis_Copy<-ST_ONWr_Analysis
 ST_ONWr_Analysis<-Func_Asys_ContbyStudent(ST_ONWr_Analysis)
-
+#Drop NAs
+ST_ONWr_Analysis<- ST_ONWr_Analysis[!is.na(ST_ONWr_Analysis$Contamination), ]
 
 #Analysis For weekly Dose Response ON
 
@@ -392,7 +398,8 @@ df_ill_Week_ONWr<-OutputsDRONWr$df_ill_Week
 #ST ST OFF Wash ON-------------------------------------
 ST_OFFWash_Analysis_Copy<-ST_OFFWash_Analysis
 ST_OFFWash_Analysis<-Func_Asys_ContbyStudent(ST_OFFWash_Analysis)
-
+#Drop NAs
+ST_OFFWash_Analysis<- ST_OFFWash_Analysis[!is.na(ST_OFFWash_Analysis$Contamination), ]
 
 #Analysis For weekly Dose Response ON
 
@@ -407,7 +414,8 @@ df_ill_Week_OFFWash<-OutputsDROFFWash$df_ill_Week
 #ST OFF Wrapp ONF-------------------------------------
 ST_OFFWr_Analysis_Copy<-ST_OFFWr_Analysis
 ST_OFFWr_Analysis<-Func_Asys_ContbyStudent(ST_OFFWr_Analysis)
-
+#Drop NAs
+ST_OFFWr_Analysis<- ST_OFFWr_Analysis[!is.na(ST_OFFWr_Analysis$Contamination), ]
 
 #Analysis For weekly Dose Response ON
 
