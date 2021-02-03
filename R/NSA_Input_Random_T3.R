@@ -5,9 +5,9 @@
 
 Inputs_ICont_Student<-list(
   #salmonella parameters
-  IC_salmonella=-1.443, #8.9*10^6,
+  IC_salmonella=8.9*10^6,
   #Norovirus parameters
-  mass_feces_hands=rpert(1,-8,-3,-1,shape = 4), 
+  mass_feces_hands=-6.179726, 
   HU_NV_in_Feces=rpert(1,4,8,10,shape = 4), 
   Pr_WashingHand = .42,
   LogRed = rpert(1,0.17,0.45,6,shape = 4)

@@ -4,8 +4,10 @@ Student_Loop<-function(){
   Pss_Data.Frame<-Pss_Data.Frame
   Pre_Data.Frame<-Pre_Data.Frame
   
-  #Random Inputs for every kid. 
-  source("Input_Random.R")  #We good!  
+  #Random Inputs for every kid Whean Sensitivity Analasys
+  source("NSA_Options_For_Inputs.R")
+  
+  #source("Input_Random.R")  #We good!  Sensitivity analysis off. 
   #Calculations for initial contamination of the student. 
   source("Calc_StudentContamination.R") 
   #Feeding Items into the system is any items ran out. 
