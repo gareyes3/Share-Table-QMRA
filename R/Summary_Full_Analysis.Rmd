@@ -501,17 +501,25 @@ ST_OFFWr_Analysis_Log<-Func_DF_Histogram_Log(AnalysisDF = ST_OFFWr_Analysis,Inte
 
 ST_Comb_Analysis_Log<-bind_rows(ST_ON_Analysis_Log,ST_OFF_Analysis_Log,ST_ONWash_Analysis_Log,ST_ONWr_Analysis_Log,ST_OFFWash_Analysis_Log,ST_OFFWr_Analysis_Log)
 
+Histolabels<-c("OFF" = "Baseline: ST OFF, No Intervention", 
+                "OFFWash"  = "ST OFF, Wash ON", 
+                "OFFWr" ="ST OFF, Wrapping ON", 
+                "ON"="ST ON, No Intervention", 
+                "ONWash" =  "ST ON, Wash ON",
+                "ONWr" =  "ST ON, Wrapping ON"
+               )
+
 Wrapped_Histograms<-ggplot(data = ST_Comb_Analysis_Log,aes(x=Log))+
-  geom_histogram(colour="black", alpha=.2,bins =15,boundary = -.001)+
-  facet_wrap(~ OnOff)+
+  geom_histogram(colour="black", alpha=.2,bins =10,boundary = -.001)+
+  facet_wrap( ~OnOff ,labeller = as_labeller(Histolabels))+
   scale_x_continuous( )+
   xlab("Contamination log GEC/Item")+
   ylab("Number of Students")+
   ggtitle("Share Table Interventions: Contamination distribution Consumed by Students")+ 
   theme(plot.title = element_text(hjust = 0.5))+
-  stat_bin(aes(y=..count.., label=..count..), geom="text", vjust=-.2,bins=15, boundary = -.001,size=3)
+  stat_bin(aes(y=..count.., label=..count..), geom="text", vjust=-.2,bins=10, boundary = -.001,size=3)
 
-ggsave(filename = "Wrapped_Histograms.png", path = "Dose Response",width = 10,height = 6,)
+ggsave(filename = "Wrapped_Histograms.png", path = "Dose Response",width = 10,height = 7,)
 print(Wrapped_Histograms)
 
 
@@ -544,11 +552,30 @@ barchart_Expos<-ggplot(data =tips4, aes(x = OnOff,y=perc, fill=factor(Category, 
     ggtitle("Composition on Exposure of Individual Students (%)")+ 
   theme(plot.title = element_text(hjust = 0.5))
 
-ggplot(data =tips4, aes(fill=OnOff,y=perc, x=factor(Category, levels=c("0","<0 - 99","100 - 999",">=1000"))))+
-  geom_bar(position="dodge", stat="identity")
-
 ggsave(filename = "barchart_Expos.png", path = "Dose Response",width = 10,height = 6,)
 print(barchart_Expos)
+
+Barchart_Expos2<-ggplot(data =tips4, aes(fill=OnOff,y=perc, x=factor(Category, levels=c("0","<0 - 99","100 - 999",">=1000"))))+
+  geom_bar(position="dodge", stat="identity")+
+  geom_text(aes(label=paste(round(perc*100,1),"%")), position=position_dodge(width=0.9), vjust=0.25,hjust = .5 ,size = 3.5, angle = 90)+
+  xlab(label = "Exposure Levels: GEC NoV Consumed")+
+  ylab(label = "Percentage")+
+  ggtitle("Composition on Exposure of Individual Students (%)")+ 
+  theme(plot.title = element_text(hjust = 0.5))+
+  labs(fill = "Intervention")+
+    scale_fill_manual(values = colors_11, labels = c("Baseline: ST OFF, No Intervention", 
+                                                        "ST OFF, Wash ON",
+                                                        "ST OFF, Wrapping ON",
+                                                        "ST ON, No Interventions",
+                                                        "ST ON, Wash ON",
+                                                        "ST OFF, Wrapping ON"))
+
+ggsave(filename = "Barchart_Expos2.png", path = "Dose Response",width = 8,height = 6,)
+print(Barchart_Expos2)
+
+
+
+
 
 ```
 
@@ -633,4 +660,71 @@ List_Percentages_Dist<-list(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tips
 ```
 
 
+```{r}
+binded_prevalences<-bind_rows(df_ill_Week_ON_Box_Prev,df_ill_Week_OFF_Box_Prev,df_ill_Week_ONWash_Box_Prev,df_ill_Week_ONWr_Box_Prev,df_ill_Week_OFFWash_Box_Prev,df_ill_Week_OFFWr_Box_Prev)
+
+binded_prevalences$Prev<-binded_prevalences$Pre*100
+
+colors_11<-c("dodgerblue4","dodgerblue3","lightskyblue1","palegreen4","palegreen3","darkseagreen1")
+colors_12<-c('STOFF'="dodgerblue4",'OFFWash' ="dodgerblue3",'OFFWr'="dodgerblue1",'STON' ="darkseagreen","ONwash" ="palegreen3","ONWr"="palegreen2")
+
+Histolabels2<-c("STOFF" = "Baseline: ST OFF, No Intervention", 
+                "OFFWash"  = "ST OFF, Wash ON", 
+                "OFFWr" ="ST OFF, Wrapping ON", 
+                "STON"="ST ON, No Intervention", 
+                "ONwash" =  "ST ON, Wash ON",
+                "ONWr" =  "ST ON, Wrapping ON"
+               )
+
+Dose_Hist_Stacked<-ggplot(data = binded_prevalences, mapping = aes(x= Prev, fill=factor(Int,c('STOFF','OFFWash', 'OFFWr',  'STON', 'ONwash',  'ONWr') )))+
+  geom_histogram(bins=15,boundary = .001,color= "black")+
+  xlab(label = "Illness prevalence (%)")+
+  ylab(label = "Observation Count")+
+  ggtitle("Illness prevalence, comparing Interventions")+ 
+  theme(plot.title = element_text(hjust = 0.5))+
+  labs(fill = "Intervention")+
+  scale_fill_manual(values = colors_11, labels = c("Baseline: ST OFF, No Intervention", 
+                                                        "ST OFF, Wash ON",
+                                                        "ST OFF, Wrapping ON",
+                                                        "ST ON, No Interventions",
+                                                        "ST ON, Wash ON",
+                                                        "ST OFF, Wrapping ON"))
+
+ggsave(filename = "Dose_Hist_Stacked.png", path = "Dose Response",width = 10,height = 6,)
+print(Dose_Hist_Stacked)
+
+
+Facet_DR_Hist<-ggplot(data = binded_prevalences, mapping = aes(x= Prev))+
+  geom_histogram(bins=15,boundary = .001, color= "black")+
+  facet_wrap(~factor(Int,c('STOFF','OFFWash', 'OFFWr',  'STON', 'ONwash',  'ONWr')),  labeller = as_labeller(Histolabels2))+
+  scale_fill_manual( values =  colors_12)+
+  xlab(label = "Illness prevalence (%)")+
+  ylab(label = "Observation Count")+
+  ggtitle("Illness prevalence, comparing Interventions")+ 
+  theme(plot.title = element_text(hjust = 0.5))+
+  labs(fill = "Intervention")
+  
+ggsave(filename = "Facet_DR_Hist.png", path = "Dose Response",width = 10,height = 6,)
+print(Facet_DR_Hist)
+
+binded_prevalences_Tail<-binded_prevalences[binded_prevalences$Prev>2,]
+
+Tails_prev<-ggplot(data = binded_prevalences_Tail, mapping = aes(x= Prev, fill=factor(Int,c('STOFF','OFFWash', 'OFFWr',  'STON', 'ONwash',  'ONWr') )))+
+  geom_histogram(bins=15,color= "black")+
+  xlab(label = "Illness prevalence (%)")+
+  ylab(label = "Observation Count")+
+  ggtitle("Illness prevalence, comparing Interventions")+ 
+  theme(plot.title = element_text(hjust = 0.5))+
+  labs(fill = "Intervention")+
+  scale_fill_manual(values = colors_11, labels = c("Baseline: ST OFF, No Intervention", 
+                                                        "ST OFF, Wash ON",
+                                                        "ST OFF, Wrapping ON",
+                                                        "ST ON, No Interventions",
+                                                        "ST ON, Wash ON",
+                                                        "ST OFF, Wrapping ON"))
+
+ggsave(filename = "Tails_prev.png", path = "Dose Response",width = 10,height = 6,)
+print(Tails_prev)
+
+```
 

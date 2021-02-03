@@ -7,17 +7,15 @@ Inputs_ICont_Student<-list(
   #salmonella parameters
   IC_salmonella=8.9*10^6,
   #Norovirus parameters
-  mass_feces_hands= rpert(1,-8,-3,-1,shape = 4), #-3.49,#
-  HU_NV_in_Feces=rpert(1,4,8,10,shape = 4), #7.66#
+  mass_feces_hands=-3.382, #rpert(1,-8,-3,-1,shape = 4), 
+  HU_NV_in_Feces=7.747, #rpert(1,4,8,10,shape = 4), 
   Pr_WashingHand = .42,
-  LogRed = rpert(1,0.17,0.45,6,shape = 4)
+  LogRed = 1.1279 #rpert(1,0.17,0.45,6,shape = 4)
 )
 
 # Transfer Efficiencies ---------------------------------------------------
 
 Res_Trans<-1.97
-
-#SEEDS
 
 
 if(norovirus==1){
@@ -30,10 +28,10 @@ if(norovirus==1){
   TE_Pre_Mouth<-.339 #TE between Milk to Mouth
   
   #For new implementation of the model. 
-  TrP_H_F<-inv.logit(rnorm(1,-3.86,Res_Trans)) #mean=.07197
-  TrP_F_H<-inv.logit(rnorm(1,-2.95,Res_Trans)) #mean = 0.067246
-  TrP_H_S<-inv.logit(rnorm(1,-3.82,Res_Trans)) #mean = 0.0002117642
-  TrP_S_H<-inv.logit(rnorm(1,0.11,Res_Trans)) #mean = 0.0720518
+  TrP_H_F<-0.0206298#inv.logit(rnorm(1,-3.86,Res_Trans)) #mean=.07197
+  TrP_F_H<-0.0497069#inv.logit(rnorm(1,-2.95,Res_Trans)) #mean = 0.067246
+  TrP_H_S<-0.0214587#inv.logit(rnorm(1,-3.82,Res_Trans)) #mean = 0.0002117642
+  TrP_S_H<-0.5277576#inv.logit(rnorm(1,0.11,Res_Trans)) #mean = 0.0720518
   
   
 }
@@ -51,9 +49,9 @@ if(salmonella ==1){
 # Calculation of Items Touches Service Line -------------------------------
 
   #Touched items
-  ntouched_Fr<-round(rnorm(1,3,.5),0) #add
-  ntouched_Pss<-round(rnorm(1,3,.5),0) #add
-  ntouched_Pre<-round(rnorm(1,3,.5),0) #add
+  ntouched_Fr<-3 #round(rnorm(1,3,.5),0) #add
+  ntouched_Pss<-3 #round(rnorm(1,3,.5),0) #add
+  ntouched_Pre<-3 #round(rnorm(1,3,.5),0) #add
 
   
   
