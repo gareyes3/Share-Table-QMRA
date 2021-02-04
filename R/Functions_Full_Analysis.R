@@ -197,3 +197,36 @@ Func_DF_Barplot_Log<-function(ST_Analysis_Log,Intervention){
   return(tips2)
 }
 
+
+
+Func_NSA_Summary<-function( Trial){
+  #Outlocation = "MaxOut
+  #Trial = "T1"
+  #Creating Data Frame of Consumed Items for all the products
+  #Copy of Compiled Data Frame
+  T1_Original<-bind_rows(List_Sens_Fr)
+  
+  #Data Frame without repeats and Consumed Items
+  Treatment1<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fruit")
+  
+  #Treatment 1
+  
+  Treatment1_Copy<-Treatment1
+  #ST_ON_Analysis<-ST_ON_Analysis_Copy
+  Treatment1<-Func_Asys_ContbyStudent(Treatment1)
+  #Drop NAs
+  Treatment1<- Treatment1[!is.na(Treatment1$Contamination), ]
+  
+  #Analysis For weekly Dose Response ON
+  
+  OutputsDRT1<-Func_DR_Main(AnalysisDF = Treatment1, Reps_DR = 100)
+  df_inf_Week_T1<-OutputsDRT1$df_inf_Week
+  df_ill_Week_T1<-OutputsDRT1$df_ill_Week
+  
+  df_ill_Week_T1_Prev<-Func_DF_Prevalence(AnalysisDFCop = Treatment1_Copy, df_Ill_Week = df_ill_Week_T1,Intervention = Trial)
+  
+  meanT1<-mean(df_ill_Week_T1_Prev$Prev)
+  
+  
+  return(meanT1)
+}
