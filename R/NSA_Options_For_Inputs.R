@@ -18,4 +18,10 @@ if(TreatmentNo==1){
   source("NSA_Input_Random_T8.R")
 }else if (TreatmentNo==9){
   source("NSA_Input_Random_T9.R")
+}else if (TreatmentNo==10){
+  source("NSA_Input_Random_T7.R")
+}else if (TreatmentNo==11){
+  source("NSA_Input_Random_T8.R")
+}else if (TreatmentNo==12){
+  source("NSA_Input_Random_T9.R")
 }
