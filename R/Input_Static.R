@@ -27,7 +27,7 @@
 
   #Weeks
   
-  Sens_Iterations<-1
+  Sens_Iterations<-100
  
 # Sevice Line Information -------------------------------------------------
   
@@ -194,6 +194,10 @@
 
 # TOGGLES ==========================================================================
 
+#Toggle for ill students avoiding share table
+  Ill_Avoid_ST<-1
+  Pr_Ill_Avoid_ST<-0.5
+  
   
 #All toggles 0 = no 1 == yes
   

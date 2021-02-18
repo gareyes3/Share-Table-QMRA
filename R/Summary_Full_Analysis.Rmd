@@ -568,7 +568,7 @@ Barchart_Expos2<-ggplot(data =tips4, aes(fill=OnOff,y=perc, x=factor(Category, l
                                                         "ST OFF, Wrapping ON",
                                                         "ST ON, No Interventions",
                                                         "ST ON, Wash ON",
-                                                        "ST OFF, Wrapping ON"))
+                                                        "ST ON, Wrapping ON"))
 
 ggsave(filename = "Barchart_Expos2.png", path = "Dose Response",width = 8,height = 6,)
 print(Barchart_Expos2)
@@ -704,8 +704,33 @@ Facet_DR_Hist<-ggplot(data = binded_prevalences, mapping = aes(x= Prev))+
   theme(plot.title = element_text(hjust = 0.5))+
   labs(fill = "Intervention")
   
+  
 ggsave(filename = "Facet_DR_Hist.png", path = "Dose Response",width = 10,height = 6,)
 print(Facet_DR_Hist)
+
+
+ggplot(data = binded_prevalences, mapping = aes(y= Prev, x=factor(Int,c('STOFF','OFFWash', 'OFFWr',  'STON', 'ONwash',  'ONWr') ), fill=factor(Int,c('STOFF','OFFWash', 'OFFWr',  'STON', 'ONwash',  'ONWr') )))+
+  geom_violin()+
+  geom_boxplot(width=0.1)+
+  labs(fill = "Intervention")+
+  xlab(label = "Intervention")+
+  scale_fill_manual(values = colors_11, labels = c("Baseline: ST OFF, No Intervention", 
+                                                        "ST OFF, Wash ON",
+                                                        "ST OFF, Wrapping ON",
+                                                        "ST ON, No Interventions",
+                                                        "ST ON, Wash ON",
+                                                        "ST OFF, Wrapping ON"))
+
+View(binded_prevalences)
+Anova_1<-aov(Prev~Int, data= binded_prevalences)
+Anova_1
+Tukey2<-TukeyHSD(Anova_1)
+duncan.test(Anova_1, "Prev", alpha = 0.05)
+kruskal_1<-kruskal.test(Prev~Int, data= binded_prevalences)
+binded_prevalences$Int<-as.factor(binded_prevalences$Int)
+posthoc.kruskal.dunn.test(Prev ~ Int, data = binded_prevalences, p.adjust="bonf")
+levels(binded_prevalences$Int)
+
 
 binded_prevalences_Tail<-binded_prevalences[binded_prevalences$Prev>2,]
 
@@ -727,4 +752,5 @@ ggsave(filename = "Tails_prev.png", path = "Dose Response",width = 10,height = 6
 print(Tails_prev)
 
 ```
+
 

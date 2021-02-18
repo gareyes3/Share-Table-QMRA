@@ -5,7 +5,10 @@
 Cont_Student<- ifelse(runif(1)<Pr_Student_iC,do.call(Func_ICont_Student,Inputs_ICont_Student),0) 
 if (Cont_Student>0){
   Student_Cont_Count<-(Student_Cont_Count+1)
-  #print("A student is contaminated with Pathogens")
+  Is_Student_ill<-TRUE
+  if(Is_Student_ill==TRUE){
+    Vector_Is_Student_ill<-c(Vector_Is_Student_ill,Is_Student_ill)
+  }
 }
 
 #Runing Self assigned Student pathogen contamination

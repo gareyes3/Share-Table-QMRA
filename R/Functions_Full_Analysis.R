@@ -199,12 +199,11 @@ Func_DF_Barplot_Log<-function(ST_Analysis_Log,Intervention){
 
 
 
-Func_NSA_Summary<-function( Trial){
+Func_NSA_Summary<-function(Trial){
   #Outlocation = "MaxOut
   #Trial = "T1"
   #Creating Data Frame of Consumed Items for all the products
   #Copy of Compiled Data Frame
-  T1_Original<-bind_rows(List_Sens_Fr)
   
   #Data Frame without repeats and Consumed Items
   Treatment1<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fruit")

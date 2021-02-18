@@ -9,7 +9,7 @@ The goals of this model is to create a sensitivity analysis that changes based o
 The general output for the model will be the mean prevalence of ill students
 The inputs of interest and their paths are the following
   1. Student Contamination: 
-      - mass_feces_hands: rpert(1,-8,-3,-1,shape = 4) [Input_random]
+      - mass_feces_hands: rpert(1,-8,-3,-1,shape = 4) [Input_random] 
         97.5th: -1.443
         Median: -3.382
         2.5th:  -6.179726
@@ -28,7 +28,7 @@ The inputs of interest and their paths are the following
         97.5th: 4
         Median: 3
         2.5th:  2
-      -Prevalence: Static 4% 
+      -Prevalence: Static 4% [Input_Static]
   3.Tranfer Probabilities: 
     -TrP_H_F<-inv.logit(rnorm(1,-3.86,Res_Trans)) [Input_Random]
         97.5th: 0.5012043
@@ -72,8 +72,9 @@ SenstivityDF<-data.frame(
 
 ###Setting Working Directory
 ```{r}
-setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
- #setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+
+#setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
 ```
 
 ###Opening Libary and Inputs
@@ -123,6 +124,7 @@ start_time<-Sys.time()
 source("Main_Loops2.R")
 ```
 ```{r}
+T1_Original<-bind_rows(List_Sens_Fr)
 meanT1<-Func_NSA_Summary(Trial = "T1")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="MaxOut"]<-meanT1
 ```
@@ -161,6 +163,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
+T2_Original<-bind_rows(List_Sens_Fr)
 meanT2<-Func_NSA_Summary(Trial = "T2")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="NominalOut"]<-meanT2
 ```
@@ -199,6 +202,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
+T3_Original<-bind_rows(List_Sens_Fr)
 meanT3<-Func_NSA_Summary(Trial = "T3")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="MinOut"]<-meanT3
 ```
@@ -252,6 +256,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
+T4_Original<-bind_rows(List_Sens_Fr)
 meanT4<-Func_NSA_Summary(Trial = "T4")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="MaxOut"]<-meanT4
 ```
@@ -293,6 +298,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
+T5_Original<-bind_rows(List_Sens_Fr)
 meanT5<-Func_NSA_Summary(Trial = "T5")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="NominalOut"]<-meanT5
 ```
@@ -331,6 +337,7 @@ start_time<-Sys.time()
 source("Main_Loops2.R")
 ```
 ```{r}
+T6_Original<-bind_rows(List_Sens_Fr)
 meanT6<-Func_NSA_Summary(Trial = "T6")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="MinOut"]<-meanT6
 ```
@@ -385,6 +392,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
+T7_Original<-bind_rows(List_Sens_Fr)
 meanT7<-Func_NSA_Summary(Trial = "T7")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="MaxOut"]<-meanT7
 
@@ -426,6 +434,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
+T8_Original<-bind_rows(List_Sens_Fr)
 meanT8<-Func_NSA_Summary(Trial = "T8")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="NominalOut"]<-meanT8
 
@@ -465,6 +474,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
+T9_Original<-bind_rows(List_Sens_Fr)
 meanT9<-Func_NSA_Summary(Trial = "T9")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="MinOut"]<-meanT9
 ```
@@ -493,7 +503,7 @@ Input_No<-4
 TreatmentNo<-10
 
 #Adding it to the DF
-SenstivityDF[Input_No,colnames(SenstivityDF)=="Description"]<-"LogRedWash"
+SenstivityDF[Input_No,colnames(SenstivityDF)=="Description"]<-"N_Touched"
 
 #Inputs and Source Files
 
@@ -521,6 +531,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
+T10_Original<-bind_rows(List_Sens_Fr)
 meanT10<-Func_NSA_Summary(Trial = "T10")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="MaxOut"]<-meanT10
 
@@ -561,6 +572,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
+T11_Original<-bind_rows(List_Sens_Fr)
 meanT11<-Func_NSA_Summary(Trial = "T11")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="NominalOut"]<-meanT11
 
@@ -601,6 +613,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
+T12_Original<-bind_rows(List_Sens_Fr)
 meanT12<-Func_NSA_Summary(Trial = "T12")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="MinOut"]<-meanT12
 ```
@@ -618,12 +631,12 @@ SenstivityDF[Input_No,colnames(SenstivityDF)=="Index"]<-SIndexT10_12
 
 
 
-===========================================================================================================================================
+==========================================================================================================================================
 
 #Prevalence of Illness. 
 
 ##Treatment #13,14,15 (max,nominal,min)
-##Maxuimum Value 4
+##Maxuimum Value 8%
 
 ```{r}
 Input_No<-5
@@ -647,7 +660,7 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-
+Pr_Student_iC<-0.08
 
 ```
 
@@ -658,8 +671,9 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-meanT10<-Func_NSA_Summary(Trial = "T10")
-SenstivityDF[Input_No,colnames(SenstivityDF)=="MaxOut"]<-meanT10
+T13_Original<-bind_rows(List_Sens_Fr)
+meanT13<-Func_NSA_Summary(Trial = "T13")
+SenstivityDF[Input_No,colnames(SenstivityDF)=="MaxOut"]<-meanT13
 
 
 ```
@@ -669,7 +683,7 @@ SenstivityDF[Input_No,colnames(SenstivityDF)=="MaxOut"]<-meanT10
 
 ```{r}
 
-TreatmentNo<-11
+TreatmentNo<-14
 
 
 #Inputs and Source Files
@@ -687,7 +701,7 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-
+Pr_Student_iC<-0.04
 
 ```
 
@@ -698,18 +712,19 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-meanT11<-Func_NSA_Summary(Trial = "T11")
-SenstivityDF[Input_No,colnames(SenstivityDF)=="NominalOut"]<-meanT11
+T14_Original<-bind_rows(List_Sens_Fr)
+meanT14<-Func_NSA_Summary(Trial = "T14")
+SenstivityDF[Input_No,colnames(SenstivityDF)=="NominalOut"]<-meanT14
 
 
 ```
 
 
-##Minimum Value 
+##Minimum Value 0.01
 
 ```{r}
 
-TreatmentNo<-12
+TreatmentNo<-15
 
 
 #Inputs and Source Files
@@ -727,6 +742,7 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
+Pr_Student_iC<-0.01
 
 
 ```
@@ -738,15 +754,537 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-meanT12<-Func_NSA_Summary(Trial = "T12")
-SenstivityDF[Input_No,colnames(SenstivityDF)=="MinOut"]<-meanT12
+T15_Original<-bind_rows(List_Sens_Fr)
+meanT15<-Func_NSA_Summary(Trial = "T15")
+SenstivityDF[Input_No,colnames(SenstivityDF)=="MinOut"]<-meanT15
 ```
 
 ##Wrapping the out
 
 ```{r}
-SIndexT10_12<-(meanT10-meanT12)/meanT11
-SenstivityDF[Input_No,colnames(SenstivityDF)=="Index"]<-SIndexT10_12
+SIndexT13_15<-(meanT13-meanT15)/meanT14
+SenstivityDF[Input_No,colnames(SenstivityDF)=="Index"]<-SIndexT13_15
+```
 
+
+==========================================================================================================================================
+
+#Transfer Probability TrP_H_F<-inv.logit(rnorm(1,-3.86,Res_Trans)) [Input_Random]
+
+##Treatment #16,17,18 (max,nominal,min)
+##Maxuimum Value 0.5107151
+
+```{r}
+Input_No<-6
+TreatmentNo<-16
+
+#Adding it to the DF
+SenstivityDF[Input_No,colnames(SenstivityDF)=="Description"]<-"TrP_H_F"
+
+#Inputs and Source Files
+
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+T16_Original<-bind_rows(List_Sens_Fr)
+meanT16<-Func_NSA_Summary(Trial = "T16")
+SenstivityDF[Input_No,colnames(SenstivityDF)=="MaxOut"]<-meanT16
+
+
+```
+
+##Nominal Value 0.0206298
+
+```{r}
+
+TreatmentNo<-17
+
+#Inputs and Source Files
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+T17_Original<-bind_rows(List_Sens_Fr)
+meanT17<-Func_NSA_Summary(Trial = "T17")
+SenstivityDF[Input_No,colnames(SenstivityDF)=="NominalOut"]<-meanT17
+```
+
+
+```{r}
+
+TreatmentNo<-18
+
+#Inputs and Source Files
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+T18_Original<-bind_rows(List_Sens_Fr)
+meanT18<-Func_NSA_Summary(Trial = "T18")
+SenstivityDF[Input_No,colnames(SenstivityDF)=="MinOut"]<-meanT18
+```
+
+##Wrapping the out
+
+```{r}
+SIndexT16_18<-(meanT16-meanT18)/meanT17
+SenstivityDF[Input_No,colnames(SenstivityDF)=="Index"]<-SIndexT16_18
+```
+
+
+#-TrP_F_H<-inv.logit(rnorm(1,-2.95,Res_Trans)) [Input_Random]
+
+##Treatment #19,20,21 (max,nominal,min)
+        97.5th: 0.7135126
+        Median: 0.0497069
+        2.5th:  0.001098976 
+##Maxuimum Value 0.7135126
+
+```{r}
+Input_No<-7
+TreatmentNo<-19
+
+#Adding it to the DF
+SenstivityDF[Input_No,colnames(SenstivityDF)=="Description"]<-"TrP_F_H"
+
+#Inputs and Source Files
+
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+T19_Original<-bind_rows(List_Sens_Fr)
+meanT19<-Func_NSA_Summary(Trial = "T19")
+SenstivityDF[Input_No,colnames(SenstivityDF)=="MaxOut"]<-meanT19
+
+
+```
+
+##Nominal Value 0.0497069
+
+```{r}
+
+TreatmentNo<-20
+
+#Inputs and Source Files
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+T20_Original<-bind_rows(List_Sens_Fr)
+meanT20<-Func_NSA_Summary(Trial = "T20")
+SenstivityDF[Input_No,colnames(SenstivityDF)=="NominalOut"]<-meanT20
+```
+
+
+#Minimum out: 0.001098976 
+
+```{r}
+
+TreatmentNo<-21
+
+#Inputs and Source Files
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+T21_Original<-bind_rows(List_Sens_Fr)
+meanT21<-Func_NSA_Summary(Trial = "T21")
+SenstivityDF[Input_No,colnames(SenstivityDF)=="MinOut"]<-meanT21
+```
+
+##Wrapping the out
+
+```{r}
+SIndexT19_21<-(meanT19-meanT21)/meanT20
+SenstivityDF[Input_No,colnames(SenstivityDF)=="Index"]<-SIndexT19_21
+```
+
+
+#TrP_H_S<-inv.logit(rnorm(1,-3.82,Res_Trans)) [Input_Random]
+        97.5th: 0.5107151
+        Median: 0.0214587
+        2.5th:  0.0004619996 
+##Treatment #22,23,24 (max,nominal,min)
+
+##Maxuimum Value 0.5107151
+
+```{r}
+Input_No<-9
+TreatmentNo<-22
+
+#Adding it to the DF
+SenstivityDF[Input_No,colnames(SenstivityDF)=="Description"]<-"TrP_H_S"
+
+#Inputs and Source Files
+
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+T22_Original<-bind_rows(List_Sens_Fr)
+meanT22<-Func_NSA_Summary(Trial = "T22")
+SenstivityDF[Input_No,colnames(SenstivityDF)=="MaxOut"]<-meanT22
+
+
+```
+
+##Nominal Value 0.0497069
+
+```{r}
+
+TreatmentNo<-23
+
+#Inputs and Source Files
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+T23_Original<-bind_rows(List_Sens_Fr)
+meanT23<-Func_NSA_Summary(Trial = "T23")
+SenstivityDF[Input_No,colnames(SenstivityDF)=="NominalOut"]<-meanT23
+```
+
+
+#Minimum out: 0.001098976 
+
+```{r}
+
+TreatmentNo<-24
+
+#Inputs and Source Files
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+T24_Original<-bind_rows(List_Sens_Fr)
+meanT24<-Func_NSA_Summary(Trial = "T24")
+SenstivityDF[Input_No,colnames(SenstivityDF)=="MinOut"]<-meanT24
+```
+
+##Wrapping the out
+
+```{r}
+SIndexT22_24<-(meanT22-meanT24)/meanT23
+SenstivityDF[Input_No,colnames(SenstivityDF)=="Index"]<-SIndexT22_24
+```
+
+#    -TrP_S_H<-inv.logit(rnorm(1,0.11,Res_Trans))[Input_Random]
+        97.5th: 0.98147
+        Median: 0.5277576
+        2.5th:  0.02297
+##Treatment #25,26,27 (max,nominal,min)
+
+##Maxuimum Value 0.98147
+
+```{r}
+Input_No<-10
+TreatmentNo<-25
+
+#Adding it to the DF
+SenstivityDF[Input_No,colnames(SenstivityDF)=="Description"]<-"TrP_H_S"
+
+#Inputs and Source Files
+
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+T25_Original<-bind_rows(List_Sens_Fr)
+meanT25<-Func_NSA_Summary(Trial = "T25")
+SenstivityDF[Input_No,colnames(SenstivityDF)=="MaxOut"]<-meanT25
+
+
+```
+
+##Nominal Value 0.5277576
+
+```{r}
+
+TreatmentNo<-26
+
+#Inputs and Source Files
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+T26_Original<-bind_rows(List_Sens_Fr)
+meanT26<-Func_NSA_Summary(Trial = "T26")
+SenstivityDF[Input_No,colnames(SenstivityDF)=="NominalOut"]<-meanT26
+```
+
+
+#Minimum out: 0.02297
+
+```{r}
+
+TreatmentNo<-27
+
+#Inputs and Source Files
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+T27_Original<-bind_rows(List_Sens_Fr)
+meanT27<-Func_NSA_Summary(Trial = "T27")
+SenstivityDF[Input_No,colnames(SenstivityDF)=="MinOut"]<-meanT27
+```
+
+##Wrapping the out
+
+```{r}
+SIndexT25_27<-(meanT25-meanT27)/meanT26
+SenstivityDF[Input_No,colnames(SenstivityDF)=="Index"]<-SIndexT25_27
+```
+
+
+
+```{r}
+SenstivityDF<-SenstivityDF[-8,]
+SenstivityDF$Index<-as.numeric(SenstivityDF$Index)
+round(SenstivityDF$Index, 3)
+SenstivityDF[9,2]<-"TrP_H_S"
+
+ scale_x_discrete(labels=c("mass_feces_hands"="Mass Feces Hands",
+                           "TrP_H_S"= "Transfer Pr Hand - Surface", 
+                            "TrP_H_F"="Transfer Pr Hand - Food", 
+                             "TrP_F_H"= "Transfer Pr Food-Hand",
+                              "TrP_S_H"= "Transfer Pr Surface-Hand",
+                              "Prevalence_Illness"="Illness Prevalence",
+                              "N_Touched"="Number of Fr Touched Selection",
+                              "LogRedWash"="Hand Washing Efficiency",
+                              "HU_NV_in_Feces"="HUNoV GEC in Feces")) 
+
+  Tornado1<-ggplot(data = SenstivityDF, aes(x=reorder(Description,Index),y=Index ))+
+    geom_bar(stat = "identity", position = "identity")+
+    ylab("Sensitivity Index")+
+    xlab("Input")+
+    ggtitle("Nominal Range Sensitivity Analysis: Sensitivity Index")+
+     scale_x_discrete(labels=c("mass_feces_hands"="Mass Feces Hands",
+                           "TrP_H_S"= "Transfer Pr Hand - Surface", 
+                            "TrP_H_F"="Transfer Pr Hand - Food", 
+                             "TrP_F_H"= "Transfer Pr Food-Hand",
+                              "TrP_S_H"= "Transfer Pr Surface-Hand",
+                              "Prevalence_Illness"="Illness Prevalence",
+                              "N_Touched"="Number of Fr Touched Selection",
+                              "LogRedWash"="Hand Washing Efficiency",
+                              "HU_NV_in_Feces"="HUNoV GEC in Feces")) +
+    coord_flip()+
+    theme(plot.title = element_text(hjust = 0.5))+
+    theme(text = element_text(size=12))+
+    scale_y_continuous(n.breaks = 8)
+
+ggsave(filename = "Tornado1.png", plot = Tornado1,path = "Dose Response", width = 8, height = 6) 
+print(Tornado1)
+  
 ```
 
