@@ -41,7 +41,8 @@ Items_left_everyday<-list()
 
 
 
-  
+Vector_Is_Student_ill<-c()
+Vector_Students_Allowed<-c()
 
 
 

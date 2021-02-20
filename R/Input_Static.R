@@ -195,7 +195,7 @@
 # TOGGLES ==========================================================================
 
 #Toggle for ill students avoiding share table
-  Ill_Avoid_ST<-1
+  Ill_Avoid_ST<-0
   Pr_Ill_Avoid_ST<-0.5
   
   
@@ -244,7 +244,8 @@
 #Wrapping Apples
   Wrapping_Apples<-0
   
-  
+#Toggle for NSA_Analysis
+  NSA_Analysis<-0
 
 
   

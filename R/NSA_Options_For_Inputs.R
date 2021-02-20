@@ -48,7 +48,7 @@ if(TreatmentNo==1){
   source("NSA_Input_Random_T26.R")
 }else if (TreatmentNo==27){
   source("NSA_Input_Random_T27.R")
-}else {
+}else{
   source("Input_Random.R")
 }
 
