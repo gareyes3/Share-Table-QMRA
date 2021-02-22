@@ -9,8 +9,8 @@ output: html_document
 ```{r}
 
 #Setting Working Directory-------------------------------------
-#setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
-setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+#setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
 ```
 
 ```{r}
@@ -721,7 +721,10 @@ List_Percentages_Dist<-list(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tips
   stringsAsFactors = FALSE
   )
   
-  write.csv(x =  Summary_Comparison_Treatments,"G:/Share Table QMRA/Share-Table-QMRA/R/Dose Response/SummaryComparison.csv", row.names = FALSE )
+  #write.csv(x =  Summary_Comparison_Treatments,"G:/Share Table QMRA/Share-Table-QMRA/R/Dose Response/SummaryComparison.csv", row.names = FALSE )
+  write.csv(x =  Summary_Comparison_Treatments,"C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R/Dose Response/SummaryComparison.csv", row.names = FALSE )
+
+
   
 
   
