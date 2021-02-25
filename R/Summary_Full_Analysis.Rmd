@@ -9,8 +9,8 @@ output: html_document
 ```{r}
 
 #Setting Working Directory-------------------------------------
-setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
-#setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+#setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
 ```
 
 ```{r}
@@ -20,7 +20,7 @@ source("Functions_Full_Analysis.R")
 ```
 
 
-#SHARE TABLE ON
+#SHARE TABLE ON, No Interventions
 ```{r}
 #Inputs and Source Files-------------------------------------
 
@@ -57,7 +57,7 @@ ST_ON_Analysis<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fruit")
 
 ```
 
-#SHARE TABLE OFF
+#SHARE TABLE OFF, No Interventions
 
 
 ```{r}
@@ -253,6 +253,7 @@ source("Util_VisualFunctions.R")
 start_time<-Sys.time()
 source("Main_Loops2.R")
 ```
+
 ```{r}
 #Summary DFs for Future.------------------------------------- 
 
@@ -373,7 +374,7 @@ ST_ON_Analysis_Copy<-ST_ON_Analysis
 #ST_ON_Analysis<-ST_ON_Analysis_Copy
 ST_ON_Analysis<-Func_Asys_ContbyStudent(ST_ON_Analysis)
 #Drop NAs
-#ST_ON_Analysis<- ST_ON_Analysis[!is.na(ST_ON_Analysis$Contamination), ]
+ST_ON_Analysis<- ST_ON_Analysis[!is.na(ST_ON_Analysis$Contamination), ]
 
 #Analysis For weekly Dose Response ON
 
@@ -389,7 +390,7 @@ df_ill_Week_ON<-OutputsDRON$df_ill_Week
 ST_OFF_Analysis_Copy<-ST_OFF_Analysis
 #ST_OFF_Analysis<-ST_OFF_Analysis_Copy
 ST_OFF_Analysis<-Func_Asys_ContbyStudent(ST_OFF_Analysis)
-
+ST_OFF_Analysis<- ST_OFF_Analysis[!is.na(ST_OFF_Analysis$Contamination), ]
 
 #Analysis For weekly Dose Response ON
 
@@ -524,7 +525,7 @@ Ill_Prev_Comb<-ggplot(df_ill_Week_Tog_Box, aes(x = variable, y = Prev, fill=Int)
   labs(fill = "Interventions")+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 
-ggsave(filename = "Ill_Prev_Comb.png", path = "Dose Response",width = 40,height = 10,)
+ggsave(filename = "Ill_Prev_Comb2.png", path = "Dose Response",width = 40,height = 10,)
 print(Ill_Prev_Comb)
 ```
 
@@ -545,7 +546,7 @@ Vector_Total_Items<-outputsLocations$Vector_Total_Items
 Vector_Total_Item_Con<-outputsLocations$Vector_Total_Item_Con
 Vector_Total_Item_Dis<-outputsLocations$Vector_Total_Item_Dis
 
-ggsave(filename = "Food_sec.png", path = "Dose Response",width = 8,height = 6,)
+ggsave(filename = "Food_sec2.png", path = "Dose Response",width = 8,height = 6,)
 print(Food_sec)
 
 ```
@@ -584,7 +585,7 @@ Wrapped_Histograms<-ggplot(data = ST_Comb_Analysis_Log,aes(x=Log))+
   theme(plot.title = element_text(hjust = 0.5))+
   stat_bin(aes(y=..count.., label=..count..), geom="text", vjust=-.2,bins=10, boundary = -.001,size=3)
 
-ggsave(filename = "Wrapped_Histograms.png", path = "Dose Response",width = 10,height = 10,)
+ggsave(filename = "Wrapped_Histograms2.png", path = "Dose Response",width = 10,height = 10,)
 print(Wrapped_Histograms)
 
 
@@ -619,8 +620,10 @@ barchart_Expos<-ggplot(data =tips4, aes(x = OnOff,y=perc, fill=factor(Category, 
     ggtitle("Composition on Exposure of Individual Students (%)")+ 
   theme(plot.title = element_text(hjust = 0.5))
 
-ggsave(filename = "barchart_Expos.png", path = "Dose Response",width = 10,height = 6,)
+ggsave(filename = "barchart_Expos_2.png", path = "Dose Response",width = 10,height = 6,)
 print(barchart_Expos)
+
+colors_11<-c("dodgerblue4","dodgerblue3","lightskyblue1","palegreen4","palegreen3","darkseagreen1", "Orange")
 
 Barchart_Expos2<-ggplot(data =tips4, aes(fill=OnOff,y=perc, x=factor(Category, levels=c("0","<0 - 99","100 - 999",">=1000"))))+
   geom_bar(position="dodge", stat="identity")+
@@ -638,7 +641,7 @@ Barchart_Expos2<-ggplot(data =tips4, aes(fill=OnOff,y=perc, x=factor(Category, l
                                                         "ST ON, Wrapping ON",
                                                         "ST ON, Ill Exclusion"))
 
-ggsave(filename = "Barchart_Expos2.png", path = "Dose Response",width = 8,height = 6,)
+ggsave(filename = "Barchart_Expos2_2.png", path = "Dose Response",width = 8,height = 6,)
 print(Barchart_Expos2)
 
 
@@ -721,8 +724,8 @@ List_Percentages_Dist<-list(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tips
   stringsAsFactors = FALSE
   )
   
-  #write.csv(x =  Summary_Comparison_Treatments,"G:/Share Table QMRA/Share-Table-QMRA/R/Dose Response/SummaryComparison.csv", row.names = FALSE )
-  write.csv(x =  Summary_Comparison_Treatments,"C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R/Dose Response/SummaryComparison.csv", row.names = FALSE )
+  write.csv(x =  Summary_Comparison_Treatments,"G:/Share Table QMRA/Share-Table-QMRA/R/Dose Response/SummaryComparison.csv", row.names = FALSE )
+ # write.csv(x =  Summary_Comparison_Treatments,"C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R/Dose Response/SummaryComparison.csv", row.names = FALSE )
 
 
   
@@ -736,7 +739,7 @@ binded_prevalences<-bind_rows(df_ill_Week_ON_Box_Prev,df_ill_Week_OFF_Box_Prev,d
 
 binded_prevalences$Prev<-binded_prevalences$Pre*100
 
-colors_11<-c("dodgerblue4","dodgerblue3","lightskyblue1","palegreen4","palegreen3","darkseagreen1", "Orange")
+
 colors_12<-c('STOFF'="dodgerblue4",'OFFWash' ="dodgerblue3",'OFFWr'="dodgerblue1",'STON' ="darkseagreen","ONwash" ="palegreen3","ONWr"="palegreen2","Exc" = "Orange" )
 
 Histolabels2<-c("STOFF" = "Baseline: ST OFF, No Intervention", 
@@ -828,4 +831,64 @@ print(Tails_prev)
 
 ```
 
+
+
+#Additional Foood Waste Analysis: 
+
+#1 scenarios, with no share table items to service line
+
+#SHARE TABLE ON, ST to Reservice<-0
+
+
+```{r}
+#Inputs and Source Files-------------------------------------
+
+
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+STtoReservice_YN<-0
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+#Summary DFs for Future.------------------------------------- 
+
+#Creating Data Frame of Consumed Items for all the products
+#Copy of Compiled Data Frame
+Individual_Analysis_Fr_STClosed<-bind_rows(List_Sens_Fr)
+
+#Data Frame without repeats and Consumed Items
+ST_STClosed_Analysis<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fruit")
+
+ST_STClosed_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_STClosed)
+ST_STClosed_Analysis_Con$Type<-"Closed"
+
+```
+
+```{r}
+ggplot(data =ST_STClosed_Analysis_Con, aes(x = Type, fill=Location)  )+
+  geom_bar()+
+  geom_text(stat = "count",aes(label=..count..),position = position_stack(vjust = .5))+
+  xlab("Number of Fruit Items")+
+  ylab("Intervention")+
+  ggtitle("Share Table Interventions: Items Consumed vs Discarded")+ 
+  theme(plot.title = element_text(hjust = 0.5))
+```
 

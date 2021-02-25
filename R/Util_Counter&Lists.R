@@ -38,6 +38,8 @@ List_Sens_Pre<-list()
 #Vector to know items left every day
 
 Items_left_everyday<-list()
+Items_left_everyday_Pss<-list()
+Items_left_everyday_Pre<-list()
 
 
 

@@ -1,13 +1,13 @@
 
 #Searching for the Touched Fruit Function
 
-Func_Touched<-function(DF,Item,RowSizeVar,Item_Picked){
+Func_Touched<-function(DF,Item,RowSizeVar,Item_Picked,SearchLocation){
   #DF= Data Frame
   #RowSizeVar= Variable Row Size from inputs
   #Item = "Fruit" , "PSS" or "PRE"
   #Item_Picked: Fr_Tocuhed or Pre_Toched, Pss_Touched
   
-  Search.df.item_touched<-Func_seach_Data4(DF,DF$Location,"Selection Table",RowSizeVar) #Searching for fruit to touch
+  Search.df.item_touched<-Func_seach_Data4(DF,DF$Location,SearchLocation ,RowSizeVar) #Searching for fruit to touch
   Item_Picked<-as.numeric(Search.df.item_touched$Item.No.) #ITem touched
   DF[Item_Picked,colnames(DF)=="History"]<-paste(DF[Item_Picked,colnames(DF)=="History"], "Touched") #Adding History to History
   #Cross Contamination from Touching Fruit @Touch

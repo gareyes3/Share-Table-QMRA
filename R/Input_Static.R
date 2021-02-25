@@ -124,7 +124,7 @@
   #Time over night storage
   Time_ON<-12
   #Time of each service all in hours. 
-  Time_Service<-.50
+  Time_Service<-.06
   #Time between Services
   Time_Turnaround<-.06
   

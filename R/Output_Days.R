@@ -168,11 +168,21 @@ if(Wash_ST_YN_Fr==1){
 
 if (STtoReservice_YN == 1 ){
   Left_Selection_Fr<-rbind(Left_Selection_Fr,Left_ST_Fr)
+  Left_Selection_Pss<-rbind(Left_Selection_Pss,Left_ST_Pss)
+  Left_Selection_Pre<-rbind(Left_Selection_Pre,Left_ST_Pre)
   Left_Selection_Fr$Location<-"Selection Table"
+  Left_Selection_Pss$Location<-"Selection Table"
+  Left_Selection_Pss$Location<-"Selection Table"
   No_Left_Selection_Fr<-nrow(Left_Selection_Fr)
+  No_Left_Selection_Pss<-nrow(Left_Selection_Pss)
+  No_Left_Selection_Pre<-nrow(Left_Selection_Pre)
   Left_ST_Fr<-Left_ST_Fr[0,]
+  Left_ST_Pss<-Left_ST_Pss[0,]
+  Left_ST_Pre<-Left_ST_Pre[0,]
 }  
   
 #Items left per day
 
   Items_left_everyday[[paste(l,k)]]<-Left_Selection_Fr
+  Items_left_everyday_Pss[[paste(l,k)]]<-Left_Selection_Pss
+  Items_left_everyday_Pre[[paste(l,k)]]<-Left_Selection_Pre

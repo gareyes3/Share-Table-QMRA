@@ -32,7 +32,7 @@ Student_Loop<-function(){
     Sum_Fr_Available<-sum(Fr_Available, na.rm = TRUE)
     if(Sum_Fr_Available>ntouched_Fr){
       for (i in 1:ntouched_Fr){
-        OutputsFT<-Func_Touched(DF = Fr_Data.Frame, RowSizeVar = Row_size_Fr, Item = "Fruit", Item_Picked = Fr_Touched)
+        OutputsFT<-Func_Touched(DF = Fr_Data.Frame, RowSizeVar = Row_size_Fr, Item = "Fruit", Item_Picked = Fr_Touched, SearchLocation = "Selection Table")
         Cont_Student<-OutputsFT$Cont_Student
         Fr_Data.Frame<-OutputsFT$DF
       }
@@ -77,7 +77,7 @@ Student_Loop<-function(){
     Sum_Pss_Available<-sum(Pss_Available, na.rm = TRUE)
     if(Sum_Pss_Available>ntouched_Pss){
       for (i in 1:ntouched_Pss){
-        OutputsFT<-Func_Touched(DF = Pss_Data.Frame, RowSizeVar = Row_size_Pss, Item = "PSS", Item_Picked = Pss_Touched)
+        OutputsFT<-Func_Touched(DF = Pss_Data.Frame, RowSizeVar = Row_size_Pss, Item = "PSS", Item_Picked = Pss_Touched,SearchLocation = "Selection Table")
         Cont_Student<-OutputsFT$Cont_Student
         Pss_Data.Frame<-OutputsFT$DF
       }
@@ -123,7 +123,7 @@ Student_Loop<-function(){
     Sum_Pre_Available<-sum(Pre_Available, na.rm = TRUE)
     if(Sum_Pre_Available>ntouched_Pre){
       for (i in 1:ntouched_Pre){
-        OutputsFT<-Func_Touched(DF = Pre_Data.Frame, RowSizeVar = Row_size_Pre, Item = "PRE", Item_Picked = Pre_Touched)
+        OutputsFT<-Func_Touched(DF = Pre_Data.Frame, RowSizeVar = Row_size_Pre, Item = "PRE", Item_Picked = Pre_Touched,SearchLocation = "Selection Table")
         Cont_Student<-OutputsFT$Cont_Student
         Pre_Data.Frame<-OutputsFT$DF
       }
@@ -247,9 +247,26 @@ Student_Loop<-function(){
       
       # Select Fruit---------------------------------------------------------------------------------------------
       
+      
       Items_Shared<-Fr_Data.Frame$Location == "Shared" 
       Sum_Shared<-sum(Items_Shared, na.rm = TRUE)
       if(Sum_Shared>0){
+        
+        #Did Student touch other fruit based on probability? 
+        Touch_YN_Fr_ST<-ifelse(runif(1)<Pr_touch_Food,1,0) 
+        
+        #If touched what is the contamination and adding it to data frame?
+        if(Touch_YN_Fr_ST==1){
+          Fr_Available<-Fr_Data.Frame$Location == "Shared" 
+          Sum_Fr_Available<-sum(Fr_Available, na.rm = TRUE)
+          if(Sum_Fr_Available>ntouched_Fr){
+            for (i in 1:ntouched_Fr){
+              OutputsFT<-Func_Touched(DF = Fr_Data.Frame, RowSizeVar = Row_size_Fr, Item = "Fruit", Item_Picked = Fr_Touched_ST,SearchLocation = "Shared")
+              Cont_Student<-OutputsFT$Cont_Student
+              Fr_Data.Frame<-OutputsFT$DF
+            }
+          }
+        }
         
         #Did a student pick an item for the share table? 
         Pick_ST_YN_Fr<-ifelse(runif(1)<Pr_Pick_ST_Fr,1,0) 
@@ -288,6 +305,22 @@ Student_Loop<-function(){
       Items_Shared_Pss<-Pss_Data.Frame$Location == "Shared" 
       Sum_Shared_Pss<-sum(Items_Shared_Pss, na.rm = TRUE)
       if(Sum_Shared_Pss>0){
+        
+        #Did Student touch other fruit based on probability? 
+        Touch_YN_Pss_ST<-ifelse(runif(1)<Pr_touch_Food,1,0) 
+        
+        #If touched what is the contamination and adding it to data frame?
+        if(Touch_YN_Pss_ST==1){
+          Pss_Available<-Pss_Data.Frame$Location == "Shared"
+          Sum_Pss_Available<-sum(Pss_Available, na.rm = TRUE)
+          if(Sum_Pss_Available>ntouched_Pss){
+            for (i in 1:ntouched_Pss){
+              OutputsFT<-Func_Touched(DF = Pss_Data.Frame, RowSizeVar = Row_size_Pss, Item = "PSS", Item_Picked = Pss_Touched_ST,SearchLocation = "Shared")
+              Cont_Student<-OutputsFT$Cont_Student
+              Pss_Data.Frame<-OutputsFT$DF
+            }
+          }
+        }
         
         #Did a student pick an item for the share table? 
         Pick_ST_YN_Pss<-ifelse(runif(1)<Pr_Pick_ST_Pss,1,0) 
@@ -328,6 +361,22 @@ Student_Loop<-function(){
       Items_Shared_Pre<-Pre_Data.Frame$Location == "Shared" 
       Sum_Shared_Pre<-sum(Items_Shared_Pre, na.rm = TRUE)
       if(Sum_Shared_Pre>0){
+        
+        #Did Student touch other fruit based on probability? 
+        Touch_YN_Pre_ST<-ifelse(runif(1)<Pr_touch_Food,1,0) 
+        
+        #If touched what is the contamination and adding it to data frame?
+        if(Touch_YN_Pre_ST==1){
+          Pre_Available<-Pre_Data.Frame$Location == "Shared"
+          Sum_Pre_Available<-sum(Pre_Available, na.rm = TRUE)
+          if(Sum_Pre_Available>ntouched_Pre){
+            for (i in 1:ntouched_Pre){
+              OutputsFT<-Func_Touched(DF = Pre_Data.Frame, RowSizeVar = Row_size_Pre, Item = "PRE", Item_Picked = Pre_Touched_ST,SearchLocation = "Shared")
+              Cont_Student<-OutputsFT$Cont_Student
+              Pre_Data.Frame<-OutputsFT$DF
+            }
+          }
+        }
         
         #Did a student pick an item for the share table? 
         Pick_ST_YN_Pre<-ifelse(runif(1)<Pr_Pick_ST_Pre,1,0) 
