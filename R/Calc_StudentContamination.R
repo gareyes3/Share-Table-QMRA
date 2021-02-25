@@ -6,6 +6,7 @@ Is_Student_ill<-0
 Cont_Student<- ifelse(runif(1)<Pr_Student_iC,do.call(Func_ICont_Student,Inputs_ICont_Student),0) 
 if (Cont_Student>0){
   Student_Cont_Count<-(Student_Cont_Count+1)
+  Vector_Contaminations_In<-c(Vector_Contaminations_In, Cont_Student)
   Is_Student_ill<-1
   if(Is_Student_ill==1){
     Vector_Is_Student_ill<-c(Vector_Is_Student_ill,Is_Student_ill)

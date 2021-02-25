@@ -9,8 +9,8 @@ output: html_document
 ```{r}
 
 #Setting Working Directory-------------------------------------
-#setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
-setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+#setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
 ```
 
 ```{r}
@@ -51,6 +51,7 @@ source("Main_Loops2.R")
 #Creating Data Frame of Consumed Items for all the products
 #Copy of Compiled Data Frame
 Individual_Analysis_Fr_CopON<-bind_rows(List_Sens_Fr)
+Contaminations_ON<-Vector_Contaminations_In
 
 #Data Frame without repeats and Consumed Items
 ST_ON_Analysis<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fruit")
@@ -104,6 +105,7 @@ source("Main_Loops2.R")
 #Creating Data Frame of Consumed Items for all the products
 #Copy of Compiled Data Frame
 Individual_Analysis_Fr_CopOFF<-bind_rows(List_Sens_Fr)
+Contaminations_OFF<-Vector_Contaminations_In
 
 #Data Frame without repeats and Consumed Items
 ST_OFF_Analysis<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fruit")
@@ -152,6 +154,7 @@ source("Main_Loops2.R")
 #Creating Data Frame of Consumed Items for all the products
 #Copy of Compiled Data Frame
 Individual_Analysis_Fr_CopONWash<-bind_rows(List_Sens_Fr)
+Contaminations_ONWash<-Vector_Contaminations_In
 
 #Data Frame without repeats and Consumed Items
 ST_ONWash_Analysis<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fruit")
@@ -200,6 +203,7 @@ source("Main_Loops2.R")
 #Creating Data Frame of Consumed Items for all the products
 #Copy of Compiled Data Frame
 Individual_Analysis_Fr_CopONWr<-bind_rows(List_Sens_Fr)
+Contaminations_ONWr<-Vector_Contaminations_In
 
 #Data Frame without repeats and Consumed Items
 ST_ONWr_Analysis<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fruit")
@@ -260,6 +264,7 @@ source("Main_Loops2.R")
 #Creating Data Frame of Consumed Items for all the products
 #Copy of Compiled Data Frame
 Individual_Analysis_Fr_CopOFFWash<-bind_rows(List_Sens_Fr)
+Contaminations_OFFWash<-Vector_Contaminations_In
 
 #Data Frame without repeats and Consumed Items
 ST_OFFWash_Analysis<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fruit")
@@ -321,6 +326,7 @@ source("Main_Loops2.R")
 #Creating Data Frame of Consumed Items for all the products
 #Copy of Compiled Data Frame
 Individual_Analysis_Fr_CopOFFWr<-bind_rows(List_Sens_Fr)
+Contaminations_OFFWr<-Vector_Contaminations_In
 
 #Data Frame without repeats and Consumed Items
 ST_OFFWr_Analysis<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fruit")
@@ -361,6 +367,7 @@ source("Main_Loops2.R")
 #Creating Data Frame of Consumed Items for all the products
 #Copy of Compiled Data Frame
 Individual_Analysis_Fr_CopExc<-bind_rows(List_Sens_Fr)
+Contaminations_Exc<-Vector_Contaminations_In
 
 #Data Frame without repeats and Consumed Items
 ST_Exc_Analysis<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fruit")

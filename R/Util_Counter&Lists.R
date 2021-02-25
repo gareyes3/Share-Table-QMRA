@@ -45,8 +45,6 @@ Items_left_everyday_Pre<-list()
 
 Vector_Is_Student_ill<-c()
 Vector_Students_Allowed<-c()
-
-
-
+Vector_Contaminations_In<-c()
 
 
