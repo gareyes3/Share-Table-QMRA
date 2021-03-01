@@ -102,6 +102,7 @@ Func_DF_Locations_1<-function(){
   ST_OFFWash_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_CopOFFWash)
   ST_OFFWr_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_CopOFFWr)
   ST_Exc_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_CopExc)
+  ST_STClosed_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_STClosed)
   
   Total_Items_ON<-nrow(ST_ON_Analysis_Con)
   Total_Items_OFF<-nrow(ST_OFF_Analysis_Con)
@@ -113,8 +114,9 @@ Func_DF_Locations_1<-function(){
   ST_OFFWash_Analysis_Con$Type<-"OFFWash"
   ST_OFFWr_Analysis_Con$Type<-"OFFWr"
   ST_Exc_Analysis_Con$Type<-"Exc"
+  ST_STClosed_Analysis_Con$Type<-"XSTClosed"
   
-  ST_Comb_Analysis_Con<-bind_rows(ST_OFF_Analysis_Con,ST_ON_Analysis_Con,ST_ONWash_Analysis_Con,ST_ONWr_Analysis_Con,ST_OFFWash_Analysis_Con,ST_OFFWr_Analysis_Con,ST_Exc_Analysis_Con)
+  ST_Comb_Analysis_Con<-bind_rows(ST_OFF_Analysis_Con,ST_ON_Analysis_Con,ST_ONWash_Analysis_Con,ST_ONWr_Analysis_Con,ST_OFFWash_Analysis_Con,ST_OFFWr_Analysis_Con,ST_Exc_Analysis_Con,ST_STClosed_Analysis_Con)
   
   return(ST_Comb_Analysis_Con)
 }
@@ -129,6 +131,7 @@ Func_DF_Locations<-function(){
   ST_OFFWash_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_CopOFFWash)
   ST_OFFWr_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_CopOFFWr)
   ST_Exc_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_CopExc)
+  ST_STClosed_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_STClosed)
   
   T1<-nrow(ST_ON_Analysis_Con)
   T2<-nrow(ST_OFF_Analysis_Con)
@@ -137,6 +140,7 @@ Func_DF_Locations<-function(){
   T5<-nrow(ST_OFFWash_Analysis_Con)
   T6<-nrow(ST_OFFWr_Analysis_Con)
   T7<-nrow(ST_Exc_Analysis_Con)
+  T8<-nrow(ST_STClosed_Analysis_Con)
   
   T1C<-sum(ST_ON_Analysis_Con$Location=="Consumed")
   T2C<-sum(ST_OFF_Analysis_Con$Location=="Consumed")
@@ -145,6 +149,7 @@ Func_DF_Locations<-function(){
   T5C<-sum(ST_OFFWash_Analysis_Con$Location=="Consumed")
   T6C<-sum(ST_OFFWr_Analysis_Con$Location=="Consumed")
   T7C<-sum(ST_Exc_Analysis_Con$Location=="Consumed")
+  T8C<-sum(ST_STClosed_Analysis_Con$Location=="Consumed")
   
   T1D<-sum(ST_ON_Analysis_Con$Location=="Discarded")
   T2D<-sum(ST_OFF_Analysis_Con$Location=="Discarded")
@@ -153,10 +158,11 @@ Func_DF_Locations<-function(){
   T5D<-sum(ST_OFFWash_Analysis_Con$Location=="Discarded")
   T6D<-sum(ST_OFFWr_Analysis_Con$Location=="Discarded")
   T7D<-sum(ST_Exc_Analysis_Con$Location=="Discarded")
+  T8D<-sum(ST_STClosed_Analysis_Con$Location=="Discarded")
   
- Vector_Total_Items<-c(T1,T2,T3,T4,T5,T6,T7)
- Vector_Total_Item_Con<-c(T1C,T2C,T3C,T4C,T5C,T6C,T7C)
- Vector_Total_Item_Dis<-c(T1D,T2D,T3D,T4D,T5D,T6D,T7D)
+ Vector_Total_Items<-c(T1,T2,T3,T4,T5,T6,T7,T8)
+ Vector_Total_Item_Con<-c(T1C,T2C,T3C,T4C,T5C,T6C,T7C,T8C)
+ Vector_Total_Item_Dis<-c(T1D,T2D,T3D,T4D,T5D,T6D,T7D, T8D)
   
   outputsLocations<-list(Vector_Total_Items=Vector_Total_Items,Vector_Total_Item_Con=Vector_Total_Item_Con,Vector_Total_Item_Dis=Vector_Total_Item_Dis)
   
