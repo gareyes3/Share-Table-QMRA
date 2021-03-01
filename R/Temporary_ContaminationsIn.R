@@ -20,8 +20,13 @@ View(df_ill_Week_ON_Box_Prev)
 sd(df_ill_Week_OFF_Box_Prev$Prev)
 mean(df_ill_Week_OFF_Box_Prev$Prev)
 
-Contaminations_OFF
+sum(Contaminations_OFF)
+sum(Contaminations_OFFWash)/sum(Contaminations_OFF)
+sum(Contaminations_OFFWr)
 sum(Contaminations_ON)
+sum(Contaminations_ONWash)
+sum(Contaminations_ONWr)
+sum(Contaminations_Exc)
 
 1.96*0.004887664/(0.01117482*5)
 0.1714537^2

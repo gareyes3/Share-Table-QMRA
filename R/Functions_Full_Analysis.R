@@ -235,3 +235,24 @@ Func_NSA_Summary<-function(Trial){
   
   return(meanT1)
 }
+
+
+
+
+
+Func_DF_Locations_2<-function(){
+  ST_OFF_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_CopOFF)
+  ST_ON_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_CopON)
+  ST_STClosed_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_STClosed)
+
+  
+  Total_Items_ON<-nrow(ST_ON_Analysis_Con)
+  Total_Items_OFF<-nrow(ST_OFF_Analysis_Con)
+  
+  ST_OFF_Analysis_Con$Type<-"OFF"
+  ST_ON_Analysis_Con$Type<-"ON"
+  ST_STClosed_Analysis_Con$Type<-"Closed"
+  
+  ST_Comb_Analysis_Con<-bind_rows(ST_OFF_Analysis_Con,ST_ON_Analysis_Con,ST_STClosed_Analysis_Con)
+  return(ST_Comb_Analysis_Con)
+}

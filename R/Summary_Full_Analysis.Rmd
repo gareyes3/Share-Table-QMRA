@@ -9,8 +9,8 @@ output: html_document
 ```{r}
 
 #Setting Working Directory-------------------------------------
-setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
-#setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+#setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
 ```
 
 ```{r}
@@ -670,6 +670,7 @@ List_Summary_Table_Ill<-list(df_ill_Week_ON_Box_Prev,df_ill_Week_OFF_Box_Prev,df
 List_Summary_Table_Ill_Col<-lapply(List_Summary_Table_Ill,"[[","Prev")
   
   MeanPRevalneces<-sapply(X =List_Summary_Table_Ill_Col,FUN = mean )
+  MeadianPrevalences<-sapply(X =List_Summary_Table_Ill_Col,FUN = median )
   Prevs975<-sapply(X =List_Summary_Table_Ill_Col,FUN = quantile,.975  )
   Prevs025<-sapply(X =List_Summary_Table_Ill_Col,FUN = quantile,.025  )
 
@@ -703,6 +704,7 @@ List_Percentages_Dist<-list(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tips
   ">100"=Nine_3Nine*100,
   ">1000"= ThousandsL*100,
   "Mean Prevalence Ill" = MeanPRevalneces*100,
+  "MedianPrev"= MeadianPrevalences,
   "Top 97.5 Ill"=Prevs975*100,
   "Bot 025 Ill"=Prevs025*100,
   stringsAsFactors = FALSE
@@ -726,8 +728,10 @@ List_Percentages_Dist<-list(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tips
   ">100"=Nine_3Nine*100,
   ">1000"= ThousandsL*100,
   "Mean Prevalence Ill" = MeanPRevalneces*100,
+  "MedianPrev"= MeadianPrevalences,
   "Top 97.5 Ill"=Prevs975*100,
   "Bot 025 Ill"=Prevs025*100,
+  
   stringsAsFactors = FALSE
   )
   
@@ -773,7 +777,7 @@ Dose_Hist_Stacked<-ggplot(data = binded_prevalences, mapping = aes(x= Prev, fill
                                                         "ST OFF, Wrapping ON",
                                                         "STON, Ill Exclusion" ))
 
-ggsave(filename = "Dose_Hist_Stacked.png", path = "Dose Response",width = 10,height = 6,)
+ggsave(filename = "Dose_Hist_Stacked2.png", path = "Dose Response",width = 10,height = 6,)
 print(Dose_Hist_Stacked)
 
 
@@ -788,7 +792,7 @@ Facet_DR_Hist<-ggplot(data = binded_prevalences, mapping = aes(x= Prev))+
   labs(fill = "Intervention")
   
   
-ggsave(filename = "Facet_DR_Hist.png", path = "Dose Response",width = 10,height = 10,)
+ggsave(filename = "Facet_DR_Hist2.png", path = "Dose Response",width = 10,height = 10,)
 print(Facet_DR_Hist)
 
 
@@ -833,7 +837,7 @@ Tails_prev<-ggplot(data = binded_prevalences_Tail, mapping = aes(x= Prev, fill=f
                                                         'ONWr'="ST OFF, Wrapping ON",
                                                         'Exc'="STON, Ill Exclusion"))
 
-ggsave(filename = "Tails_prev.png", path = "Dose Response",width = 10,height = 6,)
+ggsave(filename = "Tails_prev2.png", path = "Dose Response",width = 10,height = 6,)
 print(Tails_prev)
 
 ```
@@ -887,10 +891,12 @@ ST_STClosed_Analysis<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fr
 ST_STClosed_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_STClosed)
 ST_STClosed_Analysis_Con$Type<-"Closed"
 
+
+Combined_Closed_Analysis<-Func_DF_Locations_2()
 ```
 
 ```{r}
-ggplot(data =ST_STClosed_Analysis_Con, aes(x = Type, fill=Location)  )+
+ggplot(data =Combined_Closed_Analysis, aes(x = Type,fill=Location)  )+
   geom_bar()+
   geom_text(stat = "count",aes(label=..count..),position = position_stack(vjust = .5))+
   xlab("Number of Fruit Items")+
