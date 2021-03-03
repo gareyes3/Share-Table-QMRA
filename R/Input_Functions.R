@@ -16,7 +16,7 @@ Func_ICont_Student<-function(IC_salmonella,mass_feces_hands,HU_NV_in_Feces,Pr_Wa
     IC_Student<- Personal_Contamination #GEC/Hand
     HawashingYN<-ifelse(runif(1)<Pr_WashingHand,1,0)
       if(HawashingYN==1){
-        IC_Student*(10^LogRed)
+        IC_Student<-IC_Student*(10^-LogRed)
       }
     IC_Student<-round(IC_Student,digits = 0)
     return(IC_Student)

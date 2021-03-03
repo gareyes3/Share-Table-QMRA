@@ -49,9 +49,9 @@ if(salmonella ==1){
 # Calculation of Items Touches Service Line -------------------------------
 
   #Touched items
-  ntouched_Fr<-4#round(rnorm(1,3,.5),0) #add
-  ntouched_Pss<-4#round(rnorm(1,3,.5),0) #add
-  ntouched_Pre<-4#round(rnorm(1,3,.5),0) #add
+  ntouched_Fr<-5#round(rnorm(1,3,.5),0) #add
+  ntouched_Pss<-5#round(rnorm(1,3,.5),0) #add
+  ntouched_Pre<-5#round(rnorm(1,3,.5),0) #add
 
   
   

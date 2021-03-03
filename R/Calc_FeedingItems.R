@@ -30,7 +30,7 @@
     
     if(salmonella==1 && Calculated_Cont_Pss==1){
       Extra_Items_Pss<-func_Cont_cm2(Extra_Items_Pss,Prevalence_Salmonella_Pss,Pss_Contamination_salmonella,Pss_Mean_area)
-    } else if (norovirus == 1 && Calculated_Cont_Fr ==1){
+    } else if (norovirus == 1 && Calculated_Cont_Pss ==1){
       Extra_Items_Pss<-func_Cont_cm2(Extra_Items_Pss,Prevalence_Norovirus_Pss,Pss_Contamination_norovirus,Pss_Mean_area)
     }
     
@@ -54,7 +54,7 @@
     
     if(salmonella==1 && Calculated_Cont_Pss==1){
       Extra_Items_Pre<-func_Cont_cm2(Extra_Items_Pre,Prevalence_Salmonella_Pre,Pre_Contamination_salmonella,Pre_Mean_area)
-    } else if (norovirus == 1 && Calculated_Cont_Pss ==1){
+    } else if (norovirus == 1 && Calculated_Cont_Pre ==1){
       Extra_Items_Pre<-func_Cont_cm2(Extra_Items_Pre,Prevalence_Norovirus_Pre,Pre_Contamination_norovirus,Pre_Mean_area)
     }
     

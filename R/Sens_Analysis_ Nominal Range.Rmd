@@ -25,9 +25,9 @@ The inputs of interest and their paths are the following
       -Pr_Student_iC: 0.04 [Input_Static]
   2. Touching: 
       ntouched fruit: rnorm(round(rnorm(1,3,.5),0)) [Input_Random]
-        97.5th: 4
+        97.5th: 5
         Median: 3
-        2.5th:  2
+        2.5th:  1
       -Prevalence: Static 4% [Input_Static]
   3.Tranfer Probabilities: 
     -TrP_H_F<-inv.logit(rnorm(1,-3.86,Res_Trans)) [Input_Random]

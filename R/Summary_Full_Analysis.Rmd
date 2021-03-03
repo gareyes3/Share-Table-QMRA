@@ -9,8 +9,8 @@ output: html_document
 ```{r}
 
 #Setting Working Directory-------------------------------------
-setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
-#setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+#setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
 ```
 
 ```{r}
@@ -600,7 +600,7 @@ Ill_Prev_Comb<-ggplot(df_ill_Week_Tog_Box, aes(x = variable, y = Prev, fill=Int)
   labs(fill = "Interventions")+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 
-ggsave(filename = "Ill_Prev_Comb2.png", path = "Dose Response",width = 40,height = 10,)
+ggsave(filename = "Ill_Prev_Comb3.png", path = "Dose Response",width = 40,height = 10,)
 print(Ill_Prev_Comb)
 ```
 
@@ -621,7 +621,7 @@ Vector_Total_Items<-outputsLocations$Vector_Total_Items
 Vector_Total_Item_Con<-outputsLocations$Vector_Total_Item_Con
 Vector_Total_Item_Dis<-outputsLocations$Vector_Total_Item_Dis
 
-ggsave(filename = "Food_sec2.png", path = "Dose Response",width = 8,height = 6,)
+ggsave(filename = "Food_sec3.png", path = "Dose Response",width = 8,height = 6,)
 print(Food_sec)
 
 ```
@@ -662,7 +662,7 @@ Wrapped_Histograms<-ggplot(data = ST_Comb_Analysis_Log,aes(x=Log))+
   theme(plot.title = element_text(hjust = 0.5))+
   stat_bin(aes(y=..count.., label=..count..), geom="text", vjust=-.2,bins=10, boundary = -.001,size=3)
 
-ggsave(filename = "Wrapped_Histograms2.png", path = "Dose Response",width = 10,height = 10,)
+ggsave(filename = "Wrapped_Histograms3.png", path = "Dose Response",width = 10,height = 10,)
 print(Wrapped_Histograms)
 
 
@@ -698,7 +698,7 @@ barchart_Expos<-ggplot(data =tips4, aes(x = OnOff,y=perc, fill=factor(Category, 
     ggtitle("Composition on Exposure of Individual Students (%)")+ 
   theme(plot.title = element_text(hjust = 0.5))
 
-ggsave(filename = "barchart_Expos_2.png", path = "Dose Response",width = 10,height = 6,)
+ggsave(filename = "barchart_Expos_3.png", path = "Dose Response",width = 10,height = 6,)
 print(barchart_Expos)
 
 colors_11<-c("dodgerblue4","dodgerblue3","lightskyblue1","palegreen4","palegreen3","darkseagreen1", "Orange", "Red")
@@ -720,7 +720,7 @@ Barchart_Expos2<-ggplot(data =tips4, aes(fill=OnOff,y=perc, x=factor(Category, l
                                                         "ST ON, Ill Exclusion",
                                                         "Re-Service Off"))
 
-ggsave(filename = "Barchart_Expos2_2.png", path = "Dose Response",width = 8,height = 6,)
+ggsave(filename = "Barchart_Expos2_3.png", path = "Dose Response",width = 8,height = 6,)
 print(Barchart_Expos2)
 
 
@@ -807,8 +807,8 @@ List_Percentages_Dist<-list(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tips
   stringsAsFactors = FALSE
   )
   
- # write.csv(x =  Summary_Comparison_Treatments,"G:/Share Table QMRA/Share-Table-QMRA/R/Dose Response/SummaryComparison.csv", row.names = FALSE )
-  write.csv(x =  Summary_Comparison_Treatments,"C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R/Dose Response/SummaryComparison.csv", row.names = FALSE )
+  write.csv(x =  Summary_Comparison_Treatments,"G:/Share Table QMRA/Share-Table-QMRA/R/Dose Response/SummaryComparison.csv", row.names = FALSE )
+  #write.csv(x =  Summary_Comparison_Treatments,"C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R/Dose Response/SummaryComparison.csv", row.names = FALSE )
 
 
   
@@ -851,7 +851,7 @@ Dose_Hist_Stacked<-ggplot(data = binded_prevalences, mapping = aes(x= Prev, fill
                                                         "STON, Ill Exclusion",
                                                         "Re-service off" ))
 
-ggsave(filename = "Dose_Hist_Stacked2.png", path = "Dose Response",width = 10,height = 6,)
+ggsave(filename = "Dose_Hist_Stacked3.png", path = "Dose Response",width = 10,height = 6,)
 print(Dose_Hist_Stacked)
 
 
@@ -866,7 +866,7 @@ Facet_DR_Hist<-ggplot(data = binded_prevalences, mapping = aes(x= Prev))+
   labs(fill = "Intervention")
   
   
-ggsave(filename = "Facet_DR_Hist2.png", path = "Dose Response",width = 10,height = 10,)
+ggsave(filename = "Facet_DR_Hist3.png", path = "Dose Response",width = 10,height = 10,)
 print(Facet_DR_Hist)
 
 
@@ -890,7 +890,7 @@ Tails_prev<-ggplot(data = binded_prevalences_Tail, mapping = aes(x= Prev, fill=f
                                                         'Exc'="STON, Ill Exclusion",
                                                         "Re-service off"))
 
-ggsave(filename = "Tails_prev2.png", path = "Dose Response",width = 10,height = 6,)
+ggsave(filename = "Tails_prev3.png", path = "Dose Response",width = 10,height = 6,)
 print(Tails_prev)
 
 
@@ -912,7 +912,7 @@ Tails_prev3<-ggplot(data = binded_prevalences_Tail3, mapping = aes(x= Prev, fill
                                                         'Exc'="STON, Ill Exclusion",
                                                         "Re-service off"))
 
-ggsave(plot = Tails_prev3,filename = "Tails_prev3.png", path = "Dose Response",width = 10,height = 6,)
+ggsave(plot = Tails_prev3,filename = "Tails_prev_3.png", path = "Dose Response",width = 10,height = 6,)
 print(Tails_prev3)
 
 
@@ -930,7 +930,7 @@ VIolinPlot<-ggplot(data = binded_prevalences, mapping = aes(y= Prev, x=factor(In
                                                    "STON, Ill Exclusion",
                                                    "Re-service off"))
 
-ggsave(filename = "Violin.png",path = "Dose Response",width = 10,height = 8,)
+ggsave(filename = "Violin3.png",path = "Dose Response",width = 10,height = 8,)
 
 ```
 
@@ -960,7 +960,7 @@ ggplot(data =Combined_Closed_Analysis, aes(x = Type,fill=Location)  )+
                           "ON"= "STON"))
 
 
-ggsave(filename = "FoodSecFin.png", path = "Dose Response",width = 10,height = 6,)
+ggsave(filename = "FoodSecFin3.png", path = "Dose Response",width = 10,height = 6,)
 
 ```
 
