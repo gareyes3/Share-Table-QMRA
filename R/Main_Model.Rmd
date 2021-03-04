@@ -8,8 +8,8 @@ output: html_document
 ```{r}
 
 #Setting Working Directory-------------------------------------
-#setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
-setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+#setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
 ```
 
 ```{r}
@@ -55,7 +55,13 @@ Contaminations_ON<-Vector_Contaminations_In
 #Data Frame without repeats and Consumed Items
 ST_ON_Analysis<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fruit")
 
+
+Individual_Analysis_Fr_CopON<-Individual_Analysis_Fr_CopON %>% 
+    group_by(ID) %>% 
+    filter(TotServices==max(TotServices))
+
 Individual_Analysis_Fr_CopON %>% 
+  group_by(Location) %>% 
   count(Location)
   
 

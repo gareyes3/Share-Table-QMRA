@@ -26,15 +26,10 @@ for (l in 1:Sens_Iterations){
       Fr_Data.Frame$Location[Fr_Data.Frame$Location=="Not Shared"]<-"Discarded"
       
       Fr_Data.Frame$Location[Fr_Data.Frame$Location=="Not Consumed"]<-"Discarded"
-      if(Reservice_YN==0){
-        Fr_Data.Frame$Location[Fr_Data.Frame$Location=="Selection Table"]<-"Discarded"
-      }
-      if(Resharing_YN==0){
-        Fr_Data.Frame$Location[Fr_Data.Frame$Location=="Shared"]<-"Discarded" 
-      } 
+
       
       #####
-      if(k==Food_Days){
+      if(k==Food_Days && j==Service_No){
         Fr_Data.Frame$Location[Fr_Data.Frame$Location=="Selection Table"]<-"Discarded"
         Fr_Data.Frame$Location[Fr_Data.Frame$Location=="Shared"]<-"Discarded"
       }
@@ -42,22 +37,23 @@ for (l in 1:Sens_Iterations){
       Pss_Data.Frame$Location[Pss_Data.Frame$Location=="Not Shared"]<-"Discarded"
       
       Pss_Data.Frame$Location[Pss_Data.Frame$Location=="Not Consumed"]<-"Discarded"
-      if(Reservice_YN==0){
+
+      
+      #####
+      if(k==Food_Days && j==Service_No ){
         Pss_Data.Frame$Location[Pss_Data.Frame$Location=="Selection Table"]<-"Discarded"
+        Pss_Data.Frame$Location[Pss_Data.Frame$Location=="Shared"]<-"Discarded"
       }
-      if(Resharing_YN==0){
-        Pss_Data.Frame$Location[Pss_Data.Frame$Location=="Shared"]<-"Discarded" 
-      } 
       
       Pre_Data.Frame$Location[Pre_Data.Frame$Location=="Not Shared"]<-"Discarded"
       
       Pre_Data.Frame$Location[Pre_Data.Frame$Location=="Not Consumed"]<-"Discarded"
-      if(Reservice_YN==0){
+
+      #####
+      if(k==Food_Days && j==Service_No ){
         Pre_Data.Frame$Location[Pre_Data.Frame$Location=="Selection Table"]<-"Discarded"
+        Pre_Data.Frame$Location[Pre_Data.Frame$Location=="Shared"]<-"Discarded"
       }
-      if(Resharing_YN==0){
-        Pre_Data.Frame$Location[Pre_Data.Frame$Location=="Shared"]<-"Discarded" 
-      } 
       
       
       

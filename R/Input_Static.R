@@ -217,18 +217,11 @@
 #Share Table Toggle 
   
   #Include Share Table:
-  Share_Table_YN<-1
-  #NOTE: Turn off Re-Sharing and -ST to reservice too (next section)
-
-# Re-Sharing, Re-Service 
+  Share_Table_YN<-0
 
   #Share Table to Service line after every Day # note turn in 1 if ST on
   STtoReservice_YN<-1
-  #Re-Service of Items left in Service line after every service.
-  Reservice_YN<-1
-  #Re-Sharing of Share table items after every service # note turn in 1 is ST on
-  Resharing_YN<-1
-  
+
 
 #Visuals Toggles, if we want to change units in figures. 
   
@@ -248,6 +241,6 @@
   NSA_Analysis<-0
 
 #
-  ST_Aside <-1
+  ST_Aside <-0
 
   

@@ -20,12 +20,13 @@
   Left_ST_Fr<-Fr_Data.Frame[which(Fr_Data.Frame$Location == "Shared"),]
   #Fruit that stayed in Selection table
   Left_Selection_Fr<-Fr_Data.Frame[which(Fr_Data.Frame$Location == "Selection Table"),]
+
   
   #Pss that stayed in share table. 
   Left_ST_Pss<-Pss_Data.Frame[which(Pss_Data.Frame$Location == "Shared"),]
   #Pss that stayed in Selection table
   Left_Selection_Pss<-Pss_Data.Frame[which(Pss_Data.Frame$Location == "Selection Table"),]
-  
+
   #Pre that stayed in share table. 
   Left_ST_Pre<-Pre_Data.Frame[which(Pre_Data.Frame$Location == "Shared"),]
   #Pre that stayed in Selection table
