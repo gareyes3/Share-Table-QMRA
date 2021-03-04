@@ -6,23 +6,26 @@ output: html_document
 ---
 
 ```{r}
-#Setting Working Directory
+
+#Setting Working Directory-------------------------------------
 #setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
 setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
 ```
 
 ```{r}
-#Opening Libary and Inputs
+#Opening Libary and Inputs-------------------------------------
 source("Util_Library.R")
+source("Functions_Full_Analysis.R")
 ```
 
+
+#SHARE TABLE ON, No Interventions
 ```{r}
-#Inputs and Source Files
-# Source Files ------------------------------------------------------------
+#Inputs and Source Files-------------------------------------
 
 
 #Inputs
-
+source("New_StudentLoop.R")
 source("Input_Static.R")
 source("Input_Functions.R")
 source("Util_DFFunctions.R")
@@ -32,23 +35,29 @@ source("Util_Counter&Lists.R")
 source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
+
 ```
 
 ```{r warning=TRUE}
-#Running Loop
+#Running Loop First:-------------------------------------
 start_time<-Sys.time()
 source("Main_Loops2.R")
 ```
 
 ```{r}
+#Summary DFs for Future-------------------------------------
 
-```
+#Creating Data Frame of Consumed Items for all the products
+#Copy of Compiled Data Frame
+Individual_Analysis_Fr_CopON<-bind_rows(List_Sens_Fr)
+Contaminations_ON<-Vector_Contaminations_In
 
-```{r}
-#Visuals
-source("Output_Visuals.R")
-```
-```{r}
+#Data Frame without repeats and Consumed Items
+ST_ON_Analysis<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fruit")
+
+Individual_Analysis_Fr_CopON %>% 
+  count(Location)
+  
 
 ```
 

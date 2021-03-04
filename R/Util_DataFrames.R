@@ -273,7 +273,6 @@ if(j>0 && k>1 ){
     
     #Adding times that the share table items have been shared
     Left_ST_Fr[,colnames(Left_ST_Fr)=="STtimes"]<-(Left_ST_Fr[,colnames(Left_ST_Fr)=="STtimes"])+1
-    LeftAAAAA2<-Left_ST_Fr
     #Resharing Toggle
     if(Resharing_YN ==1){
       Fr_Data.Frame<-rbind(Left_Selection_Fr,Fr_Data.Frame,Left_ST_Fr)

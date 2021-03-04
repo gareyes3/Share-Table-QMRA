@@ -146,11 +146,15 @@ Func_Shared<-function(DF, Item_Picked,Share_YN_Food){
   #Item Picked = Item picked from Selection
   if(DF[Item_Picked,colnames(DF)=="Location"]== "Not Consumed"){
     if(Share_YN_Food==1){
-      DF[Item_Picked,colnames(DF)== "Location"]<-"Shared"
+      if(ST_Aside==1){
+        DF[Item_Picked,colnames(DF)== "Location"]<-"SharedAside" 
+      } else if(ST_Aside==0){
+        DF[Item_Picked,colnames(DF)== "Location"]<-"Shared"
+      }
       DF[Item_Picked,colnames(DF)=="History"]<-paste(DF[Item_Picked,colnames(DF)=="History"], "Shared")
       DF[Item_Picked,colnames(DF)=="STtimes"]<-Func_Index_DF(DF,Item_Picked,"STtimes")+1
       V_Shared_Fr<-(V_Shared_Fr+1)
-    }else{
+    }else if(Share_YN_Food==0){
       DF[Item_Picked,colnames(DF)== "Location"]<-"Not Shared" 
       DF[Item_Picked,colnames(DF)=="History"]<-paste(DF[Item_Picked,colnames(DF)=="History"], "NotShared")
     }

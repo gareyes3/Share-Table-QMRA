@@ -212,13 +212,9 @@ Student_Loop<-function(){
   #NOT CONSUMED TO ST=====================================================================================================
   
   if(Share_Table_YN==1){ 
-    #if(Is_Student_ill==1&&Student_Allowed==0){
-     # print("Student not allowed")
-    #}
+
     if(Student_Allowed==1){
-    #if(Is_Student_ill==1){
-     # print("Student allowed")
-    #}
+
       #Proability of the student sharing their food. 
       Share_YN_Food<-ifelse(runif(1)<Pr_share_Food,1,0)
       
