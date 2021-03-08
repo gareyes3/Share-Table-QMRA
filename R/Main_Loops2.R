@@ -32,6 +32,7 @@ for (l in 1:Sens_Iterations){
       if(k==Food_Days && j==Service_No){
         Fr_Data.Frame$Location[Fr_Data.Frame$Location=="Selection Table"]<-"Discarded"
         Fr_Data.Frame$Location[Fr_Data.Frame$Location=="Shared"]<-"Discarded"
+        Fr_Data.Frame$Location[Fr_Data.Frame$Location=="SharedAside"]<-"Discarded"
       }
       
       Pss_Data.Frame$Location[Pss_Data.Frame$Location=="Not Shared"]<-"Discarded"
@@ -43,16 +44,18 @@ for (l in 1:Sens_Iterations){
       if(k==Food_Days && j==Service_No ){
         Pss_Data.Frame$Location[Pss_Data.Frame$Location=="Selection Table"]<-"Discarded"
         Pss_Data.Frame$Location[Pss_Data.Frame$Location=="Shared"]<-"Discarded"
+        Pss_Data.Frame$Location[Pss_Data.Frame$Location=="SharedAside"]<-"Discarded"
       }
       
       Pre_Data.Frame$Location[Pre_Data.Frame$Location=="Not Shared"]<-"Discarded"
-      
       Pre_Data.Frame$Location[Pre_Data.Frame$Location=="Not Consumed"]<-"Discarded"
 
       #####
       if(k==Food_Days && j==Service_No ){
         Pre_Data.Frame$Location[Pre_Data.Frame$Location=="Selection Table"]<-"Discarded"
         Pre_Data.Frame$Location[Pre_Data.Frame$Location=="Shared"]<-"Discarded"
+        Pre_Data.Frame$Location[Pre_Data.Frame$Location=="SharedAside"]<-"Discarded"
+        
       }
       
       

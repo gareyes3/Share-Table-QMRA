@@ -8,8 +8,8 @@ output: html_document
 ```{r}
 
 #Setting Working Directory-------------------------------------
-setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
-#setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+#setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
 ```
 
 ```{r}
@@ -36,6 +36,9 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
+
+#ST_Aside<-1
+
 ```
 
 ```{r warning=TRUE}
@@ -46,7 +49,7 @@ source("Main_Loops2.R")
 
 ```{r}
 #Summary DFs for Future-------------------------------------
-
+library(plyr)
 #Creating Data Frame of Consumed Items for all the products
 #Copy of Compiled Data Frame
 Individual_Analysis_Fr_CopON<-bind_rows(List_Sens_Fr)
@@ -55,7 +58,7 @@ Contaminations_ON<-Vector_Contaminations_In
 #Data Frame without repeats and Consumed Items
 ST_ON_Analysis<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fruit")
 
-
+detach(package:plyr)
 Individual_Analysis_Fr_CopON<-Individual_Analysis_Fr_CopON %>% 
     group_by(ID) %>% 
     filter(TotServices==max(TotServices))

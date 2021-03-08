@@ -32,9 +32,9 @@
 
   #Fruit that stayed in share table.
   Left_ST_Fr<-Fr_Data.Frame[which(Fr_Data.Frame$Location == "Shared"),]
-  Left_ST_Aside<-Fr_Data.Frame[which(Fr_Data.Frame$Location == "SharedAside"),]
+  Left_ST_Aside_Fr<-Fr_Data.Frame[which(Fr_Data.Frame$Location == "SharedAside"),]
   if(ST_Aside==1){
-    Left_ST_Fr<-bind_rows(Left_ST_Fr,Left_ST_Aside)
+    Left_ST_Fr<-bind_rows(Left_ST_Fr, Left_ST_Aside_Fr)
   }else if (ST_Aside==0){
     Left_ST_Fr<-Left_ST_Fr  
   }
@@ -166,6 +166,13 @@
 
   #Pss that stayed in share table. 
   Left_ST_Pss<-Pss_Data.Frame[which(Pss_Data.Frame$Location == "Shared"),]
+  Left_ST_Aside_Pss<-Pss_Data.Frame[which(Pss_Data.Frame$Location == "SharedAside"),]
+  if(ST_Aside==1){
+    Left_ST_Pss<-bind_rows(Left_ST_Pss, Left_ST_Aside_Pss)
+  }else if (ST_Aside==0){
+    Left_ST_Pss<-Left_ST_Pss  
+  }
+  
   #Pss that stayed in Selection table
   Left_Selection_Pss<-Pss_Data.Frame[which(Pss_Data.Frame$Location == "Selection Table"),]
   #Consumed Pss day 1, for exposure assesment
@@ -270,6 +277,12 @@ if(j>0 && j<=(Service_No-1)){
 
   #Pre that stayed in share table. 
   Left_ST_Pre<-Pre_Data.Frame[which(Pre_Data.Frame$Location == "Shared"),]
+  Left_ST_Aside_Pre<-Pre_Data.Frame[which(Pre_Data.Frame$Location == "SharedAside"),]
+  if(ST_Aside==1){
+    Left_ST_Pre<-bind_rows(Left_ST_Pre, Left_ST_Aside_Pre)
+  }else if (ST_Aside==0){
+    Left_ST_Pre<-Left_ST_Pre  
+  }
   #Pre that stayed in Selection table
   Left_Selection_Pre<-Pre_Data.Frame[which(Pre_Data.Frame$Location == "Selection Table"),]
   #Consumed Pre day 1, for exposure assesment

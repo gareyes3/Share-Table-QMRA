@@ -27,7 +27,7 @@
 
   #Weeks
   
-  Sens_Iterations<-1
+  Sens_Iterations<-20
  
 # Sevice Line Information -------------------------------------------------
   
@@ -217,10 +217,10 @@
 #Share Table Toggle 
   
   #Include Share Table:
-  Share_Table_YN<-0
+  Share_Table_YN<-1
 
   #Share Table to Service line after every Day # note turn in 1 if ST on
-  STtoReservice_YN<-1
+  STtoReservice_YN<-1 #this is reservice. 
 
 
 #Visuals Toggles, if we want to change units in figures. 

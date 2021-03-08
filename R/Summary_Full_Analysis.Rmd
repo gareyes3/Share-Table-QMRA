@@ -11,6 +11,7 @@ output: html_document
 #Setting Working Directory-------------------------------------
 #setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
 setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+pathfolder<-"Dose Response3-8"
 ```
 
 ```{r}
@@ -47,10 +48,10 @@ source("Main_Loops2.R")
 
 ```{r}
 #Summary DFs for Future-------------------------------------
-
+library(plyr)
 #Creating Data Frame of Consumed Items for all the products
 #Copy of Compiled Data Frame
-Individual_Analysis_Fr_CopON<-bind_rows(List_Sens_Fr)
+Individual_Analysis_Fr_CopON<-rbind.fill(List_Sens_Fr)
 Contaminations_ON<-Vector_Contaminations_In
 
 #Data Frame without repeats and Consumed Items
@@ -104,7 +105,7 @@ source("Main_Loops2.R")
 
 #Creating Data Frame of Consumed Items for all the products
 #Copy of Compiled Data Frame
-Individual_Analysis_Fr_CopOFF<-bind_rows(List_Sens_Fr)
+Individual_Analysis_Fr_CopOFF<-rbind.fill(List_Sens_Fr)
 Contaminations_OFF<-Vector_Contaminations_In
 
 #Data Frame without repeats and Consumed Items
@@ -149,11 +150,12 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
+
 #Summary DFs for Future. -------------------------------------
 
 #Creating Data Frame of Consumed Items for all the products
 #Copy of Compiled Data Frame
-Individual_Analysis_Fr_CopONWash<-bind_rows(List_Sens_Fr)
+Individual_Analysis_Fr_CopONWash<-rbind.fill(List_Sens_Fr)
 Contaminations_ONWash<-Vector_Contaminations_In
 
 #Data Frame without repeats and Consumed Items
@@ -202,7 +204,7 @@ source("Main_Loops2.R")
 
 #Creating Data Frame of Consumed Items for all the products
 #Copy of Compiled Data Frame
-Individual_Analysis_Fr_CopONWr<-bind_rows(List_Sens_Fr)
+Individual_Analysis_Fr_CopONWr<-rbind.fill(List_Sens_Fr)
 Contaminations_ONWr<-Vector_Contaminations_In
 
 #Data Frame without repeats and Consumed Items
@@ -260,10 +262,10 @@ source("Main_Loops2.R")
 
 ```{r}
 #Summary DFs for Future.------------------------------------- 
-
 #Creating Data Frame of Consumed Items for all the products
 #Copy of Compiled Data Frame
-Individual_Analysis_Fr_CopOFFWash<-bind_rows(List_Sens_Fr)
+
+Individual_Analysis_Fr_CopOFFWash<-rbind.fill(List_Sens_Fr)
 Contaminations_OFFWash<-Vector_Contaminations_In
 
 #Data Frame without repeats and Consumed Items
@@ -325,7 +327,7 @@ source("Main_Loops2.R")
 
 #Creating Data Frame of Consumed Items for all the products
 #Copy of Compiled Data Frame
-Individual_Analysis_Fr_CopOFFWr<-bind_rows(List_Sens_Fr)
+Individual_Analysis_Fr_CopOFFWr<-rbind.fill(List_Sens_Fr)
 Contaminations_OFFWr<-Vector_Contaminations_In
 
 #Data Frame without repeats and Consumed Items
@@ -366,7 +368,7 @@ source("Main_Loops2.R")
 
 #Creating Data Frame of Consumed Items for all the products
 #Copy of Compiled Data Frame
-Individual_Analysis_Fr_CopExc<-bind_rows(List_Sens_Fr)
+Individual_Analysis_Fr_CopExc<-rbind.fill(List_Sens_Fr)
 Contaminations_Exc<-Vector_Contaminations_In
 
 #Data Frame without repeats and Consumed Items
@@ -412,22 +414,77 @@ source("Main_Loops2.R")
 #Summary DFs for Future.------------------------------------- 
 
 #Creating Data Frame of Consumed Items for all the products
-Individual_Analysis_Fr_CopSTClosed<-bind_rows(List_Sens_Fr)
+Individual_Analysis_Fr_CopSTClosed<-rbind.fill(List_Sens_Fr)
 #Copy of Compiled Data Frame
-Individual_Analysis_Fr_STClosed<-bind_rows(List_Sens_Fr)
+Individual_Analysis_Fr_STClosed<-rbind.fill(List_Sens_Fr)
 
 #Data Frame without repeats and Consumed Items
 ST_STClosed_Analysis<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fruit")
 ```
 
 
+#ST_SidePRocess ON ST ON, ReServie to ST OFF. ST ON
+
+
+```{r}
+#Inputs and Source Files-------------------------------------
+
+
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+STtoReservice_YN<-1
+ST_Aside<-1
+#Wash Selection Table Fruit
+Wash_Selection_YN_Fr<-1
+#Wash Share Table Items
+Wash_ST_YN_Fr<-1
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+#Summary DFs for Future.------------------------------------- 
+
+#Creating Data Frame of Consumed Items for all the products
+Individual_Analysis_Fr_CopSTAside<-rbind.fill(List_Sens_Fr)
+#Copy of Compiled Data Frame
+Individual_Analysis_Fr_STAside<-rbind.fill(List_Sens_Fr)
+
+#Data Frame without repeats and Consumed Items
+ST_STAside_Analysis<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fruit")
+```
+
+
+
 #Dose Response ST ON
 
 ```{r}
+detach(package:plyr)
+library(tidyverse)
+
 #ST ON-------------------------------------
 ST_ON_Analysis_Copy<-ST_ON_Analysis
+
 #ST_ON_Analysis<-ST_ON_Analysis_Copy
 ST_ON_Analysis<-Func_Asys_ContbyStudent(ST_ON_Analysis)
+
+
 #Drop NAs
 ST_ON_Analysis<- ST_ON_Analysis[!is.na(ST_ON_Analysis$Contamination), ]
 
@@ -554,6 +611,24 @@ df_ill_Week_STClosed<-OutputsDRSTClosed$df_ill_Week
 
 ```
 
+#Dose Response STAside
+```{r}
+#ST on the side -------------------------------------
+ST_STAside_Analysis_Copy<-ST_STAside_Analysis
+ST_STAside_Analysis<-Func_Asys_ContbyStudent(ST_STAside_Analysis)
+#Drop NAs
+ST_STAside_Analysis<- ST_STAside_Analysis[!is.na(ST_STAside_Analysis$Contamination), ]
+
+#Analysis For weekly Dose Response ON
+
+OutputsDRSTAside<-Func_DR_Main(AnalysisDF = ST_STAside_Analysis, Reps_DR = 100)
+df_inf_Week_STAside<-OutputsDRSTAside$df_inf_Week
+df_ill_Week_STAside<-OutputsDRSTAside$df_ill_Week
+
+```
+
+
+
 
 
 #Boxplot Data for All scenarios
@@ -583,12 +658,18 @@ df_ill_Week_Exc_Box_Prev<-Func_DF_Prevalence(AnalysisDFCop = ST_Exc_Analysis_Cop
 #ST ST Closed
 df_ill_Week_STClosed_Box_Prev<-Func_DF_Prevalence(AnalysisDFCop = ST_STClosed_Analysis_Copy, df_Ill_Week = df_ill_Week_STClosed,Intervention = "XSTClosed")
 
+
+#ST Aside
+
+#ST ST Closed
+df_ill_Week_STAside_Box_Prev<-Func_DF_Prevalence(AnalysisDFCop = ST_STAside_Analysis_Copy, df_Ill_Week = df_ill_Week_STAside,Intervention = "STAside")
+
 ```
 #Boxplot Together
 ```{r}
 #Boxplot Together
 
-df_ill_Week_Tog_Box<-bind_rows(df_ill_Week_ON_Box_Prev,df_ill_Week_OFF_Box_Prev,df_ill_Week_ONWash_Box_Prev,df_ill_Week_ONWr_Box_Prev,df_ill_Week_OFFWash_Box_Prev,df_ill_Week_OFFWr_Box_Prev,df_ill_Week_Exc_Box_Prev,df_ill_Week_STClosed_Box_Prev)
+df_ill_Week_Tog_Box<-bind_rows(df_ill_Week_ON_Box_Prev,df_ill_Week_OFF_Box_Prev,df_ill_Week_ONWash_Box_Prev,df_ill_Week_ONWr_Box_Prev,df_ill_Week_OFFWash_Box_Prev,df_ill_Week_OFFWr_Box_Prev,df_ill_Week_Exc_Box_Prev,df_ill_Week_STClosed_Box_Prev,df_ill_Week_STAside_Box_Prev)
 
 Ill_Prev_Comb<-ggplot(df_ill_Week_Tog_Box, aes(x = variable, y = Prev, fill=Int)) + 
   geom_boxplot() + 
@@ -600,7 +681,7 @@ Ill_Prev_Comb<-ggplot(df_ill_Week_Tog_Box, aes(x = variable, y = Prev, fill=Int)
   labs(fill = "Interventions")+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 
-ggsave(filename = "Ill_Prev_Comb3.png", path = "Dose Response",width = 40,height = 10,)
+ggsave(filename = "Ill_Prev_Comb3.png", path = pathfolder,width = 40,height = 10,)
 print(Ill_Prev_Comb)
 ```
 
@@ -637,10 +718,11 @@ ST_OFFWash_Analysis_Log<-Func_DF_Histogram_Log(AnalysisDF = ST_OFFWash_Analysis,
 ST_OFFWr_Analysis_Log<-Func_DF_Histogram_Log(AnalysisDF = ST_OFFWr_Analysis,Intervention = "OFFWr")
 ST_Exc_Analysis_Log<-Func_DF_Histogram_Log(AnalysisDF = ST_Exc_Analysis,Intervention = "XExc")
 ST_STClosed_Analysis_Log<-Func_DF_Histogram_Log(AnalysisDF = ST_STClosed_Analysis,Intervention = "XSTClosed")
+ST_STAside_Analysis_Log<-Func_DF_Histogram_Log(AnalysisDF = ST_STAside_Analysis,Intervention = "STAside")
 
 
 
-ST_Comb_Analysis_Log<-bind_rows(ST_ON_Analysis_Log,ST_OFF_Analysis_Log,ST_ONWash_Analysis_Log,ST_ONWr_Analysis_Log,ST_OFFWash_Analysis_Log,ST_OFFWr_Analysis_Log,ST_Exc_Analysis_Log,ST_STClosed_Analysis_Log)
+ST_Comb_Analysis_Log<-bind_rows(ST_ON_Analysis_Log,ST_OFF_Analysis_Log,ST_ONWash_Analysis_Log,ST_ONWr_Analysis_Log,ST_OFFWash_Analysis_Log,ST_OFFWr_Analysis_Log,ST_Exc_Analysis_Log,ST_STClosed_Analysis_Log,ST_STAside_Analysis_Log)
 
 Histolabels<-c("OFF" = "Baseline: ST OFF, No Intervention", 
                 "OFFWash"  = "ST OFF, Wash ON", 
@@ -649,7 +731,8 @@ Histolabels<-c("OFF" = "Baseline: ST OFF, No Intervention",
                 "ONWash" =  "ST ON, Wash ON",
                 "ONWr" =  "ST ON, Wrapping ON",
                 "XExc" = "ST ON, 50% Exclusion ",
-               "XSTClosed" = "Re-Service OFF"
+               "XSTClosed" = "Re-Service OFF",
+               "STAside" = "STAside"
                )
 
 Wrapped_Histograms<-ggplot(data = ST_Comb_Analysis_Log,aes(x=Log))+
@@ -662,7 +745,7 @@ Wrapped_Histograms<-ggplot(data = ST_Comb_Analysis_Log,aes(x=Log))+
   theme(plot.title = element_text(hjust = 0.5))+
   stat_bin(aes(y=..count.., label=..count..), geom="text", vjust=-.2,bins=10, boundary = -.001,size=3)
 
-ggsave(filename = "Wrapped_Histograms3.png", path = "Dose Response",width = 10,height = 10,)
+ggsave(filename = "Wrapped_Histograms3.png", path = pathfolder,width = 10,height = 10,)
 print(Wrapped_Histograms)
 
 
@@ -678,9 +761,10 @@ tipsOFFWash<-Func_DF_Barplot_Log(ST_Analysis_Log = ST_OFFWash_Analysis_Log,Inter
 tipsOFFWr<-Func_DF_Barplot_Log(ST_Analysis_Log = ST_OFFWr_Analysis_Log,Intervention = "OFFWr")
 tipsExc<-Func_DF_Barplot_Log(ST_Analysis_Log = ST_Exc_Analysis_Log,Intervention = "XExc")
 tipsSTClosed<-Func_DF_Barplot_Log(ST_Analysis_Log = ST_STClosed_Analysis_Log,Intervention = "XSTClosed")
+tipsSTAside<-Func_DF_Barplot_Log(ST_Analysis_Log = ST_STAside_Analysis_Log,Intervention = "STAside")
 
 
-tips4<-bind_rows(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tipsOFFWr,tipsExc,tipsSTClosed)
+tips4<-bind_rows(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tipsOFFWr,tipsExc,tipsSTClosed,tipsSTAside)
 
 barchart_Expos<-ggplot(data =tips4, aes(x = OnOff,y=perc, fill=factor(Category, levels=c("0","<0 - 99","100 - 999",">=1000"))))+
   geom_col(width = .7)+
@@ -698,10 +782,10 @@ barchart_Expos<-ggplot(data =tips4, aes(x = OnOff,y=perc, fill=factor(Category, 
     ggtitle("Composition on Exposure of Individual Students (%)")+ 
   theme(plot.title = element_text(hjust = 0.5))
 
-ggsave(filename = "barchart_Expos_3.png", path = "Dose Response",width = 10,height = 6,)
+ggsave(filename = "barchart_Expos_3.png", path = pathfolder,width = 10,height = 6,)
 print(barchart_Expos)
 
-colors_11<-c("dodgerblue4","dodgerblue3","lightskyblue1","palegreen4","palegreen3","darkseagreen1", "Orange", "Red")
+colors_11<-c('OFF'="dodgerblue4",'OFFWash' ="dodgerblue3",'OFFWr'="dodgerblue1",'ON' ="darkseagreen","ONWash" ="palegreen3","ONWr"="palegreen2","XExc" = "Orange", "XSTClosed" = "Red", "STAside"="Yellow" )
 
 Barchart_Expos2<-ggplot(data =tips4, aes(fill=OnOff,y=perc, x=factor(Category, levels=c("0","<0 - 99","100 - 999",">=1000"))))+
   geom_bar(position="dodge", stat="identity")+
@@ -711,16 +795,9 @@ Barchart_Expos2<-ggplot(data =tips4, aes(fill=OnOff,y=perc, x=factor(Category, l
   ggtitle("Composition on Exposure of Individual Students (%)")+ 
   theme(plot.title = element_text(hjust = 0.5))+
   labs(fill = "Intervention")+
-  scale_fill_manual(values = colors_11, labels = c("Baseline: ST OFF, No Intervention", 
-                                                        "ST OFF, Wash ON",
-                                                        "ST OFF, Wrapping ON",
-                                                        "ST ON, No Interventions",
-                                                        "ST ON, Wash ON",
-                                                        "ST ON, Wrapping ON",
-                                                        "ST ON, Ill Exclusion",
-                                                        "Re-Service Off"))
+  scale_fill_manual(values = colors_11, labels = Histolabels)
 
-ggsave(filename = "Barchart_Expos2_3.png", path = "Dose Response",width = 8,height = 6,)
+ggsave(filename = "Barchart_Expos2_3.png", path =pathfolder,width = 8,height = 6,)
 print(Barchart_Expos2)
 
 
@@ -731,13 +808,13 @@ print(Barchart_Expos2)
 
 ```{r}
 
-List_Summary_Table<-list(ST_ON_Analysis,ST_OFF_Analysis,ST_ONWash_Analysis,ST_ONWr_Analysis,ST_OFFWash_Analysis,ST_OFFWr_Analysis,ST_Exc_Analysis, ST_STClosed_Analysis)
+List_Summary_Table<-list(ST_ON_Analysis,ST_OFF_Analysis,ST_ONWash_Analysis,ST_ONWr_Analysis,ST_OFFWash_Analysis,ST_OFFWr_Analysis,ST_Exc_Analysis, ST_STClosed_Analysis, ST_STAside_Analysis)
 
-  Treatment_Names<-c("ON", "OFF", "ONWash","ONWr", "OFFWash","OFFWr", "XExc", "XSTClosed")
+  Treatment_Names<-c("ON", "OFF", "ONWash","ONWr", "OFFWash","OFFWr", "XExc", "XSTClosed", "STAside")
 
   NStudentsConsumed<-sapply(List_Summary_Table, nrow)
 
-List_Summary_Table_Ill<-list(df_ill_Week_ON_Box_Prev,df_ill_Week_OFF_Box_Prev,df_ill_Week_ONWash_Box_Prev,df_ill_Week_ONWr_Box_Prev,df_ill_Week_OFFWash_Box_Prev,df_ill_Week_OFFWr_Box_Prev,df_ill_Week_Exc_Box_Prev, df_ill_Week_STClosed_Box_Prev)
+List_Summary_Table_Ill<-list(df_ill_Week_ON_Box_Prev,df_ill_Week_OFF_Box_Prev,df_ill_Week_ONWash_Box_Prev,df_ill_Week_ONWr_Box_Prev,df_ill_Week_OFFWash_Box_Prev,df_ill_Week_OFFWr_Box_Prev,df_ill_Week_Exc_Box_Prev, df_ill_Week_STClosed_Box_Prev, df_ill_Week_STAside_Box_Prev)
 
 List_Summary_Table_Ill_Col<-lapply(List_Summary_Table_Ill,"[[","Prev")
   
@@ -746,7 +823,7 @@ List_Summary_Table_Ill_Col<-lapply(List_Summary_Table_Ill,"[[","Prev")
   Prevs975<-sapply(X =List_Summary_Table_Ill_Col,FUN = quantile,.975  )
   Prevs025<-sapply(X =List_Summary_Table_Ill_Col,FUN = quantile,.025  )
 
-List_Percentages_Dist<-list(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tipsOFFWr,tipsExc, tipsSTClosed)
+List_Percentages_Dist<-list(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tipsOFFWr,tipsExc, tipsSTClosed, tipsSTAside)
   ZerosL<-unlist(sapply(List_Percentages_Dist,function(x) x[4,3]))
   ZeroNine<-unlist(sapply(List_Percentages_Dist,function(x) x[3,3]))
   Nine_3Nine<-unlist(sapply(List_Percentages_Dist,function(x) x[2,3]))
@@ -755,12 +832,12 @@ List_Percentages_Dist<-list(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tips
   #Creation of Data Frame
   
   Summary_Comparison_Treatments<-data.frame(
-  "Treatment" = c(1:8),
+  "Treatment" = c(1:9),
   "Treatment Desc" = Treatment_Names
 )
   
   Summary_Comparison_Treatments<-data.frame(
-  "Treatment" = c(1:8),
+  "Treatment" = c(1:9),
   "Treatment Desc" = Treatment_Names,
   "NWeeks" = Sens_Iterations,
   "Participating Students" = N_Iterations*Service_No* Food_Days*Sens_Iterations,
@@ -784,7 +861,7 @@ List_Percentages_Dist<-list(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tips
   
   
   Summary_Comparison_Treatments<-data.frame(
-  "Treatment" = c(1:8),
+  "Treatment" = c(1:9),
   "Treatment Desc" = Treatment_Names,
   "NWeeks" = Sens_Iterations,
   "Participating Students" = N_Iterations*Service_No* Food_Days*Sens_Iterations,
@@ -818,12 +895,19 @@ List_Percentages_Dist<-list(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tips
 
 
 ```{r}
-binded_prevalences<-bind_rows(df_ill_Week_ON_Box_Prev,df_ill_Week_OFF_Box_Prev,df_ill_Week_ONWash_Box_Prev,df_ill_Week_ONWr_Box_Prev,df_ill_Week_OFFWash_Box_Prev,df_ill_Week_OFFWr_Box_Prev,df_ill_Week_Exc_Box_Prev, df_ill_Week_STClosed_Box_Prev)
+binded_prevalences<-bind_rows(df_ill_Week_ON_Box_Prev,df_ill_Week_OFF_Box_Prev,df_ill_Week_ONWash_Box_Prev,df_ill_Week_ONWr_Box_Prev,df_ill_Week_OFFWash_Box_Prev,df_ill_Week_OFFWr_Box_Prev,df_ill_Week_Exc_Box_Prev, df_ill_Week_STClosed_Box_Prev, df_ill_Week_STAside_Box_Prev)
 
 binded_prevalences$Prev<-binded_prevalences$Pre*100
 
 
-colors_12<-c('STOFF'="dodgerblue4",'OFFWash' ="dodgerblue3",'OFFWr'="dodgerblue1",'STON' ="darkseagreen","ONwash" ="palegreen3","ONWr"="palegreen2","Exc" = "Orange", "XSTClosed" = "Red" )
+binded_prevalences_Wash<-bind_rows(df_ill_Week_ON_Box_Prev,df_ill_Week_OFF_Box_Prev,df_ill_Week_ONWash_Box_Prev,df_ill_Week_OFFWash_Box_Prev)
+
+binded_prevalences_WashWr<-bind_rows(df_ill_Week_ON_Box_Prev,df_ill_Week_OFF_Box_Prev,df_ill_Week_ONWash_Box_Prev,df_ill_Week_OFFWash_Box_Prev,df_ill_Week_ONWr_Box_Prev, df_ill_Week_OFFWr_Box_Prev)
+
+
+
+
+colors_12<-c('STOFF'="dodgerblue4",'OFFWash' ="dodgerblue3",'OFFWr'="dodgerblue1",'STON' ="darkseagreen","ONwash" ="palegreen3","ONWr"="palegreen2","Exc" = "Orange", "XSTClosed" = "Red", "STAside"="Yellow" )
 
 Histolabels2<-c("STOFF" = "Baseline: ST OFF, No Intervention", 
                 "OFFWash"  = "ST OFF, Wash ON", 
@@ -832,32 +916,41 @@ Histolabels2<-c("STOFF" = "Baseline: ST OFF, No Intervention",
                 "ONwash" =  "ST ON, Wash ON",
                 "ONWr" =  "ST ON, Wrapping ON",
                 "Exc"=  "STON, Ill Exclusion",
-                "XSTClosed" = "Re-service off"
+                "XSTClosed" = "Re-service off",
+                "STAside"= "STAside"
                )
 
-Dose_Hist_Stacked<-ggplot(data = binded_prevalences, mapping = aes(x= Prev, fill=factor(Int,c('STOFF','OFFWash', 'OFFWr',  'STON', 'ONwash',  'ONWr', 'Exc','XSTClosed') )))+
+Histolabels3<-c("STOFF" = "Baseline: ST OFF, No Intervention", 
+                "OFFWash"  = "ST OFF, Wash ON", 
+                "STON"="ST ON, No Intervention", 
+                "ONwash" =  "ST ON, Wash ON"
+               )
+
+
+Histolabels4<-c("STOFF" = "Baseline: ST OFF, No Intervention", 
+                "OFFWash"  = "ST OFF, Wash ON",
+                "OFFWr" ="ST OFF, Wrapping ON", 
+                "STON"="ST ON, No Intervention", 
+                "ONwash" =  "ST ON, Wash ON",
+                "ONWr" =  "ST ON, Wrapping ON"
+               )
+
+Dose_Hist_Stacked<-ggplot(data = binded_prevalences, mapping = aes(x= Prev, fill=factor(Int,c('STOFF','OFFWash', 'OFFWr',  'STON', 'ONwash',  'ONWr', 'Exc','XSTClosed', 'STAside') )))+
   geom_histogram(bins=15,boundary = .001,color= "black")+
   xlab(label = "Illness prevalence (%)")+
   ylab(label = "Observation Count")+
   ggtitle("Illness prevalence, comparing Interventions")+ 
   theme(plot.title = element_text(hjust = 0.5))+
   labs(fill = "Intervention")+
-  scale_fill_manual(values = colors_11, labels = c("Baseline: ST OFF, No Intervention", 
-                                                        "ST OFF, Wash ON",
-                                                        "ST OFF, Wrapping ON",
-                                                        "ST ON, No Interventions",
-                                                        "ST ON, Wash ON",
-                                                        "ST OFF, Wrapping ON",
-                                                        "STON, Ill Exclusion",
-                                                        "Re-service off" ))
+  scale_fill_manual(values = colors_12, labels = Histolabels2)
 
-ggsave(filename = "Dose_Hist_Stacked3.png", path = "Dose Response",width = 10,height = 6,)
+ggsave(filename = "Dose_Hist_Stacked3.png", path = pathfolder,width = 10,height = 6,)
 print(Dose_Hist_Stacked)
 
 
 Facet_DR_Hist<-ggplot(data = binded_prevalences, mapping = aes(x= Prev))+
   geom_histogram(bins=15,boundary = .001, color= "black")+
-  facet_wrap(~factor(Int,c('STOFF','OFFWash', 'OFFWr',  'STON', 'ONwash',  'ONWr', 'Exc', 'XSTClosed')),  labeller = as_labeller(Histolabels2))+
+  facet_wrap(~factor(Int,c('STOFF','OFFWash', 'OFFWr',  'STON', 'ONwash',  'ONWr', 'Exc', 'XSTClosed', 'STAside')),  labeller = as_labeller(Histolabels2))+
   scale_fill_manual( values =  colors_12)+
   xlab(label = "Illness prevalence (%)")+
   ylab(label = "Observation Count")+
@@ -866,15 +959,41 @@ Facet_DR_Hist<-ggplot(data = binded_prevalences, mapping = aes(x= Prev))+
   labs(fill = "Intervention")
   
   
-ggsave(filename = "Facet_DR_Hist3.png", path = "Dose Response",width = 10,height = 10,)
+ggsave(filename = "Facet_DR_Hist3.png", path = pathfolder,width = 10,height = 10,)
 print(Facet_DR_Hist)
 
+Facet_Washing_Hist<-ggplot(data = binded_prevalences_Wash, mapping = aes(x= Prev))+
+  geom_histogram(bins=15,boundary = .001, color= "black")+
+  facet_wrap(~factor(Int,c('STOFF','OFFWash'  ,'STON', 'ONwash')),  labeller = as_labeller(Histolabels3))+
+  xlab(label = "Illness prevalence (%)" )+
+  ylab(label = "Observation Count")+
+  ggtitle("Illness prevalence, comparing Interventions")+ 
+  theme(plot.title = element_text(hjust = 0.5))+
+  labs(fill = "Intervention")
+  
+  
+ggsave(filename = "Facet_Washing_Hist.png", path = pathfolder,width = 10,height = 8,)
+print(Facet_DR_Hist)
+
+
+Facet_WaWr_Hist<-ggplot(data = binded_prevalences_WashWr, mapping = aes(x= Prev))+
+  geom_histogram(bins=15,boundary = .001, color= "black")+
+  facet_wrap(~factor(Int,c('STOFF','OFFWash'  ,'OFFWr','STON', 'ONwash','ONWr' )),  labeller = as_labeller(Histolabels4))+
+  xlab(label = "Illness prevalence (%)" )+
+  ylab(label = "Observation Count")+
+  ggtitle("Illness prevalence, comparing Interventions")+ 
+  theme(plot.title = element_text(hjust = 0.5))+
+  labs(fill = "Intervention")
+  
+  
+ggsave(filename = "Facet_WashingWr_Hist.png", path = pathfolder,width = 10,height = 8,)
+print(Facet_DR_Hist)
 
 
 
 binded_prevalences_Tail<-binded_prevalences[binded_prevalences$Prev>2,]
 
-Tails_prev<-ggplot(data = binded_prevalences_Tail, mapping = aes(x= Prev, fill=factor(Int,c('STOFF','OFFWash', 'OFFWr',  'STON', 'ONwash',  'ONWr','Exc','XSTClosed') )))+
+Tails_prev<-ggplot(data = binded_prevalences_Tail, mapping = aes(x= Prev, fill=factor(Int,c('STOFF','OFFWash', 'OFFWr',  'STON', 'ONwash',  'ONWr','Exc','XSTClosed', 'STAside') )))+
   geom_histogram(bins=10,color= "black")+
   xlab(label = "Illness prevalence (%)")+
   ylab(label = "Observation Count")+
@@ -888,15 +1007,16 @@ Tails_prev<-ggplot(data = binded_prevalences_Tail, mapping = aes(x= Prev, fill=f
                                                         'ONwash'="ST ON, Wash ON",
                                                         'ONWr'="ST OFF, Wrapping ON",
                                                         'Exc'="STON, Ill Exclusion",
-                                                        "Re-service off"))
+                                                        "Re-service off",
+                                                        "STAside"= "STAside"))
 
-ggsave(filename = "Tails_prev3.png", path = "Dose Response",width = 10,height = 6,)
+ggsave(filename = "Tails_prev3.png", path = pathfolder,width = 10,height = 6,)
 print(Tails_prev)
 
 
 binded_prevalences_Tail3<-binded_prevalences[binded_prevalences$Prev>3,]
 
-Tails_prev3<-ggplot(data = binded_prevalences_Tail3, mapping = aes(x= Prev, fill=factor(Int,c('STOFF','OFFWash', 'OFFWr',  'STON', 'ONwash',  'ONWr','Exc','XSTClosed') )))+
+Tails_prev3<-ggplot(data = binded_prevalences_Tail3, mapping = aes(x= Prev, fill=factor(Int,c('STOFF','OFFWash', 'OFFWr',  'STON', 'ONwash',  'ONWr','Exc','XSTClosed', 'STAside') )))+
   geom_histogram(bins=10,color= "black")+
   xlab(label = "Illness prevalence (%)")+
   ylab(label = "Observation Count")+
@@ -910,27 +1030,30 @@ Tails_prev3<-ggplot(data = binded_prevalences_Tail3, mapping = aes(x= Prev, fill
                                                         'ONwash'="ST ON, Wash ON",
                                                         'ONWr'="ST OFF, Wrapping ON",
                                                         'Exc'="STON, Ill Exclusion",
-                                                        "Re-service off"))
+                                                        "Re-service off",
+                                                        "STAside"= "STAside"))
 
-ggsave(plot = Tails_prev3,filename = "Tails_prev_3.png", path = "Dose Response",width = 10,height = 6,)
+ggsave(plot = Tails_prev3,filename = "Tails_prev_3.png", path = pathfolder,width = 10,height = 6,)
 print(Tails_prev3)
 
 
-VIolinPlot<-ggplot(data = binded_prevalences, mapping = aes(y= Prev, x=factor(Int,c('STOFF','OFFWash', 'OFFWr',  'STON', 'ONwash',  'ONWr','Exc','XSTClosed') ), fill=factor(Int,c('STOFF','OFFWash', 'OFFWr',  'STON', 'ONwash',  'ONWr','Exc','XSTClosed') )))+
+VIolinPlot<-ggplot(data = binded_prevalences, mapping = aes(y= Prev, x=factor(Int,c('STOFF','OFFWash', 'OFFWr',  'STON', 'ONwash',  'ONWr','Exc','XSTClosed', 'STAside') ), fill=factor(Int,c('STOFF','OFFWash', 'OFFWr',  'STON', 'ONwash',  'ONWr','Exc','XSTClosed','STAside') )))+
   geom_violin()+
   geom_boxplot(width=0.1)+
   labs(fill = "Intervention")+
   xlab(label = "Intervention")+
-  scale_fill_manual(values = colors_11, labels = c("Baseline: ST OFF, No Intervention", 
+  scale_fill_manual(values = colors_12, labels = c("Baseline: ST OFF, No Intervention", 
                                                    "ST OFF, Wash ON",
                                                    "ST OFF, Wrapping ON",
                                                    "ST ON, No Interventions",
                                                    "ST ON, Wash ON",
                                                    "ST OFF, Wrapping ON",
                                                    "STON, Ill Exclusion",
-                                                   "Re-service off"))
+                                                   "Re-service off",
+                                                   "STAside"= "STAside"))
 
-ggsave(filename = "Violin3.png",path = "Dose Response",width = 10,height = 8,)
+ggsave(filename = "Violin3.png",path = pathfolder,width = 10,height = 8,)
+print(VIolinPlot)
 
 ```
 
@@ -955,12 +1078,15 @@ ggplot(data =Combined_Closed_Analysis, aes(x = Type,fill=Location)  )+
   ylab("Intervention")+
   ggtitle("Share Table Interventions: Items Consumed vs Wasted")+ 
   theme(plot.title = element_text(hjust = 0.5))+
-  scale_x_discrete(labels=c("Closed"="Re-Service Off",
+  scale_x_discrete(labels=c("XClosed"="Re-Service Off",
                           "OFF" = "STOFF",
-                          "ON"= "STON"))
+                          "ON"= "STON",
+                          'XAside' = 'ST ON: Wash before Serving',
+                          'XExc' = 'Ill Exclusion'
+                          ))
 
 
-ggsave(filename = "FoodSecFin3.png", path = "Dose Response",width = 10,height = 6,)
+ggsave(filename = "FoodSecFin3.png", path = pathfolder,width = 10,height = 8,)
 
 ```
 
