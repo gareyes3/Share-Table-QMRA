@@ -233,6 +233,10 @@ if(Wash_ST_YN_Fr==1){
 # IF Reservice to ST Convert ST to Selection Table ------------------------
 
 if (STtoReservice_YN == 1 ){
+  Left_ST_Fr$Reserviced<-(Left_ST_Fr$Reserviced+1)
+  Left_ST_Pss$Reserviced<-(Left_ST_Pss$Reserviced+1)
+  Left_ST_Pre$Reserviced<-(Left_ST_Pre$Reserviced+1)
+  
   Left_Selection_Fr<-rbind(Left_Selection_Fr,Left_ST_Fr)
   No_Left_Selection_Fr<-nrow(Left_Selection_Fr)
   Left_Selection_Pss<-rbind(Left_Selection_Pss,Left_ST_Pss)

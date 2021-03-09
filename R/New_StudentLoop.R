@@ -168,6 +168,10 @@ Student_Loop<-function(){
     OutputsFEFr<-Func_Eat_Fr(Eat_YN_Item = Eat_YN_Fr, DF = Fr_Data.Frame,Item_Picked = Fr_Picked,Item = "Fruit")
     Cont_Student<-OutputsFEFr$Cont_Student
     Fr_Data.Frame<-OutputsFEFr$DF
+    if(Eat_YN_Fr==1){
+      Fr_Data.Frame[Fr_Picked,colnames(Fr_Data.Frame)== "ConsumedAt"]<-"ServiceLine"
+    }
+    
   }#end of pick statement
   
   
@@ -297,6 +301,9 @@ Student_Loop<-function(){
           OutputsFEFr<-Func_Eat_Fr(Eat_YN_Item = Eat_YN_ST_Fr, DF = Fr_Data.Frame,Item_Picked = Fr_ST_Picked,Item = "Fruit")
           Cont_Student<-OutputsFEFr$Cont_Student
           Fr_Data.Frame<-OutputsFEFr$DF
+          if(Eat_YN_ST_Fr==1){
+            Fr_Data.Frame[Fr_ST_Picked,colnames(Fr_Data.Frame)== "ConsumedAt"]<-"ShareTable"
+          }
         } # end of picking if
       }  #end of if to make sure there are ST items
       

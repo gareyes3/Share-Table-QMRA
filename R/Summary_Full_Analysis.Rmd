@@ -11,13 +11,14 @@ output: html_document
 #Setting Working Directory-------------------------------------
 #setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
 setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
-pathfolder<-"Dose Response3-8"
+pathfolder<-"Dose Response3-9"
 ```
 
 ```{r}
 #Opening Libary and Inputs-------------------------------------
 source("Util_Library.R")
 source("Functions_Full_Analysis.R")
+source("Util_FunctionFoodWaste.R")
 ```
 
 
@@ -1089,4 +1090,39 @@ ggplot(data =Combined_Closed_Analysis, aes(x = Type,fill=Location)  )+
 ggsave(filename = "FoodSecFin3.png", path = pathfolder,width = 10,height = 8,)
 
 ```
+
+
+#Food Waste Analysis With Locations
+```{r}
+
+Treatments_FW<-c("STOFF","STON", "STClosed", "Exc", "STAside")
+
+FoodWaste_Analysis<-data.frame(
+  "Treatment"=Treatments_FW
+)
+
+FoodWaste_Analysis<-data.frame(
+  "Treatment"=Treatments_FW,
+  "TotalFruit"="",
+  "TotalConsumed"="",
+  "TotalDiscarded"="",
+  "TotalReserviced"="",
+  "ConsumedSel"="", 
+  "ConsumedST" ="",
+  stringsAsFactors = FALSE
+)
+
+
+FoodWaste_Analysis<-Function_FoodWaste_Full()
+
+FoodWaste_Analysis_melted<-melt(data =FoodWaste_Analysis,id = "Treatment" )
+
+FoodWaste_Analysis_melted$value<- as.numeric(FoodWaste_Analysis_melted$value)
+
+ggplot(data = FoodWaste_Analysis_melted, aes(x= Treatment,y=value, fill= variable))+
+  geom_col(position="dodge")
+
+
+```
+
 
