@@ -1,0 +1,147 @@
+---
+title: "Sens_Analysis_FoodWaste"
+author: "Gustavo Reyes"
+date: "3/10/2021"
+output: html_document
+---
+1. Probability of Sharing
+  -0.1
+  -0.5
+  -0.9
+2. Probability of Eat_ST_YN
+  -0.1
+  -0.5
+  -0.9
+3. Probabiliy of Pick_ST_YN
+  -0.1
+  -0.5
+  -0.9
+    
+
+Outputs
+  %Total Fruit
+  %Consumed ST
+  %Consumed Servline
+  %Discarded
+  %Re-Serviced. 
+
+
+
+
+###Setting Working Directory
+```{r}
+
+#setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+```
+
+###Opening Libary and Inputs
+```{r}
+source("Util_Library.R")
+source("Functions_Full_Analysis.R")
+source("Util_FunctionFoodWaste.R")
+```
+
+
+
+#Input 1: 
+Probability of Sharing
+#Treatment #1 0.1 probabilty of sharing.
+
+
+```{r}
+
+
+
+Input_No<-1
+TreatmentNo<-1
+
+AFWT1<-data.frame(
+  "Input"=Input_No,
+  "Outputs"= c("TotalFruit","TotalConsumed","TotalDiscarded","TotalReserviced","ConsumedSel", "ConsumedST"),
+  "Min"="",
+  "Nominal"="",
+  "Max"="",
+  "Index"="",
+  stringsAsFactors = FALSE)
+
+
+#Inputs and Source Files
+
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+Pr_share_Food<-0.1
+
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+T1_FWS<-bind_rows(List_Sens_Fr)
+T1_VectorFW<-Function_FoodWaste(T1_FWS)
+
+AFWT1[1:6,3]<-T1_VectorFW
+
+```
+
+Probability of Sharing
+#Treatment #2 0.5 probabilty of sharing.
+
+
+```{r}
+
+
+
+#Inputs and Source Files
+
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+Pr_share_Food<-0.5
+
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+T1_FWS<-bind_rows(List_Sens_Fr)
+T1_VectorFW<-Function_FoodWaste(T1_FWS)
+
+AFWT1[1:6,4]<-T1_VectorFW
+
+```
+
+
+
+

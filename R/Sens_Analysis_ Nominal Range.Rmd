@@ -124,7 +124,9 @@ start_time<-Sys.time()
 source("Main_Loops2.R")
 ```
 ```{r}
+#detach(package:plyr)
 T1_Original<-bind_rows(List_Sens_Fr)
+
 meanT1<-Func_NSA_Summary(Trial = "T1")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="MaxOut"]<-meanT1
 ```

@@ -24,6 +24,28 @@ Func_Asys_MainDF<-function(SummaryList, FoodType){
 }
 
 
+Func_Asys_MainDFDp<-function(SummaryList, FoodType){
+  #SummaryLisr = List_Sens_Fr
+  #FoodType= = "Fruit"
+  #1. Start from here
+  Individual_Analysis_Fr<-bind_rows(SummaryList)
+  
+  #Adding Type Column
+  Individual_Analysis_Fr$Type<-FoodType
+  
+  #2. find the dupplicates
+  #this step filters replicated based on the ID
+  Individual_Analysis_Fr<-Individual_Analysis_Fr %>% 
+    group_by(ID) %>% 
+    filter(TotServices==max(TotServices))%>%
+    filter(Location=="Consumed")%>%
+    select(ID,Type,ConsumedBy,Contamination, ContConsumed, Infection,Illness,week)
+  #3
+  AnalysysDF<-Individual_Analysis_Fr
+  return(AnalysysDF)
+}
+
+
 
 
 
@@ -227,7 +249,7 @@ Func_NSA_Summary<-function(Trial){
   #Copy of Compiled Data Frame
   
   #Data Frame without repeats and Consumed Items
-  Treatment1<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fruit")
+  Treatment1<-Func_Asys_MainDFDp(SummaryList = List_Sens_Fr,FoodType = "Fruit")
   
   #Treatment 1
   
