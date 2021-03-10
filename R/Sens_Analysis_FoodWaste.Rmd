@@ -31,8 +31,8 @@ Outputs
 ###Setting Working Directory
 ```{r}
 
-#setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
-setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+#setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
 ```
 
 ###Opening Libary and Inputs
@@ -59,9 +59,9 @@ TreatmentNo<-1
 AFWT1<-data.frame(
   "Input"=Input_No,
   "Outputs"= c("TotalFruit","TotalConsumed","TotalDiscarded","TotalReserviced","ConsumedSel", "ConsumedST"),
-  "Min"="",
-  "Nominal"="",
-  "Max"="",
+  "Min"=as.numeric(0),
+  "Nominal"=as.numeric(0),
+  "Max"=as.numeric(0),
   "Index"="",
   stringsAsFactors = FALSE)
 
@@ -100,10 +100,9 @@ AFWT1[1:6,3]<-T1_VectorFW
 
 ```
 
+
 Probability of Sharing
 #Treatment #2 0.5 probabilty of sharing.
-
-
 ```{r}
 
 
@@ -143,5 +142,379 @@ AFWT1[1:6,4]<-T1_VectorFW
 ```
 
 
+Probability of Sharing
+#Treatment #3 0.9 probabilty of sharing.
+```{r}
 
+
+
+#Inputs and Source Files
+
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+Pr_share_Food<-0.9
+
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+T1_FWS<-bind_rows(List_Sens_Fr)
+T1_VectorFW<-Function_FoodWaste(T1_FWS)
+
+AFWT1[1:6,5]<-T1_VectorFW
+
+```
+
+#Calculating Results. 
+
+```{r}
+for (i in 2:nrow(AFWT1)){
+  AFWT1[i,3:5] <- AFWT1[i,3:5]/AFWT1[1,3:5]
+}
+
+
+AFWT1$Index <-(AFWT1$Max-AFWT1$Min)/AFWT1$Nominal
+AFWT1$Input<-"Pr Sharing Food"
+
+```
+------------------------------------------------
+
+#####Input 2
+
+Probability of Eat_ST_YN
+
+#Treatment #1 0.1 probability of eating ST food.
+
+
+```{r}
+
+
+
+Input_No<-2
+
+AFWT2<-data.frame(
+  "Input"=Input_No,
+  "Outputs"= c("TotalFruit","TotalConsumed","TotalDiscarded","TotalReserviced","ConsumedSel", "ConsumedST"),
+  "Min"=as.numeric(0),
+  "Nominal"=as.numeric(0),
+  "Max"=as.numeric(0),
+  "Index"="",
+  stringsAsFactors = FALSE)
+
+
+#Inputs and Source Files
+
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+Pr_eat_ST_Fr<-0.1
+
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+
+```{r}
+T2_FWS<-bind_rows(List_Sens_Fr)
+T2_VectorFW<-Function_FoodWaste(T2_FWS)
+
+AFWT2[1:6,3]<-T2_VectorFW
+
+```
+
+
+#Treatment #2 0.5 probability of eating ST food.
+
+```{r}
+
+
+#Inputs and Source Files
+
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+Pr_eat_ST_Fr<-0.5
+
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+
+```{r}
+T2_FWS<-bind_rows(List_Sens_Fr)
+T2_VectorFW<-Function_FoodWaste(T2_FWS)
+
+AFWT2[1:6,4]<-T2_VectorFW
+
+```
+
+#Treatment #3 0.9 probability of eating ST food. 
+
+```{r}
+
+
+#Inputs and Source Files
+
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+Pr_eat_ST_Fr<-0.9
+
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+
+```{r}
+T2_FWS<-bind_rows(List_Sens_Fr)
+T2_VectorFW<-Function_FoodWaste(T2_FWS)
+
+AFWT2[1:6,5]<-T2_VectorFW
+
+```
+
+#Calculating Results.
+
+```{r}
+
+for (i in 2:nrow(AFWT2)){
+  AFWT2[i,3:5] <- AFWT2[i,3:5]/AFWT2[1,3:5]
+}
+
+AFWT2$Index <-(AFWT2$Max-AFWT2$Min)/AFWT2$Nominal
+AFWT2$Input<-"Pr Eating ST Food"
+
+```
+
+------------------------------------------------
+
+
+#Input 3: 
+Pick_ST_YN
+#Treatment #1 0.1 Pick_ST_YN
+
+
+```{r}
+
+Input_No<-3
+
+AFWT3<-data.frame(
+  "Input"=Input_No,
+  "Outputs"= c("TotalFruit","TotalConsumed","TotalDiscarded","TotalReserviced","ConsumedSel", "ConsumedST"),
+  "Min"=as.numeric(0),
+  "Nominal"=as.numeric(0),
+  "Max"=as.numeric(0),
+  "Index"="",
+  stringsAsFactors = FALSE)
+
+
+#Inputs and Source Files
+
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+Pr_Pick_ST_Fr<-0.1
+
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+T3_FWS<-bind_rows(List_Sens_Fr)
+T3_VectorFW<-Function_FoodWaste(T3_FWS)
+
+AFWT3[1:6,3]<-T3_VectorFW
+
+```
+
+
+#Treatment #2 0.5 Pick_ST_YN
+
+
+```{r}
+
+
+#Inputs and Source Files
+
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+Pr_Pick_ST_Fr<-0.5
+
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+
+
+T3_FWS<-bind_rows(List_Sens_Fr)
+T3_VectorFW<-Function_FoodWaste(T3_FWS)
+
+AFWT3[1:6,4]<-T3_VectorFW
+
+```
+
+#Treatment #3 0.9 Pick_ST_YN
+
+
+```{r}
+
+
+#Inputs and Source Files
+
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+Pr_Pick_ST_Fr<-0.9
+
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+T3_FWS<-bind_rows(List_Sens_Fr)
+T3_VectorFW<-Function_FoodWaste(T3_FWS)
+
+AFWT3[1:6,5]<-T3_VectorFW
+
+```
+
+
+#Calculating Results.
+
+```{r}
+
+for (i in 2:nrow(AFWT3)){
+  AFWT3[i,3:5] <- AFWT3[i,3:5]/AFWT3[1,3:5]
+}
+
+AFWT3$Index <-(AFWT3$Max-AFWT3$Min)/AFWT3$Nominal
+AFWT3$Input<-"ST Participation"
+
+```
+
+
+
+#Graphics
+
+
+```{r}
+#Creating comparisons for all the 5 diffeent Inputs. 
+
+All_AFW<-bind_rows(AFWT1,AFWT2,AFWT3)
+
+
+ggplot(data=All_AFW, aes(x= Outputs, y =Index, fill= Input))+
+  geom_col(position = "dodge")+
+  coord_flip()
+
+```
 
