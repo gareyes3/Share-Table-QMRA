@@ -11,7 +11,7 @@ output: html_document
 #Setting Working Directory-------------------------------------
 #setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
 setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
-pathfolder<-"DoseResponse3-9"
+pathfolder<-"DoseResponse3-10"
 ```
 
 ```{r}
@@ -472,6 +472,96 @@ ST_STAside_Analysis<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fru
 ```
 
 
+#ST Touch it Pick it.
+
+
+```{r}
+#Inputs and Source Files-------------------------------------
+
+
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+Pr_touch_Food<-0
+Pr_touch_Food_ST<-0
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+#Summary DFs for Future.------------------------------------- 
+
+#Creating Data Frame of Consumed Items for all the products
+Individual_Analysis_Fr_CopTouch<-rbind.fill(List_Sens_Fr)
+#Copy of Compiled Data Frame
+Individual_Analysis_Fr_Touch<-rbind.fill(List_Sens_Fr)
+
+#Data Frame without repeats and Consumed Items
+ST_Touch_Analysis<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fruit")
+```
+
+
+
+#ST Touch but only ST Items
+
+
+```{r}
+#Inputs and Source Files-------------------------------------
+
+
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+Pr_touch_Food_ST<-0
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+#Summary DFs for Future.------------------------------------- 
+
+#Creating Data Frame of Consumed Items for all the products
+Individual_Analysis_Fr_CopTouchST<-rbind.fill(List_Sens_Fr)
+#Copy of Compiled Data Frame
+Individual_Analysis_Fr_TouchST<-rbind.fill(List_Sens_Fr)
+
+#Data Frame without repeats and Consumed Items
+ST_TouchST_Analysis<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fruit")
+```
+
+
+
+
 
 #Dose Response ST ON
 
@@ -628,6 +718,41 @@ df_ill_Week_STAside<-OutputsDRSTAside$df_ill_Week
 
 ```
 
+#ST Touch it Pick it.
+
+```{r}
+#ST on the side -------------------------------------
+ST_Touch_Analysis_Copy<-ST_Touch_Analysis
+ST_Touch_Analysis<-Func_Asys_ContbyStudent(ST_Touch_Analysis)
+#Drop NAs
+ST_Touch_Analysis<- ST_Touch_Analysis[!is.na(ST_Touch_Analysis$Contamination), ]
+
+#Analysis For weekly Dose Response ON
+
+OutputsDRTouch<-Func_DR_Main(AnalysisDF = ST_Touch_Analysis, Reps_DR = 100)
+df_inf_Week_Touch<-OutputsDRTouch$df_inf_Week
+df_ill_Week_Touch<-OutputsDRTouch$df_ill_Week
+
+```
+
+#ST Touch but only ST ITems. 
+
+```{r}
+#ST on the side -------------------------------------
+ST_TouchST_Analysis_Copy<-ST_TouchST_Analysis
+ST_TouchST_Analysis<-Func_Asys_ContbyStudent(ST_TouchST_Analysis)
+#Drop NAs
+ST_TouchST_Analysis<- ST_TouchST_Analysis[!is.na(ST_TouchST_Analysis$Contamination), ]
+
+#Analysis For weekly Dose Response ON
+
+OutputsDRTouchST<-Func_DR_Main(AnalysisDF = ST_TouchST_Analysis, Reps_DR = 100)
+df_inf_Week_TouchST<-OutputsDRTouchST$df_inf_Week
+df_ill_Week_TouchST<-OutputsDRTouchST$df_ill_Week
+
+```
+
+
 
 
 
@@ -664,6 +789,16 @@ df_ill_Week_STClosed_Box_Prev<-Func_DF_Prevalence(AnalysisDFCop = ST_STClosed_An
 
 #ST ST Closed
 df_ill_Week_STAside_Box_Prev<-Func_DF_Prevalence(AnalysisDFCop = ST_STAside_Analysis_Copy, df_Ill_Week = df_ill_Week_STAside,Intervention = "STAside")
+
+
+#ST Touch it Pick it.
+
+#Touch
+df_ill_Week_Touch_Box_Prev<-Func_DF_Prevalence(AnalysisDFCop = ST_Touch_Analysis_Copy, df_Ill_Week = df_ill_Week_Touch,Intervention = "Touch")
+
+
+#Touch ST
+df_ill_Week_TouchST_Box_Prev<-Func_DF_Prevalence(AnalysisDFCop = ST_TouchST_Analysis_Copy, df_Ill_Week = df_ill_Week_TouchST,Intervention = "TouchST")
 
 ```
 #Boxplot Together
@@ -720,6 +855,8 @@ ST_OFFWr_Analysis_Log<-Func_DF_Histogram_Log(AnalysisDF = ST_OFFWr_Analysis,Inte
 ST_Exc_Analysis_Log<-Func_DF_Histogram_Log(AnalysisDF = ST_Exc_Analysis,Intervention = "XExc")
 ST_STClosed_Analysis_Log<-Func_DF_Histogram_Log(AnalysisDF = ST_STClosed_Analysis,Intervention = "XSTClosed")
 ST_STAside_Analysis_Log<-Func_DF_Histogram_Log(AnalysisDF = ST_STAside_Analysis,Intervention = "STAside")
+ST_Touch_Analysis_Log<-Func_DF_Histogram_Log(AnalysisDF = ST_Touch_Analysis,Intervention = "Touch")
+ST_TouchST_Analysis_Log<-Func_DF_Histogram_Log(AnalysisDF = ST_TouchST_Analysis,Intervention = "TouchST")
 
 
 
@@ -763,8 +900,10 @@ tipsOFFWr<-Func_DF_Barplot_Log(ST_Analysis_Log = ST_OFFWr_Analysis_Log,Intervent
 tipsExc<-Func_DF_Barplot_Log(ST_Analysis_Log = ST_Exc_Analysis_Log,Intervention = "XExc")
 tipsSTClosed<-Func_DF_Barplot_Log(ST_Analysis_Log = ST_STClosed_Analysis_Log,Intervention = "XSTClosed")
 tipsSTAside<-Func_DF_Barplot_Log(ST_Analysis_Log = ST_STAside_Analysis_Log,Intervention = "STAside")
+tipsTouch<-Func_DF_Barplot_Log(ST_Analysis_Log = ST_Touch_Analysis_Log,Intervention = "Touch")
+tipsTouchST<-Func_DF_Barplot_Log(ST_Analysis_Log = ST_TouchST_Analysis_Log,Intervention = "Touch")
 
-
+#need to add to tips 4
 tips4<-bind_rows(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tipsOFFWr,tipsExc,tipsSTClosed,tipsSTAside)
 
 barchart_Expos<-ggplot(data =tips4, aes(x = OnOff,y=perc, fill=factor(Category, levels=c("0","<0 - 99","100 - 999",">=1000"))))+
@@ -809,13 +948,13 @@ print(Barchart_Expos2)
 
 ```{r}
 
-List_Summary_Table<-list(ST_ON_Analysis,ST_OFF_Analysis,ST_ONWash_Analysis,ST_ONWr_Analysis,ST_OFFWash_Analysis,ST_OFFWr_Analysis,ST_Exc_Analysis, ST_STClosed_Analysis, ST_STAside_Analysis)
+List_Summary_Table<-list(ST_ON_Analysis,ST_OFF_Analysis,ST_ONWash_Analysis,ST_ONWr_Analysis,ST_OFFWash_Analysis,ST_OFFWr_Analysis,ST_Exc_Analysis, ST_STClosed_Analysis, ST_STAside_Analysis, ST_Touch_Analysis, ST_TouchST_Analysis)
 
-  Treatment_Names<-c("ON", "OFF", "ONWash","ONWr", "OFFWash","OFFWr", "XExc", "XSTClosed", "STAside")
+  Treatment_Names<-c("ON", "OFF", "ONWash","ONWr", "OFFWash","OFFWr", "XExc", "XSTClosed", "STAside", 'Touch', "TouchST")
 
   NStudentsConsumed<-sapply(List_Summary_Table, nrow)
 
-List_Summary_Table_Ill<-list(df_ill_Week_ON_Box_Prev,df_ill_Week_OFF_Box_Prev,df_ill_Week_ONWash_Box_Prev,df_ill_Week_ONWr_Box_Prev,df_ill_Week_OFFWash_Box_Prev,df_ill_Week_OFFWr_Box_Prev,df_ill_Week_Exc_Box_Prev, df_ill_Week_STClosed_Box_Prev, df_ill_Week_STAside_Box_Prev)
+List_Summary_Table_Ill<-list(df_ill_Week_ON_Box_Prev,df_ill_Week_OFF_Box_Prev,df_ill_Week_ONWash_Box_Prev,df_ill_Week_ONWr_Box_Prev,df_ill_Week_OFFWash_Box_Prev,df_ill_Week_OFFWr_Box_Prev,df_ill_Week_Exc_Box_Prev, df_ill_Week_STClosed_Box_Prev, df_ill_Week_STAside_Box_Prev, df_ill_Week_Touch_Box_Prev, df_ill_Week_TouchST_Box_Prev)
 
 List_Summary_Table_Ill_Col<-lapply(List_Summary_Table_Ill,"[[","Prev")
   
@@ -824,7 +963,7 @@ List_Summary_Table_Ill_Col<-lapply(List_Summary_Table_Ill,"[[","Prev")
   Prevs975<-sapply(X =List_Summary_Table_Ill_Col,FUN = quantile,.975  )
   Prevs025<-sapply(X =List_Summary_Table_Ill_Col,FUN = quantile,.025  )
 
-List_Percentages_Dist<-list(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tipsOFFWr,tipsExc, tipsSTClosed, tipsSTAside)
+List_Percentages_Dist<-list(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tipsOFFWr,tipsExc, tipsSTClosed, tipsSTAside, tipsTouch, tipsTouchST)
   ZerosL<-unlist(sapply(List_Percentages_Dist,function(x) x[4,3]))
   ZeroNine<-unlist(sapply(List_Percentages_Dist,function(x) x[3,3]))
   Nine_3Nine<-unlist(sapply(List_Percentages_Dist,function(x) x[2,3]))
@@ -833,12 +972,12 @@ List_Percentages_Dist<-list(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tips
   #Creation of Data Frame
   
   Summary_Comparison_Treatments<-data.frame(
-  "Treatment" = c(1:9),
+  "Treatment" = c(1:11),
   "Treatment Desc" = Treatment_Names
 )
   
   Summary_Comparison_Treatments<-data.frame(
-  "Treatment" = c(1:9),
+  "Treatment" = c(1:11),
   "Treatment Desc" = Treatment_Names,
   "NWeeks" = Sens_Iterations,
   "Participating Students" = N_Iterations*Service_No* Food_Days*Sens_Iterations,
@@ -862,7 +1001,7 @@ List_Percentages_Dist<-list(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tips
   
   
   Summary_Comparison_Treatments<-data.frame(
-  "Treatment" = c(1:9),
+  "Treatment" = c(1:11),
   "Treatment Desc" = Treatment_Names,
   "NWeeks" = Sens_Iterations,
   "Participating Students" = N_Iterations*Service_No* Food_Days*Sens_Iterations,
@@ -1095,7 +1234,7 @@ ggsave(filename = "FoodSecFin3.png", path = pathfolder,width = 10,height = 8,)
 #Food Waste Analysis With Locations
 ```{r}
 
-Treatments_FW<-c("STOFF","STON", "STClosed", "Exc", "STAside")
+Treatments_FW<-c("OFF","ON", "XClosed", "XExc", "XAside")
 
 FoodWaste_Analysis<-data.frame(
   "Treatment"=Treatments_FW
@@ -1119,8 +1258,24 @@ FoodWaste_Analysis_melted<-melt(data =FoodWaste_Analysis,id = "Treatment" )
 
 FoodWaste_Analysis_melted$value<- as.numeric(FoodWaste_Analysis_melted$value)
 
-ggplot(data = FoodWaste_Analysis_melted, aes(x= Treatment,y=value, fill= variable))+
-  geom_col(position="dodge")
+FoodWaste_Analysis_melted<-FoodWaste_Analysis_melted[FoodWaste_Analysis_melted$variable != c("TotalFruit","TotalConsumed"),]
+
+ggplot(data = FoodWaste_Analysis_melted, aes(x= Treatment,y=value, fill= factor(variable, levels  = c("TotalReserviced", "TotalDiscarded", "ConsumedSel", "ConsumedST"))))+
+  geom_col()+
+  scale_x_discrete(labels=c("XClosed"="Re-Service Off",
+                          "OFF" = "STOFF",
+                          "ON"= "STON",
+                          'XAside' = 'One-way ST',
+                          'XExc' = 'Ill Exclusion'
+                          ))+
+  ylab("Number of Fruit")+
+  xlab("Intervention")+
+  labs(fill = "Locations")+
+  ggtitle("Share Table Interventions: Items Consumed vs Wasted")+ 
+  theme(plot.title = element_text(hjust = 0.5))+
+
+
+ggsave(filename = "FoodSecFin4.png", path = pathfolder,width = 10,height = 8,)
 
 
 ```

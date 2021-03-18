@@ -62,7 +62,6 @@
   }
 
 
-
 # Adding Growth Between Every Service  Fruit-------------------------------------
 
   if(j>0 && j<=(Service_No-1)){
@@ -91,11 +90,15 @@
     if(norovirus==1 && Growth ==1){
       #selection table items
       if(No_Left_Selection_Fr>0){
-       Left_Selection_Fr<- Func_Growth_Sto_Norovirus("refrigerated", Left_Selection_Fr, Time_Service) #using function on left over items 
+      Left_Selection_Fr_Before[[paste(l,k,j)]]<-Left_Selection_Fr
+      Left_Selection_Fr<- Func_Growth_Sto_Norovirus("room temp", Left_Selection_Fr, Time_Service) #using function on left over items 
+      Left_Selection_Fr_After[[paste(l,k,j)]]<-Left_Selection_Fr
       }
       #Share table items
      if(No_Left_ST_Fr>0){
-       Left_ST_Fr<-Func_Growth_Sto_Norovirus("refrigerated", Left_ST_Fr, Time_Service) #Share table left over items
+       Left_ST_Fr_Before[[paste(l,k,j)]]<-Left_ST_Fr
+       Left_ST_Fr<-Func_Growth_Sto_Norovirus("room temp", Left_ST_Fr, Time_Service) #Share table left over items
+       Left_ST_Fr_After[[paste(l,k,j)]]<-Left_ST_Fr
      }
     }
   }
@@ -130,14 +133,12 @@
     if(norovirus==1 && Growth ==1){
       #selection table items
       if(No_Left_Selection_Fr>0){
-        Left_Selection_Fr<- Func_Growth_Sto_Norovirus("refrigerated", Left_Selection_Fr, Time_Turnaround) #using function on left over items
+        Left_Selection_Fr<- Func_Growth_Sto_Norovirus("room temp", Left_Selection_Fr, Time_Turnaround) #using function on left over items
       }
-      
       #Share table items
       if(No_Left_ST_Fr>0){
-       Left_ST_Fr<-Func_Growth_Sto_Norovirus("refrigerated", Left_ST_Fr, Time_Turnaround) #Share table left over items 
+       Left_ST_Fr<-Func_Growth_Sto_Norovirus("room temp", Left_ST_Fr, Time_Turnaround) #Share table left over items 
       }
-      
     }
   }
 

@@ -72,6 +72,9 @@
 
   #Porbability of Student touching other line items before picking their food. 
   Pr_touch_Food<-.7
+  
+  #Pr
+  Pr_touch_Food_ST<-.7
 
   #Probability of student Picking up food from line-
 
@@ -124,9 +127,9 @@
   #Time over night storage
   Time_ON<-12
   #Time of each service all in hours. 
-  Time_Service<-.06
+  Time_Service<-.17
   #Time between Services
-  Time_Turnaround<-.06
+  Time_Turnaround<-.17
   
   # Inputs for Milk Spoilage -------------------------------------------------
   
@@ -238,7 +241,7 @@
   Wrapping_Apples<-0
   
 #Toggle for NSA_Analysis
-  NSA_Analysis<-0
+  NSA_Analysis<-1
 
 #
   ST_Aside <-0

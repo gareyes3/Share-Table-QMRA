@@ -11,3 +11,8 @@ library("ggpubr")
 library("sensitivity")
 library("gsl")
 library("ggrepel")
+library("plyr")
+
+summarise<-dplyr::summarise
+count<-dplyr::count
+mutate<-dplyr::mutate

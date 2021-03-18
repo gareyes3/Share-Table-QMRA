@@ -54,7 +54,7 @@ Func_Asys_ContbyStudent<-function(AnalysisDF){
   #Analysis DF = ST_ON_Analysis
   AnalysisDF<-AnalysisDF%>%
     group_by(ConsumedBy)%>%
-    summarise(Contamination = sum(Contamination))
+    dplyr::summarise(Contamination = sum(Contamination))
   
   AnalysisDF$week <- substr(AnalysisDF$ConsumedBy, 1, 3) 
   AnalysisDF$Infection<-as.logical("")
@@ -95,7 +95,7 @@ Func_DF_Prevalence<-function(AnalysisDFCop, df_Ill_Week, Intervention){
   
   df1<-AnalysisDFCop %>% 
     group_by(week) %>% 
-    summarize(count=n())
+    summarise(count=n())
   df1$week<-paste("Week",df1$week)
   
   df_Ill_Week_Box <- melt(df_Ill_Week, measure.var = paste("Week",1:Sens_Iterations))
@@ -126,6 +126,8 @@ Func_DF_Locations_1<-function(){
   ST_Exc_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_CopExc)
   ST_STClosed_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_STClosed)
   ST_STAside_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_CopSTAside)
+  ST_Touch_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_CopTouch)
+  ST_TouchST_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_CopTouchST)
   
   Total_Items_ON<-nrow(ST_ON_Analysis_Con)
   Total_Items_OFF<-nrow(ST_OFF_Analysis_Con)
@@ -139,9 +141,11 @@ Func_DF_Locations_1<-function(){
   ST_Exc_Analysis_Con$Type<-"Exc"
   ST_STClosed_Analysis_Con$Type<-"XSTClosed"
   ST_STAside_Analysis_Con$Type<-"STAside"
+  ST_Touch_Analysis_Con$Type<-"Touch"
+  ST_TouchST_Analysis_Con$Type<-"TouchST"
   
   
-  ST_Comb_Analysis_Con<-bind_rows(ST_OFF_Analysis_Con,ST_ON_Analysis_Con,ST_ONWash_Analysis_Con,ST_ONWr_Analysis_Con,ST_OFFWash_Analysis_Con,ST_OFFWr_Analysis_Con,ST_Exc_Analysis_Con,ST_STClosed_Analysis_Con,ST_STAside_Analysis_Con)
+  ST_Comb_Analysis_Con<-bind_rows(ST_OFF_Analysis_Con,ST_ON_Analysis_Con,ST_ONWash_Analysis_Con,ST_ONWr_Analysis_Con,ST_OFFWash_Analysis_Con,ST_OFFWr_Analysis_Con,ST_Exc_Analysis_Con,ST_STClosed_Analysis_Con,ST_STAside_Analysis_Con,ST_Touch_Analysis_Con,ST_TouchST_Analysis_Con )
   
   return(ST_Comb_Analysis_Con)
 }
@@ -158,6 +162,8 @@ Func_DF_Locations<-function(){
   ST_Exc_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_CopExc)
   ST_STClosed_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_STClosed)
   ST_STAside_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_CopSTAside)
+  ST_Touch_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_CopTouch)
+  ST_TouchST_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_CopTouchST)
   
   T1<-nrow(ST_ON_Analysis_Con)
   T2<-nrow(ST_OFF_Analysis_Con)
@@ -168,6 +174,8 @@ Func_DF_Locations<-function(){
   T7<-nrow(ST_Exc_Analysis_Con)
   T8<-nrow(ST_STClosed_Analysis_Con)
   T9<-nrow(ST_STClosed_Analysis_Con)
+  T10<-nrow(ST_Touch_Analysis_Con)
+  T11<-nrow(ST_TouchST_Analysis_Con)
   
   T1C<-sum(ST_ON_Analysis_Con$Location=="Consumed")
   T2C<-sum(ST_OFF_Analysis_Con$Location=="Consumed")
@@ -178,7 +186,8 @@ Func_DF_Locations<-function(){
   T7C<-sum(ST_Exc_Analysis_Con$Location=="Consumed")
   T8C<-sum(ST_STClosed_Analysis_Con$Location=="Consumed")
   T9C<-sum(ST_STAside_Analysis_Con$Location=="Consumed")
-  
+  T10C<-sum(ST_Touch_Analysis_Con$Location=="Consumed")
+  T11C<-sum(ST_TouchST_Analysis_Con$Location=="Consumed")
   
   T1D<-sum(ST_ON_Analysis_Con$Location=="Discarded")
   T2D<-sum(ST_OFF_Analysis_Con$Location=="Discarded")
@@ -189,11 +198,13 @@ Func_DF_Locations<-function(){
   T7D<-sum(ST_Exc_Analysis_Con$Location=="Discarded")
   T8D<-sum(ST_STClosed_Analysis_Con$Location=="Discarded")
   T9D<-sum(ST_STAside_Analysis_Con$Location=="Discarded")
+  T10D<-sum(ST_Touch_Analysis_Con$Location=="Discarded")
+  T11D<-sum(ST_TouchST_Analysis_Con$Location=="Discarded")
   
   
- Vector_Total_Items<-c(T1,T2,T3,T4,T5,T6,T7,T8,T9)
- Vector_Total_Item_Con<-c(T1C,T2C,T3C,T4C,T5C,T6C,T7C,T8C,T9C)
- Vector_Total_Item_Dis<-c(T1D,T2D,T3D,T4D,T5D,T6D,T7D, T8D,T9D)
+ Vector_Total_Items<-c(T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11)
+ Vector_Total_Item_Con<-c(T1C,T2C,T3C,T4C,T5C,T6C,T7C,T8C,T9C,T10C,T11C)
+ Vector_Total_Item_Dis<-c(T1D,T2D,T3D,T4D,T5D,T6D,T7D, T8D,T9D, T10D,T11D)
   
   outputsLocations<-list(Vector_Total_Items=Vector_Total_Items,Vector_Total_Item_Con=Vector_Total_Item_Con,Vector_Total_Item_Dis=Vector_Total_Item_Dis)
   

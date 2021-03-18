@@ -124,8 +124,8 @@ start_time<-Sys.time()
 source("Main_Loops2.R")
 ```
 ```{r}
-#detach(package:plyr)
-T1_Original<-bind_rows(List_Sens_Fr)
+
+T1_Original<-rbind.fill(List_Sens_Fr)
 
 meanT1<-Func_NSA_Summary(Trial = "T1")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="MaxOut"]<-meanT1
@@ -165,7 +165,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-T2_Original<-bind_rows(List_Sens_Fr)
+T2_Original<-rbind.fill(List_Sens_Fr)
 meanT2<-Func_NSA_Summary(Trial = "T2")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="NominalOut"]<-meanT2
 ```
@@ -204,7 +204,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-T3_Original<-bind_rows(List_Sens_Fr)
+T3_Original<-rbind.fill(List_Sens_Fr)
 meanT3<-Func_NSA_Summary(Trial = "T3")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="MinOut"]<-meanT3
 ```
@@ -258,7 +258,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-T4_Original<-bind_rows(List_Sens_Fr)
+T4_Original<-rbind.fill(List_Sens_Fr)
 meanT4<-Func_NSA_Summary(Trial = "T4")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="MaxOut"]<-meanT4
 ```
@@ -300,7 +300,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-T5_Original<-bind_rows(List_Sens_Fr)
+T5_Original<-rbind.fill(List_Sens_Fr)
 meanT5<-Func_NSA_Summary(Trial = "T5")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="NominalOut"]<-meanT5
 ```
@@ -339,7 +339,7 @@ start_time<-Sys.time()
 source("Main_Loops2.R")
 ```
 ```{r}
-T6_Original<-bind_rows(List_Sens_Fr)
+T6_Original<-rbind.fill(List_Sens_Fr)
 meanT6<-Func_NSA_Summary(Trial = "T6")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="MinOut"]<-meanT6
 ```
@@ -394,7 +394,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-T7_Original<-bind_rows(List_Sens_Fr)
+T7_Original<-rbind.fill(List_Sens_Fr)
 meanT7<-Func_NSA_Summary(Trial = "T7")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="MaxOut"]<-meanT7
 
@@ -436,7 +436,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-T8_Original<-bind_rows(List_Sens_Fr)
+T8_Original<-rbind.fill(List_Sens_Fr)
 meanT8<-Func_NSA_Summary(Trial = "T8")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="NominalOut"]<-meanT8
 
@@ -476,7 +476,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-T9_Original<-bind_rows(List_Sens_Fr)
+T9_Original<-rbind.fill(List_Sens_Fr)
 meanT9<-Func_NSA_Summary(Trial = "T9")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="MinOut"]<-meanT9
 ```
@@ -533,7 +533,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-T10_Original<-bind_rows(List_Sens_Fr)
+T10_Original<-rbind.fill(List_Sens_Fr)
 meanT10<-Func_NSA_Summary(Trial = "T10")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="MaxOut"]<-meanT10
 
@@ -574,7 +574,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-T11_Original<-bind_rows(List_Sens_Fr)
+T11_Original<-rbind.fill(List_Sens_Fr)
 meanT11<-Func_NSA_Summary(Trial = "T11")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="NominalOut"]<-meanT11
 
@@ -615,7 +615,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-T12_Original<-bind_rows(List_Sens_Fr)
+T12_Original<-rbind.fill(List_Sens_Fr)
 meanT12<-Func_NSA_Summary(Trial = "T12")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="MinOut"]<-meanT12
 ```
@@ -673,7 +673,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-T13_Original<-bind_rows(List_Sens_Fr)
+T13_Original<-rbind.fill(List_Sens_Fr)
 meanT13<-Func_NSA_Summary(Trial = "T13")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="MaxOut"]<-meanT13
 
@@ -714,7 +714,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-T14_Original<-bind_rows(List_Sens_Fr)
+T14_Original<-rbind.fill(List_Sens_Fr)
 meanT14<-Func_NSA_Summary(Trial = "T14")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="NominalOut"]<-meanT14
 
@@ -756,7 +756,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-T15_Original<-bind_rows(List_Sens_Fr)
+T15_Original<-rbind.fill(List_Sens_Fr)
 meanT15<-Func_NSA_Summary(Trial = "T15")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="MinOut"]<-meanT15
 ```
@@ -807,7 +807,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-T16_Original<-bind_rows(List_Sens_Fr)
+T16_Original<-rbind.fill(List_Sens_Fr)
 meanT16<-Func_NSA_Summary(Trial = "T16")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="MaxOut"]<-meanT16
 
@@ -842,7 +842,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-T17_Original<-bind_rows(List_Sens_Fr)
+T17_Original<-rbind.fill(List_Sens_Fr)
 meanT17<-Func_NSA_Summary(Trial = "T17")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="NominalOut"]<-meanT17
 ```
@@ -874,7 +874,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-T18_Original<-bind_rows(List_Sens_Fr)
+T18_Original<-rbind.fill(List_Sens_Fr)
 meanT18<-Func_NSA_Summary(Trial = "T18")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="MinOut"]<-meanT18
 ```
@@ -926,7 +926,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-T19_Original<-bind_rows(List_Sens_Fr)
+T19_Original<-rbind.fill(List_Sens_Fr)
 meanT19<-Func_NSA_Summary(Trial = "T19")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="MaxOut"]<-meanT19
 
@@ -961,7 +961,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-T20_Original<-bind_rows(List_Sens_Fr)
+T20_Original<-rbind.fill(List_Sens_Fr)
 meanT20<-Func_NSA_Summary(Trial = "T20")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="NominalOut"]<-meanT20
 ```
@@ -995,7 +995,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-T21_Original<-bind_rows(List_Sens_Fr)
+T21_Original<-rbind.fill(List_Sens_Fr)
 meanT21<-Func_NSA_Summary(Trial = "T21")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="MinOut"]<-meanT21
 ```
@@ -1015,6 +1015,8 @@ SenstivityDF[Input_No,colnames(SenstivityDF)=="Index"]<-SIndexT19_21
 ##Treatment #22,23,24 (max,nominal,min)
 
 ##Maxuimum Value 0.5107151
+
+#Wrapping must be on on this one! 
 
 ```{r}
 Input_No<-8
@@ -1038,6 +1040,8 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
+Wrapping_Apples<-1
+
 ```
 
 ```{r warning=TRUE}
@@ -1047,7 +1051,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-T22_Original<-bind_rows(List_Sens_Fr)
+T22_Original<-rbind.fill(List_Sens_Fr)
 meanT22<-Func_NSA_Summary(Trial = "T22")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="MaxOut"]<-meanT22
 
@@ -1073,6 +1077,8 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
+Wrapping_Apples<-1
+
 ```
 
 ```{r warning=TRUE}
@@ -1082,7 +1088,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-T23_Original<-bind_rows(List_Sens_Fr)
+T23_Original<-rbind.fill(List_Sens_Fr)
 meanT23<-Func_NSA_Summary(Trial = "T23")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="NominalOut"]<-meanT23
 ```
@@ -1107,6 +1113,8 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
+Wrapping_Apples<-1
+
 ```
 
 ```{r warning=TRUE}
@@ -1116,7 +1124,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-T24_Original<-bind_rows(List_Sens_Fr)
+T24_Original<-rbind.fill(List_Sens_Fr)
 meanT24<-Func_NSA_Summary(Trial = "T24")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="MinOut"]<-meanT24
 ```
@@ -1158,6 +1166,8 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
+Wrapping_Apples<-1
+
 ```
 
 ```{r warning=TRUE}
@@ -1167,7 +1177,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-T25_Original<-bind_rows(List_Sens_Fr)
+T25_Original<-rbind.fill(List_Sens_Fr)
 meanT25<-Func_NSA_Summary(Trial = "T25")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="MaxOut"]<-meanT25
 
@@ -1193,6 +1203,8 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
+Wrapping_Apples<-1
+
 ```
 
 ```{r warning=TRUE}
@@ -1202,7 +1214,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-T26_Original<-bind_rows(List_Sens_Fr)
+T26_Original<-rbind.fill(List_Sens_Fr)
 meanT26<-Func_NSA_Summary(Trial = "T26")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="NominalOut"]<-meanT26
 ```
@@ -1227,6 +1239,8 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
+Wrapping_Apples<-1
+
 ```
 
 ```{r warning=TRUE}
@@ -1236,7 +1250,7 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-T27_Original<-bind_rows(List_Sens_Fr)
+T27_Original<-rbind.fill(List_Sens_Fr)
 meanT27<-Func_NSA_Summary(Trial = "T27")
 SenstivityDF[Input_No,colnames(SenstivityDF)=="MinOut"]<-meanT27
 ```

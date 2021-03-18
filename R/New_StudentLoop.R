@@ -261,7 +261,7 @@ Student_Loop<-function(){
         if(Pick_ST_YN_Fr==1){
           
           #Did Student touch other fruit based on probability? 
-          Touch_YN_Fr_ST<-ifelse(runif(1)<Pr_touch_Food,1,0) 
+          Touch_YN_Fr_ST<-ifelse(runif(1)<Pr_touch_Food_ST,1,0) 
           
           #If touched what is the contamination and adding it to data frame?
           if(Touch_YN_Fr_ST==1){
@@ -321,7 +321,7 @@ Student_Loop<-function(){
         if(Pick_ST_YN_Pss==1){
           
           #Did Student touch other fruit based on probability? 
-          Touch_YN_Pss_ST<-ifelse(runif(1)<Pr_touch_Food,1,0) 
+          Touch_YN_Pss_ST<-ifelse(runif(1)<Pr_touch_Food_ST,1,0) 
           
           #If touched what is the contamination and adding it to data frame?
           if(Touch_YN_Pss_ST==1){
@@ -379,7 +379,7 @@ Student_Loop<-function(){
         if(Pick_ST_YN_Pre==1){
           
           #Did Student touch other fruit based on probability? 
-          Touch_YN_Pre_ST<-ifelse(runif(1)<Pr_touch_Food,1,0) 
+          Touch_YN_Pre_ST<-ifelse(runif(1)<Pr_touch_Food_ST,1,0) 
           
           #If touched what is the contamination and adding it to data frame?
           if(Touch_YN_Pre_ST==1){

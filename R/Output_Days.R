@@ -12,7 +12,6 @@
 
 
 
-
 # ITEMS LEFT ON THE LAST SERVICE ------------------------------------
 
   
@@ -98,7 +97,9 @@
     if(norovirus ==1 && Growth ==1){
       #selection table items
       if(No_Left_Selection_Fr>0){
+       Left_Selection_Fr_Before_Days[[paste(l,k,j)]]<-Left_Selection_Fr
        Left_Selection_Fr<- Func_Growth_Sto_Norovirus("refrigerated", Left_Selection_Fr, Time_ON) #using function on left over items 
+       Left_Selection_Fr_After_Days[[paste(l,k,j)]]<-Left_Selection_Fr
       }
       if(No_Left_ST_Fr>0){
        Left_ST_Fr<- Func_Growth_Sto_Norovirus("refrigerated", Left_ST_Fr, Time_ON) #Share table left over items 
