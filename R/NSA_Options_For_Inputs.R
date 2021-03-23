@@ -48,6 +48,12 @@ if(TreatmentNo==1){
   source("NSA_Input_Random_T26.R")
 }else if (TreatmentNo==27){
   source("NSA_Input_Random_T27.R")
+}else if (TreatmentNo==28){
+  source("NSA_Input_Random_T28.R")
+}else if (TreatmentNo==29){
+  source("NSA_Input_Random_T29.R")
+}else if (TreatmentNo==30){
+  source("NSA_Input_Random_T30.R")
 }else{
   source("Input_Random.R")
 }

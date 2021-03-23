@@ -182,6 +182,7 @@ DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="Description"]<-"Growth_Ti
 #Inputs and Source Files
 
 
+
 #Inputs
 source("New_StudentLoop.R")
 source("Input_Static.R")
@@ -194,14 +195,7 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-Left_Selection_Fr_Before<-list()
-Left_Selection_Fr_After<-list()
-
-Left_ST_Fr_Before<-list()
-Left_ST_Fr_After<-list()
-
-Left_Selection_Fr_Before_Days<-list()
-Left_Selection_Fr_After_Days<-list()
+Time_ON<-120
 
 
 ```
@@ -252,14 +246,51 @@ df_ill_Week_DieoffON_Box_Prev<-Func_DF_Prevalence(AnalysisDFCop = ST_DieoffON_An
 
 
 
-#DieOFF OFF
+#DieOFF Normal
 
 ```{r}
 Input_No<-2
 TreatmentNo<-5
 
-#Adding it to the DF
-DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="Description"]<-"Growth_Time"
+#Inputs and Source Files
+
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+TI_5<-rbind.fill(List_Sens_Fr)
+meanTI5<-Func_NSA_Summary(Trial = "T5")
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="NominalOut"]<-meanTI5
+
+
+```
+
+
+#DieOFF Off
+
+```{r}
+Input_No<-2
+TreatmentNo<-6
 
 #Inputs and Source Files
 
@@ -277,6 +308,8 @@ source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
 Growth<-0
+Growth_Pre<-0
+Growth_Pss<-0
 
 ```
 
@@ -287,84 +320,161 @@ source("Main_Loops2.R")
 ```
 
 ```{r}
-TI_5<-rbind.fill(List_Sens_Fr)
-meanTI5<-Func_NSA_Summary(Trial = "T5")
-DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="NominalOut"]<-meanTI5
+TI_6<-rbind.fill(List_Sens_Fr)
+meanTI6<-Func_NSA_Summary(Trial = "T6")
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="MaxOut"]<-meanTI6
 
-
-#Summary DFs for Future.------------------------------------- 
-
-#Creating Data Frame of Consumed Items for all the products
-Individual_Analysis_Fr_CopDieoffOFF<-rbind.fill(List_Sens_Fr)
-#Copy of Compiled Data Frame
-Individual_Analysis_Fr_DieoffOFF<-rbind.fill(List_Sens_Fr)
-
-#Data Frame without repeats and Consumed Items
-ST_DieoffOFF_Analysis<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fruit")
-
-
-#ST Die offON-------------------------------------
-ST_DieoffOFF_Analysis_Copy<-ST_DieoffOFF_Analysis
-
-
-ST_DieoffOFF_Analysis<-Func_Asys_ContbyStudent(ST_DieoffOFF_Analysis)
-
-
-#Drop NAs
-ST_DieoffOFF_Analysis<- ST_DieoffOFF_Analysis[!is.na(ST_DieoffOFF_Analysis$Contamination), ]
-
-#Analysis For weekly Dose Response ON
-
-OutputsDRDieoffOFF<-Func_DR_Main(AnalysisDF = ST_DieoffOFF_Analysis, Reps_DR = 100)
-df_inf_Week_DieoffOFF<-OutputsDRDieoffOFF$df_inf_Week
-df_ill_Week_DieoffOFF<-OutputsDRDieoffOFF$df_ill_Week
-
-
-df_ill_Week_DieoffOFF_Box_Prev<-Func_DF_Prevalence(AnalysisDFCop = ST_DieoffOFF_Analysis_Copy, df_Ill_Week = df_ill_Week_DieoffOFF,Intervention = "DieOff OFF")
 
 ```
 
 
-
+##Wrapping the out
 
 ```{r}
-dummyDF<-data.frame(
-  "Item"=1:100,
-  "Contamination" = 1000,
-  stringsAsFactors = FALSE
-)
-
-
-dummyDF<-Func_Growth_Sto_Norovirus("room temp", dummyDF, Time_Turnaround)
-dummyDF<-Func_Growth_Sto_Norovirus("room temp", dummyDF, Time_Service)
-dummyDF<-Func_Growth_Sto_Norovirus("refrigerated", dummyDF, Time_ON)
-dummyDF<-Func_Growth_Sto_Norovirus_Plastic("room temp", dummyDF, Time_Turnaround)
-
-
-
-Left_Selection_Fr_Before<-rbind.fill(Left_Selection_Fr_Before)
-Left_Selection_Fr_After<-rbind.fill(Left_Selection_Fr_After)
-
-mean(Left_Selection_Fr_Before$Contamination)
-mean(Left_Selection_Fr_After$Contamination)
-
-
-Left_ST_Fr_Before<-rbind.fill(Left_ST_Fr_Before)
-Left_ST_Fr_After<-rbind.fill(Left_ST_Fr_After)
-
-mean(Left_ST_Fr_Before$Contamination)
-mean(Left_ST_Fr_After$Contamination)
-
-Left_Selection_Fr_Before_Days<-rbind.fill(Left_Selection_Fr_Before_Days)
-Left_Selection_Fr_After_Days<-rbind.fill(Left_Selection_Fr_After_Days)
-
-mean(Left_Selection_Fr_Before_Days$Contamination)
-mean(Left_Selection_Fr_After_Days$Contamination)
-
-
-mean(ST_DieoffOFF_Analysis$Contamination)
-
-mean(ST_DieoffON_Analysis$Contamination)
- 198765943/1854728
+SIndexT4_6<-(meanTI6-meanTI4)/meanTI5
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="Index"]<-SIndexT4_6
 ```
+
+
+
+
+#Ill Exclusion 
+
+```{r}
+Input_No<-3
+TreatmentNo<-7
+
+#Adding it to the DF
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="Description"]<-"Growth_Time"
+
+#Inputs and Source Files
+
+
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+  Ill_Avoid_ST<-0
+  Pr_Ill_Avoid_ST<-0
+
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+TI_7<-rbind.fill(List_Sens_Fr)
+meanTI7<-Func_NSA_Summary(Trial = "T7")
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="MinOut"]<-meanTI7
+
+
+```
+
+
+
+#DieOFF Normal
+
+```{r}
+Input_No<-3
+TreatmentNo<-8
+
+#Inputs and Source Files
+
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+  Ill_Avoid_ST<-1
+  Pr_Ill_Avoid_ST<-0.5
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+TI_8<-rbind.fill(List_Sens_Fr)
+meanTI8<-Func_NSA_Summary(Trial = "T8")
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="NominalOut"]<-meanTI8
+
+
+```
+
+
+#DieOFF Off
+
+```{r}
+Input_No<-3
+TreatmentNo<-9
+
+#Inputs and Source Files
+
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+
+  Ill_Avoid_ST<-1
+  Pr_Ill_Avoid_ST<-1
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+TI_9<-rbind.fill(List_Sens_Fr)
+meanTI9<-Func_NSA_Summary(Trial = "T9")
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="MaxOut"]<-meanTI9
+
+
+```
+
+
+##Wrapping the out
+
+```{r}
+SIndexT7_9<-(meanTI9-meanTI7)/meanTI8
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="Index"]<-SIndexT7_9
+```
+
+
+
 

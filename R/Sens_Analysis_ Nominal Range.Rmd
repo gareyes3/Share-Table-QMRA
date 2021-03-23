@@ -1263,6 +1263,131 @@ SenstivityDF[Input_No,colnames(SenstivityDF)=="Index"]<-SIndexT25_27
 ```
 
 
+#Pr Washing Hands
+
+
+
+##Maxuimum Value 0.99
+
+```{r}
+Input_No<-10
+TreatmentNo<-28
+
+#Adding it to the DF
+SenstivityDF[Input_No,colnames(SenstivityDF)=="Description"]<-"TrP_H_S"
+
+#Inputs and Source Files
+
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+T28_Original<-rbind.fill(List_Sens_Fr)
+meanT28<-Func_NSA_Summary(Trial = "T28")
+SenstivityDF[Input_No,colnames(SenstivityDF)=="MaxOut"]<-meanT28
+
+
+```
+
+##Nominal Value 0.42
+
+```{r}
+
+TreatmentNo<-29
+
+#Inputs and Source Files
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+T29_Original<-rbind.fill(List_Sens_Fr)
+meanT29<-Func_NSA_Summary(Trial = "T29")
+SenstivityDF[Input_No,colnames(SenstivityDF)=="NominalOut"]<-meanT29
+```
+
+
+#Minimum out: 0.01
+
+```{r}
+
+TreatmentNo<-30
+
+#Inputs and Source Files
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+T30_Original<-rbind.fill(List_Sens_Fr)
+meanT30<-Func_NSA_Summary(Trial = "T30")
+SenstivityDF[Input_No,colnames(SenstivityDF)=="MinOut"]<-meanT30
+```
+
+##Wrapping the out
+
+```{r}
+SIndexT28_30<-(meanT28-meanT30)/meanT29
+SenstivityDF[Input_No,colnames(SenstivityDF)=="Index"]<-SIndexT28_30
+```
+
+
+
 
 ```{r}
 SenstivityDF<-SenstivityDF[-8,]

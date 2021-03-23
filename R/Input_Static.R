@@ -27,7 +27,7 @@
 
   #Weeks
   
-  Sens_Iterations<-1
+  Sens_Iterations<-10
  
 # Sevice Line Information -------------------------------------------------
   
@@ -207,6 +207,8 @@
 #Growth, do we want to simulate growth of pathogens? 
   
   Growth<-1
+  Growth_Pss<-1
+  Growth_Pre<-1
   
 # Washing Items Effect of washing items
   

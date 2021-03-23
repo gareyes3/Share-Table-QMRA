@@ -97,9 +97,7 @@
     if(norovirus ==1 && Growth ==1){
       #selection table items
       if(No_Left_Selection_Fr>0){
-       Left_Selection_Fr_Before_Days[[paste(l,k,j)]]<-Left_Selection_Fr
        Left_Selection_Fr<- Func_Growth_Sto_Norovirus("refrigerated", Left_Selection_Fr, Time_ON) #using function on left over items 
-       Left_Selection_Fr_After_Days[[paste(l,k,j)]]<-Left_Selection_Fr
       }
       if(No_Left_ST_Fr>0){
        Left_ST_Fr<- Func_Growth_Sto_Norovirus("refrigerated", Left_ST_Fr, Time_ON) #Share table left over items 
@@ -110,7 +108,7 @@
   # Pss ---------------------------------------------------------------------
 
   #Selection Items #chose which type of storage. 
-  if(E_coli==1 && Growth ==1){
+  if(E_coli==1 && Growth_Pss ==1){
     #Selection Table Items
     if(No_Left_Selection_Pss>0){
      Left_Selection_Pss<-do.call(Func_Growth_Enteric,c(list(Condition="room temp",DF=Left_Selection_Pss,TimeVar=Time_ON),Inputs_Growth_Sto_Ecoli)) #Using function on left over items 
@@ -120,7 +118,7 @@
     Left_ST_Pss<-do.call(Func_Growth_Enteric,c(list(Condition="room temp",DF=Left_ST_Pss,TimeVar=Time_ON),Inputs_Growth_Sto_Ecoli)) #using function on left over St items
   }
   
-  if(salmonella==1 && Growth ==1){
+  if(salmonella==1 && Growth_Pss ==1){
     #Selection Table Items
     if(No_Left_Selection_Pss>0){
       Left_Selection_Pss<-do.call(Func_Growth_Enteric,c(list(Condition="room temp",DF=Left_Selection_Pss,TimeVar=Time_ON),Inputs_Growth_Sto_Salmonella)) #Using function on left over items
@@ -131,7 +129,7 @@
     }
   }
   
-  if(norovirus==1 && Growth ==1){
+  if(norovirus==1 && Growth_Pss ==1){
     #selection table items
     if(No_Left_Selection_Pss>0){
      Left_Selection_Pss<- Func_Growth_Sto_Norovirus_Plastic("room temp", Left_Selection_Pss, Time_ON) #using function on left over items 
@@ -145,7 +143,7 @@
   # Pre ---------------------------------------------------------------------
 
   #Selection Items #chose which type of storage. 
-  if(E_coli==1 && Growth ==1){
+  if(E_coli==1 && Growth_Pre ==1){
     #Selection Table Items
     if(No_Left_Selection_Pre>0){
       Left_Selection_Pre<-do.call(Func_Growth_Enteric,c(list(Condition="room temp",DF=Left_Selection_Pre,TimeVar=Time_ON),Inputs_Growth_Sto_Ecoli)) #Using function on left over items
@@ -157,7 +155,7 @@
     
   }
   
-  if(salmonella==1 && Growth ==1){
+  if(salmonella==1 && Growth_Pre ==1){
     #Selection Table Items
     if(No_Left_Selection_Pre>0){
       Left_Selection_Pre<-do.call(Func_Growth_Enteric,c(list(Condition="room temp",DF=Left_Selection_Pre,TimeVar=Time_ON),Inputs_Growth_Sto_Salmonella)) #Using function on left over items
@@ -169,7 +167,7 @@
     }
   }
   
-  if(norovirus==1 && Growth ==1){
+  if(norovirus==1 && Growth_Pre ==1){
     #selection table items
     if(No_Left_Selection_Pre>0){
       Left_Selection_Pre<-Func_Growth_Sto_Norovirus_Plastic("room temp", Left_Selection_Pre, Time_ON) #using function on left over items

@@ -685,7 +685,7 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-Pr_eat_Fr<-0.1
+Pr_eat_Fr<-0.3
 
 
 
