@@ -19,7 +19,7 @@ source("Functions_Full_Analysis.R")
 ```
 
 
-#SHARE TABLE ON, No Interventions
+#SHARE TABLE ON, No Interventions Main Model. 
 ```{r}
 #Inputs and Source Files-------------------------------------
 
@@ -36,8 +36,9 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
+Wash_Bucket<-1
+Pr_touch_Food_ST<-0
 
-#ST_Aside<-1
 
 ```
 
@@ -49,16 +50,15 @@ source("Main_Loops2.R")
 
 ```{r}
 #Summary DFs for Future-------------------------------------
-library(plyr)
 #Creating Data Frame of Consumed Items for all the products
 #Copy of Compiled Data Frame
-Individual_Analysis_Fr_CopON<-bind_rows(List_Sens_Fr)
+Individual_Analysis_Fr_Main<-bind_rows(List_Sens_Fr)
 Contaminations_ON<-Vector_Contaminations_In
 
 #Data Frame without repeats and Consumed Items
-ST_ON_Analysis<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fruit")
+ST_Main_Analysis<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fruit")
 
-detach(package:plyr)
+
 Individual_Analysis_Fr_CopON<-Individual_Analysis_Fr_CopON %>% 
     group_by(ID) %>% 
     filter(TotServices==max(TotServices))
@@ -67,6 +67,29 @@ Individual_Analysis_Fr_CopON %>%
   group_by(Location) %>% 
   count(Location)
   
+#Dose Response
+
+#ST ON-------------------------------------
+ST_Main_Analysis_Copy<-ST_Main_Analysis
+
+#ST_ON_Analysis<-ST_ON_Analysis_Copy
+ST_Main_Analysis<-Func_Asys_ContbyStudent(ST_Main_Analysis)
+
+
+#Drop NAs
+ST_Main_Analysis<- ST_Main_Analysis[!is.na(ST_Main_Analysis$Contamination), ]
+
+#Analysis For weekly Dose Response ON
+
+OutputsDRMain<-Func_DR_Main(AnalysisDF = ST_Main_Analysis, Reps_DR = 100)
+df_inf_Week_Main<-OutputsDRMain$df_inf_Week
+df_ill_Week_Main<-OutputsDRMain$df_ill_Week
+
+#Prevalence
+
+df_ill_Week_Main_Box_Prev<-Func_DF_Prevalence(AnalysisDFCop = ST_Main_Analysis_Copy, df_Ill_Week = df_ill_Week_Main,Intervention = "Main")
+
+mean(df_ill_Week_Main_Box_Prev$Prev)
 
 ```
 

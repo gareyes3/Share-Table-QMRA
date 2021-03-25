@@ -27,7 +27,7 @@
 
   #Weeks
   
-  Sens_Iterations<-1
+  Sens_Iterations<-100
  
 # Sevice Line Information -------------------------------------------------
   
@@ -243,9 +243,16 @@
   Wrapping_Apples<-0
   
 #Toggle for NSA_Analysis
-  NSA_Analysis<-1
+  NSA_Analysis<-0
 
 #
   ST_Aside <-0
 
+#Handwashing Station toggle. 
+
+  Hawashing_Station <-0
+  
+#Wash Bucket Station toggle. 
+  
+  Wash_Bucket<-0
   

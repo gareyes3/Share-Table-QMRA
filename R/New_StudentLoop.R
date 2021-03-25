@@ -13,6 +13,13 @@ Student_Loop<-function(){
   #source("Input_Random.R")  #We good!  Sensitivity analysis off. 
   #Calculations for initial contamination of the student. 
   source("Calc_StudentContamination.R")
+  
+  #Handwashing Station. 
+  if (Hawashing_Station == 1){
+    LogRed_Prior = rpert(1,0.17,0.45,6,shape = 4)
+    Cont_Student<-round(Cont_Student*10^-LogRed_Prior,0)
+  }
+  
   #Feeding Items into the system is any items ran out. 
   source("Calc_FeedingItems.R")
   
