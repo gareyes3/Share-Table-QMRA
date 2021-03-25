@@ -232,19 +232,19 @@ Student_Loop<-function(){
       #Fruit--------------------------------------------------------------------
       
       if(Pick_YN_Fr==1 && Sum_Fr_Available>0){  
-        Fr_Data.Frame<-Func_Shared(DF = Fr_Data.Frame, Item_Picked = Fr_Picked,Share_YN_Food=Share_YN_Food)
+        Fr_Data.Frame<-Func_Shared(DF = Fr_Data.Frame, Item_Picked = Fr_Picked,Share_YN_Food=Share_YN_Food, Item =="Fruit")
       }
       
       #Pss--------------------------------------------------------------------
       
       if(Pick_YN_Pss==1 && Sum_Pss_Available>0){  
-        Pss_Data.Frame<-Func_Shared(DF = Pss_Data.Frame, Item_Picked = Pss_Picked,Share_YN_Food=Share_YN_Food)
+        Pss_Data.Frame<-Func_Shared(DF = Pss_Data.Frame, Item_Picked = Pss_Picked,Share_YN_Food=Share_YN_Food, Item =="Pss")
       }
       
       #Pre--------------------------------------------------------------------
       
       if(Pick_YN_Pre==1 && Sum_Pre_Available>0){    
-        Pre_Data.Frame<-Func_Shared(DF = Pre_Data.Frame, Item_Picked = Pre_Picked,Share_YN_Food=Share_YN_Food)
+        Pre_Data.Frame<-Func_Shared(DF = Pre_Data.Frame, Item_Picked = Pre_Picked,Share_YN_Food=Share_YN_Food, Item =="Pre")
       }
       
       
