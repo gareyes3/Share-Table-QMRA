@@ -14,11 +14,6 @@ Student_Loop<-function(){
   #Calculations for initial contamination of the student. 
   source("Calc_StudentContamination.R")
   
-  #Handwashing Station. 
-  if (Hawashing_Station == 1){
-    LogRed_Prior = rpert(1,0.17,0.45,6,shape = 4)
-    Cont_Student<-round(Cont_Student*10^-LogRed_Prior,0)
-  }
   
   #Feeding Items into the system is any items ran out. 
   source("Calc_FeedingItems.R")
@@ -232,19 +227,19 @@ Student_Loop<-function(){
       #Fruit--------------------------------------------------------------------
       
       if(Pick_YN_Fr==1 && Sum_Fr_Available>0){  
-        Fr_Data.Frame<-Func_Shared(DF = Fr_Data.Frame, Item_Picked = Fr_Picked,Share_YN_Food=Share_YN_Food, Item =="Fruit")
+        Fr_Data.Frame<-Func_Shared(DF = Fr_Data.Frame, Item_Picked = Fr_Picked,Share_YN_Food=Share_YN_Food, Item ="Fruit")
       }
       
       #Pss--------------------------------------------------------------------
       
       if(Pick_YN_Pss==1 && Sum_Pss_Available>0){  
-        Pss_Data.Frame<-Func_Shared(DF = Pss_Data.Frame, Item_Picked = Pss_Picked,Share_YN_Food=Share_YN_Food, Item =="Pss")
+        Pss_Data.Frame<-Func_Shared(DF = Pss_Data.Frame, Item_Picked = Pss_Picked,Share_YN_Food=Share_YN_Food, Item ="Pss")
       }
       
       #Pre--------------------------------------------------------------------
       
       if(Pick_YN_Pre==1 && Sum_Pre_Available>0){    
-        Pre_Data.Frame<-Func_Shared(DF = Pre_Data.Frame, Item_Picked = Pre_Picked,Share_YN_Food=Share_YN_Food, Item =="Pre")
+        Pre_Data.Frame<-Func_Shared(DF = Pre_Data.Frame, Item_Picked = Pre_Picked,Share_YN_Food=Share_YN_Food, Item ="Pre")
       }
       
       

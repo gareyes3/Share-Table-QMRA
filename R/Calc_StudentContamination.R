@@ -7,11 +7,16 @@ Cont_Student<- ifelse(runif(1)<Pr_Student_iC,do.call(Func_ICont_Student,Inputs_I
 if (Cont_Student>0){
   Student_Cont_Count<-(Student_Cont_Count+1)
   Vector_Contaminations_In<-c(Vector_Contaminations_In, Cont_Student)
+  if (Hawashing_Station == 1){
+    LogRed_Prior = rpert(1,0.17,0.45,6,shape = 4)
+    Cont_Student<-round(Cont_Student*10^-LogRed_Prior,0)
+  }
   Is_Student_ill<-1
   if(Is_Student_ill==1){
     Vector_Is_Student_ill<-c(Vector_Is_Student_ill,Is_Student_ill)
   }
 }
+
 
 #Runing Self assigned Student pathogen contamination
 if(Toggle_SelfAssigned_Pathogens==1){

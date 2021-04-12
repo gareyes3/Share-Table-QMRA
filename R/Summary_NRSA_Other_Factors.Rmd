@@ -345,7 +345,7 @@ Input_No<-3
 TreatmentNo<-7
 
 #Adding it to the DF
-DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="Description"]<-"Growth_Time"
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="Description"]<-"Ill Exclusion"
 
 #Inputs and Source Files
 
@@ -385,7 +385,7 @@ DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="MinOut"]<-meanTI7
 
 
 
-#DieOFF Normal
+#Ill Exlusion Normal
 
 ```{r}
 Input_No<-3
@@ -475,6 +475,54 @@ SIndexT7_9<-(meanTI9-meanTI7)/meanTI8
 DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="Index"]<-SIndexT7_9
 ```
 
+```{r}
+DFCheckingInputsx<-DFCheckingInputs[1:3,]
+FullSA<-rbind(DFCheckingInputsx,SenstivityDF)
+
+FullSA$Index<-as.numeric(FullSA$Index)
+round(FullSA$Index, 3)
+
+
+ scale_x_discrete(labels=c("mass_feces_hands"="Mass Feces Hands",
+                           "TrP_H_S"= "Transfer Pr Hand - Surface", 
+                            "TrP_H_F"="Transfer Pr Hand - Food", 
+                             "TrP_F_H"= "Transfer Pr Food-Hand",
+                              "TrP_S_H"= "Transfer Pr Surface-Hand",
+                              "Prevalence_Illness"="Illness Prevalence",
+                              "N_Touched"="Number of Fr Touched Selection",
+                              "LogRedWash"="Hand Washing Efficiency",
+                              "HU_NV_in_Feces"="HUNoV GEC in Feces",
+                           "PrWashingHands" = 'Prob Washing Hands',
+                           "Reduction_wash"= "Washing Fruit",
+                           "Growth_Time"= "Growth DieOFF",
+                           "Ill Exclusion" = "Exclusion Ill Students")) 
+
+  TornadoFull<-ggplot(data = FullSA, aes(x=reorder(Description,Index),y=Index ))+
+    geom_bar(stat = "identity", position = "identity")+
+    ylab("Sensitivity Index")+
+    xlab("Input")+
+    ggtitle("Nominal Range Sensitivity Analysis: Sensitivity Index")+
+    scale_x_discrete(labels=c("mass_feces_hands"="Mass Feces Hands",
+                           "TrP_H_S"= "Transfer Pr Hand - Surface", 
+                            "TrP_H_F"="Transfer Pr Hand - Food", 
+                             "TrP_F_H"= "Transfer Pr Food-Hand",
+                              "TrP_S_H"= "Transfer Pr Surface-Hand",
+                              "Prevalence_Illness"="Illness Prevalence",
+                              "N_Touched"="Number of Fr Touched Selection",
+                              "LogRedWash"="Hand Washing Efficiency",
+                              "HU_NV_in_Feces"="HUNoV GEC in Feces",
+                           "PrWashingHands" = 'Prob Washing Hands',
+                           "Reduction_wash"= "Washing Fruit",
+                           "Growth_Time"= "Growth DieOFF",
+                           "Ill Exclusion" = "Exclusion Ill Students")) +
+    coord_flip()+
+    theme(plot.title = element_text(hjust = 0.5))+
+    theme(text = element_text(size=12))+
+    scale_y_continuous(n.breaks = 10)
+
+ggsave(filename = "Tornado1.png", plot = Tornado1,path = "Dose Response", width = 8, height = 6) 
+print(TornadoFull)
+```
 
 
 

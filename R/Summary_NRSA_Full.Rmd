@@ -1149,7 +1149,7 @@ Input_No<-9
 TreatmentNo<-25
 
 #Adding it to the DF
-SenstivityDF[Input_No,colnames(SenstivityDF)=="Description"]<-"TrP_H_S"
+SenstivityDF[Input_No,colnames(SenstivityDF)=="Description"]<-"TrP_S_H"
 
 #Inputs and Source Files
 
@@ -1266,7 +1266,6 @@ SenstivityDF[Input_No,colnames(SenstivityDF)=="Index"]<-SIndexT25_27
 #Pr Washing Hands
 
 
-
 ##Maxuimum Value 0.99
 
 ```{r}
@@ -1274,7 +1273,7 @@ Input_No<-10
 TreatmentNo<-28
 
 #Adding it to the DF
-SenstivityDF[Input_No,colnames(SenstivityDF)=="Description"]<-"TrP_H_S"
+SenstivityDF[Input_No,colnames(SenstivityDF)=="Description"]<-"PrWashingHands"
 
 #Inputs and Source Files
 
@@ -1390,10 +1389,9 @@ SenstivityDF[Input_No,colnames(SenstivityDF)=="Index"]<-SIndexT28_30
 
 
 ```{r}
-SenstivityDF<-SenstivityDF[-8,]
 SenstivityDF$Index<-as.numeric(SenstivityDF$Index)
 round(SenstivityDF$Index, 3)
-SenstivityDF[9,2]<-"TrP_H_S"
+
 
  scale_x_discrete(labels=c("mass_feces_hands"="Mass Feces Hands",
                            "TrP_H_S"= "Transfer Pr Hand - Surface", 
@@ -1403,7 +1401,8 @@ SenstivityDF[9,2]<-"TrP_H_S"
                               "Prevalence_Illness"="Illness Prevalence",
                               "N_Touched"="Number of Fr Touched Selection",
                               "LogRedWash"="Hand Washing Efficiency",
-                              "HU_NV_in_Feces"="HUNoV GEC in Feces")) 
+                              "HU_NV_in_Feces"="HUNoV GEC in Feces",
+                           "PrWashingHands" = 'Prob Washing Hands')) 
 
   Tornado1<-ggplot(data = SenstivityDF, aes(x=reorder(Description,Index),y=Index ))+
     geom_bar(stat = "identity", position = "identity")+
@@ -1418,11 +1417,12 @@ SenstivityDF[9,2]<-"TrP_H_S"
                               "Prevalence_Illness"="Illness Prevalence",
                               "N_Touched"="Number of Fr Touched Selection",
                               "LogRedWash"="Hand Washing Efficiency",
-                              "HU_NV_in_Feces"="HUNoV GEC in Feces")) +
+                              "HU_NV_in_Feces"="HUNoV GEC in Feces",
+                           "PrWashingHands" = 'Prob Washing Hands')) +
     coord_flip()+
     theme(plot.title = element_text(hjust = 0.5))+
     theme(text = element_text(size=12))+
-    scale_y_continuous(n.breaks = 8)
+    scale_y_continuous(n.breaks = 10)
 
 ggsave(filename = "Tornado1.png", plot = Tornado1,path = "Dose Response", width = 8, height = 6) 
 print(Tornado1)

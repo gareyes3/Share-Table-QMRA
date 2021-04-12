@@ -59,11 +59,11 @@ Contaminations_ON<-Vector_Contaminations_In
 ST_Main_Analysis<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fruit")
 
 
-Individual_Analysis_Fr_CopON<-Individual_Analysis_Fr_CopON %>% 
+Individual_Analysis_Fr_Main<-Individual_Analysis_Fr_Main %>% 
     group_by(ID) %>% 
     filter(TotServices==max(TotServices))
 
-Individual_Analysis_Fr_CopON %>% 
+Individual_Analysis_Fr_Main %>% 
   group_by(Location) %>% 
   count(Location)
   
@@ -90,6 +90,99 @@ df_ill_Week_Main<-OutputsDRMain$df_ill_Week
 df_ill_Week_Main_Box_Prev<-Func_DF_Prevalence(AnalysisDFCop = ST_Main_Analysis_Copy, df_Ill_Week = df_ill_Week_Main,Intervention = "Main")
 
 mean(df_ill_Week_Main_Box_Prev$Prev)
+
+```
+
+```{r}
+Individual_Analysis_Fr_Main_C<-Individual_Analysis_Fr_Main %>% 
+    group_by(ID) %>% 
+    filter(TotServices==max(TotServices))%>% 
+    filter(Location=="Consumed")
+
+
+aaa<-Individual_Analysis_Fr_Main_C %>%
+    dplyr::filter(grepl('WashedB', History))
+```
+
+
+```{r}
+Individual_Analysis_Fr_CopWBucket
+Individual_Analysis_Fr_CopOFF
+Individual_Analysis_Fr_CopOFF
+
+Individual_Analysis_Fr_CopWBucket_C<-Individual_Analysis_Fr_CopWBucket %>% 
+    group_by(ID) %>% 
+    filter(TotServices==max(TotServices))%>% 
+    filter(Location=="Consumed")
+
+
+Individual_Analysis_Fr_CopOFF_C<-Individual_Analysis_Fr_CopOFF %>% 
+    group_by(ID) %>% 
+    filter(TotServices==max(TotServices))%>% 
+    filter(Location=="Consumed")
+
+
+Individual_Analysis_Fr_CopON_C<-Individual_Analysis_Fr_CopON %>% 
+    group_by(ID) %>% 
+    filter(TotServices==max(TotServices))%>% 
+    filter(Location=="Consumed")
+
+
+Individual_Analysis_Fr_CopWBucket_C%>% 
+    group_by(ConsumedAt) %>% 
+    summarise(mean= mean(Contamination))
+
+Individual_Analysis_Fr_CopWBucket_C%>% 
+    group_by(ConsumedAt) %>% 
+    count(ConsumedAt)
+
+Individual_Analysis_Fr_CopWBucket_C%>% 
+    group_by(STtimes) %>%
+    filter(STtimes>0) %>%
+    summarise(mean= mean(Contamination))
+
+1096649572	+111675829	
+1208325401
+
+Individual_Analysis_Fr_CopOFF_C%>% 
+    group_by(ConsumedAt) %>% 
+    summarise(mean= mean(Contamination))
+
+Individual_Analysis_Fr_CopOFF_C%>% 
+    group_by(STtimes) %>% 
+    count(ConsumedAt)
+
+Individual_Analysis_Fr_CopOFF_C%>% 
+    group_by(STtimes) %>%
+    filter(STtimes>0) %>%
+    summarise(mean= mean(Contamination))
+
+1038608134	
+
+Individual_Analysis_Fr_CopON_C%>% 
+    group_by(ConsumedAt) %>% 
+    summarise(mean= mean(Contamination))
+
+Individual_Analysis_Fr_CopON_C%>% 
+    group_by(ConsumedAt) %>% 
+    count(ConsumedAt)
+
+Individual_Analysis_Fr_CopON_C%>% 
+    group_by(STtimes) %>%
+    filter(STtimes>0) %>%
+    summarise(mean= mean(Contamination))
+
+
+
+1000548939+342774396
+1343323335
+
+
+1208325401/1038608134
+1343323335/1038608134
+
+
+View(Individual_Analysis_Fr_CopWBucket_C)
 
 ```
 

@@ -154,9 +154,10 @@ Func_Shared<-function(DF, Item_Picked,Share_YN_Food, Item){
       DF[Item_Picked,colnames(DF)=="History"]<-paste(DF[Item_Picked,colnames(DF)=="History"], "Shared")
       DF[Item_Picked,colnames(DF)=="STtimes"]<-Func_Index_DF(DF,Item_Picked,"STtimes")+1
       V_Shared_Fr<-(V_Shared_Fr+1)
-      if(Wash_Bucket==1 && Item=="Fruit"){
+      if(Wash_Bucket==1 && Item == "Fruit"){
         Cont_Item<-as.numeric(DF[Item_Picked,colnames(DF)=="Contamination"])
         DF[Item_Picked,colnames(DF)=="Contamination"]<-round(Cont_Item*10^Reduction_wash,0)
+        DF[Item_Picked,colnames(DF)=="History"]<-paste(DF[Item_Picked,colnames(DF)=="History"], "WashedB")
       }
     }else if(Share_YN_Food==0){
       DF[Item_Picked,colnames(DF)== "Location"]<-"Not Shared" 
