@@ -1364,7 +1364,14 @@ FoodWaste_Analysis_melted<-melt(data =FoodWaste_Analysis,id = "Treatment" )
 
 FoodWaste_Analysis_melted$value<- as.numeric(FoodWaste_Analysis_melted$value)
 
-FoodWaste_Analysis_melted<-FoodWaste_Analysis_melted[FoodWaste_Analysis_melted$variable != c("TotalFruit","TotalConsumed"),]
+FoodWaste_Analysis_melted<-FoodWaste_Analysis_melted[FoodWaste_Analysis_melted$variable != "TotalFruit",]
+FoodWaste_Analysis_melted<-FoodWaste_Analysis_melted[FoodWaste_Analysis_melted$variable != "TotalConsumed",]
+
+FoodWaste_Analysis_melted<-FoodWaste_Analysis_melted[FoodWaste_Analysis_melted$value != 0,]
+
+FoodWaste_Analysis_melted<-FoodWaste_Analysis_melted[FoodWaste_Analysis_melted$Treatment != "XExc",]
+
+
 
 ggplot(data = FoodWaste_Analysis_melted, aes(x= Treatment,y=value, fill= factor(variable, levels  = c("TotalReserviced", "TotalDiscarded", "ConsumedSel", "ConsumedST"))))+
   geom_col()+
@@ -1379,9 +1386,30 @@ ggplot(data = FoodWaste_Analysis_melted, aes(x= Treatment,y=value, fill= factor(
   labs(fill = "Locations")+
   ggtitle("Share Table Interventions: Items Consumed vs Wasted")+ 
   theme(plot.title = element_text(hjust = 0.5))+
+  theme(text = element_text(size=15))+
 
 
-ggsave(filename = "FoodSecFin4.png", path = pathfolder,width = 10,height = 8,)
+ggsave(filename = "FoodSecFin4.png", path = pathfolder,width = 8,height = 7,)
+
+FoodWaste_Analysis_melted_2<-FoodWaste_Analysis_melted[FoodWaste_Analysis_melted$Treatment != "XAside",]
+FoodWaste_Analysis_melted_2<-FoodWaste_Analysis_melted_2[FoodWaste_Analysis_melted_2$Treatment != "XExc",]
+FoodWaste_Analysis_melted_2<-FoodWaste_Analysis_melted_2[FoodWaste_Analysis_melted_2$Treatment != "XClosed",]
+
+ggplot(data = FoodWaste_Analysis_melted_2, aes(x= Treatment,y=value, fill= factor(variable, levels  = c("TotalReserviced", "TotalDiscarded", "ConsumedSel", "ConsumedST"))))+
+  geom_col()+
+  scale_x_discrete(labels=c("OFF" = "STOFF",
+                          "ON"= "STON"
+                          ))+
+  ylab("Number of Fruit")+
+  xlab("Intervention")+
+  labs(fill = "Locations")+
+  ggtitle("Share Table Interventions: Items Consumed vs Wasted")+ 
+  theme(plot.title = element_text(hjust = 0.5))+
+  theme(text = element_text(size=15))+
+
+
+ggsave(filename = "FoodSecFin6.png", path = pathfolder,width = 8,height = 8,)
+
 
 
 ```
