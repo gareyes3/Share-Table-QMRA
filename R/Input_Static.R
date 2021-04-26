@@ -251,6 +251,10 @@
 #Handwashing Station toggle. 
 
   Hawashing_Station <-0
+  Sanitizing_Station<-0
+  
+  Hawashing_Station_ST <-0
+  Sanitizing_Station_ST<-0
   
 #Wash Bucket Station toggle. 
   

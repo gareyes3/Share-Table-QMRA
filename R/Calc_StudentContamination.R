@@ -11,6 +11,10 @@ if (Cont_Student>0){
     LogRed_Prior = rpert(1,0.17,0.45,6,shape = 4)
     Cont_Student<-round(Cont_Student*10^-LogRed_Prior,0)
   }
+  if (Sanitizing_Station == 1){
+    LogRed_Prior = 8
+    Cont_Student<-round(Cont_Student*10^-LogRed_Prior,0)
+  }
   Is_Student_ill<-1
   if(Is_Student_ill==1){
     Vector_Is_Student_ill<-c(Vector_Is_Student_ill,Is_Student_ill)

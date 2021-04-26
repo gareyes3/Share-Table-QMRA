@@ -36,8 +36,7 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-Wash_Bucket<-1
-Pr_touch_Food_ST<-0
+Sanitizing_Station_ST<-1
 
 
 ```
@@ -90,6 +89,10 @@ df_ill_Week_Main<-OutputsDRMain$df_ill_Week
 df_ill_Week_Main_Box_Prev<-Func_DF_Prevalence(AnalysisDFCop = ST_Main_Analysis_Copy, df_Ill_Week = df_ill_Week_Main,Intervention = "Main")
 
 mean(df_ill_Week_Main_Box_Prev$Prev)
+
+Individual_Analysis_Fr_Main%>% 
+    group_by(ConsumedAt) %>% 
+    summarise(mean= mean(Contamination))
 
 ```
 

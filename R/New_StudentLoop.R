@@ -213,6 +213,7 @@ Student_Loop<-function(){
       Student_Allowed<-ifelse(runif(1)<Pr_Ill_Avoid_ST,1,0)
     }
   }
+  
 
   
   #NOT CONSUMED TO ST=====================================================================================================
@@ -220,6 +221,16 @@ Student_Loop<-function(){
   if(Share_Table_YN==1){ 
 
     if(Student_Allowed==1){
+      
+      #Hand_Sanitizing or handwashing Station for allowed student. 
+      if (Hawashing_Station_ST == 1){
+        LogRed_Prior = rpert(1,0.17,0.45,6,shape = 4)
+        Cont_Student<-round(Cont_Student*10^-LogRed_Prior,0)
+      }
+      if (Sanitizing_Station_ST == 1){
+        LogRed_Prior = 8
+        Cont_Student<-round(Cont_Student*10^-LogRed_Prior,0)
+      }
 
       #Proability of the student sharing their food. 
       Share_YN_Food<-ifelse(runif(1)<Pr_share_Food,1,0)
