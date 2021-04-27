@@ -24,13 +24,6 @@
 
 
   
-# Washing Parameters ------------------------------------------------------
-  
-  #Reduction achieved by washing
-  
-  
-  
-  Reduction_wash<-runif(1,1,2) #log Reduction by washing
   
   
   
