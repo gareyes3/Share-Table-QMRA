@@ -91,28 +91,7 @@
   Pr_eat_Pss<-.627 #.77
   Pr_eat_Pre<-.674 #.85
 
-  #Probability of sharing food. 
-
-  Pr_share_Food<-.7
-
-  #Probability of student picking an additional item from share table. 
-
-  Pr_Pick_ST_Fr<-.1
-  Pr_Pick_ST_Pss<-.1
-  Pr_Pick_ST_Pre<-.1
-
-  #Probability Sutdent eats share table item
-
-  Pr_eat_ST_Fr<-.9
-  Pr_eat_ST_Pss<-.9
-  Pr_eat_ST_Pre<-.9
-
-
-# Washing Parameters ------------------------------------------------------
-  
-  #Reduction achieved by washing
-
-  Reduction_wash<-(-2) #log Reduction by washing
+ 
 
 
 # Growth Conditions Inputs ------------------------------------------------------------------

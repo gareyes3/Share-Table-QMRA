@@ -47,4 +47,8 @@ Vector_Is_Student_ill<-c()
 Vector_Students_Allowed<-c()
 Vector_Contaminations_In<-c()
 
+Wash_Method_Tracker<-c()
+
+Saniztizer_Method_Tracker<-c()
+
 
