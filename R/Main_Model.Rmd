@@ -36,7 +36,7 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-Sanitizing_Station_ST<-1
+Sanitizing_Station<-1
 
 
 ```

@@ -228,7 +228,7 @@ Student_Loop<-function(){
         Cont_Student<-round(Cont_Student*10^-LogRed_Prior,0)
       }
       if (Sanitizing_Station_ST == 1){
-        LogRed_Prior = 8
+        LogRed_Prior<-Func_Randomize_Sanitizer(Wash_Method = Sanitizer_Method)
         Cont_Student<-round(Cont_Student*10^-LogRed_Prior,0)
       }
 

@@ -27,7 +27,7 @@
 
   #Weeks
   
-  Sens_Iterations<-10
+  Sens_Iterations<-2
  
 # Sevice Line Information -------------------------------------------------
   
@@ -90,8 +90,6 @@
   Pr_eat_Fr<-.63 #.48  
   Pr_eat_Pss<-.627 #.77
   Pr_eat_Pre<-.674 #.85
-
- 
 
 
 # Growth Conditions Inputs ------------------------------------------------------------------

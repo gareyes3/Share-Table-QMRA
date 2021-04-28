@@ -12,7 +12,7 @@ if (Cont_Student>0){
     Cont_Student<-round(Cont_Student*10^-LogRed_Prior,0)
   }
   if (Sanitizing_Station == 1){
-    LogRed_Prior = 8
+    LogRed_Prior<-Func_Randomize_Sanitizer(Wash_Method = Sanitizer_Method)
     Cont_Student<-round(Cont_Student*10^-LogRed_Prior,0)
   }
   Is_Student_ill<-1

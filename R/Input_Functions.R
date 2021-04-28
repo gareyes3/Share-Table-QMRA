@@ -236,6 +236,35 @@ Func_DR_Illness<-function(x){
 
 
 
+#Function that randomizes the selection of Fruit wahing reduction
+
+Func_Randomize_Wash<-function(Wash_Method){
+  if (Wash_Method==1){
+    Logred<-runif(1,0.26,1.06)
+  } else if (Wash_Method==2){
+    Logred<-rnorm(1,0.667,0.33)
+  } else if (Wash_Method==3){
+    Logred<-rnorm(1,1,2)
+  }
+  return(Logred)
+}
+
+#Function that randomizes hand sanitizer reduction
+
+Func_Randomize_Sanitizer<-function(Wash_Method){
+  if (Wash_Method==1){
+    Logred<-runif(1,0.26,1.06)
+  } else if (Wash_Method==2){
+    Logred<-rnorm(1,0.667,0.33)
+  } else if (Wash_Method==3){
+    Logred<-runif(1,1,2)
+  }
+  return(Logred)
+}
+
+
+
+
 #Extras Not Used:----------------------------------------------------------------------------------------------------------------------
 
 #Special Function that adds norovirus to fruit items
@@ -257,6 +286,10 @@ func_Cont_HuNoV_Fr_PFU<-function(DF, Prevalence,Genomic_copies_per_PFU,HuNoV_Con
   }
   return(DF)
 }
+
+
+
+
 
 
 
