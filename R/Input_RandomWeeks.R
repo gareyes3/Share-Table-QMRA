@@ -8,7 +8,7 @@ Wash_Method_Tracker<-c(Wash_Method_Tracker,Wash_Method)
 #Hand Sanitizer Method
 
 
-Sanitizer_Method<-as.numeric(sample(1:3, 1))
-Saniztizer_Method_Tracker<-c(Wash_Method_Tracker,Wash_Method)
+Sanitizer_Method<-as.numeric(sample(1:5, 1))
+Saniztizer_Method_Tracker<-c(Saniztizer_Method_Tracker,Sanitizer_Method)
 
 

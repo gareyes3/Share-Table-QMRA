@@ -49,9 +49,9 @@ if(salmonella ==1){
 # Calculation of Items Touches Service Line -------------------------------
 
   #Touched items
-  ntouched_Fr<-round(runif(1,0,4),0) #add
-  ntouched_Pss<-round(runif(1,0,4),0) #add
-  ntouched_Pre<-round(runif(1,0,4),0) #add
+  ntouched_Fr<-sample(0:3,1) #add
+  ntouched_Pss<-sample(0:3,1) #add
+  ntouched_Pre<-sample(0:3,1) #add
 
   
   
@@ -69,7 +69,7 @@ if(salmonella ==1){
   
   #Probability Sutdent eats share table item
   
-  Pr_eat_ST_Fr<-rpert(100000,min=0.8, mode= 0.9,max =1,4)
+  Pr_eat_ST_Fr<-rpert(1,min=0.8, mode= 0.9,max =1,4)
   Pr_eat_ST_Pss<-rpert(1,min=0.8, mode= 0.9,max =1,4)
   Pr_eat_ST_Pre<-rpert(1,min=0.8, mode= 0.9,max =1,4)
   

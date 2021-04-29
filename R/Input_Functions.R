@@ -253,11 +253,23 @@ Func_Randomize_Wash<-function(Wash_Method){
 
 Func_Randomize_Sanitizer<-function(Wash_Method){
   if (Wash_Method==1){
-    Logred<-runif(1,0.26,1.06)
+    #Wilson, non residual hand sanitizer 30s. 
+    Logred<-rnormTrunc(n = 1,mean = 1.06,sd = 0.54,min = 0.15,max = 1.89)
+    #Ecudero Abarca 30s both soil loads, uniform. 
   } else if (Wash_Method==2){
-    Logred<-rnorm(1,0.667,0.33)
+    Logred<-runif(1,2.13,2.61)
+    #VF447 70% ethanol Manciaga in vivo 30s
   } else if (Wash_Method==3){
-    Logred<-runif(1,1,2)
+    Logred<-rnorm(1,2.48,0.45)
+    #Kampf sterillum virguard 95% ethanol
+  } else if (Wash_Method==4){
+    Logred<-rnorm(1,2.17,1.065)
+    #Liu hand sanitizers in general 62% alcoh
+  }else if (Wash_Method==5){
+    Logred<-runif(1,0.14,0.34)
+    #LAgues 62% ethanol purell
+  }else if (Wash_Method==5){
+    Logred<-0.5
   }
   return(Logred)
 }
