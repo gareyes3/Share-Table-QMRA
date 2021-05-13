@@ -237,42 +237,71 @@ Func_DR_Illness<-function(x){
 
 
 #Function that randomizes the selection of Fruit wahing reduction
-
-Func_Randomize_Wash<-function(Wash_Method){
-  if (Wash_Method==1){
-    Logred<-runif(1,0.26,1.06)
-  } else if (Wash_Method==2){
-    Logred<-rnorm(1,0.667,0.33)
-  } else if (Wash_Method==3){
-    Logred<-rnorm(1,1,2)
+if(NSA_Analysis_Other==1){
+  Func_Randomize_Wash<-function(Wash_Method){
+    if (Wash_Method==1){
+      Logred<-1.919069
+    } else if (Wash_Method==2){
+      Logred<-0.87
+    } else if (Wash_Method==3){
+      Logred<-0.1991058
+    }
+    return(-Logred)
   }
-  return(Logred)
+} else {
+  Func_Randomize_Wash<-function(Wash_Method){
+    if (Wash_Method==1){
+      Logred<-runif(1,0.26,1.06)
+    } else if (Wash_Method==2){
+      Logred<-rnorm(1,0.667,0.33)
+    } else if (Wash_Method==3){
+      Logred<-runif(1,1,2)
+    }
+    return(-Logred)
+  }
 }
+
+
 
 #Function that randomizes hand sanitizer reduction
 
-Func_Randomize_Sanitizer<-function(Wash_Method){
-  if (Wash_Method==1){
-    #Wilson, non residual hand sanitizer 30s. 
-    Logred<-rnormTrunc(n = 1,mean = 1.06,sd = 0.54,min = 0.15,max = 1.89)
-    #Ecudero Abarca 30s both soil loads, uniform. 
-  } else if (Wash_Method==2){
-    Logred<-runif(1,2.13,2.61)
-    #VF447 70% ethanol Manciaga in vivo 30s
-  } else if (Wash_Method==3){
-    Logred<-rnorm(1,2.48,0.45)
-    #Kampf sterillum virguard 95% ethanol
-  } else if (Wash_Method==4){
-    Logred<-rnorm(1,2.17,1.065)
-    #Liu hand sanitizers in general 62% alcoh
-  }else if (Wash_Method==5){
-    Logred<-runif(1,0.14,0.34)
-    #LAgues 62% ethanol purell
-  }else if (Wash_Method==5){
-    Logred<-0.5
+if(NSA_Analysis_Other==1){
+  Func_Randomize_Sanitizer<-function(Wash_Method){
+    if (Wash_Method==10){
+      Logred<-3.375144
+    } else if (Wash_Method==11){
+      Logred<-1.386432
+    } else if (Wash_Method==12){
+      Logred<-0.1622854 
+    } 
+    return(Logred)
   }
-  return(Logred)
+}else{
+  Func_Randomize_Sanitizer<-function(Wash_Method){
+    if (Wash_Method==1){
+      #Wilson, non residual hand sanitizer 30s. 
+      Logred<-rnormTrunc(n = 1,mean = 1.06,sd = 0.54,min = 0.15,max = 1.89)
+      #Ecudero Abarca 30s high soil load, conservative. 
+    } else if (Wash_Method==2){
+      Logred<-rnorm(1,2.2,0.07)
+      #VF447 70% ethanol Manciaga in vivo 30s
+    } else if (Wash_Method==3){
+      Logred<-rnorm(1,2.48,0.45)
+      #Kampf sterillum virguard 95% ethanol
+    } else if (Wash_Method==4){
+      Logred<-rnorm(1,2.17,1.065)
+      #Liu hand sanitizers in general 62% alcoh
+    }else if (Wash_Method==5){
+      Logred<-runif(1,0.14,0.34)
+      #LAgues 62% ethanol purell
+    }else if (Wash_Method==6){
+      Logred<-0.5
+    }
+    return(Logred)
+  }
 }
+
+
 
 
 

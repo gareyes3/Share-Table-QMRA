@@ -19,7 +19,7 @@ output: html_document
   
 4: Pr_Select_Fruit
 
-5: Pr_Eat Fruit selctions
+5: Pr_Eat Fruit selction
 
 Outputs
   %Total Fruit
@@ -84,8 +84,7 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-Pr_share_Food<-0.1
-
+NSA_FW_Analysis <-1
 
 ```
 
@@ -108,10 +107,8 @@ Probability of Sharing
 #Treatment #2 0.5 probabilty of sharing.
 ```{r}
 
-
-
 #Inputs and Source Files
-
+TreatmentNo<-2
 
 #Inputs
 source("New_StudentLoop.R")
@@ -125,8 +122,7 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-Pr_share_Food<-0.5
-
+NSA_FW_Analysis <-1
 
 ```
 
@@ -148,11 +144,8 @@ AFWT1[1:6,4]<-T1_VectorFW
 Probability of Sharing
 #Treatment #3 0.9 probabilty of sharing.
 ```{r}
-
-
-
 #Inputs and Source Files
-
+TreatmentNo<-3
 
 #Inputs
 source("New_StudentLoop.R")
@@ -166,8 +159,7 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-Pr_share_Food<-0.9
-
+NSA_FW_Analysis <-1
 
 ```
 
@@ -193,7 +185,7 @@ for (i in 2:nrow(AFWT1)){
 }
 
 
-AFWT1$Index <-(AFWT1$Max-AFWT1$Min)/AFWT1$Nominal
+AFWT1$Index <-(AFWT1$Min-AFWT1$Max)/AFWT1$Nominal
 AFWT1$Input<-"Pr Sharing Food"
 
 ```
@@ -208,9 +200,8 @@ Probability of Eat_ST_YN
 
 ```{r}
 
-
-
 Input_No<-2
+TreatmentNo<-4
 
 AFWT2<-data.frame(
   "Input"=Input_No,
@@ -237,8 +228,7 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-Pr_eat_ST_Fr<-0.1
-
+NSA_FW_Analysis <-1
 
 ```
 
@@ -264,7 +254,7 @@ AFWT2[1:6,3]<-T2_VectorFW
 
 
 #Inputs and Source Files
-
+TreatmentNo<-5
 
 #Inputs
 source("New_StudentLoop.R")
@@ -278,8 +268,7 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-Pr_eat_ST_Fr<-0.5
-
+NSA_FW_Analysis <-1
 
 ```
 
@@ -304,7 +293,7 @@ AFWT2[1:6,4]<-T2_VectorFW
 
 
 #Inputs and Source Files
-
+TreatmentNo<-6
 
 #Inputs
 source("New_StudentLoop.R")
@@ -318,9 +307,7 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-Pr_eat_ST_Fr<-0.9
-
-
+NSA_FW_Analysis <-1
 ```
 
 ```{r warning=TRUE}
@@ -362,6 +349,7 @@ Pick_ST_YN
 ```{r}
 
 Input_No<-3
+TreatmentNo<-7
 
 AFWT3<-data.frame(
   "Input"=Input_No,
@@ -388,9 +376,8 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-Pr_Pick_ST_Fr<-0.1
 
-
+NSA_FW_Analysis <-1
 ```
 
 ```{r warning=TRUE}
@@ -413,7 +400,7 @@ AFWT3[1:6,3]<-T3_VectorFW
 
 ```{r}
 
-
+TreatmentNo<-8
 #Inputs and Source Files
 
 
@@ -429,8 +416,7 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-Pr_Pick_ST_Fr<-0.5
-
+NSA_FW_Analysis <-1
 
 ```
 
@@ -457,7 +443,7 @@ AFWT3[1:6,4]<-T3_VectorFW
 
 
 #Inputs and Source Files
-
+TreatmentNo<-9
 
 #Inputs
 source("New_StudentLoop.R")
@@ -471,8 +457,7 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-Pr_Pick_ST_Fr<-0.9
-
+NSA_FW_Analysis <-1
 
 ```
 
@@ -499,8 +484,8 @@ for (i in 2:nrow(AFWT3)){
   AFWT3[i,3:5] <- AFWT3[i,3:5]/AFWT3[1,3:5]
 }
 
-AFWT3$Index <-(AFWT3$Max-AFWT3$Min)/AFWT3$Nominal
-AFWT3$Input<-"ST Participation"
+AFWT3$Index <-(AFWT3$Min-AFWT3$Max)/AFWT3$Nominal
+AFWT3$Input<-"ST Participation Rate"
 
 ```
 
@@ -510,6 +495,7 @@ AFWT3$Input<-"ST Participation"
 ```{r}
 
 Input_No<-4
+TreatmentNo<-10
 
 AFWT4<-data.frame(
   "Input"=Input_No,
@@ -536,7 +522,7 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-Pr_select_Fr<-0.1
+Pr_select_Fr<-0.36
 
 
 
@@ -564,7 +550,7 @@ AFWT4[1:6,3]<-T4_VectorFW
 
 
 #Inputs and Source Files
-
+TreatmentNo<-11
 
 #Inputs
 source("New_StudentLoop.R")
@@ -578,7 +564,7 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-Pr_select_Fr<-0.5
+Pr_select_Fr<-0.56
 
 
 ```
@@ -606,7 +592,7 @@ AFWT4[1:6,4]<-T4_VectorFW
 
 
 #Inputs and Source Files
-
+TreatmentNo<-12
 
 #Inputs
 source("New_StudentLoop.R")
@@ -620,7 +606,7 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-Pr_select_Fr<-0.9
+Pr_select_Fr<-0.76
 
 
 ```
@@ -659,6 +645,7 @@ AFWT4$Input<-"Pr_Select_Fr"
 ```{r}
 
 Input_No<-5
+TreatmentNo<-13
 
 AFWT5<-data.frame(
   "Input"=Input_No,
@@ -685,7 +672,7 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-Pr_eat_Fr<-0.3
+Pr_eat_Fr<-0.43
 
 
 
@@ -713,7 +700,7 @@ AFWT5[1:6,3]<-T5_VectorFW
 
 
 #Inputs and Source Files
-
+TreatmentNo<-14
 
 #Inputs
 source("New_StudentLoop.R")
@@ -727,7 +714,7 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-Pr_eat_Fr<-0.5
+Pr_eat_Fr<-0.63
 
 
 ```
@@ -755,7 +742,7 @@ AFWT5[1:6,4]<-T5_VectorFW
 
 
 #Inputs and Source Files
-
+TreatmentNo<-15
 
 #Inputs
 source("New_StudentLoop.R")
@@ -769,7 +756,7 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-Pr_eat_Fr<-0.9
+Pr_eat_Fr<-0.83
 
 
 ```
@@ -809,14 +796,19 @@ AFWT5$Input<-"Pr_Eat_Fr"
 ```{r}
 #Creating comparisons for all the 5 diffeent Inputs. 
 
-All_AFW<-rbind.fill(AFWT1,AFWT2,AFWT3,AFWT4)
+All_AFW<-rbind.fill(AFWT1,AFWT2,AFWT3,AFWT4,AFWT5)
 All_AFW$Index<-as.numeric(All_AFW$Index)
+
+All_AFW<-All_AFW[!grepl("ConsumedST", All_AFW$Outputs),]
+All_AFW<-All_AFW[!grepl("ConsumedSel", All_AFW$Outputs),]
+
+Data1 <- subset(All_AFW, Outputs == "TotalConsumed")
 
 ggplot(data=All_AFW, aes(x= Input, y =Index))+
   geom_col(position = "dodge")+
   coord_flip()+
-  facet_wrap(~ Outputs)+
-  ylim(-5,7)
+  facet_wrap(~ Outputs, scales = "free")
+
 
 ```
 

@@ -16,7 +16,7 @@ There are 13 interventions. Each intervention will take around 45 mins to run 10
 #Setting Working Directory-------------------------------------
 #setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
 setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
-pathfolder<-"DoseResponse4-4"
+pathfolder<-"DoseResponse5-5"
 ```
 
 ```{r}
@@ -639,6 +639,43 @@ Individual_Analysis_Fr_WBucket<-rbind.fill(List_Sens_Fr)
 ST_WBucket_Analysis<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fruit")
 ```
 
+#Hand Sanitizer All Model
+```{r}
+#Inputs and Source Files-------------------------------------
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+Sanitizing_Station<-1
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+#Summary DFs for Future.------------------------------------- 
+
+#Creating Data Frame of Consumed Items for all the products
+Individual_Analysis_Fr_CopSanitizer<-rbind.fill(List_Sens_Fr)
+#Copy of Compiled Data Frame
+Individual_Analysis_Fr_Sanitizer<-rbind.fill(List_Sens_Fr)
+
+#Data Frame without repeats and Consumed Items
+ST_Sanitizer_Analysis<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fruit")
+```
 
 
 ###DOSE RESPONSE ###
@@ -865,6 +902,21 @@ df_ill_Week_WBucket<-OutputsDRWBucket$df_ill_Week
 
 ```
 
+#Hand Sanitizer Dose Response
+```{r}
+#Wash Bucket -------------------------------------
+ST_Sanitizer_Analysis_Copy<-ST_Sanitizer_Analysis
+ST_Sanitizer_Analysis<-Func_Asys_ContbyStudent(ST_Sanitizer_Analysis)
+#Drop NAs
+ST_Sanitizer_Analysis<- ST_Sanitizer_Analysis[!is.na(ST_Sanitizer_Analysis$Contamination), ]
+
+#Analysis For weekly Dose Response ON
+
+OutputsDRSanitizer<-Func_DR_Main(AnalysisDF = ST_Sanitizer_Analysis, Reps_DR = 100)
+df_inf_Week_Sanitizer<-OutputsDRSanitizer$df_inf_Week
+df_ill_Week_Sanitizer<-OutputsDRSanitizer$df_ill_Week
+
+```
 
 
 
@@ -915,6 +967,9 @@ df_ill_Week_WStation_Box_Prev<-Func_DF_Prevalence(AnalysisDFCop = ST_WStation_An
 #Fruit Wash Bucket
 df_ill_Week_WBucket_Box_Prev<-Func_DF_Prevalence(AnalysisDFCop = ST_WBucket_Analysis_Copy, df_Ill_Week = df_ill_Week_WBucket,Intervention = "WBucket")
 
+#Fruit Wash Bucket
+df_ill_Week_Sanitizer_Box_Prev<-Func_DF_Prevalence(AnalysisDFCop = ST_Sanitizer_Analysis_Copy, df_Ill_Week = df_ill_Week_Sanitizer,Intervention = "Sanitize")
+
 ```
 
 
@@ -956,10 +1011,14 @@ ST_Touch_Analysis_Log<-Func_DF_Histogram_Log(AnalysisDF = ST_Touch_Analysis,Inte
 ST_TouchST_Analysis_Log<-Func_DF_Histogram_Log(AnalysisDF = ST_TouchST_Analysis,Intervention = "TouchST")
 ST_WStation_Analysis_Log<-Func_DF_Histogram_Log(AnalysisDF = ST_WStation_Analysis,Intervention = "WStation")
 ST_WBucket_Analysis_Log<-Func_DF_Histogram_Log(AnalysisDF = ST_WBucket_Analysis,Intervention = "WBucket")
+ST_Sanitizer_Analysis_Log<-Func_DF_Histogram_Log(AnalysisDF = ST_Sanitizer_Analysis,Intervention = "Sanitizer")
 
 
 
-ST_Comb_Analysis_Log<-bind_rows(ST_ON_Analysis_Log,ST_OFF_Analysis_Log,ST_ONWash_Analysis_Log,ST_ONWr_Analysis_Log,ST_OFFWash_Analysis_Log,ST_OFFWr_Analysis_Log,ST_Exc_Analysis_Log,ST_STClosed_Analysis_Log,ST_STAside_Analysis_Log,ST_WStation_Analysis_Log,ST_WBucket_Analysis_Log)
+ST_Comb_Analysis_Log<-bind_rows(ST_ON_Analysis_Log,ST_OFF_Analysis_Log,ST_ONWash_Analysis_Log,
+                                ST_ONWr_Analysis_Log,ST_OFFWash_Analysis_Log,ST_OFFWr_Analysis_Log,
+                                ST_Exc_Analysis_Log,ST_STClosed_Analysis_Log,ST_STAside_Analysis_Log,
+                                ST_WStation_Analysis_Log,ST_WBucket_Analysis_Log,ST_Sanitizer_Analysis_Log)
 
 Histolabels<-c("OFF" = "Baseline: ST OFF, No Intervention", 
               "OFFWash"  = "ST OFF, Wash ON", 
@@ -971,7 +1030,8 @@ Histolabels<-c("OFF" = "Baseline: ST OFF, No Intervention",
               "XSTClosed" = "Re-Service OFF",
               "STAside" = "STAside",
               "WStation" = "Wash Station",
-              "WBucket"= "Wash Bucket"
+              "WBucket"= "Wash Bucket",
+              "Sanitizer" = "Sanitizer"
                )
 
 Wrapped_Histograms<-ggplot(data = ST_Comb_Analysis_Log,aes(x=Log))+
@@ -1008,9 +1068,11 @@ tipsTouch<-Func_DF_Barplot_Log(ST_Analysis_Log = ST_Touch_Analysis_Log,Intervent
 tipsTouchST<-Func_DF_Barplot_Log(ST_Analysis_Log = ST_TouchST_Analysis_Log,Intervention = "TouchST")
 tipsWStation<-Func_DF_Barplot_Log(ST_Analysis_Log = ST_WStation_Analysis_Log,Intervention = "WStation")
 tipsWBucket<-Func_DF_Barplot_Log(ST_Analysis_Log = ST_WBucket_Analysis_Log,Intervention = "WBucket")
+tipsSanitizer<-Func_DF_Barplot_Log(ST_Analysis_Log = ST_Sanitizer_Analysis_Log,Intervention = "Sanitizer")
 
 #need to add to tips 4
-tips4<-bind_rows(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tipsOFFWr,tipsExc,tipsSTClosed,tipsSTAside)
+tips4<-bind_rows(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tipsOFFWr,
+                 tipsExc,tipsSTClosed,tipsSTAside)
 
 barchart_Expos<-ggplot(data =tips4, aes(x = OnOff,y=perc, fill=factor(Category, levels=c("0","<0 - 99","100 - 999",">=1000"))))+
   geom_col(width = .7)+
@@ -1051,13 +1113,18 @@ print(Barchart_Expos2)
 #Creation of the summary Table
 ```{r}
 
-List_Summary_Table<-list(ST_ON_Analysis,ST_OFF_Analysis,ST_ONWash_Analysis,ST_ONWr_Analysis,ST_OFFWash_Analysis,ST_OFFWr_Analysis,ST_Exc_Analysis, ST_STClosed_Analysis, ST_STAside_Analysis, ST_Touch_Analysis, ST_TouchST_Analysis, ST_WStation_Analysis,ST_WBucket_Analysis)
+List_Summary_Table<-list(ST_ON_Analysis,ST_OFF_Analysis,ST_ONWash_Analysis,
+                         ST_ONWr_Analysis,ST_OFFWash_Analysis,ST_OFFWr_Analysis,ST_Exc_Analysis, 
+                         ST_STClosed_Analysis, ST_STAside_Analysis, ST_Touch_Analysis, 
+                         ST_TouchST_Analysis, ST_WStation_Analysis,ST_WBucket_Analysis,
+                         ST_Sanitizer_Analysis)
 
-Treatment_Names<-c("ON", "OFF", "ONWash","ONWr", "OFFWash","OFFWr", "XExc", "XSTClosed", "STAside", 'Touch', "TouchST", "WStation", "WBucket")
+Treatment_Names<-c("ON", "OFF", "ONWash","ONWr", "OFFWash","OFFWr", "XExc", "XSTClosed", 
+                   "STAside", 'Touch', "TouchST", "WStation", "WBucket", "Sanitizer")
 
 NStudentsConsumed<-sapply(List_Summary_Table, nrow)
 
-List_Summary_Table_Ill<-list(df_ill_Week_ON_Box_Prev,df_ill_Week_OFF_Box_Prev,df_ill_Week_ONWash_Box_Prev,df_ill_Week_ONWr_Box_Prev,df_ill_Week_OFFWash_Box_Prev,df_ill_Week_OFFWr_Box_Prev,df_ill_Week_Exc_Box_Prev, df_ill_Week_STClosed_Box_Prev, df_ill_Week_STAside_Box_Prev, df_ill_Week_Touch_Box_Prev, df_ill_Week_TouchST_Box_Prev, df_ill_Week_WStation_Box_Prev, df_ill_Week_WBucket_Box_Prev)
+List_Summary_Table_Ill<-list(df_ill_Week_ON_Box_Prev,df_ill_Week_OFF_Box_Prev,df_ill_Week_ONWash_Box_Prev,df_ill_Week_ONWr_Box_Prev,df_ill_Week_OFFWash_Box_Prev,df_ill_Week_OFFWr_Box_Prev,df_ill_Week_Exc_Box_Prev, df_ill_Week_STClosed_Box_Prev, df_ill_Week_STAside_Box_Prev, df_ill_Week_Touch_Box_Prev, df_ill_Week_TouchST_Box_Prev, df_ill_Week_WStation_Box_Prev, df_ill_Week_WBucket_Box_Prev,df_ill_Week_Sanitizer_Box_Prev )
 
 List_Summary_Table_Ill_Col<-lapply(List_Summary_Table_Ill,"[[","Prev")
   
@@ -1066,7 +1133,7 @@ List_Summary_Table_Ill_Col<-lapply(List_Summary_Table_Ill,"[[","Prev")
   Prevs975<-sapply(X =List_Summary_Table_Ill_Col,FUN = quantile,.975  )
   Prevs025<-sapply(X =List_Summary_Table_Ill_Col,FUN = quantile,.025  )
 
-List_Percentages_Dist<-list(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tipsOFFWr,tipsExc, tipsSTClosed, tipsSTAside, tipsTouch, tipsTouchST , tipsWStation,tipsWBucket)
+List_Percentages_Dist<-list(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tipsOFFWr,tipsExc, tipsSTClosed, tipsSTAside, tipsTouch, tipsTouchST , tipsWStation,tipsWBucket, tipsSanitizer)
   ZerosL<-unlist(sapply(List_Percentages_Dist,function(x) x[4,3]))
   ZeroNine<-unlist(sapply(List_Percentages_Dist,function(x) x[3,3]))
   Nine_3Nine<-unlist(sapply(List_Percentages_Dist,function(x) x[2,3]))
@@ -1075,12 +1142,12 @@ List_Percentages_Dist<-list(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tips
   #Creation of Data Frame
   
   Summary_Comparison_Treatments<-data.frame(
-  "Treatment" = c(1:13),
+  "Treatment" = c(1:14),
   "Treatment Desc" = Treatment_Names
 )
   
   Summary_Comparison_Treatments<-data.frame(
-  "Treatment" = c(1:13),
+  "Treatment" = c(1:14),
   "Treatment Desc" = Treatment_Names,
   "NWeeks" = Sens_Iterations,
   "Participating Students" = N_Iterations*Service_No* Food_Days*Sens_Iterations,
@@ -1104,7 +1171,7 @@ List_Percentages_Dist<-list(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tips
   
   
   Summary_Comparison_Treatments<-data.frame(
-  "Treatment" = c(1:13),
+  "Treatment" = c(1:14),
   "Treatment Desc" = Treatment_Names,
   "NWeeks" = Sens_Iterations,
   "Participating Students" = N_Iterations*Service_No* Food_Days*Sens_Iterations,
@@ -1141,12 +1208,16 @@ List_Percentages_Dist<-list(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tips
 #Prevalence Histograms
 Need to add the last 4 interventions
 ```{r}
-binded_prevalences<-bind_rows(df_ill_Week_ON_Box_Prev,df_ill_Week_OFF_Box_Prev,df_ill_Week_ONWash_Box_Prev,df_ill_Week_ONWr_Box_Prev,df_ill_Week_OFFWash_Box_Prev,df_ill_Week_OFFWr_Box_Prev,df_ill_Week_Exc_Box_Prev, df_ill_Week_STClosed_Box_Prev, df_ill_Week_STAside_Box_Prev)
+binded_prevalences<-bind_rows(df_ill_Week_ON_Box_Prev,df_ill_Week_OFF_Box_Prev,df_ill_Week_ONWash_Box_Prev,
+                              df_ill_Week_ONWr_Box_Prev,df_ill_Week_OFFWash_Box_Prev,df_ill_Week_OFFWr_Box_Prev,
+                              df_ill_Week_Exc_Box_Prev, df_ill_Week_STClosed_Box_Prev, df_ill_Week_STAside_Box_Prev,
+                              df_ill_Week_Sanitizer_Box_Prev)
 
 binded_prevalences$Prev<-binded_prevalences$Pre*100
 
 
-binded_prevalences_Wash<-bind_rows(df_ill_Week_ON_Box_Prev,df_ill_Week_OFF_Box_Prev,df_ill_Week_ONWash_Box_Prev,df_ill_Week_OFFWash_Box_Prev)
+binded_prevalences_Wash<-bind_rows(df_ill_Week_ON_Box_Prev,df_ill_Week_OFF_Box_Prev,df_ill_Week_ONWash_Box_Prev,
+                                   df_ill_Week_OFFWash_Box_Prev)
 
 binded_prevalences_WashWr<-bind_rows(df_ill_Week_ON_Box_Prev,df_ill_Week_OFF_Box_Prev,df_ill_Week_ONWash_Box_Prev,df_ill_Week_OFFWash_Box_Prev,df_ill_Week_ONWr_Box_Prev, df_ill_Week_OFFWr_Box_Prev)
 

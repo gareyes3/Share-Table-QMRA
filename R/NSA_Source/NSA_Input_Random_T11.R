@@ -48,10 +48,36 @@ if(salmonella ==1){
 
 # Calculation of Items Touches Service Line -------------------------------
 
-  #Touched items
-  ntouched_Fr<-3#round(rnorm(1,3,.5),0) #add
-  ntouched_Pss<-3#round(rnorm(1,3,.5),0) #add
-  ntouched_Pre<-3#round(rnorm(1,3,.5),0) #add
+#Touched items
+ntouched_Fr<-1#sample(0:3,1) #add
+ntouched_Pss<-1#sample(0:3,1) #add
+ntouched_Pre<-1#sample(0:3,1) #add
+
+
+
+#Behavioral Inputs: 
+
+#
+#Probability of sharing food. 
+
+Pr_share_Food<-rpert(1,min=0.5, mode= 0.7,max =0.9 ,4)
+
+#Probability of student picking an additional item from share table. 
+
+Pr_Pick_ST_Fr<-rpert(1,min=0.05, mode= 0.1,max =0.15,4)
+Pr_Pick_ST_Pss<-rpert(1,min=0.05, mode= 0.1,max =0.15,4)
+Pr_Pick_ST_Pre<-rpert(1,min=0.05, mode= 0.1,max =0.15,4)
+
+#Probability Sutdent eats share table item
+
+Pr_eat_ST_Fr<-rpert(1,min=0.7, mode= 0.8,max =0.9,4)
+Pr_eat_ST_Pss<-rpert(1,min=0.7, mode= 0.8,max =0.9,4)
+Pr_eat_ST_Pre<-rpert(1,min=0.7, mode= 0.8,max =0.9,4)
+
+#If students won't carry anything then set Pr os 0
+
+Pr_Student_iC<-rpert(1,0.06,0.07,0.09)
+
 
   
   

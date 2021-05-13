@@ -24,6 +24,12 @@ if(TreatmentNo==1){
   source("NSA_Source/NSA_Input_Random_T11.R")
 }else if (TreatmentNo==12){
   source("NSA_Source/NSA_Input_Random_T12.R")
+}else if (TreatmentNo==13){
+  source("NSA_Source/NSA_Input_Random_T13.R")
+}else if (TreatmentNo==14){
+  source("NSA_Source/NSA_Input_Random_T14.R")
+}else if (TreatmentNo==15){
+  source("NSA_Source/NSA_Input_Random_T15.R")
 }else if (TreatmentNo==16){
   source("NSA_Source/NSA_Input_Random_T16.R")
 }else if (TreatmentNo==17){
@@ -52,8 +58,12 @@ if(TreatmentNo==1){
   source("NSA_Source/NSA_Input_Random_T28.R")
 }else if (TreatmentNo==29){
   source("NSA_Source/NSA_Input_Random_T29.R")
-}else if (TreatmentNo==30){
-  source("NSA_Source/NSA_Input_Random_T30.R")
+}else if (TreatmentNo==31){
+  source("NSA_Source/NSA_Input_Random_T31.R")
+}else if (TreatmentNo==32){
+  source("NSA_Source/NSA_Input_Random_T32.R")
+}else if (TreatmentNo==33){
+  source("NSA_Source/NSA_Input_Random_T33.R")
 }else{
   source("Input_Random.R")
 }

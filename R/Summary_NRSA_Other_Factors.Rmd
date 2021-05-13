@@ -475,8 +475,145 @@ SIndexT7_9<-(meanTI9-meanTI7)/meanTI8
 DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="Index"]<-SIndexT7_9
 ```
 
+
+
+
+
+#Hand Sanitizer
+
 ```{r}
-DFCheckingInputsx<-DFCheckingInputs[1:3,]
+Input_No<-4
+TreatmentNo<-10
+
+#Adding it to the DF
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="Description"]<-"Hand Sanitizer"
+
+#Inputs and Source Files
+
+
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+Sanitizing_Station<-1
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+TI_10<-rbind.fill(List_Sens_Fr)
+meanTI10<-Func_NSA_Summary(Trial = "T10")
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="MaxOut"]<-meanTI10
+
+
+```
+
+
+
+#Ill Exlusion Normal
+
+```{r}
+TreatmentNo<-11
+
+#Inputs and Source Files
+
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+Sanitizing_Station<-1
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+TI_11<-rbind.fill(List_Sens_Fr)
+meanTI11<-Func_NSA_Summary(Trial = "T11")
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="NominalOut"]<-meanTI11
+
+
+```
+
+
+
+```{r}
+TreatmentNo<-12
+
+#Inputs and Source Files
+
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+Sanitizing_Station<-1
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+TI_12<-rbind.fill(List_Sens_Fr)
+meanTI12<-Func_NSA_Summary(Trial = "T12")
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="MinOut"]<-meanTI12
+
+
+```
+
+
+##Wrapping the out
+
+```{r}
+SIndexT10_12<-(meanTI10-meanTI12)/meanTI11
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="Index"]<-SIndexT10_12
+```
+
+
+
+
+
+```{r}
+DFCheckingInputsx<-DFCheckingInputs[1:4,]
 FullSA<-rbind(DFCheckingInputsx,SenstivityDF)
 
 FullSA$Index<-as.numeric(FullSA$Index)
@@ -495,7 +632,8 @@ round(FullSA$Index, 3)
                            "PrWashingHands" = 'Prob Washing Hands',
                            "Reduction_wash"= "Washing Fruit",
                            "Growth_Time"= "Growth DieOFF",
-                           "Ill Exclusion" = "Exclusion Ill Students")) 
+                           "Ill Exclusion" = "Exclusion Ill Students",
+                           "Hand Sanitizer" = "Hand Sanitizer")) 
 
   TornadoFull<-ggplot(data = FullSA, aes(x=reorder(Description,Index),y=Index ))+
     geom_bar(stat = "identity", position = "identity")+
@@ -514,7 +652,8 @@ round(FullSA$Index, 3)
                            "PrWashingHands" = 'Prob Washing Hands',
                            "Reduction_wash"= "Washing Fruit",
                            "Growth_Time"= "Growth DieOFF",
-                           "Ill Exclusion" = "Exclusion Ill Students")) +
+                           "Ill Exclusion" = "Exclusion Ill Students",
+                           "Hand Sanitizer" = "Hand Sanitizer 100% Compliance")) +
     coord_flip()+
     theme(plot.title = element_text(hjust = 0.5))+
     theme(text = element_text(size=12))+

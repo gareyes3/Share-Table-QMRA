@@ -7,7 +7,11 @@ Student_Loop<-function(){
   #Random Inputs for every kid Whean Sensitivity Analasys
   if(NSA_Analysis==1){
     source("NSA_Options_For_Inputs.R")
-  } else   source("Input_Random.R")
+  } else if (NSA_FW_Analysis ==1){
+    source("NSA_Options_For_FW.R")
+  } else {
+    source("Input_Random.R")
+  }  
 
   
   #source("Input_Random.R")  #We good!  Sensitivity analysis off. 

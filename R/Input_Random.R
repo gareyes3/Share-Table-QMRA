@@ -59,7 +59,7 @@ if(salmonella ==1){
 
   #Probability of sharing food. 
   
-  Pr_share_Food<-rpert(1,min=0.5, mode= 0.7,max =1,4)
+  Pr_share_Food<-rpert(1,min=0.5, mode= 0.7,max =0.9 ,4)
   
   #Probability of student picking an additional item from share table. 
   
@@ -69,9 +69,15 @@ if(salmonella ==1){
   
   #Probability Sutdent eats share table item
   
-  Pr_eat_ST_Fr<-rpert(1,min=0.8, mode= 0.9,max =1,4)
-  Pr_eat_ST_Pss<-rpert(1,min=0.8, mode= 0.9,max =1,4)
-  Pr_eat_ST_Pre<-rpert(1,min=0.8, mode= 0.9,max =1,4)
+  Pr_eat_ST_Fr<-rpert(1,min=0.7, mode= 0.8,max =0.9,4)
+  Pr_eat_ST_Pss<-rpert(1,min=0.7, mode= 0.8,max =0.9,4)
+  Pr_eat_ST_Pre<-rpert(1,min=0.7, mode= 0.8,max =0.9,4)
+  
+  #If students won't carry anything then set Pr os 0
+  
+  Pr_Student_iC<-rpert(1,0.06,0.07,0.09)
+  
+  
   
   
   

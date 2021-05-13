@@ -44,9 +44,7 @@
   
 # Inputs for Calculation if student is contminated -------------------------
   
-  #If students won't carry anything then set Pr os 0
-  
-  Pr_Student_iC<-0.04 #probability of 1 student being contaminated. #set as 0 if self calculated. 
+
   
   
   Number_Student_Pathogens<-1 #Students that are contaminated that will enter the system every week. 
@@ -71,10 +69,10 @@
 # Inputs Behavioral Probabilities -----------------------------------------
 
   #Porbability of Student touching other line items before picking their food. 
-  Pr_touch_Food<-.7
+  Pr_touch_Food<-1
   
   #Pr
-  Pr_touch_Food_ST<-.7
+  Pr_touch_Food_ST<-1
 
   #Probability of student Picking up food from line-
 
@@ -221,6 +219,8 @@
   
 #Toggle for NSA_Analysis
   NSA_Analysis<-0
+  NSA_Analysis_Other<-0
+  NSA_FW_Analysis <-0
 
 #
   ST_Aside <-0
