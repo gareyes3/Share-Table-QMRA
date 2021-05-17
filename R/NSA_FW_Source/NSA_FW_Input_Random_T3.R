@@ -59,7 +59,7 @@ if(salmonella ==1){
 
   #Probability of sharing food. 
   
-  Pr_share_Food<-0.15#rpert(1,min=0.5, mode= 0.7,max =0.9 ,4)
+  Pr_share_Food<-0.9#rpert(1,min=0.5, mode= 0.7,max =0.9 ,4)
   
   #Probability of student picking an additional item from share table. 
   

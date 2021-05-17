@@ -23,10 +23,11 @@ source("Functions_Full_Analysis.R")
 ```{r}
 #Inputs and Source Files-------------------------------------
 
-
+TreatmentNo<-3
 #Inputs
 source("New_StudentLoop.R")
 source("Input_Static.R")
+NSA_Analysis_Other_Wash<-1
 source("Input_Functions.R")
 source("Util_DFFunctions.R")
 source("Util_DFWeekCreation.R")
@@ -36,8 +37,6 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-STtoReservice_YN<-1
-ST_Aside<-1
 #Wash Selection Table Fruit
 Wash_Selection_YN_Fr<-1
 #Wash Share Table Items
@@ -52,6 +51,15 @@ start_time<-Sys.time()
 
 source("Main_Loops2.R")
 ```
+
+```{r}
+DF_Washed_Vecs<- data.frame(VectorLeft_Before, VectorLeft_After)
+DF_Washed_Vecs_0<-DF_Washed_Vecs %>% 
+  filter(VectorLeft_Before>0)
+
+
+```
+
 
 ```{r}
 #Summary DFs for Future-------------------------------------

@@ -16,7 +16,7 @@ There are 13 interventions. Each intervention will take around 45 mins to run 10
 #Setting Working Directory-------------------------------------
 #setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
 setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
-pathfolder<-"DoseResponse5-5"
+pathfolder<-"DoseReponse5-14"
 ```
 
 ```{r}

@@ -52,3 +52,10 @@ Wash_Method_Tracker<-c()
 Saniztizer_Method_Tracker<-c()
 
 
+
+#Washing
+VectorLeft_Before<-c()
+VectorLeft_After<-c()
+
+
+

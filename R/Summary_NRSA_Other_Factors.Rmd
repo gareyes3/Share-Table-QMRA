@@ -11,7 +11,7 @@ output: html_document
 #Setting Working Directory-------------------------------------
 #setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
 setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
-pathfolder<-"DoseResponse3-10"
+pathfolder<-"DoseReponse5-14"
 ```
 
 ```{r}
@@ -52,6 +52,7 @@ DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="Description"]<-"Reduction
 #Inputs
 source("New_StudentLoop.R")
 source("Input_Static.R")
+NSA_Analysis_Other_Wash<-1
 source("Input_Functions.R")
 source("Util_DFFunctions.R")
 source("Util_DFWeekCreation.R")
@@ -60,6 +61,11 @@ source("Util_Counter&Lists.R")
 source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
+
+#Wash Selection Table Fruit
+Wash_Selection_YN_Fr<-1
+#Wash Share Table Items
+Wash_ST_YN_Fr<-1
 
 
 ```
@@ -89,6 +95,7 @@ TreatmentNo<-2
 #Inputs
 source("New_StudentLoop.R")
 source("Input_Static.R")
+NSA_Analysis_Other_Wash<-1
 source("Input_Functions.R")
 source("Util_DFFunctions.R")
 source("Util_DFWeekCreation.R")
@@ -98,7 +105,6 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-Reduction_wash<-(-2)
 
 #Wash Selection Table Fruit
 Wash_Selection_YN_Fr<-1
@@ -128,6 +134,7 @@ TreatmentNo<-3
 #Inputs
 source("New_StudentLoop.R")
 source("Input_Static.R")
+NSA_Analysis_Other_Wash<-1
 source("Input_Functions.R")
 source("Util_DFFunctions.R")
 source("Util_DFWeekCreation.R")
@@ -137,7 +144,7 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-Reduction_wash<-(-5)
+
 
 #Wash Selection Table Fruit
 Wash_Selection_YN_Fr<-1
@@ -495,6 +502,7 @@ DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="Description"]<-"Hand Sani
 #Inputs
 source("New_StudentLoop.R")
 source("Input_Static.R")
+NSA_Analysis_Other_Sanitize<-1
 source("Input_Functions.R")
 source("Util_DFFunctions.R")
 source("Util_DFWeekCreation.R")
@@ -535,6 +543,7 @@ TreatmentNo<-11
 #Inputs
 source("New_StudentLoop.R")
 source("Input_Static.R")
+NSA_Analysis_Other_Sanitize<-1
 source("Input_Functions.R")
 source("Util_DFFunctions.R")
 source("Util_DFWeekCreation.R")
@@ -573,6 +582,7 @@ TreatmentNo<-12
 #Inputs
 source("New_StudentLoop.R")
 source("Input_Static.R")
+NSA_Analysis_Other_Sanitize<-1
 source("Input_Functions.R")
 source("Util_DFFunctions.R")
 source("Util_DFWeekCreation.R")
@@ -620,46 +630,48 @@ FullSA$Index<-as.numeric(FullSA$Index)
 round(FullSA$Index, 3)
 
 
- scale_x_discrete(labels=c("mass_feces_hands"="Mass Feces Hands",
-                           "TrP_H_S"= "Transfer Pr Hand - Surface", 
-                            "TrP_H_F"="Transfer Pr Hand - Food", 
-                             "TrP_F_H"= "Transfer Pr Food-Hand",
-                              "TrP_S_H"= "Transfer Pr Surface-Hand",
+ scale_x_discrete(labels=c("mass_feces_hands"="Mass of Feces Hands",
+                           "TrP_H_S"= "Transfer Prob Hand - Surface", 
+                            "TrP_H_F"="Transfer Prob Hand - Food", 
+                             "TrP_F_H"= "Transfer Prob Food-Hand",
+                              "TrP_S_H"= "Transfer Prob Surface-Hand",
                               "Prevalence_Illness"="Illness Prevalence",
-                              "N_Touched"="Number of Fr Touched Selection",
-                              "LogRedWash"="Hand Washing Efficiency",
-                              "HU_NV_in_Feces"="HUNoV GEC in Feces",
-                           "PrWashingHands" = 'Prob Washing Hands',
-                           "Reduction_wash"= "Washing Fruit",
-                           "Growth_Time"= "Growth DieOFF",
-                           "Ill Exclusion" = "Exclusion Ill Students",
-                           "Hand Sanitizer" = "Hand Sanitizer")) 
+                              "N_Touched"="Additional Touches When Choosing Fruit",
+                              "LogRedWash"="Hand Washing Efficacy Baseline",
+                              "HU_NV_in_Feces"="Norovirus GEC in Feces",
+                           "PrWashingHands" = 'Probability of Washing Hands',
+                           "Reduction_wash"= "Fruit Wash Efficacy",
+                           "Growth_Time"= "Die Off length (h)",
+                           "Ill Exclusion" = "% of Ill Students Excluded from Share Table",
+                           "Hand Sanitizer" = "Hand Sanitizer Station 100% Compliance",
+                            "HanwashingStationEfficacy"= "Hanwashing Station 100% Compliance")) 
 
   TornadoFull<-ggplot(data = FullSA, aes(x=reorder(Description,Index),y=Index ))+
     geom_bar(stat = "identity", position = "identity")+
     ylab("Sensitivity Index")+
-    xlab("Input")+
-    ggtitle("Nominal Range Sensitivity Analysis: Sensitivity Index")+
-    scale_x_discrete(labels=c("mass_feces_hands"="Mass Feces Hands",
-                           "TrP_H_S"= "Transfer Pr Hand - Surface", 
-                            "TrP_H_F"="Transfer Pr Hand - Food", 
-                             "TrP_F_H"= "Transfer Pr Food-Hand",
-                              "TrP_S_H"= "Transfer Pr Surface-Hand",
+    xlab("Input Name")+
+    ggtitle("Sensitivity Analysis: Food Safety Inputs")+
+    scale_x_discrete(labels=c("mass_feces_hands"="Mass of Feces Hands",
+                           "TrP_H_S"= "Transfer Prob Hand - Surface", 
+                            "TrP_H_F"="Transfer Prob Hand - Food", 
+                             "TrP_F_H"= "Transfer Prob Food-Hand",
+                              "TrP_S_H"= "Transfer Prob Surface-Hand",
                               "Prevalence_Illness"="Illness Prevalence",
-                              "N_Touched"="Number of Fr Touched Selection",
-                              "LogRedWash"="Hand Washing Efficiency",
-                              "HU_NV_in_Feces"="HUNoV GEC in Feces",
-                           "PrWashingHands" = 'Prob Washing Hands',
-                           "Reduction_wash"= "Washing Fruit",
-                           "Growth_Time"= "Growth DieOFF",
-                           "Ill Exclusion" = "Exclusion Ill Students",
-                           "Hand Sanitizer" = "Hand Sanitizer 100% Compliance")) +
+                              "N_Touched"="Additional Touches When Choosing Fruit",
+                              "LogRedWash"="Hand Washing Efficacy Baseline",
+                              "HU_NV_in_Feces"="Norovirus GEC in Feces",
+                           "PrWashingHands" = 'Probability of Washing Hands',
+                           "Reduction_wash"= "Fruit Wash Efficacy",
+                           "Growth_Time"= "Die Off length (h)",
+                           "Ill Exclusion" = "% of Ill Students Excluded from Share Table",
+                           "Hand Sanitizer" = "Hand Sanitizer Station 100% Compliance",
+                            "HanwashingStationEfficacy"= "Hanwashing Station 100% Compliance")) +
     coord_flip()+
     theme(plot.title = element_text(hjust = 0.5))+
     theme(text = element_text(size=12))+
     scale_y_continuous(n.breaks = 10)
 
-ggsave(filename = "Tornado1.png", plot = Tornado1,path = "Dose Response", width = 8, height = 6) 
+ggsave(filename = "Tornado1.png", plot = Tornado1,path = "DoseReponse5-14", width = 8, height = 6) 
 print(TornadoFull)
 ```
 

@@ -237,14 +237,14 @@ Func_DR_Illness<-function(x){
 
 
 #Function that randomizes the selection of Fruit wahing reduction
-if(NSA_Analysis_Other==1){
+if(NSA_Analysis_Other_Wash==1){
   Func_Randomize_Wash<-function(Wash_Method){
     if (Wash_Method==1){
-      Logred<-1.919069
+      Logred<-5#1.919069
     } else if (Wash_Method==2){
       Logred<-0.87
     } else if (Wash_Method==3){
-      Logred<-0.1991058
+      Logred<- 0#0.1991058
     }
     return(-Logred)
   }
@@ -265,7 +265,7 @@ if(NSA_Analysis_Other==1){
 
 #Function that randomizes hand sanitizer reduction
 
-if(NSA_Analysis_Other==1){
+if(NSA_Analysis_Other_Sanitize==1){
   Func_Randomize_Sanitizer<-function(Wash_Method){
     if (Wash_Method==10){
       Logred<-3.375144

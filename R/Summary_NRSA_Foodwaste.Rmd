@@ -34,8 +34,8 @@ Outputs
 ###Setting Working Directory
 ```{r}
 
-setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
-#setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+#setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
 ```
 
 ###Opening Libary and Inputs
@@ -185,7 +185,7 @@ for (i in 2:nrow(AFWT1)){
 }
 
 
-AFWT1$Index <-(AFWT1$Min-AFWT1$Max)/AFWT1$Nominal
+AFWT1$Index <-(AFWT1$Max-AFWT1$Min)/AFWT1$Nominal
 AFWT1$Input<-"Pr Sharing Food"
 
 ```
@@ -794,7 +794,18 @@ AFWT5$Input<-"Pr_Eat_Fr"
 
 
 ```{r}
-#Creating comparisons for all the 5 diffeent Inputs. 
+#Creating comparisons for all the 5 diffeent Inputs.
+labels2=c("Pr_Eat_Fr"="Prob of Consuming Fruit",
+                           "Pr_Select_Fr"= "Prob of Selecting Fruit", 
+                            "ST Participation Rate"="Prob of Picking ST Item", 
+                             "Pr Eating ST Food"= "Prob of Eating Fruit from ST",
+                              "Pr Sharing Food"= "Prob of Sharing Fruit to ST")
+
+
+
+iris2 <- arrange(transform(iris,
+             Species=factor(Species,levels=neworder)),Species)
+
 
 All_AFW<-rbind.fill(AFWT1,AFWT2,AFWT3,AFWT4,AFWT5)
 All_AFW$Index<-as.numeric(All_AFW$Index)
@@ -804,10 +815,27 @@ All_AFW<-All_AFW[!grepl("ConsumedSel", All_AFW$Outputs),]
 
 Data1 <- subset(All_AFW, Outputs == "TotalConsumed")
 
-ggplot(data=All_AFW, aes(x= Input, y =Index))+
+neworder<-c("ST Participation Rate","Pr Sharing Food","Pr Eating ST Food","Pr_Select_Fr","Pr_Eat_Fr")
+
+All_AFW2 <- arrange(transform(All_AFW,
+             Input=factor(Input,levels=neworder)),Input)
+
+supp.labs <- c("TotalConsumed" = "Total Fruit Consumed", 
+               "TotalDiscarded" = "Total Fruit Wasted",
+               "TotalFruit" = "Fruit Utilization by School", 
+               "TotalReserviced" = "Total Fruit Reserviced")
+
+FoodWasteNSA<-ggplot(data=All_AFW2,  aes(x=Input,y=Index ))+
   geom_col(position = "dodge")+
   coord_flip()+
-  facet_wrap(~ Outputs, scales = "free")
+  facet_wrap(~ Outputs, scales = "free", labeller = labeller(Outputs= supp.labs))+
+  scale_x_discrete(labels = labels2)+
+  ylab("Sensitivity Index")+
+  xlab("Input Name")+
+  ggtitle("Sensitivity Analysis: Food Waste Inputs")+
+  theme(plot.title = element_text(hjust = 0.5))+
+
+ggsave(filename = "FoodWasteNSA.png", plot = FoodWasteNSA,path = "DoseReponse5-14", width = 8, height = 6) 
 
 
 ```
