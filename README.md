@@ -10,4 +10,5 @@
 	The /R Folder contains the files that are relevant to the model. 
 	the / R/Main Model contains the main file to run the model. Other files are just scenarios built from it. 
 	the R/ Main Loops, contains the loops for the model
-	the R/ Student loops, contains the process model for 1 student that goes through the line. 
+	the R/ Student loops, contains the process model for 1 student that goes through the line.
+# 2
