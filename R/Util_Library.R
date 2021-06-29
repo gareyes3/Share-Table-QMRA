@@ -12,6 +12,7 @@ library("sensitivity")
 library("gsl")
 library("ggrepel")
 library("plyr")
+library("stringr")
 
 summarise<-dplyr::summarise
 count<-dplyr::count

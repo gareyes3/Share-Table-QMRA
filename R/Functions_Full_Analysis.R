@@ -56,7 +56,7 @@ Func_Asys_ContbyStudent<-function(AnalysisDF){
     group_by(ConsumedBy)%>%
     dplyr::summarise(Contamination = sum(Contamination))
   
-  AnalysisDF$week <- substr(AnalysisDF$ConsumedBy, 1, 3) 
+  AnalysisDF$week <- substr(AnalysisDF$ConsumedBy, 1, 4) 
   AnalysisDF$Infection<-as.logical("")
   AnalysisDF$Illness<-as.logical("")
   return(AnalysisDF)
@@ -329,3 +329,23 @@ Func_DF_Locations_2<-function(){
   ST_Comb_Analysis_Con<-bind_rows(ST_OFF_Analysis_Con,ST_ON_Analysis_Con,ST_STClosed_Analysis_Con,ST_Exc_Analysis_Con,ST_STAside_Analysis_Con)
   return(ST_Comb_Analysis_Con)
 }
+
+
+
+######
+Function_RidExtra<-function(x){
+  if (x[3]!=1000){
+    x[3]<-str_sub(x[3],1,nchar(x[3])-1)
+  }
+  return(x[3])
+}
+
+
+Function_RidExtra2<-function(DF){
+  WeekCol<-apply(X = DF,1,Function_RidExtra) 
+  DF$week<-WeekCol
+  return(DF)
+}
+
+
+

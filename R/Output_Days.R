@@ -219,11 +219,9 @@
 #Washing selection Items
 if(Wash_Selection_YN_Fr==1){
   Reduction_wash<-Func_Randomize_Wash(Wash_Method = Wash_Method)
-  print(Reduction_wash)
   VectorLeft_Before<-c(VectorLeft_Before,Left_Selection_Fr$Contamination)
   Left_Selection_Fr$Contamination<-Func_Logred(Left_Selection_Fr$Contamination,Reduction_wash)
   VectorLeft_After<-c(VectorLeft_After,Left_Selection_Fr$Contamination)
-  print(nrow(Left_Selection_Fr))
   Left_Selection_Fr$WashHistory<-(Left_Selection_Fr$WashHistory+1)
 }
 

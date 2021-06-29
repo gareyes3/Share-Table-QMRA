@@ -668,10 +668,9 @@ round(FullSA$Index, 3)
                             "HanwashingStationEfficacy"= "Hanwashing Station 100% Compliance")) +
     coord_flip()+
     theme(plot.title = element_text(hjust = 0.5))+
-    theme(text = element_text(size=12))+
     scale_y_continuous(n.breaks = 10)
 
-ggsave(filename = "Tornado1.png", plot = Tornado1,path = "DoseReponse5-14", width = 8, height = 6) 
+ggsave(filename = "Tornado1.png", plot = TornadoFull,path = "D:/Poster Outs", width = 8, height = 6) 
 print(TornadoFull)
 ```
 

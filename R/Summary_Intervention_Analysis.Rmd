@@ -15,8 +15,10 @@ There are 13 interventions. Each intervention will take around 45 mins to run 10
 
 #Setting Working Directory-------------------------------------
 #setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
-setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
-pathfolder<-"DoseReponse5-14"
+setwd("D:Share Table\Share Table QMRA\Share-Table-QMRA\R") 
+
+#setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+pathfolder<-"DoseReponse5-27"
 ```
 
 ```{r}
@@ -692,6 +694,7 @@ ST_ON_Analysis_Copy<-ST_ON_Analysis
 
 #ST_ON_Analysis<-ST_ON_Analysis_Copy
 ST_ON_Analysis<-Func_Asys_ContbyStudent(ST_ON_Analysis)
+ST_ON_Analysis<-Function_RidExtra2(ST_ON_Analysis)
 
 
 #Drop NAs
@@ -711,6 +714,7 @@ df_ill_Week_ON<-OutputsDRON$df_ill_Week
 ST_OFF_Analysis_Copy<-ST_OFF_Analysis
 #ST_OFF_Analysis<-ST_OFF_Analysis_Copy
 ST_OFF_Analysis<-Func_Asys_ContbyStudent(ST_OFF_Analysis)
+ST_OFF_Analysis<-Function_RidExtra2(ST_OFF_Analysis)
 ST_OFF_Analysis<- ST_OFF_Analysis[!is.na(ST_OFF_Analysis$Contamination), ]
 
 #Analysis For weekly Dose Response ON
@@ -726,6 +730,8 @@ df_ill_Week_OFF<-OutputsDROFF$df_ill_Week
 #ST ON Wash ONF-------------------------------------
 ST_ONWash_Analysis_Copy<-ST_ONWash_Analysis
 ST_ONWash_Analysis<-Func_Asys_ContbyStudent(ST_ONWash_Analysis)
+ST_ONWash_Analysis<-Function_RidExtra2(ST_ONWash_Analysis)
+
 #Drop NAs
 ST_ONWash_Analysis<- ST_ONWash_Analysis[!is.na(ST_ONWash_Analysis$Contamination), ]
 
@@ -743,6 +749,8 @@ df_ill_Week_ONWash<-OutputsDRONWash$df_ill_Week
 #ST ON Wrapp ON-------------------------------------
 ST_ONWr_Analysis_Copy<-ST_ONWr_Analysis
 ST_ONWr_Analysis<-Func_Asys_ContbyStudent(ST_ONWr_Analysis)
+ST_ONWr_Analysis<-Function_RidExtra2(ST_ONWr_Analysis)
+
 #Drop NAs
 ST_ONWr_Analysis<- ST_ONWr_Analysis[!is.na(ST_ONWr_Analysis$Contamination), ]
 
@@ -759,6 +767,8 @@ df_ill_Week_ONWr<-OutputsDRONWr$df_ill_Week
 #ST ST OFF Wash ON-------------------------------------
 ST_OFFWash_Analysis_Copy<-ST_OFFWash_Analysis
 ST_OFFWash_Analysis<-Func_Asys_ContbyStudent(ST_OFFWash_Analysis)
+ST_OFFWash_Analysis<-Function_RidExtra2(ST_OFFWash_Analysis)
+
 #Drop NAs
 ST_OFFWash_Analysis<- ST_OFFWash_Analysis[!is.na(ST_OFFWash_Analysis$Contamination), ]
 
@@ -775,6 +785,8 @@ df_ill_Week_OFFWash<-OutputsDROFFWash$df_ill_Week
 #ST OFF Wrapp ONF-------------------------------------
 ST_OFFWr_Analysis_Copy<-ST_OFFWr_Analysis
 ST_OFFWr_Analysis<-Func_Asys_ContbyStudent(ST_OFFWr_Analysis)
+ST_OFFWr_Analysis<-Function_RidExtra2(ST_OFFWr_Analysis)
+
 #Drop NAs
 ST_OFFWr_Analysis<- ST_OFFWr_Analysis[!is.na(ST_OFFWr_Analysis$Contamination), ]
 
@@ -792,6 +804,8 @@ df_ill_Week_OFFWr<-OutputsDROFFWr$df_ill_Week
 #ST OFF Wrapp ONF-------------------------------------
 ST_Exc_Analysis_Copy<-ST_Exc_Analysis
 ST_Exc_Analysis<-Func_Asys_ContbyStudent(ST_Exc_Analysis)
+ST_Exc_Analysis<-Function_RidExtra2(ST_Exc_Analysis)
+
 #Drop NAs
 ST_Exc_Analysis<- ST_Exc_Analysis[!is.na(ST_Exc_Analysis$Contamination), ]
 
@@ -809,6 +823,8 @@ df_ill_Week_Exc<-OutputsDRExc$df_ill_Week
 #ST OFF Wrapp ONF-------------------------------------
 ST_STClosed_Analysis_Copy<-ST_STClosed_Analysis
 ST_STClosed_Analysis<-Func_Asys_ContbyStudent(ST_STClosed_Analysis)
+ST_STClosed_Analysis<-Function_RidExtra2(ST_STClosed_Analysis)
+
 #Drop NAs
 ST_STClosed_Analysis<- ST_STClosed_Analysis[!is.na(ST_STClosed_Analysis$Contamination), ]
 
@@ -825,6 +841,8 @@ df_ill_Week_STClosed<-OutputsDRSTClosed$df_ill_Week
 #ST on the side -------------------------------------
 ST_STAside_Analysis_Copy<-ST_STAside_Analysis
 ST_STAside_Analysis<-Func_Asys_ContbyStudent(ST_STAside_Analysis)
+ST_STAside_Analysis<-Function_RidExtra2(ST_STAside_Analysis)
+
 #Drop NAs
 ST_STAside_Analysis<- ST_STAside_Analysis[!is.na(ST_STAside_Analysis$Contamination), ]
 
@@ -842,6 +860,8 @@ df_ill_Week_STAside<-OutputsDRSTAside$df_ill_Week
 #ST on the side -------------------------------------
 ST_Touch_Analysis_Copy<-ST_Touch_Analysis
 ST_Touch_Analysis<-Func_Asys_ContbyStudent(ST_Touch_Analysis)
+ST_Touch_Analysis<-Function_RidExtra2(ST_Touch_Analysis)
+
 #Drop NAs
 ST_Touch_Analysis<- ST_Touch_Analysis[!is.na(ST_Touch_Analysis$Contamination), ]
 
@@ -859,6 +879,8 @@ df_ill_Week_Touch<-OutputsDRTouch$df_ill_Week
 #ST on the side -------------------------------------
 ST_TouchST_Analysis_Copy<-ST_TouchST_Analysis
 ST_TouchST_Analysis<-Func_Asys_ContbyStudent(ST_TouchST_Analysis)
+ST_TouchST_Analysis<-Function_RidExtra2(ST_TouchST_Analysis)
+
 #Drop NAs
 ST_TouchST_Analysis<- ST_TouchST_Analysis[!is.na(ST_TouchST_Analysis$Contamination), ]
 
@@ -875,6 +897,8 @@ df_ill_Week_TouchST<-OutputsDRTouchST$df_ill_Week
 #Handwashing Station -------------------------------------
 ST_WStation_Analysis_Copy<-ST_WStation_Analysis
 ST_WStation_Analysis<-Func_Asys_ContbyStudent(ST_WStation_Analysis)
+ST_WStation_Analysis<-Function_RidExtra2(ST_WStation_Analysis)
+
 #Drop NAs
 ST_WStation_Analysis<- ST_WStation_Analysis[!is.na(ST_WStation_Analysis$Contamination), ]
 
@@ -891,6 +915,8 @@ df_ill_Week_WStation<-OutputsDRWStation$df_ill_Week
 #Wash Bucket -------------------------------------
 ST_WBucket_Analysis_Copy<-ST_WBucket_Analysis
 ST_WBucket_Analysis<-Func_Asys_ContbyStudent(ST_WBucket_Analysis)
+ST_WBucket_Analysis<-Function_RidExtra2(ST_WBucket_Analysis)
+
 #Drop NAs
 ST_WBucket_Analysis<- ST_WBucket_Analysis[!is.na(ST_WBucket_Analysis$Contamination), ]
 
@@ -907,6 +933,8 @@ df_ill_Week_WBucket<-OutputsDRWBucket$df_ill_Week
 #Wash Bucket -------------------------------------
 ST_Sanitizer_Analysis_Copy<-ST_Sanitizer_Analysis
 ST_Sanitizer_Analysis<-Func_Asys_ContbyStudent(ST_Sanitizer_Analysis)
+ST_Sanitizer_Analysis<-Function_RidExtra2(ST_Sanitizer_Analysis)
+
 #Drop NAs
 ST_Sanitizer_Analysis<- ST_Sanitizer_Analysis[!is.na(ST_Sanitizer_Analysis$Contamination), ]
 
@@ -1194,7 +1222,7 @@ List_Percentages_Dist<-list(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tips
   stringsAsFactors = FALSE
   )
   
-  write.csv(x =  Summary_Comparison_Treatments,"G:/Share Table QMRA/Share-Table-QMRA/R/Dose Response/SummaryComparison.csv", row.names = FALSE )
+  write.csv(x =  Summary_Comparison_Treatments,"G:/Share Table QMRA/Share-Table-QMRA/R/DoseReponse5-27/SummaryComparison.csv", row.names = FALSE )
   #write.csv(x =  Summary_Comparison_Treatments,"C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R/Dose Response/SummaryComparison.csv", row.names = FALSE )
 
 
@@ -1447,24 +1475,36 @@ FoodWaste_Analysis_melted<-FoodWaste_Analysis_melted[FoodWaste_Analysis_melted$T
 ggplot(data = FoodWaste_Analysis_melted, aes(x= Treatment,y=value, fill= factor(variable, levels  = c("TotalReserviced", "TotalDiscarded", "ConsumedSel", "ConsumedST"))))+
   geom_col()+
   scale_x_discrete(labels=c("XClosed"="Re-Service Off",
-                          "OFF" = "STOFF",
-                          "ON"= "STON",
+                          "OFF" = "Traditional",
+                          "ON"= "Share Table",
                           'XAside' = 'One-way ST',
                           'XExc' = 'Ill Exclusion'
                           ))+
-  ylab("Number of Fruit")+
-  xlab("Intervention")+
+  ylab("Number of Items")+
+  xlab("Scenario Name")+
+  theme_bw()+
   labs(fill = "Locations")+
-  ggtitle("Share Table Interventions: Items Consumed vs Wasted")+ 
+  ggtitle("Food Security: Item final location per scenario")+ 
   theme(plot.title = element_text(hjust = 0.5))+
   theme(text = element_text(size=15))+
+  scale_fill_grey(name = "Location Categories", labels = labelsFW, start = 0.3, end =0.8)+
+  theme(legend.position="right")+
+  geom_text(aes(label=value), size=5, position= position_stack(vjust=0.5))+
+  
 
 
-ggsave(filename = "FoodSecFin4.png", path = pathfolder,width = 8,height = 7,)
+ggsave(filename = "FoodSecFin4.png", path = "D:/Poster Outs",width = 10,height = 8,)
 
 FoodWaste_Analysis_melted_2<-FoodWaste_Analysis_melted[FoodWaste_Analysis_melted$Treatment != "XAside",]
 FoodWaste_Analysis_melted_2<-FoodWaste_Analysis_melted_2[FoodWaste_Analysis_melted_2$Treatment != "XExc",]
 FoodWaste_Analysis_melted_2<-FoodWaste_Analysis_melted_2[FoodWaste_Analysis_melted_2$Treatment != "XClosed",]
+
+labelsFW <-c("TotalReserviced" = "Items Re-serviced", 
+            "TotalDiscarded"  = "Landfilled", 
+            "ConsumedSel" ="Consumed from service line", 
+            "ConsumedST"="Consumed from share table"
+               )
+
 
 ggplot(data = FoodWaste_Analysis_melted_2, aes(x= Treatment,y=value, fill= factor(variable, levels  = c("TotalReserviced", "TotalDiscarded", "ConsumedSel", "ConsumedST"))))+
   geom_col()+
@@ -1476,10 +1516,10 @@ ggplot(data = FoodWaste_Analysis_melted_2, aes(x= Treatment,y=value, fill= facto
   labs(fill = "Locations")+
   ggtitle("Share Table Interventions: Items Consumed vs Wasted")+ 
   theme(plot.title = element_text(hjust = 0.5))+
-  theme(text = element_text(size=15))+
+  theme(text = element_text(size=15))
 
 
-ggsave(filename = "FoodSecFin6.png", path = pathfolder,width = 8,height = 8,)
+ggsave(filename = "FoodSecFin6.png", path = "D:\Poster Outs",width = 8,height = 8,)
 
 
 
