@@ -35,7 +35,7 @@ Outputs
 ```{r}
 
 #setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
-setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+setwd("C:/Users/Gustavo Reyes/Documents/GitHubFiles/Share Table QMRA/Share-Table-QMRA/R")
 ```
 
 ###Opening Libary and Inputs
@@ -832,10 +832,10 @@ FoodWasteNSA<-ggplot(data=All_AFW2,  aes(x=Input,y=Index ))+
   scale_x_discrete(labels = labels2)+
   ylab("Sensitivity Index")+
   xlab("Input Name")+
-  ggtitle("Sensitivity Analysis: Food Waste Inputs")+
+  ggtitle("Sensitivity Analysis: Food Security Inputs")+
   theme(plot.title = element_text(hjust = 0.5))+
 
-ggsave(filename = "FoodWasteNSA.png", plot = FoodWasteNSA,path = "DoseReponse5-14", width = 8, height = 6) 
+ggsave(filename = "FoodWasteNSA.png", plot = FoodWasteNSA,path = "Manuscript Plots", width = 8, height = 6) 
 
 
 ```
