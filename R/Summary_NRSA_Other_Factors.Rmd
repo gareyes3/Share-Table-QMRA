@@ -531,9 +531,6 @@ DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="MaxOut"]<-meanTI10
 ```
 
 
-
-#Ill Exlusion Normal
-
 ```{r}
 TreatmentNo<-11
 
@@ -570,8 +567,6 @@ DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="NominalOut"]<-meanTI11
 
 
 ```
-
-
 
 ```{r}
 TreatmentNo<-12
@@ -610,7 +605,6 @@ DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="MinOut"]<-meanTI12
 
 ```
 
-
 ##Wrapping the out
 
 ```{r}
@@ -618,9 +612,582 @@ SIndexT10_12<-(meanTI10-meanTI12)/meanTI11
 DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="Index"]<-SIndexT10_12
 ```
 
+##Behavioral Parameters: 
+
+5. Probability of Sharing
+  -0.1
+  -0.5
+  -0.9
+6. Probability of Eat_ST_YN
+  -0.1
+  -0.5
+  -0.9
+7. Probabiliy of Pick_ST_YN
+  -0.1
+  -0.5
+  -0.9
+  
+8: Pr_Select_Fruit
+
+9: Pr_Eat Fruit selction
+
+Outputs
+  %Total Fruit
+  %Consumed ST
+  %Consumed Servline
+  %Discarded
+  %Re-Serviced. 
+
+#Probability of sharing
+
+#Max
+```{r}
+Input_No<-5
+TreatmentNo<-34
+
+#Adding it to the DF
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="Description"]<-"Probability of Sharing"
+
+#Inputs and Source Files
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+TI_34<-rbind.fill(List_Sens_Fr)
+meanTI34<-Func_NSA_Summary(Trial = "T34")
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="MaxOut"]<-meanTI34
+```
+#Mode
+```{r}
+TreatmentNo<-35
+
+#Inputs and Source Files
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+TI_35<-rbind.fill(List_Sens_Fr)
+meanTI35<-Func_NSA_Summary(Trial = "T35")
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="NominalOut"]<-meanTI35
+```
+
+#Min
+```{r}
+TreatmentNo<-36
+
+#Inputs and Source Files
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+TI_36<-rbind.fill(List_Sens_Fr)
+meanTI36<-Func_NSA_Summary(Trial = "T36")
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="MinOut"]<-meanTI36
+```
+
+##Wrapping the out treatment 5
+
+```{r}
+SIndexT34_36<-(meanTI34-meanTI36)/meanTI35
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="Index"]<-SIndexT34_36
+```
 
 
 
+#Probability of Eating ST for YN
+
+#Max
+```{r}
+Input_No<-6
+TreatmentNo<-37
+
+#Adding it to the DF
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="Description"]<-"Probability of Eat ST"
+
+#Inputs and Source Files
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+TI_37<-rbind.fill(List_Sens_Fr)
+meanTI37<-Func_NSA_Summary(Trial = "T37")
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="MaxOut"]<-meanTI37
+```
+#Mode
+```{r}
+TreatmentNo<-38
+
+#Inputs and Source Files
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+TI_38<-rbind.fill(List_Sens_Fr)
+meanTI38<-Func_NSA_Summary(Trial = "T38")
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="NominalOut"]<-meanTI38
+```
+
+#Min
+```{r}
+TreatmentNo<-39
+
+#Inputs and Source Files
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+TI_39<-rbind.fill(List_Sens_Fr)
+meanTI39<-Func_NSA_Summary(Trial = "T39")
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="MinOut"]<-meanTI39
+```
+
+##Wrapping the out treatment 6
+
+```{r}
+SIndexT37_39<-(meanTI37-meanTI39)/meanTI38
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="Index"]<-SIndexT37_39
+```
+
+
+#Probabiliy of Pick_ST_YN
+
+#Max
+```{r}
+Input_No<-7
+TreatmentNo<-40
+
+#Adding it to the DF
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="Description"]<-"Probability of Pick ST"
+
+#Inputs and Source Files
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+TI_40<-rbind.fill(List_Sens_Fr)
+meanTI40<-Func_NSA_Summary(Trial = "T40")
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="MaxOut"]<-meanTI40
+```
+#Mode
+```{r}
+TreatmentNo<-41
+
+#Inputs and Source Files
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+TI_41<-rbind.fill(List_Sens_Fr)
+meanTI41<-Func_NSA_Summary(Trial = "T41")
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="NominalOut"]<-meanTI41
+```
+
+#Min
+```{r}
+TreatmentNo<-42
+
+#Inputs and Source Files
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+TI_42<-rbind.fill(List_Sens_Fr)
+meanTI42<-Func_NSA_Summary(Trial = "T42")
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="MinOut"]<-meanTI42
+```
+
+##Wrapping the out treatment 7
+
+```{r}
+SIndexT40_42<-(meanTI40-meanTI42)/meanTI41
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="Index"]<-SIndexT40_42
+```
+
+
+## 8 Probability of selecting food at the selection table
+
+#Max
+```{r}
+Input_No<-8
+
+#Adding it to the DF
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="Description"]<-"Probability of Pick Selection"
+
+#Inputs and Source Files
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+Pr_select_Fr<-0.76
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+TI_43<-rbind.fill(List_Sens_Fr)
+meanTI43<-Func_NSA_Summary(Trial = "T43")
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="MaxOut"]<-meanTI43
+```
+
+#Nominal
+```{r}
+
+#Inputs and Source Files
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+Pr_select_Fr<-0.5
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+TI_44<-rbind.fill(List_Sens_Fr)
+meanTI44<-Func_NSA_Summary(Trial = "T44")
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="NominalOut"]<-meanTI44
+```
+
+#Min
+```{r}
+
+#Inputs and Source Files
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+Pr_select_Fr<-0.36
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+TI_45<-rbind.fill(List_Sens_Fr)
+meanTI45<-Func_NSA_Summary(Trial = "T45")
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="MinOut"]<-meanTI45
+```
+
+##Wrapping the out treatment 8
+
+```{r}
+SIndexT45_43<-(meanTI45-meanTI43)/meanTI44
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="Index"]<-SIndexT45_43
+```
+
+
+## 9 Probability of eating fruit from seL TABLE
+#Max
+```{r}
+Input_No<-9
+
+#Adding it to the DF
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="Description"]<-"Probability of Eat Selection"
+
+#Inputs and Source Files
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+Pr_eat_Fr<-0.83
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+TI_46<-rbind.fill(List_Sens_Fr)
+meanTI46<-Func_NSA_Summary(Trial = "T46")
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="MaxOut"]<-meanTI46
+```
+
+#Nominal
+```{r}
+
+#Inputs and Source Files
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+Pr_eat_Fr<-0.63
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+TI_47<-rbind.fill(List_Sens_Fr)
+meanTI47<-Func_NSA_Summary(Trial = "T47")
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="NominalOut"]<-meanTI47
+```
+
+#Min
+```{r}
+
+#Inputs and Source Files
+
+#Inputs
+source("New_StudentLoop.R")
+source("Input_Static.R")
+source("Input_Functions.R")
+source("Util_DFFunctions.R")
+source("Util_DFWeekCreation.R")
+source("Util_Counter&Lists.R")
+#Functions
+source("Util_Functions.R")
+source("Util_CCFunctions2.R")
+source("Util_VisualFunctions.R")
+
+Pr_select_Fr<-0.43
+
+```
+
+```{r warning=TRUE}
+#Running Loop First:-------------------------------------
+start_time<-Sys.time()
+source("Main_Loops2.R")
+```
+
+```{r}
+TI_48<-rbind.fill(List_Sens_Fr)
+meanTI48<-Func_NSA_Summary(Trial = "T48")
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="MinOut"]<-meanTI48
+```
+
+##Wrapping the out treatment 9
+
+```{r}
+SIndexT48_46<-(meanTI48-meanTI46)/meanTI47
+DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="Index"]<-SIndexT48_46
+```
+
+
+
+
+
+
+
+#Creation of final analyses
 
 ```{r}
 DFCheckingInputsx<-DFCheckingInputs[1:4,]
@@ -630,7 +1197,7 @@ FullSA$Index<-as.numeric(FullSA$Index)
 round(FullSA$Index, 3)
 
 
- scale_x_discrete(labels=c("mass_feces_hands"="Mass of Feces Hands",
+ Label_v = scale_x_discrete(labels=c("mass_feces_hands"="Mass of Feces Hands",
                            "TrP_H_S"= "Transfer Prob Hand - Surface", 
                             "TrP_H_F"="Transfer Prob Hand - Food", 
                              "TrP_F_H"= "Transfer Prob Food-Hand",
@@ -644,28 +1211,19 @@ round(FullSA$Index, 3)
                            "Growth_Time"= "Die Off length (h)",
                            "Ill Exclusion" = "% of Ill Students Excluded from Share Table",
                            "Hand Sanitizer" = "Hand Sanitizer Station 100% Compliance",
-                            "HanwashingStationEfficacy"= "Hanwashing Station 100% Compliance")) 
+                            "HanwashingStationEfficacy"= "Hanwashing Station 100% Compliance",
+                           "Probability of Sharing" = "Probability of Sharing",
+                           "Probability of Eat ST"="Probability of Eat ST",
+                           "Probability of Pick ST" = "Probability of Pick ST",
+                           "Probability of Pick Selection" = "Probability of Pick Selection",
+                           "Probability of Eat Selection" = "Probability of Eat Selection")) 
 
   TornadoFull<-ggplot(data = FullSA, aes(x=reorder(Description,Index),y=Index ))+
     geom_bar(stat = "identity", position = "identity")+
     ylab("Sensitivity Index")+
     xlab("Input Name")+
     ggtitle("Sensitivity Analysis: Food Safety Inputs")+
-    scale_x_discrete(labels=c("mass_feces_hands"="Mass of Feces Hands",
-                           "TrP_H_S"= "Transfer Prob Hand - Surface", 
-                            "TrP_H_F"="Transfer Prob Hand - Food", 
-                             "TrP_F_H"= "Transfer Prob Food-Hand",
-                              "TrP_S_H"= "Transfer Prob Surface-Hand",
-                              "Prevalence_Illness"="Illness Prevalence",
-                              "N_Touched"="Additional Touches When Choosing Fruit",
-                              "LogRedWash"="Hand Washing Efficacy Baseline",
-                              "HU_NV_in_Feces"="Norovirus GEC in Feces",
-                           "PrWashingHands" = 'Probability of Washing Hands',
-                           "Reduction_wash"= "Fruit Wash Efficacy",
-                           "Growth_Time"= "Die Off length (h)",
-                           "Ill Exclusion" = "% of Ill Students Excluded from Share Table",
-                           "Hand Sanitizer" = "Hand Sanitizer Station 100% Compliance",
-                            "HanwashingStationEfficacy"= "Hanwashing Station 100% Compliance")) +
+    scale_x_discrete(labels=Label_v) +
     coord_flip()+
     theme(plot.title = element_text(hjust = 0.5))+
     scale_y_continuous(n.breaks = 10)

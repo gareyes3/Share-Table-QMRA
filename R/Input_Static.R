@@ -27,7 +27,7 @@
 
   #Weeks
   
-  Sens_Iterations<-1000
+  Sens_Iterations<-100
  
 # Sevice Line Information -------------------------------------------------
   
@@ -220,7 +220,7 @@
 #Toggle for NSA_Analysis
   NSA_Analysis<-0
   #Other
-  NSA_Analysis_Other<-0
+  NSA_Analysis_Other<-1
   NSA_Analysis_Other_Sanitize<-0
   NSA_Analysis_Other_Wash<-0
   
