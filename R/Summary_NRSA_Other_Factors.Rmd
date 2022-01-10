@@ -10,7 +10,7 @@ output: html_document
 
 #Setting Working Directory-------------------------------------
 #setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
-setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
+setwd("C:/Users/Gustavo Reyes/Documents/GitHubFiles/Share Table QMRA/Share-Table-QMRA/R")
 pathfolder<-"DoseReponse5-14"
 ```
 
@@ -1190,7 +1190,7 @@ DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="Index"]<-SIndexT48_46
 #Creation of final analyses
 
 ```{r}
-DFCheckingInputsx<-DFCheckingInputs[1:4,]
+DFCheckingInputsx<-DFCheckingInputs[1:9,]
 FullSA<-rbind(DFCheckingInputsx,SenstivityDF)
 
 FullSA$Index<-as.numeric(FullSA$Index)
@@ -1218,17 +1218,17 @@ round(FullSA$Index, 3)
                            "Probability of Pick Selection" = "Probability of Pick Selection",
                            "Probability of Eat Selection" = "Probability of Eat Selection")) 
 
-  TornadoFull<-ggplot(data = FullSA, aes(x=reorder(Description,Index),y=Index ))+
+  TornadoFull<-ggplot(data = FullSA, aes(x=reorder(Description,abs(Index)),y=Index ))+
     geom_bar(stat = "identity", position = "identity")+
     ylab("Sensitivity Index")+
     xlab("Input Name")+
-    ggtitle("Sensitivity Analysis: Food Safety Inputs")+
-    scale_x_discrete(labels=Label_v) +
+    ggtitle("Nominal Range Sensitivity Analysis: Effect on mean illness prevalence")+
+    Label_v +
     coord_flip()+
-    theme(plot.title = element_text(hjust = 0.5))+
+    theme(plot.title = element_text(hjust = 0.5, size = 10))+
     scale_y_continuous(n.breaks = 10)
 
-ggsave(filename = "Tornado1.png", plot = TornadoFull,path = "D:/Poster Outs", width = 8, height = 6) 
+ggsave(filename = "Tornado1.png", plot = TornadoFull,path = "C:/Users/Gustavo Reyes/Box/Share Table Project/QMRA Files/QMRA Paper/New Journal Draft/Figures", width = 8, height = 6) 
 print(TornadoFull)
 ```
 

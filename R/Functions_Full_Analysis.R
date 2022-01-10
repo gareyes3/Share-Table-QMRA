@@ -28,7 +28,7 @@ Func_Asys_MainDFDp<-function(SummaryList, FoodType){
   #SummaryLisr = List_Sens_Fr
   #FoodType= = "Fruit"
   #1. Start from here
-  Individual_Analysis_Fr<-bind_rows(SummaryList)
+  Individual_Analysis_Fr<-rbind.fill(SummaryList)
   
   #Adding Type Column
   Individual_Analysis_Fr$Type<-FoodType

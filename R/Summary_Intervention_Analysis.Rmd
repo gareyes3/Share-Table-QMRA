@@ -1471,7 +1471,11 @@ FoodWaste_Analysis_melted<-FoodWaste_Analysis_melted[FoodWaste_Analysis_melted$v
 FoodWaste_Analysis_melted<-FoodWaste_Analysis_melted[FoodWaste_Analysis_melted$Treatment != "XExc",]
 
 
+FoodWaste_Analysis_melted_PCT<-FoodWaste_Analysis_melted%>% 
+group_by(Treatment) %>% 
+mutate(pct=prop.table(value))
 
+#Initial without percentages
 ggplot(data = FoodWaste_Analysis_melted, aes(x= Treatment,y=value, fill= factor(variable, levels  = c("TotalReserviced", "TotalDiscarded", "ConsumedSel", "ConsumedST"))))+
   geom_col()+
   scale_x_discrete(labels=c("XClosed"="Re-Service Off",
@@ -1494,6 +1498,33 @@ ggplot(data = FoodWaste_Analysis_melted, aes(x= Treatment,y=value, fill= factor(
 
 
 ggsave(filename = "FoodSecFin4.png", path = "D:/Poster Outs",width = 10,height = 8,)
+
+
+
+
+#With Percentages
+ggplot(data = FoodWaste_Analysis_melted_PCT, aes(x= Treatment,y=value, fill= factor(variable, levels  = c("TotalReserviced", "TotalDiscarded", "ConsumedSel", "ConsumedST"))))+
+  geom_col()+
+  scale_x_discrete(labels=c("XClosed"="Re-Service Off",
+                          "OFF" = "Traditional",
+                          "ON"= "Share Table",
+                          'XAside' = 'One-way ST',
+                          'XExc' = 'Ill Exclusion'
+                          ))+
+  ylab("Number of Items")+
+  xlab("Scenario Name")+
+  theme_bw()+
+  labs(fill = "Locations")+
+  ggtitle("Food Security: Item final location per scenario")+ 
+  theme(plot.title = element_text(hjust = 0.5))+
+  theme(text = element_text(size=15))+
+  scale_fill_grey(name = "Location Categories", labels = labelsFW, start = 0.3, end =0.8)+
+  theme(legend.position="right")+
+  #geom_text(aes(label=value), size=5, position= position_stack(vjust=0.5))+
+  geom_text(aes(label = scales::percent(pct)),position= position_stack(vjust=0.5),col="black",size=5)
+
+  ggsave(filename = "FoodSecFin4.png", path = "C:/Users/Gustavo Reyes/Box/Share Table Project/QMRA Files/QMRA Paper/New Journal Draft/Figures",width = 10,height = 8,)
+
 
 FoodWaste_Analysis_melted_2<-FoodWaste_Analysis_melted[FoodWaste_Analysis_melted$Treatment != "XAside",]
 FoodWaste_Analysis_melted_2<-FoodWaste_Analysis_melted_2[FoodWaste_Analysis_melted_2$Treatment != "XExc",]
