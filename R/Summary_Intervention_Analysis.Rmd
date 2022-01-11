@@ -14,7 +14,7 @@ There are 13 interventions. Each intervention will take around 45 mins to run 10
 ```{r}
 
 #Setting Working Directory-------------------------------------
-#setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
 setwd("D:Share Table\Share Table QMRA\Share-Table-QMRA\R") 
 
 #setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
@@ -677,6 +677,8 @@ Individual_Analysis_Fr_Sanitizer<-rbind.fill(List_Sens_Fr)
 
 #Data Frame without repeats and Consumed Items
 ST_Sanitizer_Analysis<-Func_Asys_MainDF(SummaryList = List_Sens_Fr,FoodType = "Fruit")
+
+Hand_Sanitizer_Tracker<-Saniztizer_Method_Tracker
 ```
 
 
@@ -995,11 +997,28 @@ df_ill_Week_WStation_Box_Prev<-Func_DF_Prevalence(AnalysisDFCop = ST_WStation_An
 #Fruit Wash Bucket
 df_ill_Week_WBucket_Box_Prev<-Func_DF_Prevalence(AnalysisDFCop = ST_WBucket_Analysis_Copy, df_Ill_Week = df_ill_Week_WBucket,Intervention = "WBucket")
 
-#Fruit Wash Bucket
+#Fruit Sanitizer
 df_ill_Week_Sanitizer_Box_Prev<-Func_DF_Prevalence(AnalysisDFCop = ST_Sanitizer_Analysis_Copy, df_Ill_Week = df_ill_Week_Sanitizer,Intervention = "Sanitize")
 
 ```
 
+
+#Sanitizer Analysis Revision 1/11
+```{r}
+Sanitizer_Data<-df_ill_Week_Sanitizer_Box_Prev
+
+Sanitizer_Data <-Sanitizer_Data %>% 
+  arrange(variable)
+
+
+Sanitizer_Data$method<-as.factor(rep(Saniztizer_Method_Tracker,each=100))
+
+Sanitizer_Data %>% 
+  ggplot(aes(y = Prev,x = method))+
+  geom_boxplot()+
+  coord_flip()
+
+```
 
 #Consumption Locations
 ```{r}
