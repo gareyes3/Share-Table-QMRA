@@ -14,8 +14,9 @@ There are 13 interventions. Each intervention will take around 45 mins to run 10
 ```{r}
 
 #Setting Working Directory-------------------------------------
-setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
-setwd("D:Share Table\Share Table QMRA\Share-Table-QMRA\R") 
+#setwd("C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R") 
+setwd("C:/Users/Gustavo Reyes/Documents/GitHubFiles/Share Table QMRA/Share-Table-QMRA/R") 
+
 
 #setwd("G:/Share Table QMRA/Share-Table-QMRA/R")
 pathfolder<-"DoseReponse5-27"
@@ -1005,7 +1006,11 @@ df_ill_Week_Sanitizer_Box_Prev<-Func_DF_Prevalence(AnalysisDFCop = ST_Sanitizer_
 
 #Sanitizer Analysis Revision 1/11
 ```{r}
+library(ggpubr)
+library(rstatix)
+
 Sanitizer_Data<-df_ill_Week_Sanitizer_Box_Prev
+
 
 Sanitizer_Data <-Sanitizer_Data %>% 
   arrange(variable)
@@ -1013,10 +1018,56 @@ Sanitizer_Data <-Sanitizer_Data %>%
 
 Sanitizer_Data$method<-as.factor(rep(Saniztizer_Method_Tracker,each=100))
 
-Sanitizer_Data %>% 
-  ggplot(aes(y = Prev,x = method))+
+means <- aggregate(Prev ~  method, Sanitizer_Data, mean)
+means$Prev<-round(means$Prev,4)
+
+#Boxplot
+boxp<-Sanitizer_Data %>% 
+  ggplot(aes(y = Prev,x = method, fill = method))+
   geom_boxplot()+
-  coord_flip()
+  geom_text(data = means, aes(label = Prev, y = Prev ))+
+  scale_fill_grey(start = 0.4, end = .9,labels = c("one", "two", "three", "four", "five", "six")) +
+  ggtitle("Illness prevalence per hand-sanitizer distribution selected") +
+  xlab("Hand Sanitizer Distribution") + ylab("Illness Prevalence")+
+  scale_x_discrete(labels = c("one", "two", "three", "four", "five", "six"))
+
+my_comps<-list(c(1,2),c(3,1),c(4,1),c(5,1),c(6,1),c(3,2),c(4,2),c(5,2),c(6,2),c(4,3),c(5,3), c(6,3),c(5,4),c(6,4),c(6,5))
+my_final_comps<-list(c(3,6),c(1,6))
+boxp+stat_compare_means( comparisons =my_final_comps ,method="t.test",label = "p.signif")+
+   stat_compare_means(label.y = 0.05, method = "anova")
+
+stat.test <- Sanitizer_Data %>% t_test(Prev ~ method)
+stat.test <- stat.test %>% add_xy_position(x = "method")
+boxp+stat_pvalue_manual(stat.test, label = "p.adj.signif", tip.length = 0.1)
+
+list_of_groups<-Sanitizer_Data %>% 
+  group_split(method)
+
+for (i in list_of_groups ){
+  group <- i$Prev
+  group <- group[1:5000]
+  print(shapiro.test(group))
+}
+#shapiro wilk test shows that all groups follow a normal distribution. 
+levene_test(Sanitizer_Data, Prev~method)
+
+fm1 <- aov(Prev~method, data=Sanitizer_Data)
+anova(fm1)
+TUKEY<-TukeyHSD(fm1)
+plot(TUKEY , las=1 , col="brown")
+
+
+ggboxplot(Sanitizer_Data, x = "method", y = "Prev",
+          color = "method", palette = "jco")+
+  stat_compare_means(method = "anova")
+
+
+bxp <- ggboxplot(Sanitizer_Data, x = "method", y = "Prev", fill = "method")
+
+
+```
+
+```{r}
 
 ```
 
