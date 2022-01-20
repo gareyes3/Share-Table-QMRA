@@ -1594,6 +1594,8 @@ FoodWaste_Analysis_melted_PCT<-FoodWaste_Analysis_melted%>%
 group_by(Treatment) %>% 
 mutate(pct=prop.table(value))
 
+
+
 #Initial without percentages
 ggplot(data = FoodWaste_Analysis_melted, aes(x= Treatment,y=value, fill= factor(variable, levels  = c("TotalReserviced", "TotalDiscarded", "ConsumedSel", "ConsumedST"))))+
   geom_col()+

@@ -44,7 +44,56 @@ Function_FoodWaste<-function(DF){
   return(Output_FW)
 }
 
+Function_FoodWaste_byweek<-function(DF){
+  TotalT<-nrow(DF)
+  TotalC<-sum(DF$Location=="Consumed")
+  TotalD<-sum(DF$Location=="Discarded")
+  TotalR<-sum(DF$Reserviced>0)
+  ConSel<-Func_LocationSel(DF)
+  ConST<-Func_LocationST(DF)
+  Output_FW<-c(TotalT,TotalC,TotalD,TotalR,ConSel,ConST)
+  
+  return(Output_FW)
+}
 
+#UPdate this
+Analysis_1<-func_remove_repeats(Individual_Analysis_Fr_CopOFF)
+
+ST_OFF_Summary<-Individual_Analysis_Fr_CopOFF %>% 
+  func_remove_repeats() %>% 
+  group_by(week) %>% 
+  summarise(Consumed = sum(Location =="Consumed"),
+            Discarded = sum(Location =="Discarded"),
+            Reserviced = sum(Reserviced>0),
+            Consumed_Sel = sum(ConsumedAt=="ServiceLine"),
+            Consumed_ST  = sum(ConsumedAt=="ShareTable"),
+            Total = n()
+            ) 
+
+ST_ON_Summary <-Individual_Analysis_Fr_CopON %>% 
+  func_remove_repeats() %>% 
+  group_by(week) %>% 
+  summarise(Consumed = sum(Location =="Consumed"),
+            Discarded = sum(Location =="Discarded"),
+            Reserviced = sum(Reserviced>0),
+            Consumed_Sel = sum(ConsumedAt=="ServiceLine"),
+            Consumed_ST  = sum(ConsumedAt=="ShareTable"),
+            Total = n()
+  ) 
+
+Differences_Landfilled<-(ST_OFF_Summary$Discarded-ST_ON_Summary$Discarded)/ST_OFF_Summary$Discarded
+
+quantile(Differences_Landfilled, c(0.025,0.975))
+
+Difference_Consumed<-(ST_OFF_Summary$Consumed-ST_ON_Summary$Consumed)/ST_OFF_Summary$Consumed
+
+quantile(Difference_Consumed, c(0.025,0.975))
+
+Difference_Used<-(ST_OFF_Summary$Total-ST_ON_Summary$Total)/ST_OFF_Summary$Total
+
+quantile(Difference_Used, c(0.025,0.975))
+
+hist(Difference_Used)
 
 # Main Function --------------------------------------------------------------
 
