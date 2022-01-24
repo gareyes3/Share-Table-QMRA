@@ -1184,9 +1184,6 @@ DFCheckingInputs[Input_No,colnames(DFCheckingInputs)=="Index"]<-SIndexT48_46
 
 
 
-
-
-
 #Creation of final analyses
 
 ```{r}
@@ -1196,6 +1193,27 @@ FullSA<-rbind(DFCheckingInputsx,SenstivityDF)
 FullSA$Index<-as.numeric(FullSA$Index)
 round(FullSA$Index, 3)
 
+
+description_color<-c("Reduction",
+                     "Amplification",
+                     "Reduction",
+                     "Reduction",
+                     "Behavioral",
+                     "Behavioral",
+                     "Behavioral",
+                     "Behavioral",
+                     "Behavioral",
+                     "Contamination",
+                     "Contamination",
+                     "Reduction",
+                     "Behavioral",
+                     "Contamination",
+                     "Contamination",
+                     "Contamination",
+                     "Contamination",
+                     "Contamination",
+                     "Behavioral",
+                     "Reduction")
 
  Label_v = scale_x_discrete(labels=c("mass_feces_hands"="Mass of Feces Hands",
                            "TrP_H_S"= "Transfer Prob Hand - Surface", 
@@ -1218,7 +1236,16 @@ round(FullSA$Index, 3)
                            "Probability of Pick Selection" = "Probability of Pick Selection",
                            "Probability of Eat Selection" = "Probability of Eat Selection")) 
 
-  TornadoFull<-ggplot(data = FullSA, aes(x=reorder(Description,abs(Index)),y=Index ))+
+ FullSA$Input_Category<-description_color
+ 
+install.packages("remotes")
+remotes::install_github("coolbutuseless/ggpattern")
+
+library(ggplot2)
+library(ggpattern)
+
+ 
+  TornadoFull<-ggplot(data = FullSA, aes(x=reorder(Description,abs(Index)),y=Index, fill = Input_Category ))+
     geom_bar(stat = "identity", position = "identity")+
     ylab("Sensitivity Index")+
     xlab("Input Name")+
@@ -1226,7 +1253,32 @@ round(FullSA$Index, 3)
     Label_v +
     coord_flip()+
     theme(plot.title = element_text(hjust = 0.5, size = 10))+
-    scale_y_continuous(n.breaks = 10)
+    scale_y_continuous(n.breaks = 10)+
+    scale_fill_grey()+
+    labs(fill= "Input Category")
+  
+  
+  ggplot(data = FullSA,aes(x=reorder(Description,abs(Index)),y=Index))+
+    geom_col_pattern(aes(pattern = Input_Category, pattern_angle =  Input_Category, pattern_spacing =  Input_Category), 
+    fill            = 'white',
+    colour          = 'black', 
+    pattern_density = 0.2, 
+    pattern_fill    = 'black',
+    pattern_colour  = 'black'
+   )+
+    scale_pattern_spacing_discrete(range = c(0.01, 0.02)) + 
+    ylab("Sensitivity Index")+
+    xlab("Input Name")+
+    ggtitle("Nominal Range Sensitivity Analysis: Effect on mean illness prevalence")+
+    Label_v +
+    coord_flip()+
+    theme(plot.title = element_text(hjust = 0.5, size = 10))+
+    scale_y_continuous(n.breaks = 10)+
+    scale_color_grey(start = 0.0,end = 0.7)+
+    labs(fill= "Input Category")
+  
+  
+  
 
 ggsave(filename = "Tornado1.png", plot = TornadoFull,path = "C:/Users/Gustavo Reyes/Box/Share Table Project/QMRA Files/QMRA Paper/New Journal Draft/Figures", width = 8, height = 6) 
 print(TornadoFull)

@@ -1021,17 +1021,28 @@ Sanitizer_Data$method<-as.factor(rep(Hand_Sanitizer_Tracker,each=100))
 means <- aggregate(Prev ~  method, Sanitizer_Data, mean)
 means$Prev<-round(means$Prev,4)
 
+quantiles_95 <- function(x) {
+  r <- quantile(x, probs=c(0.05, 0.25, 0.5, 0.75, 0.95))
+  names(r) <- c("ymin", "lower", "middle", "upper", "ymax")
+  r
+}
+
+
+
 #Boxplot
-boxp<-Sanitizer_Data %>% 
+box_s<-Sanitizer_Data %>% 
   ggplot(aes(y = Prev,x = method, fill = method))+
-  geom_boxplot()+
+  stat_summary(fun.data = quantiles_95, geom="boxplot")+
   geom_text(data = means, aes(label = Prev, y = Prev ), size=3.5)+
   scale_fill_grey(start = 0.4, end = .9,labels = c("1", "2", "3", "4", "5", "6"), guide = "none") +
   ggtitle("Illness prevalence per hand-sanitizer distribution selected") +
   theme(plot.title = element_text(size =10))+
   xlab("Hand Sanitizer Distribution") + ylab("Illness Prevalence")+
   labs(fill = "Hand\n Sanitizer")+
-  scale_x_discrete(labels = c("1", "2", "3", "4", "5", "6"))
+  scale_x_discrete(labels = c("1", "2", "3", "4", "5", "6"))+
+  geom_hline(yintercept = 0.0149, size = 1,linetype="dotted")+
+  annotate("segment", x = 1.8, xend = 1.5, y = 0.014, yend = 0.0149, colour = "black", size = 0.7)+
+  annotate("label", x=2.0, y=0.014, label= "Baseline Mean Illness Prevalence", size =3) 
 
 my_comps<-list(c(1,2),c(3,1),c(4,1),c(5,1),c(6,1),c(3,2),c(4,2),c(5,2),c(6,2),c(4,3),c(5,3), c(6,3),c(5,4),c(6,4),c(6,5))
 my_final_comps<-list(c(3,6),c(1,6))
@@ -1085,16 +1096,19 @@ means_w <- aggregate(Prev ~  method, Washing_Data, mean)
 means_w$Prev<-round(means_w$Prev,4)
 
 #Boxplot
-boxp<-Washing_Data %>% 
+box_w<-Washing_Data %>% 
   ggplot(aes(y = Prev,x = method, fill = method))+
-  geom_boxplot()+
+  stat_summary(fun.data = quantiles_95, geom="boxplot")+
   geom_text(data = means_w, aes(label = Prev, y = Prev ), vjust = -0.1)+
   scale_fill_grey(start = 0.4, end = .9,labels = c("1", "2", "3"),guide = "none") +
   ggtitle("Illness prevalence per fruit washing distribution selected") +
   theme(plot.title = element_text(size = 10))+
   xlab("Fruit Washing Distribution") + ylab("Illness Prevalence")+
   labs(fill = "Washing\n Method")+
-  scale_x_discrete(labels = c("1", "2", "3"))
+  scale_x_discrete(labels = c("1", "2", "3"))+
+  geom_hline(yintercept = 0.0149, size = 1, alpha = 0.8,linetype="dotted")+
+  annotate("segment", x = 1.5, xend = 1.5, y = 0.02, yend = 0.0149, colour = "black", size = 0.6 )+
+  annotate("label", x=1.5, y=0.02, label= "Baseline Mean Illness Prevalence",size =3)
 
 my_comps<-list(c(1,2),c(3,2), c(3,1))
 box_w<-boxp+stat_compare_means( comparisons =my_comps ,method="t.test",label = "p.signif")+
@@ -1114,7 +1128,7 @@ TUKEY$method
 
 
 
-ggarrange(box_s,box_w + rremove("x.text"), 
+ggarrange(box_s,box_w , 
           labels = c("A", "B"),
           ncol = 2, nrow = 1)
 
