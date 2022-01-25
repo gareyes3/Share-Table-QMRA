@@ -1106,9 +1106,9 @@ box_w<-Washing_Data %>%
   xlab("Fruit Washing Distribution") + ylab("Illness Prevalence")+
   labs(fill = "Washing\n Method")+
   scale_x_discrete(labels = c("1", "2", "3"))+
-  geom_hline(yintercept = 0.0149, size = 1, alpha = 0.8,linetype="dotted")+
-  annotate("segment", x = 1.5, xend = 1.5, y = 0.02, yend = 0.0149, colour = "black", size = 0.6 )+
-  annotate("label", x=1.5, y=0.02, label= "Baseline Mean Illness Prevalence",size =3)
+  geom_hline(yintercept = 0.0149, size = 1, alpha = 0.8,linetype="dotted")
+  #annotate("segment", x = 1.5, xend = 1.5, y = 0.02, yend = 0.0149, colour = "black", size = 0.6 )+
+  #annotate("label", x=1.5, y=0.02, label= "Baseline Mean Illness Prevalence",size =3)
 
 my_comps<-list(c(1,2),c(3,2), c(3,1))
 box_w<-boxp+stat_compare_means( comparisons =my_comps ,method="t.test",label = "p.signif")+
