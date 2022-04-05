@@ -1271,13 +1271,67 @@ print(Barchart_Expos2)
 
 ```
 
-#Boxplot of illness prevalences
+#Boxplot of illness prevalences and significance analysis
 
 ```{r}
 All_binded_bplot<-rbind(
-df_ill_Week_ON_Box_Prev,df_ill_Week_OFF_Box_Prev,df_ill_Week_ONWash_Box_Prev,df_ill_Week_ONWr_Box_Prev,df_ill_Week_OFFWash_Box_Prev,df_ill_Week_OFFWr_Box_Prev,df_ill_Week_Exc_Box_Prev, df_ill_Week_STClosed_Box_Prev, df_ill_Week_STAside_Box_Prev, df_ill_Week_Touch_Box_Prev, df_ill_Week_TouchST_Box_Prev, df_ill_Week_WStation_Box_Prev, df_ill_Week_WBucket_Box_Prev,df_ill_Week_Sanitizer_Box_Prev)
+df_ill_Week_ON_Box_Prev,df_ill_Week_OFF_Box_Prev,df_ill_Week_ONWash_Box_Prev,df_ill_Week_ONWr_Box_Prev,df_ill_Week_OFFWash_Box_Prev,df_ill_Week_OFFWr_Box_Prev,df_ill_Week_Exc_Box_Prev, df_ill_Week_STClosed_Box_Prev, df_ill_Week_STAside_Box_Prev, df_ill_Week_TouchST_Box_Prev, df_ill_Week_WStation_Box_Prev, df_ill_Week_WBucket_Box_Prev,df_ill_Week_Sanitizer_Box_Prev)
 
 
+Treatment_Names<-c("ON", "OFF", "ONWash","ONWr", "OFFWash","OFFWr", "XExc", "XSTClosed", 
+                   "STAside", 'Touch', "TouchST", "WStation", "WBucket", "Sanitizer")
+Treatment_Names_A<-c("ON", "OFF", "ONWash","ONWr", "OFFWash","OFFWr", "XExc", "XSTClosed", 
+                   "STAside", "TouchST", "WStation", "WBucket", "Sanitizer")
+
+All_binded_bplot$Treatments<-rep(Treatment_Names_A, each  =100000)
+
+g<-ggplot(data = All_binded_bplot, aes(x = factor(Treatments, level = c('OFF', 'ON', 'OFFWash',"ONWash","OFFWr","ONWr","STAside","TouchST","WBucket", "XExc","WStation","Sanitizer","XSTClosed")), y = Prev))+
+  geom_boxplot()+
+  ylab("Illness prevalence from Dose response")+
+  xlab("Scenarios")
+
+g+
+    stat_summary(
+    geom = "point",
+    fun.y = "mean",
+    col = "black",
+    size = 1.5,
+    shape = 24,
+    fill = "black"
+  )+
+   annotate("rect", xmin = -Inf, xmax = Inf, ymin = c(0.01079137,0.01204819), ymax = c(0.01836394,0.01929346),
+           alpha = .2,fill = c("red", "blue"))+
+  geom_hline(yintercept=c(0.01079137,0.01836394,0.01204819,0.01929346), linetype=c("dashed",'dashed','dotted','dotted'), 
+                color = "black", size=1, alpha = 0.8)+
+  theme_bw()+
+  scale_x_discrete(labels = c("ON" = "2) Baseline share table" ,
+                              "OFF" = "1)Baseline traditional cafeteria", 
+                              "ONWash" = "4)Wash fruit, with share table",
+                              "ONWr" = "6) Wrap fruit, with share table", 
+                              "OFFWash" = "3) Wash fruit, no share table",
+                              "OFFWr" = "5) Wrap fruit, no share table ", 
+                              "XExc" = "10) Ill exclusion 50%", 
+                              "XSTClosed" = "13) Re-Service off", 
+                              "STAside" = "7) One-Way ST", 
+                              "TouchST" = "8) Touches off , ST only", 
+                              "WStation" = "11) Hand washing Station", 
+                              "WBucket" = "9) Wash bucket", 
+                              "Sanitizer" = "12) Hand sanitizer Station"))+
+  theme(axis.text.x = element_text(angle =60, hjust = 1))+
+  ggtitle("Illness prevalence per scenario") +
+  theme(plot.title = element_text(hjust = 0.5,size = 15),text = element_text(size = 15))+
+  ggsave(filename = "Boxplot_Prevalence.png", path = "C:/Users/gareyes3/Box Sync/Share Table Project/QMRA Files/QMRA Paper/MRA Submission/Figures-R1",width = 10,height = 10,)
+
+  
+quantile(df_ill_Week_OFF_Box_Prev$Prev)
+quantile(df_ill_Week_ON_Box_Prev$Prev)
+
+model <- aov(Prev ~ Treatments, data = All_binded_bplot)
+summary(model)
+
+library(DescTools)
+All_binded_bplot$Treatments<-as.factor(All_binded_bplot$Treatments)
+DunnettTest(x=All_binded_bplot$Prev, g=All_binded_bplot$Treatments)
 
 ```
 
@@ -1291,8 +1345,6 @@ List_Summary_Table<-list(ST_ON_Analysis,ST_OFF_Analysis,ST_ONWash_Analysis,
                          ST_TouchST_Analysis, ST_WStation_Analysis,ST_WBucket_Analysis,
                          ST_Sanitizer_Analysis)
 
-Treatment_Names<-c("ON", "OFF", "ONWash","ONWr", "OFFWash","OFFWr", "XExc", "XSTClosed", 
-                   "STAside", 'Touch', "TouchST", "WStation", "WBucket", "Sanitizer")
 
 NStudentsConsumed<-sapply(List_Summary_Table, nrow)
 
