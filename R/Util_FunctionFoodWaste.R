@@ -37,9 +37,11 @@ Function_FoodWaste<-function(DF){
   TotalC<-sum(DF$Location=="Consumed")
   TotalD<-sum(DF$Location=="Discarded")
   TotalR<-sum(DF$Reserviced>0)
+  TotalRC<-sum(DF$Reserviced>0 & DF$Location=="Consumed")
+  TotalRT<-sum(DF$Reserviced>0 & DF$Location=="Discarded")
   ConSel<-Func_LocationSel(DF)
   ConST<-Func_LocationST(DF)
-  Output_FW<-c(TotalT,TotalC,TotalD,TotalR,ConSel,ConST)
+  Output_FW<-c(TotalT,TotalC,TotalD,TotalR,ConSel,ConST,TotalRC,TotalRT)
   
   return(Output_FW)
 }
@@ -117,6 +119,16 @@ Function_FoodWaste_Full<-function(){
   FoodWaste_Analysis[5,2:7]<-FW_STAside
  
   return(FoodWaste_Analysis) 
+}
+
+Function_FoodWaste_Full_Alt<-function(df){
+  DF_Con<-func_remove_repeats(df)
+
+  
+  FW<-Function_FoodWaste(DF_Con)
+
+  
+  return(FW) 
 }
 
 

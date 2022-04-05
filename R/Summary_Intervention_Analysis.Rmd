@@ -1271,6 +1271,17 @@ print(Barchart_Expos2)
 
 ```
 
+#Boxplot of illness prevalences
+
+```{r}
+All_binded_bplot<-rbind(
+df_ill_Week_ON_Box_Prev,df_ill_Week_OFF_Box_Prev,df_ill_Week_ONWash_Box_Prev,df_ill_Week_ONWr_Box_Prev,df_ill_Week_OFFWash_Box_Prev,df_ill_Week_OFFWr_Box_Prev,df_ill_Week_Exc_Box_Prev, df_ill_Week_STClosed_Box_Prev, df_ill_Week_STAside_Box_Prev, df_ill_Week_Touch_Box_Prev, df_ill_Week_TouchST_Box_Prev, df_ill_Week_WStation_Box_Prev, df_ill_Week_WBucket_Box_Prev,df_ill_Week_Sanitizer_Box_Prev)
+
+
+
+```
+
+
 #Creation of the summary Table
 ```{r}
 
@@ -1586,11 +1597,22 @@ FoodWaste_Analysis<-data.frame(
   "TotalReserviced"="",
   "ConsumedSel"="", 
   "ConsumedST" ="",
+  "Reserviced Consumed"="",
+  "Reserviced Landfilled"="",
   stringsAsFactors = FALSE
 )
 
+DF_Con_Trial<-func_remove_repeats(Individual_Analysis_Fr_CopON)
+sum(DF_Con_Trial$Reserviced>0 & DF_Con_Trial$Location=="Discarded")
 
-FoodWaste_Analysis<-Function_FoodWaste_Full()
+FoodWaste_Analysis[1,2:9]<-Function_FoodWaste_Full_Alt(Individual_Analysis_Fr_CopOFF)
+FoodWaste_Analysis[2,2:9]<-Function_FoodWaste_Full_Alt(Individual_Analysis_Fr_CopON)
+FoodWaste_Analysis[3,2:9]<-Function_FoodWaste_Full_Alt(Individual_Analysis_Fr_STClosed)
+FoodWaste_Analysis[4,2:9]<-Function_FoodWaste_Full_Alt(Individual_Analysis_Fr_CopExc)
+FoodWaste_Analysis[5,2:9]<-Function_FoodWaste_Full_Alt(Individual_Analysis_Fr_CopSTAside)
+
+
+#FoodWaste_Analysis<-Function_FoodWaste_Full()
 
 FoodWaste_Analysis_melted<-melt(data =FoodWaste_Analysis,id = "Treatment" )
 
@@ -1603,15 +1625,29 @@ FoodWaste_Analysis_melted<-FoodWaste_Analysis_melted[FoodWaste_Analysis_melted$v
 
 FoodWaste_Analysis_melted<-FoodWaste_Analysis_melted[FoodWaste_Analysis_melted$Treatment != "XExc",]
 
-
-FoodWaste_Analysis_melted_PCT<-FoodWaste_Analysis_melted%>% 
+FoodWaste_Analysis_melted_No_RS<-FoodWaste_Analysis_melted%>%
+filter(variable != "TotalReserviced") %>% 
 group_by(Treatment) %>% 
 mutate(pct=prop.table(value))
 
+FoodWaste_Analysis_melted_PCT<-FoodWaste_Analysis_melted_No_RS%>% 
+group_by(Treatment) %>% 
+mutate(pct=prop.table(value)) 
 
+FoodWaste_Analysis_melted_PCT$pct<-  round(FoodWaste_Analysis_melted_PCT$pct,3)
+
+
+
+labelsFW <-c("TotalReserviced" = "Items Re-serviced", 
+            "TotalDiscarded"  = "Landfilled", 
+            "ConsumedSel" ="Consumed from service line", 
+            "ConsumedST"="Consumed from share table",
+            "Reserviced.Consumed" = "Reserviced and Consumed",
+            "ReservicedLandfilled" = "Reserviced and Landfilled"
+               )
 
 #Initial without percentages
-ggplot(data = FoodWaste_Analysis_melted, aes(x= Treatment,y=value, fill= factor(variable, levels  = c("TotalReserviced", "TotalDiscarded", "ConsumedSel", "ConsumedST"))))+
+ggplot(data = FoodWaste_Analysis_melted, aes(x= Treatment,y=value, fill= factor(variable, levels  = c("Reserviced.Consumed", "Reserviced.Landfilled","TotalReserviced", "TotalDiscarded", "ConsumedSel", "ConsumedST"))))+
   geom_col()+
   scale_x_discrete(labels=c("XClosed"="Re-Service Off",
                           "OFF" = "Traditional",
@@ -1638,7 +1674,7 @@ ggsave(filename = "FoodSecFin4.png", path = "D:/Poster Outs",width = 10,height =
 
 
 #With Percentages
-ggplot(data = FoodWaste_Analysis_melted_PCT, aes(x= Treatment,y=value, fill= factor(variable, levels  = c("TotalReserviced", "TotalDiscarded", "ConsumedSel", "ConsumedST"))))+
+ggplot(data = FoodWaste_Analysis_melted_PCT, aes(x= Treatment,y=value, fill= factor(variable, levels  = c("Reserviced.Consumed", "Reserviced.Landfilled","TotalReserviced", "TotalDiscarded", "ConsumedSel", "ConsumedST"))))+
   geom_col()+
   scale_x_discrete(labels=c("XClosed"="Re-Service Off",
                           "OFF" = "Traditional",
@@ -1656,20 +1692,16 @@ ggplot(data = FoodWaste_Analysis_melted_PCT, aes(x= Treatment,y=value, fill= fac
   scale_fill_grey(name = "Location Categories", labels = labelsFW, start = 0.3, end =0.8)+
   theme(legend.position="right")+
   #geom_text(aes(label=value), size=5, position= position_stack(vjust=0.5))+
-  geom_text(aes(label = scales::percent(pct)),position= position_stack(vjust=0.5),col="black",size=5)
+  geom_text(aes(label = scales::percent(pct,accuracy = 0.1)),position= position_stack(vjust=0.7),col="black",size=5)
 
-  ggsave(filename = "FoodSecFin4.png", path = "C:/Users/Gustavo Reyes/Box/Share Table Project/QMRA Files/QMRA Paper/New Journal Draft/Figures",width = 10,height = 8,)
+  ggsave(filename = "FoodSecFin4.png", path = "C:/Users/Gustavo Reyes/Box/Share Table Project/QMRA Files/QMRA Paper/MRA Submission/Figures-R1",width = 10,height = 8,)
 
 
 FoodWaste_Analysis_melted_2<-FoodWaste_Analysis_melted[FoodWaste_Analysis_melted$Treatment != "XAside",]
 FoodWaste_Analysis_melted_2<-FoodWaste_Analysis_melted_2[FoodWaste_Analysis_melted_2$Treatment != "XExc",]
 FoodWaste_Analysis_melted_2<-FoodWaste_Analysis_melted_2[FoodWaste_Analysis_melted_2$Treatment != "XClosed",]
 
-labelsFW <-c("TotalReserviced" = "Items Re-serviced", 
-            "TotalDiscarded"  = "Landfilled", 
-            "ConsumedSel" ="Consumed from service line", 
-            "ConsumedST"="Consumed from share table"
-               )
+
 
 
 ggplot(data = FoodWaste_Analysis_melted_2, aes(x= Treatment,y=value, fill= factor(variable, levels  = c("TotalReserviced", "TotalDiscarded", "ConsumedSel", "ConsumedST"))))+
