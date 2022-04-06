@@ -1286,6 +1286,10 @@ Treatment_Names_A<-c("ON", "OFF", "ONWash","ONWr", "OFFWash","OFFWr", "XExc", "X
 All_binded_bplot$Treatments<-rep(Treatment_Names_A, each  =100000)
 
 g<-ggplot(data = All_binded_bplot, aes(x = factor(Treatments, level = c('OFF', 'ON', 'OFFWash',"ONWash","OFFWr","ONWr","STAside","TouchST","WBucket", "XExc","WStation","Sanitizer","XSTClosed")), y = Prev))+
+  annotate("rect", xmin = -Inf, xmax = Inf, ymin = c(0.01079137), ymax = c(0.01836394),
+           alpha = .3,fill = "grey")+
+    annotate("rect", xmin = -Inf, xmax = Inf, ymin = c(0.01204819), ymax = c(0.01929346),
+           alpha = .3,fill =  "grey7")+
   geom_boxplot()+
   ylab("Illness prevalence from Dose response")+
   xlab("Scenarios")
@@ -1299,10 +1303,12 @@ g+
     shape = 24,
     fill = "black"
   )+
-   annotate("rect", xmin = -Inf, xmax = Inf, ymin = c(0.01079137,0.01204819), ymax = c(0.01836394,0.01929346),
-           alpha = .2,fill = c("red", "blue"))+
-  geom_hline(yintercept=c(0.01079137,0.01836394,0.01204819,0.01929346), linetype=c("dashed",'dashed','dotted','dotted'), 
-                color = "black", size=1, alpha = 0.8)+
+  geom_hline(aes(yintercept=0.01079137,linetype="Baseline Traditional"), color = "black", size=1, alpha = 0.8)+
+  geom_hline(aes(yintercept=0.01836394,linetype="Baseline Traditional"), color = "black", size=1, alpha = 0.8)+
+  geom_hline(aes(yintercept=0.01204819,linetype="Baseline ST"), color = "black", size=1, alpha = 0.8)+
+  geom_hline(aes(yintercept=0.01929346,linetype="Baseline ST"), color = "black", size=1, alpha = 0.8)+
+    #geom_hline(yintercept=c(0.01204819,0.01929346),linetype=c('dotted','dotted'), color = "black", size=1, alpha = 0.8)+
+  scale_linetype_manual(name ="IQR for Baseline Scenarios",values = c("longdash", "dotted"))+
   theme_bw()+
   scale_x_discrete(labels = c("ON" = "2) Baseline share table" ,
                               "OFF" = "1)Baseline traditional cafeteria", 
@@ -1320,7 +1326,7 @@ g+
   theme(axis.text.x = element_text(angle =60, hjust = 1))+
   ggtitle("Illness prevalence per scenario") +
   theme(plot.title = element_text(hjust = 0.5,size = 15),text = element_text(size = 15))+
-  ggsave(filename = "Boxplot_Prevalence.png", path = "C:/Users/gareyes3/Box Sync/Share Table Project/QMRA Files/QMRA Paper/MRA Submission/Figures-R1",width = 10,height = 10,)
+  ggsave(filename = "Boxplot_Prevalence.png", path = "C:/Users/Gustavo Reyes/Box/Share Table Project/QMRA Files/QMRA Paper/MRA Submission/Figures-R1",width = 10,height = 10,)
 
   
 quantile(df_ill_Week_OFF_Box_Prev$Prev)
