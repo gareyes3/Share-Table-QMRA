@@ -980,7 +980,7 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-Pr_select_Fr<-0.76
+Pr_select_Fr<-0.9
 
 ```
 
@@ -1046,7 +1046,7 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-Pr_select_Fr<-0.36
+Pr_select_Fr<-0.1
 
 ```
 
@@ -1092,7 +1092,7 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-Pr_eat_Fr<-0.83
+Pr_eat_Fr<-0.9
 
 ```
 
@@ -1125,7 +1125,7 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-Pr_eat_Fr<-0.63
+Pr_eat_Fr<-0.5
 
 ```
 
@@ -1158,7 +1158,7 @@ source("Util_Functions.R")
 source("Util_CCFunctions2.R")
 source("Util_VisualFunctions.R")
 
-Pr_select_Fr<-0.43
+Pr_select_Fr<-0.1
 
 ```
 
