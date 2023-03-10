@@ -19,7 +19,7 @@
   
   N_Iterations<-round((Students_p_grade*NSLP_rate),0) #65
   
-  #Serivices, number of days we are trying to iterate. Lunch periods per day
+  #Services, number of days we are trying to iterate. Lunch periods per day
   Service_No<-5
   
   #Days we are trying to Iterate. Days
@@ -29,12 +29,12 @@
   
   Sens_Iterations<-100
  
-# Sevice Line Information -------------------------------------------------
+# Service Line Information -------------------------------------------------
   
   #Initial Number of fruit
   Initial_Fr<-50 #Number of fruit 
   Initial_Pss<-50 #number of Packaged shelf stable
-  Initial_Pre<-50 #number of packaged refrigirated
+  Initial_Pre<-50 #number of packaged refrigerated
   
   #row size in selection table
   Row_size_Fr<-20
@@ -42,7 +42,7 @@
   Row_size_Pre<-20  
   
   
-# Inputs for Calculation if student is contminated -------------------------
+# Inputs for Calculation if student is contaminated -------------------------
   
 
   

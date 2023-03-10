@@ -8,8 +8,10 @@ output: html_document
 Read me: 
 
 This is the main model that runs the interventions and compiles the intervention tables. In order to get the results you want, you needs to change the number of weeks in the Input_Static.R Document. Once that is done the model should run with no issues and there is no need to change other inputs. 
-Change the pathfolder input below and select the folder in which you want the infromation for this run to be save. Please just make a new folder in the /R folder. 
+Change the pathfolder input below and select the folder in which you want the information for this run to be save. Please just make a new folder in the /R folder. 
 There are 13 interventions. Each intervention will take around 45 mins to run 100 weeks so make the math based on that. The functions powering some of the section are in Functions_Full_Analysis. Change accordingly. 
+
+### Use the file Scenario Analysis-Published.Rdata.
 
 ```{r}
 
@@ -1004,13 +1006,16 @@ df_ill_Week_Sanitizer_Box_Prev<-Func_DF_Prevalence(AnalysisDFCop = ST_Sanitizer_
 ```
 
 
-#Sanitizer Analysis Revision 1/11
+#Sanitizer Analysis Revision 1/11 Figure 5
+
+### Load in Rdata Sanitizer Analysis and Washing-Published.Rdata
 ```{r}
 library(ggpubr)
 library(rstatix)
 
 Sanitizer_Data<-df_ill_Week_Sanitizer_Box_Prev
 
+#write.csv(x=Sanitizer_Data, "Sanitizer Efficacy Comparison - Published.csv" )
 
 Sanitizer_Data <-Sanitizer_Data %>% 
   arrange(variable)
@@ -1029,7 +1034,7 @@ quantiles_95 <- function(x) {
 
 
 
-#Boxplot
+#Boxplot this creates 5A
 box_s<-Sanitizer_Data %>% 
   ggplot(aes(y = Prev,x = method, fill = method))+
   stat_summary(fun.data = quantiles_95, geom="boxplot")+
@@ -1081,9 +1086,11 @@ bxp <- ggboxplot(Sanitizer_Data, x = "method", y = "Prev", fill = "method")
 ```
 
 
-#Washing Analysis
+#Washing Analysis Figure 5
 ```{r}
 Washing_Data<-df_ill_Week_ONWash_Box_Prev
+
+#write.csv(x=Washing_Data, "Washing Efficacy Comparison - Published.csv" )
 
 
 Washing_Data <-Washing_Data %>% 
@@ -1095,7 +1102,7 @@ Washing_Data$method<-as.factor(rep(Wash_Method_Tracker,each=100))
 means_w <- aggregate(Prev ~  method, Washing_Data, mean)
 means_w$Prev<-round(means_w$Prev,4)
 
-#Boxplot
+#Boxplot this create 5B
 box_w<-Washing_Data %>% 
   ggplot(aes(y = Prev,x = method, fill = method))+
   stat_summary(fun.data = quantiles_95, geom="boxplot")+
@@ -1271,7 +1278,7 @@ print(Barchart_Expos2)
 
 ```
 
-#Boxplot of illness prevalences and significance analysis
+#Boxplot of illness prevalences and significance analysis Figure 6
 
 ```{r}
 All_binded_bplot<-rbind(
@@ -1342,7 +1349,7 @@ DunnettTest(x=All_binded_bplot$Prev, g=All_binded_bplot$Treatments)
 ```
 
 
-#Creation of the summary Table
+#Creation of the summary Table Table 3 
 ```{r}
 
 List_Summary_Table<-list(ST_ON_Analysis,ST_OFF_Analysis,ST_ONWash_Analysis,
@@ -1426,14 +1433,8 @@ List_Percentages_Dist<-list(tipsON,tipsOFF,tipsONWash,tipsONWr,tipsOFFWash, tips
   
   write.csv(x =  Summary_Comparison_Treatments,"G:/Share Table QMRA/Share-Table-QMRA/R/DoseReponse5-27/SummaryComparison.csv", row.names = FALSE )
   #write.csv(x =  Summary_Comparison_Treatments,"C:/Users/gareyes3/Documents/GitHub/Share-Table-QMRA/R/Dose Response/SummaryComparison.csv", row.names = FALSE )
-
-
-  
-
   
 ```
-
-
 
 #Prevalence Histograms
 Need to add the last 4 interventions
@@ -1608,8 +1609,6 @@ print(VIolinPlot)
 
 
 ```{r}
-
-
 ST_STClosed_Analysis_Con<-func_remove_repeats(Individual_Analysis_Fr_STClosed)
 ST_STClosed_Analysis_Con$Type<-"Closed"
 
@@ -1638,7 +1637,7 @@ ggsave(filename = "FoodSecFin3.png", path = pathfolder,width = 10,height = 8,)
 ```
 
 
-#Food Waste Analysis With Locations
+#Food Waste Analysis With Locations Figure 2
 ```{r}
 
 Treatments_FW<-c("OFF","ON", "XClosed", "XExc", "XAside")
@@ -1731,7 +1730,7 @@ ggsave(filename = "FoodSecFin4.png", path = "D:/Poster Outs",width = 10,height =
 
 
 
-#With Percentages
+#With Percentages Figure 2
 ggplot(data = FoodWaste_Analysis_melted_PCT, aes(x= Treatment,y=value, fill= factor(variable, levels  = c("Reserviced.Consumed", "Reserviced.Landfilled","TotalReserviced", "TotalDiscarded", "ConsumedSel", "ConsumedST"))))+
   geom_col()+
   scale_x_discrete(labels=c("XClosed"="Re-Service Off",
@@ -1776,7 +1775,6 @@ ggplot(data = FoodWaste_Analysis_melted_2, aes(x= Treatment,y=value, fill= facto
 
 
 ggsave(filename = "FoodSecFin6.png", path = "D:\Poster Outs",width = 8,height = 8,)
-
 
 
 ```

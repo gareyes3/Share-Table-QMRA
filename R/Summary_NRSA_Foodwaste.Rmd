@@ -28,8 +28,7 @@ Outputs
   %Discarded
   %Re-Serviced. 
 
-
-
+### Use the file titled NRSA-Other-Factors-FoodWaste-Published.Rdata to recreate this plot. 
 
 ###Setting Working Directory
 ```{r}
@@ -803,9 +802,6 @@ labels2=c("Pr_Eat_Fr"="Prob of Consuming Fruit",
 
 
 
-iris2 <- arrange(transform(iris,
-             Species=factor(Species,levels=neworder)),Species)
-
 
 All_AFW<-rbind.fill(AFWT1,AFWT2,AFWT3,AFWT4,AFWT5)
 All_AFW$Index<-as.numeric(All_AFW$Index)
@@ -837,6 +833,6 @@ FoodWasteNSA<-ggplot(data=All_AFW2,  aes(x=Input,y=Index ))+
 
 ggsave(filename = "FoodWasteNSA.png", plot = FoodWasteNSA,path = "Manuscript Plots", width = 8, height = 6) 
 
-
+write.csv(x = All_AFW2, file = "NRSA-FoodWaste_Published.csv")
 ```
 
