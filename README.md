@@ -15,5 +15,5 @@
 # Summary CSV files
 	You can find summary CSV files for the analyses in the CSV Files for plots folder.
 
-#Rdata
+# Rdata
 	R Data files are large. We are working on uploading them to cloud storage. If needed these are available upon request. 
